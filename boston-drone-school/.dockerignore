@@ -1,0 +1,16 @@
+# This file specifies files and directories to ignore when building the Docker image.
+target/
+**/*.rs.bk
+**/*.log
+**/*.env
+**/node_modules/
+**/dist/
+**/build/
+**/.git/
+**/.github/
+**/.idea/
+**/.vscode/
+**/.DS_Store/
+**/Thumbs.db/
+**/coverage/
+**/tests/
