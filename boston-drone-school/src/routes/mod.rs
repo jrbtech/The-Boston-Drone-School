@@ -1,11 +1,18 @@
-mod user_routes;
-mod course_routes;
-mod payment_routes;
-mod dashboard_routes;
-mod admin_routes;
+use actix_web::web;
 
-pub use user_routes::*;
-pub use course_routes::*;
-pub use payment_routes::*;
-pub use dashboard_routes::*;
-pub use admin_routes::*;
+pub mod admin_routes;
+pub mod course_routes;
+pub mod dashboard_routes;
+pub mod payment_routes;
+pub mod user_routes;
+
+pub fn init_routes(cfg: &mut web::ServiceConfig) {
+    cfg.service(
+        web::scope("/api")
+            .configure(user_routes::configure)
+            .configure(course_routes::configure)
+            .configure(payment_routes::configure)
+            .configure(dashboard_routes::configure)
+            .configure(admin_routes::configure),
+    );
+}

@@ -1,24 +1,20 @@
-// This file defines routes for administrative features, including content management and analytics.
+use actix_web::web;
 
-use actix_web::{web, HttpResponse, Responder};
+use crate::handlers::admin_handlers;
 
-pub async fn get_admin_dashboard() -> impl Responder {
-    HttpResponse::Ok().json("Admin Dashboard")
-}
-
-pub async fn manage_courses() -> impl Responder {
-    HttpResponse::Ok().json("Manage Courses")
-}
-
-pub async fn view_analytics() -> impl Responder {
-    HttpResponse::Ok().json("View Analytics")
-}
-
-pub fn admin_routes(cfg: &mut web::ServiceConfig) {
+pub fn configure(cfg: &mut web::ServiceConfig) {
     cfg.service(
         web::scope("/admin")
-            .route("/dashboard", web::get().to(get_admin_dashboard))
-            .route("/courses", web::get().to(manage_courses))
-            .route("/analytics", web::get().to(view_analytics)),
+            .route("/courses", web::get().to(admin_handlers::list_courses))
+            .route("/courses", web::post().to(admin_handlers::create_course))
+            .route(
+                "/courses/{course_id}",
+                web::put().to(admin_handlers::update_course),
+            )
+            .route(
+                "/courses/{course_id}",
+                web::delete().to(admin_handlers::delete_course),
+            )
+            .route("/analytics", web::get().to(admin_handlers::view_analytics)),
     );
 }

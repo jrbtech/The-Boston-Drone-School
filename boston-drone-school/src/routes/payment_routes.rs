@@ -1,12 +1,18 @@
-// This file defines routes for payment processing, including course purchases and payment confirmations.
+use actix_web::web;
 
-use actix_web::{web, HttpResponse, Responder};
-use crate::handlers::payment_handlers::{process_payment, confirm_payment};
+use crate::handlers::payment_handlers;
 
-pub fn config_payment_routes(cfg: &mut web::ServiceConfig) {
+pub fn configure(cfg: &mut web::ServiceConfig) {
     cfg.service(
         web::scope("/payments")
-            .route("/process", web::post().to(process_payment))
-            .route("/confirm/{payment_id}", web::get().to(confirm_payment)),
+            .route("", web::post().to(payment_handlers::process_payment))
+            .route(
+                "/{payment_id}/confirm",
+                web::post().to(payment_handlers::confirm_payment),
+            )
+            .route(
+                "/user/{user_id}",
+                web::get().to(payment_handlers::list_payments),
+            ),
     );
 }

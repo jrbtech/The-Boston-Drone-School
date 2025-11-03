@@ -1,22 +1,28 @@
-// This file contains handler functions for student dashboard requests, including fetching progress and recommendations.
-
 use actix_web::{web, HttpResponse, Responder};
-use crate::models::user::User;
-use crate::services::course_service;
-use crate::services::user_service;
+use uuid::Uuid;
 
-// Fetch student progress
-pub async fn get_progress(user_id: web::Path<i32>) -> impl Responder {
-    match user_service::get_user_progress(user_id.into_inner()).await {
+use crate::services::course_service;
+use crate::state::AppState;
+
+pub async fn get_progress(state: web::Data<AppState>, user_id: web::Path<Uuid>) -> impl Responder {
+    match course_service::track_user_progress(&state, user_id.into_inner()).await {
         Ok(progress) => HttpResponse::Ok().json(progress),
-        Err(_) => HttpResponse::InternalServerError().finish(),
+        Err(err) => match err {
+            crate::utils::AppError::NotFound(message) => HttpResponse::NotFound().body(message),
+            other => HttpResponse::InternalServerError().body(other.to_string()),
+        },
     }
 }
 
-// Fetch recommendations for the student
-pub async fn get_recommendations(user_id: web::Path<i32>) -> impl Responder {
-    match course_service::get_recommendations(user_id.into_inner()).await {
+pub async fn get_recommendations(
+    state: web::Data<AppState>,
+    user_id: web::Path<Uuid>,
+) -> impl Responder {
+    match course_service::get_recommendations(&state, user_id.into_inner()).await {
         Ok(recommendations) => HttpResponse::Ok().json(recommendations),
-        Err(_) => HttpResponse::InternalServerError().finish(),
+        Err(err) => match err {
+            crate::utils::AppError::NotFound(message) => HttpResponse::NotFound().body(message),
+            other => HttpResponse::InternalServerError().body(other.to_string()),
+        },
     }
 }

@@ -1,50 +1,43 @@
-// src/services/payment_service.rs
+use uuid::Uuid;
 
-use serde::{Deserialize, Serialize};
-use stripe::Client;
-use stripe::PaymentIntent;
-use std::error::Error;
+use crate::models::payment::{NewPayment, Payment, PaymentStatus};
+use crate::state::AppState;
+use crate::utils::AppError;
 
-#[derive(Serialize, Deserialize)]
-pub struct PaymentRequest {
-    pub amount: u64,
-    pub currency: String,
-    pub payment_method: String,
+pub async fn process_payment(state: &AppState, payload: NewPayment) -> Payment {
+    let mut payments = state.payments.write().await;
+    let payment = Payment {
+        id: Uuid::new_v4(),
+        user_id: payload.user_id,
+        course_id: payload.course_id,
+        amount: payload.amount,
+        status: PaymentStatus::Pending,
+    };
+
+    payments.push(payment.clone());
+
+    payment
 }
 
-pub struct PaymentService {
-    client: Client,
+pub async fn confirm_payment(state: &AppState, payment_id: Uuid) -> Result<Payment, AppError> {
+    let mut payments = state.payments.write().await;
+    let payment = payments
+        .iter_mut()
+        .find(|payment| payment.id == payment_id)
+        .ok_or_else(|| AppError::NotFound("Payment not found".into()))?;
+
+    payment.status = PaymentStatus::Completed;
+
+    Ok(payment.clone())
 }
 
-impl PaymentService {
-    pub fn new(api_key: &str) -> Self {
-        let client = Client::new(api_key);
-        PaymentService { client }
-    }
-
-    pub async fn create_payment_intent(&self, request: PaymentRequest) -> Result<PaymentIntent, Box<dyn Error>> {
-        let payment_intent = PaymentIntent::create(
-            &self.client,
-            stripe::CreatePaymentIntent {
-                amount: request.amount,
-                currency: request.currency,
-                payment_method: Some(request.payment_method),
-                ..Default::default()
-            },
-        ).await?;
-
-        Ok(payment_intent)
-    }
-
-    pub async fn confirm_payment(&self, payment_intent_id: &str) -> Result<PaymentIntent, Box<dyn Error>> {
-        let payment_intent = PaymentIntent::confirm(
-            &self.client,
-            payment_intent_id,
-            stripe::ConfirmPaymentIntent {
-                ..Default::default()
-            },
-        ).await?;
-
-        Ok(payment_intent)
-    }
+pub async fn list_payments_for_user(state: &AppState, user_id: Uuid) -> Vec<Payment> {
+    state
+        .payments
+        .read()
+        .await
+        .iter()
+        .filter(|payment| payment.user_id == user_id)
+        .cloned()
+        .collect()
 }

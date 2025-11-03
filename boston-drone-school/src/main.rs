@@ -1,24 +1,31 @@
 // src/main.rs
 
 use actix_web::{web, App, HttpServer};
-use dotenv::dotenv;
-use std::env;
 
 mod config;
+mod handlers;
+mod models;
 mod routes;
-mod db;
+mod services;
+mod state;
+mod utils;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    dotenv().ok();
-    
-    let server_address = env::var("SERVER_ADDRESS").unwrap_or_else(|_| "127.0.0.1:8080".to_string());
+    let config = config::Config::from_env();
+    let state = state::AppState::new(config.jwt_secret.clone());
 
-    HttpServer::new(|| {
+    println!(
+        "Starting Boston Drone School API on {}",
+        config.server_address
+    );
+
+    HttpServer::new(move || {
         App::new()
+            .app_data(web::Data::new(state.clone()))
             .configure(routes::init_routes)
     })
-    .bind(&server_address)?
+    .bind(&config.server_address)?
     .run()
     .await
 }

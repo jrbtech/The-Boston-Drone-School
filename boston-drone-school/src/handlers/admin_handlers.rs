@@ -1,37 +1,51 @@
-// This file contains handler functions for administrative requests, including managing courses and viewing analytics.
-
 use actix_web::{web, HttpResponse, Responder};
+
+use crate::models::course::{NewCourse, UpdateCourse};
 use crate::services::admin_service;
-use crate::models::admin::Admin;
+use crate::state::AppState;
 
-// Handler to get all courses
-pub async fn get_courses() -> impl Responder {
-    match admin_service::fetch_all_courses().await {
-        Ok(courses) => HttpResponse::Ok().json(courses),
-        Err(e) => HttpResponse::InternalServerError().body(e.to_string()),
+pub async fn list_courses(state: web::Data<AppState>) -> impl Responder {
+    let courses = admin_service::fetch_all_courses(&state).await;
+    HttpResponse::Ok().json(courses)
+}
+
+pub async fn create_course(
+    state: web::Data<AppState>,
+    payload: web::Json<NewCourse>,
+) -> impl Responder {
+    let course = admin_service::add_course(&state, payload.into_inner()).await;
+    HttpResponse::Created().json(course)
+}
+
+pub async fn update_course(
+    state: web::Data<AppState>,
+    path: web::Path<i32>,
+    payload: web::Json<UpdateCourse>,
+) -> impl Responder {
+    match admin_service::update_course(&state, path.into_inner(), payload.into_inner()).await {
+        Ok(course) => HttpResponse::Ok().json(course),
+        Err(err) => match err {
+            crate::utils::AppError::NotFound(message) => HttpResponse::NotFound().body(message),
+            crate::utils::AppError::BadRequest(message) => HttpResponse::BadRequest().body(message),
+            other => HttpResponse::InternalServerError().body(other.to_string()),
+        },
     }
 }
 
-// Handler to create a new course
-pub async fn create_course(course: web::Json<Course>) -> impl Responder {
-    match admin_service::add_course(course.into_inner()).await {
-        Ok(course) => HttpResponse::Created().json(course),
-        Err(e) => HttpResponse::InternalServerError().body(e.to_string()),
-    }
-}
-
-// Handler to delete a course
-pub async fn delete_course(course_id: web::Path<i32>) -> impl Responder {
-    match admin_service::remove_course(course_id.into_inner()).await {
+pub async fn delete_course(
+    state: web::Data<AppState>,
+    course_id: web::Path<i32>,
+) -> impl Responder {
+    match admin_service::remove_course(&state, course_id.into_inner()).await {
         Ok(_) => HttpResponse::NoContent().finish(),
-        Err(e) => HttpResponse::InternalServerError().body(e.to_string()),
+        Err(err) => match err {
+            crate::utils::AppError::NotFound(message) => HttpResponse::NotFound().body(message),
+            other => HttpResponse::InternalServerError().body(other.to_string()),
+        },
     }
 }
 
-// Handler to view analytics
-pub async fn view_analytics() -> impl Responder {
-    match admin_service::get_analytics().await {
-        Ok(analytics) => HttpResponse::Ok().json(analytics),
-        Err(e) => HttpResponse::InternalServerError().body(e.to_string()),
-    }
+pub async fn view_analytics(state: web::Data<AppState>) -> impl Responder {
+    let analytics = admin_service::get_analytics(&state).await;
+    HttpResponse::Ok().json(analytics)
 }
