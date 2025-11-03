@@ -2,7 +2,7 @@ services:
   web:
     type: web_service
     name: boston-drone-school
-    rootDir: boston-drone-school
+    rootDir: .
     env: rust
     buildCommand: "cargo build --release"
     startCommand: "cargo run --release"
