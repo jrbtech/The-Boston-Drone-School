@@ -1,0 +1,12 @@
+services:
+  web:
+    type: web_service
+    name: boston-drone-school
+    env: rust
+    buildCommand: "cargo build --release"
+    startCommand: "cargo run --release"
+    envVars:
+      DATABASE_URL: "postgres://user:password@hostname:port/dbname"
+      STRIPE_SECRET_KEY: "your_stripe_secret_key"
+    autoDeploy: true
+    plan: "Starter"
