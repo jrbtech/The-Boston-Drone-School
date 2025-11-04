@@ -2,10 +2,10 @@ services:
   web:
     type: web_service
     name: boston-drone-school
-    rootDir: .
-    env: rust
-    buildCommand: "cargo build --release"
-    startCommand: "cargo run --release"
+    rootDir: bds-api-node
+    env: node
+    buildCommand: "npm install && npm run build"
+    startCommand: "npm start"
     envVars:
       DATABASE_URL: "postgres://user:password@hostname:port/dbname"
       STRIPE_SECRET_KEY: "your_stripe_secret_key"
