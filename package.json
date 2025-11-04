@@ -1,0 +1,28 @@
+{
+  "name": "boston-drone-school-cli",
+  "version": "1.0.0",
+  "description": "Boston Drone School Claude AI CLI Assistant",
+  "main": "bds-claude-cli.js",
+  "bin": {
+    "bds-claude": "./bds-claude-cli.js"
+  },
+  "scripts": {
+    "cli": "node bds-claude-cli.js",
+    "install-global": "npm install -g ."
+  },
+  "keywords": [
+    "drone",
+    "education",
+    "ai",
+    "claude",
+    "cli",
+    "boston-drone-school"
+  ],
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.68.0",
+    "commander": "^12.1.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

@@ -1,13 +1,70 @@
+# The Boston Drone School - E-Learning Platform
+# Comprehensive deployment configuration for integration with thebostondroneschool.org
+
 services:
-  web:
-    type: web_service
-    name: boston-drone-school
-    rootDir: bds-api-node
+  # Frontend - Next.js E-Learning Platform
+  - type: web
+    name: bds-frontend
+    rootDir: bds-frontend
     env: node
-    buildCommand: "npm install && npm run build"
+    buildCommand: "npm ci && npm run build"
     startCommand: "npm start"
     envVars:
-      DATABASE_URL: "postgres://user:password@hostname:port/dbname"
-      STRIPE_SECRET_KEY: "your_stripe_secret_key"
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_API_URL
+        value: https://api.thebostondroneschool.org
+      - key: NEXT_PUBLIC_SITE_URL
+        value: https://learn.thebostondroneschool.org
+      - key: ANTHROPIC_API_KEY
+        sync: false
+    plan: starter
     autoDeploy: true
-    plan: "Starter"
+
+  # Backend API - Node.js/Express
+  - type: web
+    name: bds-api-node
+    rootDir: bds-api-node
+    env: node
+    buildCommand: "npm ci && npm run build"
+    startCommand: "npm start"
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: bds-postgres
+          property: connectionString
+      - key: JWT_SECRET
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: CORS_ORIGIN
+        value: "https://learn.thebostondroneschool.org,https://thebostondroneschool.org"
+    plan: starter
+    autoDeploy: true
+
+  # Rust API (Optional - for high-performance operations)  
+  - type: web
+    name: bds-rust-api
+    env: rust
+    buildCommand: "cargo build --release"
+    startCommand: "./target/release/boston_drone_school"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: bds-postgres
+          property: connectionString
+      - key: ANTHROPIC_API_KEY
+        sync: false
+    plan: starter
+    autoDeploy: true
+
+# Database configuration
+databases:
+  - name: bds-postgres
+    databaseName: boston_drone_school
+    user: bds_admin
+    plan: starter
