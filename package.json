@@ -4,7 +4,7 @@
   "description": "Boston Drone School Claude AI CLI Assistant",
   "main": "bds-claude-cli.js",
   "bin": {
-    "bds-claude": "./bds-claude-cli.js"
+    "bds-claude": "bds-claude-cli.js"
   },
   "scripts": {
     "cli": "node bds-claude-cli.js",
@@ -19,10 +19,24 @@
     "boston-drone-school"
   ],
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.68.0",
+    "@anthropic-ai/sdk": "^0.30.1",
     "commander": "^12.1.0"
   },
   "engines": {
     "node": ">=16.0.0"
-  }
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrbtech/The-Boston-Drone-School.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jrbtech/The-Boston-Drone-School/issues"
+  },
+  "homepage": "https://github.com/jrbtech/The-Boston-Drone-School#readme"
 }

@@ -28,9 +28,12 @@ services:
     env: node
     buildCommand: "npm ci && npm run build"
     startCommand: "npm start"
+    healthCheckPath: "/api/health"
     envVars:
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 10000
       - key: DATABASE_URL
         fromDatabase:
           name: bds-postgres
@@ -46,21 +49,25 @@ services:
     plan: starter
     autoDeploy: true
 
-  # Rust API (Optional - for high-performance operations)  
-  - type: web
-    name: bds-rust-api
-    env: rust
-    buildCommand: "cargo build --release"
-    startCommand: "./target/release/boston_drone_school"
-    envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: bds-postgres
-          property: connectionString
-      - key: ANTHROPIC_API_KEY
-        sync: false
-    plan: starter
-    autoDeploy: true
+  # Rust API (Optional - for high-performance operations)
+  # Uncomment and configure when ready to deploy the Rust service
+  # - type: web
+  #   name: bds-rust-api
+  #   rootDir: .
+  #   env: rust
+  #   buildCommand: "cargo build --release"
+  #   startCommand: "./target/release/boston_drone_school"
+  #   envVars:
+  #     - key: DATABASE_URL
+  #       fromDatabase:
+  #         name: bds-postgres
+  #         property: connectionString
+  #     - key: ANTHROPIC_API_KEY
+  #       sync: false
+  #     - key: PORT
+  #       value: 10000
+  #   plan: starter
+  #   autoDeploy: true
 
 # Database configuration
 databases:

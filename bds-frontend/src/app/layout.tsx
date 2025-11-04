@@ -1,26 +1,31 @@
 import './globals.css'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter, Poppins } from 'next/font/google'
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
 })
 
-const poppins = Poppins({ 
+const poppins = Poppins({
   weight: ['300', '400', '500', '600', '700', '800'],
   subsets: ['latin'],
   variable: '--font-poppins',
   display: 'swap',
 })
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+}
+
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://learn.thebostondroneschool.org'),
   title: 'The Boston Drone School - E-Learning Platform',
   description: 'Professional drone education and certification programs. Learn from industry experts with hands-on training and AI-powered personalized learning paths.',
   keywords: 'drone training, UAV education, pilot certification, Boston, drone school, e-learning',
   authors: [{ name: 'The Boston Drone School' }],
-  viewport: 'width=device-width, initial-scale=1',
   openGraph: {
     title: 'The Boston Drone School - E-Learning Platform',
     description: 'Professional drone education and certification programs',

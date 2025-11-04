@@ -2,6 +2,8 @@ import { Express } from 'express';
 import anthropicRoutes from './anthropic';
 import coursesRoutes from './courses';
 import enrollmentRoutes from './enrollment';
+import authRoutes from './auth';
+import paymentRoutes from './payments';
 
 export const registerRoutes = (app: Express): void => {
   app.get('/', (req, res) => {
@@ -20,9 +22,11 @@ export const registerRoutes = (app: Express): void => {
   });
 
   // Register API routes
+  app.use('/api/auth', authRoutes);
   app.use('/api/ai', anthropicRoutes);
   app.use('/api/courses', coursesRoutes);
   app.use('/api/enrollment', enrollmentRoutes);
+  app.use('/api/payments', paymentRoutes);
   
   // Health check endpoint
   app.get('/api/health', (req, res) => {
