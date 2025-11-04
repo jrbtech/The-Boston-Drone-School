@@ -1,4 +1,4 @@
-mod auth_service;
-mod payment_service;
-mod course_service;
-mod admin_service;
+pub mod auth_service;
+
+#[cfg(feature = "payments")]
+pub mod payment_service;

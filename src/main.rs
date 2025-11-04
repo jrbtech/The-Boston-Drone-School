@@ -3,29 +3,47 @@ mod db;
 mod routes;
 
 use config::Config;
+use db::create_pool;
 use std::net::SocketAddr;
 use tokio::net::TcpListener;
+use tracing::{error, info};
+use tracing_subscriber::EnvFilter;
 
 #[tokio::main]
-async fn main() {
-    let config = Config::from_env();
-    let app = routes::create_router();
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    init_tracing();
+
+    let config =
+        Config::from_env().expect("Failed to load configuration from environment variables");
+    let pool = create_pool(&config.database_url).await?;
 
     let addr = SocketAddr::from(([0, 0, 0, 0], config.server_port));
-    println!("Boston Drone School API running on http://{}", addr);
+    info!("Boston Drone School API running on http://{}", addr);
 
-    if config.database_url.is_none() {
-        println!("DATABASE_URL not set; continuing without a database connection");
+    let app = routes::create_router(pool, config);
+
+    let listener = TcpListener::bind(addr).await?;
+    axum::serve(listener, app)
+        .with_graceful_shutdown(shutdown_signal())
+        .await?;
+
+    Ok(())
+}
+
+fn init_tracing() {
+    let env_filter = EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new("info"));
+    tracing_subscriber::fmt()
+        .with_env_filter(env_filter)
+        .with_target(false)
+        .compact()
+        .init();
+}
+
+async fn shutdown_signal() {
+    if let Err(err) = tokio::signal::ctrl_c().await {
+        error!(%err, "failed to listen for shutdown signal");
+        return;
     }
 
-    match TcpListener::bind(addr).await {
-        Ok(listener) => {
-            if let Err(err) = axum::serve(listener, app.into_make_service()).await {
-                eprintln!("server error: {err}");
-            }
-        }
-        Err(err) => {
-            eprintln!("failed to bind to address: {err}");
-        }
-    }
+    info!("Shutdown signal received, starting graceful shutdown");
 }
