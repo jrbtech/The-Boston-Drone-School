@@ -1,14 +1,23 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
   images: {
-    domains: ['img1.wsimg.com', 'thebostondroneschool.org'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'img1.wsimg.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'thebostondroneschool.org',
+      },
+    ],
   },
   env: {
-    ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY,
+    ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY || '',
   },
+  // Optimize for production
+  reactStrictMode: true,
+  poweredByHeader: false,
 }
 
 module.exports = nextConfig
