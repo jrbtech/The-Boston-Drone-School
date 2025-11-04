@@ -8,9 +8,25 @@ const { Pool } = require('pg');
 const fs = require('fs').promises;
 const path = require('path');
 
+function getDatabaseUrl() {
+  const rawUrl = process.env.DATABASE_URL;
+
+  if (!rawUrl) {
+    throw new Error('DATABASE_URL environment variable is not set.');
+  }
+
+  const sanitized = rawUrl.trim().replace(/\s*\r?\n\s*/g, '');
+
+  if (!sanitized) {
+    throw new Error('DATABASE_URL is empty after trimming.');
+  }
+
+  return sanitized;
+}
+
 // Database connection
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: getDatabaseUrl(),
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 });
 
