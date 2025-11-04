@@ -1,27 +1,25 @@
-// src/config.rs
-
+use dotenvy::dotenv;
 use std::env;
-use serde::Deserialize;
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Clone)]
 pub struct Config {
-    pub database_url: String,
-    pub jwt_secret: String,
-    pub stripe_api_key: String,
+    pub database_url: Option<String>,
     pub server_port: u16,
 }
 
 impl Config {
     pub fn from_env() -> Self {
-        dotenv::dotenv().ok();
-        Config {
-            database_url: env::var("DATABASE_URL").expect("DATABASE_URL must be set"),
-            jwt_secret: env::var("JWT_SECRET").expect("JWT_SECRET must be set"),
-            stripe_api_key: env::var("STRIPE_API_KEY").expect("STRIPE_API_KEY must be set"),
-            server_port: env::var("SERVER_PORT")
-                .unwrap_or_else(|_| "8000".to_string())
-                .parse()
-                .expect("SERVER_PORT must be a valid u16"),
+        dotenv().ok();
+
+        let database_url = env::var("DATABASE_URL").ok();
+        let server_port = env::var("SERVER_PORT")
+            .ok()
+            .and_then(|value| value.parse().ok())
+            .unwrap_or(8000);
+
+        Self {
+            database_url,
+            server_port,
         }
     }
 }

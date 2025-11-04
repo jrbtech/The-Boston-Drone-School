@@ -1,7 +1,8 @@
 use std::env;
 use std::error::Error;
-use tokio_postgres::{NoTls, Client};
+use tokio_postgres::{Client, NoTls};
 
+#[allow(dead_code)]
 pub async fn establish_connection() -> Result<Client, Box<dyn Error>> {
     let database_url = env::var("DATABASE_URL")?;
     let (client, connection) = tokio_postgres::connect(&database_url, NoTls).await?;
