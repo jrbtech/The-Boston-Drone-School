@@ -18,7 +18,7 @@ regex = "1"
 uuid = { version = "1", features = ["v4"] }
 bcrypt = "0.15"
 jsonwebtoken = "8"
-anthropic = "0.1"
+anthropic = "0.0.8"
 
 [features]
 default = []
