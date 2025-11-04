@@ -1,24 +1,31 @@
-// src/main.rs
-
-use actix_web::{web, App, HttpServer};
-use dotenv::dotenv;
-use std::env;
-
 mod config;
-mod routes;
 mod db;
+mod routes;
 
-#[actix_web::main]
-async fn main() -> std::io::Result<()> {
-    dotenv().ok();
-    
-    let server_address = env::var("SERVER_ADDRESS").unwrap_or_else(|_| "127.0.0.1:8080".to_string());
+use config::Config;
+use std::net::SocketAddr;
+use tokio::net::TcpListener;
 
-    HttpServer::new(|| {
-        App::new()
-            .configure(routes::init_routes)
-    })
-    .bind(&server_address)?
-    .run()
-    .await
+#[tokio::main]
+async fn main() {
+    let config = Config::from_env();
+    let app = routes::create_router();
+
+    let addr = SocketAddr::from(([0, 0, 0, 0], config.server_port));
+    println!("Boston Drone School API running on http://{}", addr);
+
+    if config.database_url.is_none() {
+        println!("DATABASE_URL not set; continuing without a database connection");
+    }
+
+    match TcpListener::bind(addr).await {
+        Ok(listener) => {
+            if let Err(err) = axum::serve(listener, app.into_make_service()).await {
+                eprintln!("server error: {err}");
+            }
+        }
+        Err(err) => {
+            eprintln!("failed to bind to address: {err}");
+        }
+    }
 }
