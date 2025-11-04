@@ -11,6 +11,12 @@ export const getPool = (): Pool => {
 
   const { databaseUrl } = createServerConfig();
 
+  if (!databaseUrl) {
+    throw new Error(
+      'DATABASE_URL is not configured or is empty after sanitization. Ensure the environment variable is set correctly.',
+    );
+  }
+
   pool = new Pool({
     connectionString: databaseUrl,
     ssl:
