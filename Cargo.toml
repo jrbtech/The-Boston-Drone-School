@@ -7,6 +7,25 @@ edition = "2021"
 axum = "0.7"
 tokio = { version = "1", features = ["full"] }
 tokio-postgres = "0.7"
+deadpool-postgres = "0.12"
+tower-http = { version = "0.5", features = ["cors"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 dotenvy = "0.15"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["fmt", "env-filter"] }
+regex = "1"
+uuid = { version = "1", features = ["v4"] }
+bcrypt = "0.15"
+jsonwebtoken = "8"
+
+[features]
+default = []
+payments = ["stripe"]
+
+[dependencies.stripe]
+version = "0.34"
+package = "async-stripe"
+default-features = false
+features = ["runtime-tokio-hyper"]
+optional = true
