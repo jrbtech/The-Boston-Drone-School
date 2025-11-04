@@ -1,3 +1,5 @@
+#![cfg(feature = "payments")]
+
 // src/services/payment_service.rs
 
 use serde::{Deserialize, Serialize};
