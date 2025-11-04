@@ -7,7 +7,10 @@
       "Bash(git add:*)",
       "Bash(git commit -m \"$(cat <<''EOF''\nComplete E-Learning Platform with Authentication System\n\nThis commit adds a full-featured e-learning platform for The Boston Drone School with the following features:\n\nBackend Enhancements:\n- JWT authentication system with bcrypt password hashing\n- User registration and login endpoints (/api/auth/register, /api/auth/login, /api/auth/me)\n- Database migrations system with automatic runner\n- Updated Anthropic Claude integration (claude-3-5-sonnet-20240620)\n- Stripe payment integration ready\n- Security middleware and CORS configuration\n\nFrontend Features:\n- Complete student-facing pages:\n  * Homepage with hero section and features\n  * Course catalog with filtering and search\n  * Course detail pages with curriculum\n  * Student dashboard with progress tracking\n  * Interactive course player with AI assistant\n  * Login and registration pages with form validation\n  * Checkout page (Stripe-ready)\n  \n- Admin panel:\n  * Course management interface\n  * Statistics dashboard\n  * Student analytics framework\n\n- API client library with TypeScript types\n- Responsive design with TailwindCSS\n- Modern UI with gradient backgrounds\n- Error handling and loading states\n\nDatabase:\n- Complete schema migration (users, courses, lessons, enrollments, progress, certificates)\n- Migration tracking system\n- PostgreSQL integration\n\nDocumentation:\n- Comprehensive README with setup instructions\n- Deployment guides (DEPLOYMENT_READY.md, DEPLOYMENT_FIXED.md)\n- Implementation roadmap\n- Platform feature documentation\n\nConfiguration:\n- Updated render.yaml for production deployment\n- Next.js and TypeScript configurations\n- Environment variable documentation\n- Health check endpoints\n\nTechnologies:\n- Next.js 14 with App Router\n- TypeScript throughout\n- Express.js backend\n- PostgreSQL database\n- Claude AI integration\n- Stripe payment ready\n- JWT authentication\n\nStatus: Production-ready for Render deployment\n\n🤖 Generated with Claude Code\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(git reset:*)",
+      "Bash(cat:*)",
+      "Bash(npm run dev:*)"
     ],
     "deny": [],
     "ask": []
