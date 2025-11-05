@@ -9,7 +9,7 @@ export const getPool = (): Pool => {
     return pool;
   }
 
-  const { databaseUrl } = createServerConfig();
+  const { databaseUrl, useSsl } = createServerConfig();
 
   if (!databaseUrl) {
     throw new Error(
@@ -19,10 +19,7 @@ export const getPool = (): Pool => {
 
   pool = new Pool({
     connectionString: databaseUrl,
-    ssl:
-      process.env.NODE_ENV === 'production'
-        ? { rejectUnauthorized: false }
-        : undefined,
+    ssl: useSsl ? { rejectUnauthorized: false } : undefined,
   });
 
   return pool;

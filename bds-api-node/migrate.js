@@ -37,10 +37,67 @@ function getDatabaseUrl() {
   return compact;
 }
 
+function normalizeBoolean(value) {
+  if (value === undefined || value === null) {
+    return undefined;
+  }
+
+  const normalized = String(value).trim().toLowerCase();
+
+  if (['1', 'true', 'yes', 'on'].includes(normalized)) {
+    return true;
+  }
+
+  if (['0', 'false', 'no', 'off'].includes(normalized)) {
+    return false;
+  }
+
+  return undefined;
+}
+
+function shouldUseSsl(connectionString) {
+  const explicit = normalizeBoolean(process.env.DATABASE_SSL);
+  if (explicit !== undefined) {
+    return explicit;
+  }
+
+  const environment = (process.env.NODE_ENV || '').trim().toLowerCase();
+
+  if (!connectionString) {
+    return environment === 'production';
+  }
+
+  const lowered = connectionString.toLowerCase();
+
+  if (lowered.includes('sslmode=require')) {
+    return true;
+  }
+
+  try {
+    const { hostname } = new URL(connectionString);
+    const host = hostname.toLowerCase();
+
+    if (
+      host &&
+      host !== 'localhost' &&
+      host !== '127.0.0.1' &&
+      host !== '::1' &&
+      !host.endsWith('.local')
+    ) {
+      return true;
+    }
+  } catch (error) {
+    // Ignore URL parsing errors and fall through to environment-based decision.
+  }
+
+  return environment === 'production';
+}
+
 // Database connection
+const databaseUrl = getDatabaseUrl();
 const pool = new Pool({
-  connectionString: getDatabaseUrl(),
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+  connectionString: databaseUrl,
+  ssl: shouldUseSsl(databaseUrl) ? { rejectUnauthorized: false } : undefined
 });
 
 async function runMigrations() {
