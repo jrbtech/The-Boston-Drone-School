@@ -12,14 +12,22 @@ const app = express();
 const config = createServerConfig();
 
 // CORS configuration for production
+const allowedOrigins = process.env.NODE_ENV === 'production'
+  ? [
+      'https://learn.thebostondroneschool.org',
+      'https://thebostondroneschool.org',
+      'https://bds-frontend.onrender.com'
+    ]
+  : ['http://localhost:3000', 'http://localhost:3001'];
+
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://learn.thebostondroneschool.org', 'https://thebostondroneschool.org']
-    : ['http://localhost:3000', 'http://localhost:3001'],
+  origin: allowedOrigins,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-API-Key']
 };
+
+console.log(`🌐 Allowed CORS origins: ${allowedOrigins.join(', ')}`);
 
 // Middleware
 app.use(cors(corsOptions));
@@ -76,11 +84,14 @@ app.use((req, res) => {
   });
 });
 
-const PORT = process.env.PORT || config.port || 3001;
+const PORT = Number(process.env.PORT) || config.port || 3001;
+const HOST = '0.0.0.0'; // Bind to all network interfaces for Render deployment
 
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, HOST, () => {
   console.log(`🚀 Boston Drone School API running on port ${PORT}`);
+  console.log(`📡 Listening on host ${HOST}`);
   console.log(`📚 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`  PORT=${PORT}`);
   console.log(`🤖 Claude AI: ${process.env.ANTHROPIC_API_KEY ? '✅ Configured' : '❌ Missing API key'}`);
 });
 

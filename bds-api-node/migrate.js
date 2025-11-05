@@ -8,15 +8,58 @@ const { Pool } = require('pg');
 const fs = require('fs').promises;
 const path = require('path');
 
-// Database connection
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
-});
+// Database connection with retry logic
+const createPool = () => {
+  const databaseUrl = process.env.DATABASE_URL;
+  
+  if (!databaseUrl) {
+    console.error('❌ DATABASE_URL environment variable is not set');
+    process.exit(1);
+  }
+
+  console.log('🔗 Connecting to database...');
+  console.log('📍 Database URL:', databaseUrl.replace(/\/\/([^:]+):([^@]+)@/, '//[USER]:[PASS]@'));
+  
+  return new Pool({
+    connectionString: databaseUrl,
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+    max: 3,
+    connectionTimeoutMillis: 30000,
+    idleTimeoutMillis: 10000
+  });
+};
+
+const pool = createPool();
+
+async function waitForDatabase(maxRetries = 10, delay = 5000) {
+  console.log('⏳ Waiting for database to be ready...');
+  
+  for (let i = 1; i <= maxRetries; i++) {
+    try {
+      await pool.query('SELECT 1');
+      console.log('✅ Database connection successful!');
+      return;
+    } catch (error) {
+      console.log(`🔄 Attempt ${i}/${maxRetries} failed: ${error.message}`);
+      
+      if (i === maxRetries) {
+        console.error('❌ Failed to connect to database after maximum retries');
+        console.error('💡 Check if DATABASE_URL is correct and database is running');
+        throw error;
+      }
+      
+      console.log(`⏱️  Waiting ${delay/1000} seconds before retry...`);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+}
 
 async function runMigrations() {
   console.log('🚀 Boston Drone School - Running Database Migrations');
   console.log('=====================================================');
+
+  // Wait for database to be ready (especially on Render)
+  await waitForDatabase();
 
   try {
     // Create migrations table if it doesn't exist
