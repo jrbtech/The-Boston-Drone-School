@@ -15,6 +15,14 @@ const nextConfig = {
   // Optimize for production
   reactStrictMode: true,
   poweredByHeader: false,
+  // Ensure ES modules work correctly
+  experimental: {
+    esmExternals: true
+  },
+  // Disable type checking during build (we'll rely on tsc for this)
+  typescript: {
+    ignoreBuildErrors: false
+  }
 }
 
 module.exports = nextConfig
