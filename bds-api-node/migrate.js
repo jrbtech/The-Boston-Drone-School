@@ -17,17 +17,24 @@ function getDatabaseUrl() {
     throw new Error('DATABASE_URL environment variable is not set.');
   }
 
-  const sanitized = rawUrl
+  const withoutPrefix = rawUrl
     .trim()
-    .replace(/^DATABASE_URL\s*=\s*/i, '')
-    .replace(/^['"]|['"]$/g, '')
-    .replace(/\s*\r?\n\s*/g, '');
+    .replace(/^(?:export\s+)?DATABASE_URL\s*=\s*/i, '')
+    .trim();
 
-  if (!sanitized) {
+  const withoutWrappingQuotes = withoutPrefix.replace(/^['"]|['"]$/g, '');
+
+  const compact = withoutWrappingQuotes
+    .split(/\r?\n/)
+    .map(line => line.trim())
+    .join('')
+    .replace(/\s+/g, '');
+
+  if (!compact) {
     throw new Error('DATABASE_URL is empty after trimming.');
   }
 
-  return sanitized;
+  return compact;
 }
 
 // Database connection
