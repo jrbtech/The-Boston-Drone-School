@@ -13,7 +13,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: NEXT_PUBLIC_API_URL
-        value: https://bds-api-node.onrender.com
+        value: https://the-boston-drone-school.onrender.com
       - key: NEXT_PUBLIC_SITE_URL
         value: https://bds-frontend.onrender.com
       - key: ANTHROPIC_API_KEY
@@ -45,7 +45,7 @@ services:
       - key: ANTHROPIC_API_KEY
         sync: false
       - key: CORS_ORIGIN
-        value: "https://bds-frontend.onrender.com,https://learn.thebostondroneschool.org,https://thebostondroneschool.org"
+        value: "https://bds-frontend.onrender.com,https://learn.thebostondroneschool.org,https://thebostondroneschool.org,http://localhost:3000"
     plan: starter
     autoDeploy: true
 
