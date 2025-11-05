@@ -85,9 +85,11 @@ app.use((req, res) => {
 });
 
 const PORT = process.env.PORT || config.port || 3001;
+const HOST = process.env.HOST || '0.0.0.0';
 
-const server = app.listen(PORT, () => {
+const server = app.listen(Number(PORT), HOST, () => {
   console.log(`🚀 Boston Drone School API running on port ${PORT}`);
+  console.log(`📡 Listening on host ${HOST}`);
   console.log(`📚 Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`🤖 Claude AI: ${process.env.ANTHROPIC_API_KEY ? '✅ Configured' : '❌ Missing API key'}`);
   console.log(`🌐 Allowed CORS origins: ${allowedOrigins.join(', ') || 'none (CORS disabled)'}`);
