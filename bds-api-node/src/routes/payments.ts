@@ -1,16 +1,15 @@
-import { Router, Request, Response } from 'express';
+import express, { Router, Request, Response } from 'express';
 import Stripe from 'stripe';
 import { getPool } from '../db';
 import { authenticateToken } from './auth';
 
 const router = Router();
+const stripeWebhookParser = express.raw({ type: 'application/json' });
 
 // Initialize Stripe only if key is provided
 let stripe: Stripe | null = null;
 if (process.env.STRIPE_SECRET_KEY) {
-  stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-    apiVersion: '2025-10-29.clover',
-  });
+  stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 }
 
 // POST /api/payments/create-payment-intent
@@ -32,7 +31,6 @@ router.post('/create-payment-intent', authenticateToken, async (req: Request, re
       return res.status(400).json({ error: 'Course ID is required' });
     }
 
-    // Get course details
     const courseResult = await getPool().query(
       'SELECT id, title, price FROM courses WHERE id = $1',
       [courseId]
@@ -44,7 +42,6 @@ router.post('/create-payment-intent', authenticateToken, async (req: Request, re
 
     const course = courseResult.rows[0];
 
-    // Check if user is already enrolled
     const enrollmentCheck = await getPool().query(
       'SELECT id FROM enrollments WHERE user_id = $1 AND course_id = $2',
       [userId, courseId]
@@ -54,15 +51,14 @@ router.post('/create-payment-intent', authenticateToken, async (req: Request, re
       return res.status(400).json({ error: 'Already enrolled in this course' });
     }
 
-    // Create payment intent
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(course.price * 100), // Convert to cents
+      amount: Math.round(Number(course.price) * 100), // Convert to cents
       currency: 'usd',
       automatic_payment_methods: {
         enabled: true,
       },
       metadata: {
-        courseId: course.id,
+        courseId: String(course.id),
         userId: userId.toString(),
         courseName: course.title,
       },
@@ -70,7 +66,7 @@ router.post('/create-payment-intent', authenticateToken, async (req: Request, re
 
     res.json({
       clientSecret: paymentIntent.client_secret,
-      amount: course.price,
+      amount: Number(course.price),
       courseName: course.title,
     });
   } catch (error) {
@@ -80,7 +76,7 @@ router.post('/create-payment-intent', authenticateToken, async (req: Request, re
 });
 
 // POST /api/payments/webhook - Stripe webhook handler
-router.post('/webhook', async (req: Request, res: Response) => {
+router.post('/webhook', stripeWebhookParser, async (req: Request, res: Response) => {
   if (!stripe) {
     return res.status(503).json({ error: 'Payment system not configured' });
   }
@@ -101,10 +97,9 @@ router.post('/webhook', async (req: Request, res: Response) => {
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  // Handle the event
   try {
     switch (event.type) {
-      case 'payment_intent.succeeded':
+      case 'payment_intent.succeeded': {
         const paymentIntent = event.data.object as Stripe.PaymentIntent;
         const { courseId, userId } = paymentIntent.metadata;
 
@@ -113,22 +108,42 @@ router.post('/webhook', async (req: Request, res: Response) => {
           break;
         }
 
-        // Enroll user in course
+        const numericCourseId = Number(courseId);
+        const numericUserId = Number(userId);
+
+        if (Number.isNaN(numericCourseId) || Number.isNaN(numericUserId)) {
+          console.error('Invalid enrollment metadata. Expected numeric IDs.', {
+            courseId,
+            userId,
+            paymentIntentId: paymentIntent.id,
+          });
+          break;
+        }
+
         await getPool().query(
-          'INSERT INTO enrollments (user_id, course_id, status, progress, enrolled_at) VALUES ($1, $2, $3, $4, NOW()) ON CONFLICT (user_id, course_id) DO NOTHING',
-          [userId, courseId, 'active', 0]
+          `INSERT INTO enrollments (user_id, course_id, status, progress_percentage)
+           VALUES ($1, $2, $3, $4)
+           ON CONFLICT (user_id, course_id) DO NOTHING`,
+          [numericUserId, numericCourseId, 'active', 0]
         );
 
-        console.log('User enrolled after successful payment:', { userId, courseId, paymentIntentId: paymentIntent.id });
+        console.log('User enrolled after successful payment:', {
+          userId,
+          courseId,
+          paymentIntentId: paymentIntent.id,
+        });
         break;
+      }
 
-      case 'payment_intent.payment_failed':
+      case 'payment_intent.payment_failed': {
         const failedIntent = event.data.object as Stripe.PaymentIntent;
         console.error('Payment failed:', failedIntent.id, failedIntent.last_payment_error);
         break;
+      }
 
-      default:
+      default: {
         console.log(`Unhandled event type: ${event.type}`);
+      }
     }
 
     res.json({ received: true });
@@ -153,7 +168,6 @@ router.post('/confirm-enrollment', authenticateToken, async (req: Request, res: 
       return res.status(400).json({ error: 'Course ID is required' });
     }
 
-    // Check if course exists
     const courseResult = await getPool().query(
       'SELECT id FROM courses WHERE id = $1',
       [courseId]
@@ -163,9 +177,12 @@ router.post('/confirm-enrollment', authenticateToken, async (req: Request, res: 
       return res.status(404).json({ error: 'Course not found' });
     }
 
-    // Enroll user
     const result = await getPool().query(
-      'INSERT INTO enrollments (user_id, course_id, status, progress, enrolled_at) VALUES ($1, $2, $3, $4, NOW()) ON CONFLICT (user_id, course_id) DO UPDATE SET status = $3 RETURNING id',
+      `INSERT INTO enrollments (user_id, course_id, status, progress_percentage)
+       VALUES ($1, $2, $3, $4)
+       ON CONFLICT (user_id, course_id)
+       DO UPDATE SET status = EXCLUDED.status, progress_percentage = EXCLUDED.progress_percentage, completion_date = NULL
+       RETURNING id`,
       [userId, courseId, 'active', 0]
     );
 

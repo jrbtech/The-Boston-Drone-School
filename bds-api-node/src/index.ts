@@ -10,6 +10,12 @@ loadEnv();
 const app = express();
 const config = createServerConfig();
 
+const jsonBodyParser = express.json({ limit: '10mb' });
+const urlencodedBodyParser = express.urlencoded({ extended: true, limit: '10mb' });
+
+const shouldBypassBodyParsing = (req: Request): boolean =>
+  req.originalUrl.startsWith('/api/payments/webhook');
+
 // CORS configuration for production
 const { allowedOrigins } = config;
 const isProduction = process.env.NODE_ENV === 'production';
@@ -31,8 +37,23 @@ const corsOptions: CorsOptions = {
 
 // Middleware
 app.use(cors(corsOptions));
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use((req: Request, res: Response, next: NextFunction) => {
+  if (shouldBypassBodyParsing(req)) {
+    next();
+    return;
+  }
+
+  jsonBodyParser(req, res, next);
+});
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+  if (shouldBypassBodyParsing(req)) {
+    next();
+    return;
+  }
+
+  urlencodedBodyParser(req, res, next);
+});
 
 // Security headers
 app.use((req: Request, res: Response, next: NextFunction) => {
