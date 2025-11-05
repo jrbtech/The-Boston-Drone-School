@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { api, Enrollment, Course } from '@/lib/api'
-import { useAuth } from '@/contexts/AuthContext'
+import { api, Enrollment, Course } from '../../lib/api'
+import { useAuth } from '../../contexts/AuthContext'
 
 export default function DashboardPage() {
   const router = useRouter()

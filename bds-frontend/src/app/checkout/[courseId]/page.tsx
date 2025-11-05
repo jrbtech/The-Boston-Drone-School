@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { api, Course } from '@/lib/api'
+import { api, Course } from '../../../lib/api'
 
 export default function CheckoutPage() {
   const params = useParams()

@@ -3,9 +3,9 @@
 import { useState, useEffect, useRef } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { api, Course } from '@/lib/api'
-import { getVideoEmbedUrl } from '@/lib/video'
-import { useAuth } from '@/contexts/AuthContext'
+import { api, Course } from '../../../lib/api'
+import { getVideoEmbedUrl } from '../../../lib/video'
+import { useAuth } from '../../../contexts/AuthContext'
 
 export default function CoursePlayerPage() {
   const params = useParams()
