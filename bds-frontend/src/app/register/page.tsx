@@ -35,8 +35,12 @@ export default function RegisterPage() {
     setLoading(true)
 
     try {
-      const name = `${formData.firstName} ${formData.lastName}`;
-      const response = await api.register(formData.email, formData.password, name)
+      const response = await api.register(
+        formData.email,
+        formData.password,
+        formData.firstName,
+        formData.lastName
+      )
 
       // Store token and user data
       localStorage.setItem('authToken', response.token)
