@@ -4,10 +4,12 @@ import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { api, Course } from '@/lib/api'
+import { useAuth } from '@/contexts/AuthContext'
 
 export default function CourseDetailPage() {
   const params = useParams()
   const router = useRouter()
+  const { user } = useAuth()
   const [course, setCourse] = useState<Course | null>(null)
   const [lessons, setLessons] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
@@ -35,13 +37,15 @@ export default function CourseDetailPage() {
   }
 
   async function handleEnroll() {
-    // TODO: Get actual user ID from auth context
-    const userId = 'user123' // Placeholder
+    if (!user) {
+      router.push('/login')
+      return
+    }
 
     try {
       setEnrolling(true)
       // In production, this would go through payment first
-      await api.enrollCourse(userId, params.id as string)
+      await api.enrollCourse(params.id as string)
       alert('Successfully enrolled! Redirecting to course...')
       router.push(`/learn/${params.id}`)
     } catch (error: any) {

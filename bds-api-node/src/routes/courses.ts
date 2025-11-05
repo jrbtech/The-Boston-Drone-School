@@ -1,153 +1,64 @@
 import { Router } from 'express';
 import { Request, Response } from 'express';
+import { getPool } from '../db';
+import { authenticateToken } from './auth';
 
 const router = Router();
 
-// Course interfaces
-interface Course {
-  id: string;
-  title: string;
-  description: string;
-  instructor: string;
-  duration: string;
-  level: 'beginner' | 'intermediate' | 'advanced';
-  price: number;
-  category: string;
-  thumbnailUrl?: string;
-  videoUrl?: string;
-  materials: string[];
-  prerequisites: string[];
-  learningObjectives: string[];
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-interface Lesson {
-  id: string;
-  courseId: string;
-  title: string;
-  description: string;
-  videoUrl: string;
-  duration: number;
-  order: number;
-  materials: string[];
-  quiz?: Quiz;
-}
-
-interface Quiz {
-  id: string;
-  lessonId: string;
-  questions: Question[];
-}
-
-interface Question {
-  id: string;
-  question: string;
-  type: 'multiple-choice' | 'true-false' | 'short-answer';
-  options?: string[];
-  correctAnswer: string | number;
-  explanation?: string;
-}
-
-// Mock data for development
-const mockCourses: Course[] = [
-  {
-    id: '1',
-    title: 'FAA Part 107 Certification Prep',
-    description: 'Complete preparation for the FAA Remote Pilot Certificate exam covering regulations, airspace, weather, and safety protocols.',
-    instructor: 'John Smith, Certified Flight Instructor',
-    duration: '8 weeks',
-    level: 'beginner',
-    price: 299,
-    category: 'Certification',
-    thumbnailUrl: '/courses/part107.jpg',
-    videoUrl: '/videos/part107-intro.mp4',
-    materials: ['Study Guide PDF', 'Practice Exams', 'Regulation Handbook'],
-    prerequisites: [],
-    learningObjectives: [
-      'Pass the FAA Part 107 exam',
-      'Understand drone regulations',
-      'Master airspace classifications',
-      'Apply weather knowledge to flight operations'
-    ],
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    id: '2',
-    title: 'Commercial Drone Photography',
-    description: 'Master aerial photography techniques, equipment setup, and post-processing for commercial real estate and marketing applications.',
-    instructor: 'Sarah Johnson, Professional Photographer',
-    duration: '6 weeks',
-    level: 'intermediate',
-    price: 399,
-    category: 'Photography',
-    thumbnailUrl: '/courses/photography.jpg',
-    videoUrl: '/videos/photography-intro.mp4',
-    materials: ['Camera Settings Guide', 'Editing Software', 'Portfolio Templates'],
-    prerequisites: ['Basic drone operation', 'FAA Part 107 certificate'],
-    learningObjectives: [
-      'Execute professional aerial photography shoots',
-      'Master camera settings and composition',
-      'Process and edit aerial imagery',
-      'Build a commercial photography portfolio'
-    ],
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    id: '3',
-    title: 'Advanced Mapping & Surveying',
-    description: 'Learn photogrammetry, GIS integration, and precision mapping techniques for construction and land surveying applications.',
-    instructor: 'Dr. Michael Chen, Surveying Engineer',
-    duration: '10 weeks',
-    level: 'advanced',
-    price: 599,
-    category: 'Surveying',
-    thumbnailUrl: '/courses/mapping.jpg',
-    videoUrl: '/videos/mapping-intro.mp4',
-    materials: ['Mapping Software License', 'GIS Tools', 'Survey Equipment Guide'],
-    prerequisites: ['Drone piloting experience', 'Basic GIS knowledge'],
-    learningObjectives: [
-      'Create accurate orthomosaic maps',
-      'Perform volumetric calculations',
-      'Integrate with GIS systems',
-      'Deliver professional survey reports'
-    ],
-    createdAt: new Date(),
-    updatedAt: new Date()
+// Middleware to check if user is admin
+const requireAdmin = (req: Request, res: Response, next: Function) => {
+  if (!req.user) {
+    return res.status(401).json({ error: 'Authentication required' });
   }
-];
 
-// GET /api/courses - Get all courses
-router.get('/', (req: Request, res: Response) => {
+  if (req.user.role !== 'admin' && req.user.role !== 'instructor') {
+    return res.status(403).json({ error: 'Admin or instructor access required' });
+  }
+
+  next();
+};
+
+// GET /api/courses - Get all published courses
+router.get('/', async (req: Request, res: Response) => {
   try {
-    const { category, level, instructor } = req.query;
-    let filteredCourses = mockCourses;
+    const { category, level, search } = req.query;
+
+    let query = `
+      SELECT id, title, description, category, difficulty_level as level,
+             duration_hours, price, created_at, updated_at
+      FROM courses
+      WHERE is_published = true
+    `;
+    const params: any[] = [];
+    let paramIndex = 1;
 
     // Apply filters
     if (category) {
-      filteredCourses = filteredCourses.filter(course => 
-        course.category.toLowerCase() === (category as string).toLowerCase()
-      );
+      query += ` AND category ILIKE $${paramIndex}`;
+      params.push(category as string);
+      paramIndex++;
     }
 
     if (level) {
-      filteredCourses = filteredCourses.filter(course => 
-        course.level === level
-      );
+      query += ` AND difficulty_level = $${paramIndex}`;
+      params.push(level as string);
+      paramIndex++;
     }
 
-    if (instructor) {
-      filteredCourses = filteredCourses.filter(course => 
-        course.instructor.toLowerCase().includes((instructor as string).toLowerCase())
-      );
+    if (search) {
+      query += ` AND (title ILIKE $${paramIndex} OR description ILIKE $${paramIndex})`;
+      params.push(`%${search}%`);
+      paramIndex++;
     }
+
+    query += ' ORDER BY created_at DESC';
+
+    const result = await getPool().query(query, params);
 
     res.json({
       success: true,
-      courses: filteredCourses,
-      total: filteredCourses.length
+      courses: result.rows,
+      total: result.rows.length
     });
   } catch (error) {
     console.error('Error fetching courses:', error);
@@ -155,19 +66,42 @@ router.get('/', (req: Request, res: Response) => {
   }
 });
 
-// GET /api/courses/:id - Get single course
-router.get('/:id', (req: Request, res: Response) => {
+// GET /api/courses/:id - Get single course with modules
+router.get('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const course = mockCourses.find(c => c.id === id);
 
-    if (!course) {
+    // Get course details
+    const courseResult = await getPool().query(
+      `SELECT id, title, description, category, difficulty_level as level,
+              duration_hours, price, created_at, updated_at
+       FROM courses
+       WHERE id = $1 AND is_published = true`,
+      [id]
+    );
+
+    if (courseResult.rows.length === 0) {
       return res.status(404).json({ error: 'Course not found' });
     }
 
+    const course = courseResult.rows[0];
+
+    // Get course modules
+    const modulesResult = await getPool().query(
+      `SELECT id, title, description, order_index as "order",
+              content_type, duration_minutes
+       FROM course_modules
+       WHERE course_id = $1
+       ORDER BY order_index`,
+      [id]
+    );
+
     res.json({
       success: true,
-      course
+      course: {
+        ...course,
+        modules: modulesResult.rows
+      }
     });
   } catch (error) {
     console.error('Error fetching course:', error);
@@ -175,23 +109,80 @@ router.get('/:id', (req: Request, res: Response) => {
   }
 });
 
-// POST /api/courses - Create new course (admin only)
-router.post('/', (req: Request, res: Response) => {
+// GET /api/courses/:id/lessons - Get course lessons (modules)
+router.get('/:id/lessons', async (req: Request, res: Response) => {
   try {
-    const courseData: Omit<Course, 'id' | 'createdAt' | 'updatedAt'> = req.body;
-    
-    const newCourse: Course = {
-      ...courseData,
-      id: (mockCourses.length + 1).toString(),
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
+    const { id } = req.params;
 
-    mockCourses.push(newCourse);
+    // Verify course exists
+    const courseResult = await getPool().query(
+      'SELECT id FROM courses WHERE id = $1 AND is_published = true',
+      [id]
+    );
+
+    if (courseResult.rows.length === 0) {
+      return res.status(404).json({ error: 'Course not found' });
+    }
+
+    // Get lessons (modules)
+    const lessonsResult = await getPool().query(
+      `SELECT id, course_id as "courseId", title, description,
+              duration_minutes as duration, order_index as "order"
+       FROM course_modules
+       WHERE course_id = $1
+       ORDER BY order_index`,
+      [id]
+    );
+
+    res.json({
+      success: true,
+      lessons: lessonsResult.rows,
+      total: lessonsResult.rows.length
+    });
+  } catch (error) {
+    console.error('Error fetching lessons:', error);
+    res.status(500).json({ error: 'Failed to fetch lessons' });
+  }
+});
+
+// POST /api/courses - Create new course (admin only)
+router.post('/', authenticateToken, requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const {
+      title,
+      description,
+      category,
+      difficulty_level,
+      duration_hours,
+      price
+    } = req.body;
+
+    if (!title || !description) {
+      return res.status(400).json({ error: 'Title and description are required' });
+    }
+
+    const result = await getPool().query(
+      `INSERT INTO courses (
+        title, description, category, difficulty_level,
+        duration_hours, price, instructor_id, is_published
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      RETURNING id, title, description, category, difficulty_level as level,
+                duration_hours, price, created_at, updated_at`,
+      [
+        title,
+        description,
+        category || 'General',
+        difficulty_level || 'beginner',
+        duration_hours || 0,
+        price || 0,
+        req.user!.userId,
+        false // Not published by default
+      ]
+    );
 
     res.status(201).json({
       success: true,
-      course: newCourse,
+      course: result.rows[0],
       message: 'Course created successfully'
     });
   } catch (error) {
@@ -201,24 +192,42 @@ router.post('/', (req: Request, res: Response) => {
 });
 
 // PUT /api/courses/:id - Update course (admin only)
-router.put('/:id', (req: Request, res: Response) => {
+router.put('/:id', authenticateToken, requireAdmin, async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const courseIndex = mockCourses.findIndex(c => c.id === id);
+    const {
+      title,
+      description,
+      category,
+      difficulty_level,
+      duration_hours,
+      price,
+      is_published
+    } = req.body;
 
-    if (courseIndex === -1) {
+    const result = await getPool().query(
+      `UPDATE courses
+       SET title = COALESCE($1, title),
+           description = COALESCE($2, description),
+           category = COALESCE($3, category),
+           difficulty_level = COALESCE($4, difficulty_level),
+           duration_hours = COALESCE($5, duration_hours),
+           price = COALESCE($6, price),
+           is_published = COALESCE($7, is_published),
+           updated_at = CURRENT_TIMESTAMP
+       WHERE id = $8
+       RETURNING id, title, description, category, difficulty_level as level,
+                 duration_hours, price, is_published, updated_at`,
+      [title, description, category, difficulty_level, duration_hours, price, is_published, id]
+    );
+
+    if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Course not found' });
     }
 
-    mockCourses[courseIndex] = {
-      ...mockCourses[courseIndex],
-      ...req.body,
-      updatedAt: new Date()
-    };
-
     res.json({
       success: true,
-      course: mockCourses[courseIndex],
+      course: result.rows[0],
       message: 'Course updated successfully'
     });
   } catch (error) {
@@ -228,95 +237,29 @@ router.put('/:id', (req: Request, res: Response) => {
 });
 
 // DELETE /api/courses/:id - Delete course (admin only)
-router.delete('/:id', (req: Request, res: Response) => {
+router.delete('/:id', authenticateToken, requireAdmin, async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const courseIndex = mockCourses.findIndex(c => c.id === id);
 
-    if (courseIndex === -1) {
+    const result = await getPool().query(
+      `DELETE FROM courses
+       WHERE id = $1
+       RETURNING id, title`,
+      [id]
+    );
+
+    if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Course not found' });
     }
 
-    const deletedCourse = mockCourses.splice(courseIndex, 1)[0];
-
     res.json({
       success: true,
-      course: deletedCourse,
+      course: result.rows[0],
       message: 'Course deleted successfully'
     });
   } catch (error) {
     console.error('Error deleting course:', error);
     res.status(500).json({ error: 'Failed to delete course' });
-  }
-});
-
-// GET /api/courses/:id/lessons - Get course lessons
-router.get('/:id/lessons', (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    const course = mockCourses.find(c => c.id === id);
-
-    if (!course) {
-      return res.status(404).json({ error: 'Course not found' });
-    }
-
-    // Mock lessons data
-    const mockLessons: Lesson[] = [
-      {
-        id: '1',
-        courseId: id,
-        title: 'Introduction to Drone Regulations',
-        description: 'Overview of FAA Part 107 and regulatory framework',
-        videoUrl: '/videos/lesson1.mp4',
-        duration: 1800, // 30 minutes
-        order: 1,
-        materials: ['Regulation Summary PDF', 'Key Points Checklist']
-      },
-      {
-        id: '2',
-        courseId: id,
-        title: 'Airspace Classifications',
-        description: 'Understanding controlled and uncontrolled airspace',
-        videoUrl: '/videos/lesson2.mp4',
-        duration: 2400, // 40 minutes
-        order: 2,
-        materials: ['Airspace Chart', 'Practice Scenarios']
-      }
-    ];
-
-    res.json({
-      success: true,
-      lessons: mockLessons,
-      total: mockLessons.length
-    });
-  } catch (error) {
-    console.error('Error fetching lessons:', error);
-    res.status(500).json({ error: 'Failed to fetch lessons' });
-  }
-});
-
-// GET /api/courses/search - Search courses
-router.get('/search/:query', (req: Request, res: Response) => {
-  try {
-    const { query } = req.params;
-    const searchTerm = query.toLowerCase();
-
-    const searchResults = mockCourses.filter(course =>
-      course.title.toLowerCase().includes(searchTerm) ||
-      course.description.toLowerCase().includes(searchTerm) ||
-      course.category.toLowerCase().includes(searchTerm) ||
-      course.instructor.toLowerCase().includes(searchTerm)
-    );
-
-    res.json({
-      success: true,
-      courses: searchResults,
-      total: searchResults.length,
-      query: searchTerm
-    });
-  } catch (error) {
-    console.error('Error searching courses:', error);
-    res.status(500).json({ error: 'Failed to search courses' });
   }
 });
 

@@ -1,120 +1,59 @@
 import { Router } from 'express';
 import { Request, Response } from 'express';
+import { getPool } from '../db';
+import { authenticateToken } from './auth';
 
 const router = Router();
 
-// Enrollment interfaces
-interface Enrollment {
-  id: string;
-  userId: string;
-  courseId: string;
-  enrollmentDate: Date;
-  completionDate?: Date;
-  progress: number; // 0-100
-  status: 'active' | 'completed' | 'paused' | 'cancelled';
-  certificateUrl?: string;
-  lastAccessedAt: Date;
-}
-
-interface UserProgress {
-  userId: string;
-  courseId: string;
-  lessonId: string;
-  progress: number; // 0-100
-  timeSpent: number; // seconds
-  completed: boolean;
-  lastAccessedAt: Date;
-}
-
-interface Certificate {
-  id: string;
-  userId: string;
-  courseId: string;
-  studentName: string;
-  courseName: string;
-  completionDate: Date;
-  certificateUrl: string;
-  verificationCode: string;
-}
-
-// Mock data
-const mockEnrollments: Enrollment[] = [
-  {
-    id: '1',
-    userId: 'user123',
-    courseId: '1',
-    enrollmentDate: new Date('2025-01-01'),
-    progress: 75,
-    status: 'active',
-    lastAccessedAt: new Date()
-  },
-  {
-    id: '2',
-    userId: 'user123',
-    courseId: '2',
-    enrollmentDate: new Date('2025-01-15'),
-    completionDate: new Date('2025-02-15'),
-    progress: 100,
-    status: 'completed',
-    certificateUrl: '/certificates/cert_user123_course2.pdf',
-    lastAccessedAt: new Date()
-  }
-];
-
-const mockProgress: UserProgress[] = [
-  {
-    userId: 'user123',
-    courseId: '1',
-    lessonId: '1',
-    progress: 100,
-    timeSpent: 1800,
-    completed: true,
-    lastAccessedAt: new Date()
-  },
-  {
-    userId: 'user123',
-    courseId: '1',
-    lessonId: '2',
-    progress: 50,
-    timeSpent: 900,
-    completed: false,
-    lastAccessedAt: new Date()
-  }
-];
+// All enrollment routes require authentication
+router.use(authenticateToken);
 
 // POST /api/enrollment/enroll - Enroll in a course
-router.post('/enroll', (req: Request, res: Response) => {
+// Note: This is typically called after payment, but can be used for free courses
+router.post('/enroll', async (req: Request, res: Response) => {
   try {
-    const { userId, courseId } = req.body;
+    if (!req.user) {
+      return res.status(401).json({ error: 'Authentication required' });
+    }
 
-    if (!userId || !courseId) {
-      return res.status(400).json({ error: 'UserId and courseId are required' });
+    const userId = req.user.userId; // Get from JWT, not request body
+    const { courseId } = req.body;
+
+    if (!courseId) {
+      return res.status(400).json({ error: 'Course ID is required' });
+    }
+
+    // Verify course exists
+    const courseCheck = await getPool().query(
+      'SELECT id, price FROM courses WHERE id = $1 AND is_published = true',
+      [courseId]
+    );
+
+    if (courseCheck.rows.length === 0) {
+      return res.status(404).json({ error: 'Course not found' });
     }
 
     // Check if already enrolled
-    const existingEnrollment = mockEnrollments.find(
-      e => e.userId === userId && e.courseId === courseId
+    const existingEnrollment = await getPool().query(
+      'SELECT id FROM enrollments WHERE user_id = $1 AND course_id = $2',
+      [userId, courseId]
     );
 
-    if (existingEnrollment) {
+    if (existingEnrollment.rows.length > 0) {
       return res.status(409).json({ error: 'Already enrolled in this course' });
     }
 
-    const newEnrollment: Enrollment = {
-      id: (mockEnrollments.length + 1).toString(),
-      userId,
-      courseId,
-      enrollmentDate: new Date(),
-      progress: 0,
-      status: 'active',
-      lastAccessedAt: new Date()
-    };
-
-    mockEnrollments.push(newEnrollment);
+    // Create enrollment
+    const result = await getPool().query(
+      `INSERT INTO enrollments (user_id, course_id, status, progress_percentage)
+       VALUES ($1, $2, $3, $4)
+       RETURNING id, user_id, course_id, enrollment_date, progress_percentage as progress, status`,
+      [userId, courseId, 'active', 0]
+    );
 
     res.status(201).json({
       success: true,
-      enrollment: newEnrollment,
+      enrollment: result.rows[0],
       message: 'Successfully enrolled in course'
     });
   } catch (error) {
@@ -123,22 +62,49 @@ router.post('/enroll', (req: Request, res: Response) => {
   }
 });
 
-// GET /api/enrollment/user/:userId - Get user's enrollments
-router.get('/user/:userId', (req: Request, res: Response) => {
+// GET /api/enrollment/user - Get current user's enrollments
+// No userId param - uses authenticated user from JWT
+router.get('/user', async (req: Request, res: Response) => {
   try {
-    const { userId } = req.params;
+    if (!req.user) {
+      return res.status(401).json({ error: 'Authentication required' });
+    }
+
+    const userId = req.user.userId;
     const { status } = req.query;
 
-    let userEnrollments = mockEnrollments.filter(e => e.userId === userId);
+    let query = `
+      SELECT
+        e.id,
+        e.user_id,
+        e.course_id,
+        e.enrollment_date,
+        e.completion_date,
+        e.progress_percentage as progress,
+        e.status,
+        c.title as course_title,
+        c.description as course_description,
+        c.category,
+        c.price
+      FROM enrollments e
+      JOIN courses c ON e.course_id = c.id
+      WHERE e.user_id = $1
+    `;
+    const params: any[] = [userId];
 
     if (status) {
-      userEnrollments = userEnrollments.filter(e => e.status === status);
+      query += ` AND e.status = $2`;
+      params.push(status);
     }
+
+    query += ' ORDER BY e.enrollment_date DESC';
+
+    const result = await getPool().query(query, params);
 
     res.json({
       success: true,
-      enrollments: userEnrollments,
-      total: userEnrollments.length
+      enrollments: result.rows,
+      total: result.rows.length
     });
   } catch (error) {
     console.error('Error fetching user enrollments:', error);
@@ -146,19 +112,41 @@ router.get('/user/:userId', (req: Request, res: Response) => {
   }
 });
 
-// GET /api/enrollment/:id - Get specific enrollment
-router.get('/:id', (req: Request, res: Response) => {
+// GET /api/enrollment/:id - Get specific enrollment (must belong to user)
+router.get('/:id', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const enrollment = mockEnrollments.find(e => e.id === id);
+    if (!req.user) {
+      return res.status(401).json({ error: 'Authentication required' });
+    }
 
-    if (!enrollment) {
-      return res.status(404).json({ error: 'Enrollment not found' });
+    const { id } = req.params;
+    const userId = req.user.userId;
+
+    const result = await getPool().query(
+      `SELECT
+        e.id,
+        e.user_id,
+        e.course_id,
+        e.enrollment_date,
+        e.completion_date,
+        e.progress_percentage as progress,
+        e.status,
+        c.title as course_title,
+        c.description as course_description,
+        c.category
+      FROM enrollments e
+      JOIN courses c ON e.course_id = c.id
+      WHERE e.id = $1 AND e.user_id = $2`,
+      [id, userId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Enrollment not found or access denied' });
     }
 
     res.json({
       success: true,
-      enrollment
+      enrollment: result.rows[0]
     });
   } catch (error) {
     console.error('Error fetching enrollment:', error);
@@ -166,59 +154,86 @@ router.get('/:id', (req: Request, res: Response) => {
   }
 });
 
-// PUT /api/enrollment/:id/progress - Update course progress
-router.put('/:id/progress', (req: Request, res: Response) => {
+// PUT /api/enrollment/:enrollmentId/progress - Update module progress
+router.put('/:enrollmentId/progress', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const { lessonId, progress, timeSpent, completed } = req.body;
-
-    const enrollment = mockEnrollments.find(e => e.id === id);
-    if (!enrollment) {
-      return res.status(404).json({ error: 'Enrollment not found' });
+    if (!req.user) {
+      return res.status(401).json({ error: 'Authentication required' });
     }
 
-    // Update lesson progress
-    const existingProgress = mockProgress.find(
-      p => p.userId === enrollment.userId && 
-          p.courseId === enrollment.courseId && 
-          p.lessonId === lessonId
+    const { enrollmentId } = req.params;
+    const { moduleId, completed, timeSpent } = req.body;
+    const userId = req.user.userId;
+
+    // Verify enrollment belongs to user
+    const enrollmentCheck = await getPool().query(
+      'SELECT id, course_id FROM enrollments WHERE id = $1 AND user_id = $2',
+      [enrollmentId, userId]
     );
 
-    if (existingProgress) {
-      existingProgress.progress = progress;
-      existingProgress.timeSpent += timeSpent || 0;
-      existingProgress.completed = completed;
-      existingProgress.lastAccessedAt = new Date();
-    } else {
-      mockProgress.push({
-        userId: enrollment.userId,
-        courseId: enrollment.courseId,
-        lessonId,
-        progress,
-        timeSpent: timeSpent || 0,
-        completed,
-        lastAccessedAt: new Date()
-      });
+    if (enrollmentCheck.rows.length === 0) {
+      return res.status(404).json({ error: 'Enrollment not found or access denied' });
     }
+
+    const courseId = enrollmentCheck.rows[0].course_id;
+
+    // Verify module belongs to course
+    const moduleCheck = await getPool().query(
+      'SELECT id FROM course_modules WHERE id = $1 AND course_id = $2',
+      [moduleId, courseId]
+    );
+
+    if (moduleCheck.rows.length === 0) {
+      return res.status(400).json({ error: 'Invalid module for this course' });
+    }
+
+    // Update or insert module progress
+    await getPool().query(
+      `INSERT INTO module_progress (enrollment_id, module_id, completed, time_spent_minutes, completed_at)
+       VALUES ($1, $2, $3, $4, ${completed ? 'CURRENT_TIMESTAMP' : 'NULL'})
+       ON CONFLICT (enrollment_id, module_id)
+       DO UPDATE SET
+         completed = $3,
+         time_spent_minutes = module_progress.time_spent_minutes + $4,
+         completed_at = ${completed ? 'CURRENT_TIMESTAMP' : 'module_progress.completed_at'}`,
+      [enrollmentId, moduleId, completed || false, timeSpent || 0]
+    );
 
     // Calculate overall course progress
-    const courseProgress = mockProgress
-      .filter(p => p.userId === enrollment.userId && p.courseId === enrollment.courseId)
-      .reduce((acc, curr) => acc + curr.progress, 0) / 
-      mockProgress.filter(p => p.courseId === enrollment.courseId).length;
+    const progressResult = await getPool().query(
+      `SELECT
+        COUNT(*) FILTER (WHERE mp.completed = true)::float /
+        NULLIF(COUNT(cm.id)::float, 0) * 100 as progress_percentage
+       FROM course_modules cm
+       LEFT JOIN module_progress mp ON cm.id = mp.module_id AND mp.enrollment_id = $1
+       WHERE cm.course_id = $2`,
+      [enrollmentId, courseId]
+    );
 
-    enrollment.progress = Math.round(courseProgress);
-    enrollment.lastAccessedAt = new Date();
+    const progressPercentage = Math.round(progressResult.rows[0].progress_percentage || 0);
 
-    // Check if course is completed
-    if (enrollment.progress >= 100) {
-      enrollment.status = 'completed';
-      enrollment.completionDate = new Date();
-    }
+    // Update enrollment progress
+    await getPool().query(
+      `UPDATE enrollments
+       SET progress_percentage = $1,
+           status = CASE WHEN $1 >= 100 THEN 'completed' ELSE status END,
+           completion_date = CASE WHEN $1 >= 100 AND completion_date IS NULL THEN CURRENT_TIMESTAMP ELSE completion_date END
+       WHERE id = $2`,
+      [progressPercentage, enrollmentId]
+    );
+
+    // Get updated enrollment
+    const updatedEnrollment = await getPool().query(
+      `SELECT id, user_id, course_id, enrollment_date, completion_date,
+              progress_percentage as progress, status
+       FROM enrollments
+       WHERE id = $1`,
+      [enrollmentId]
+    );
 
     res.json({
       success: true,
-      enrollment,
+      enrollment: updatedEnrollment.rows[0],
       message: 'Progress updated successfully'
     });
   } catch (error) {
@@ -227,25 +242,57 @@ router.put('/:id/progress', (req: Request, res: Response) => {
   }
 });
 
-// GET /api/enrollment/:id/progress - Get detailed progress
-router.get('/:id/progress', (req: Request, res: Response) => {
+// GET /api/enrollment/:enrollmentId/progress - Get detailed progress
+router.get('/:enrollmentId/progress', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const enrollment = mockEnrollments.find(e => e.id === id);
-
-    if (!enrollment) {
-      return res.status(404).json({ error: 'Enrollment not found' });
+    if (!req.user) {
+      return res.status(401).json({ error: 'Authentication required' });
     }
 
-    const lessonProgress = mockProgress.filter(
-      p => p.userId === enrollment.userId && p.courseId === enrollment.courseId
+    const { enrollmentId } = req.params;
+    const userId = req.user.userId;
+
+    // Verify enrollment belongs to user
+    const enrollmentCheck = await getPool().query(
+      `SELECT e.id, e.course_id, e.progress_percentage as progress, e.status,
+              c.title as course_title
+       FROM enrollments e
+       JOIN courses c ON e.course_id = c.id
+       WHERE e.id = $1 AND e.user_id = $2`,
+      [enrollmentId, userId]
     );
+
+    if (enrollmentCheck.rows.length === 0) {
+      return res.status(404).json({ error: 'Enrollment not found or access denied' });
+    }
+
+    const enrollment = enrollmentCheck.rows[0];
+
+    // Get module progress
+    const progressResult = await getPool().query(
+      `SELECT
+        cm.id as module_id,
+        cm.title as module_title,
+        cm.order_index,
+        COALESCE(mp.completed, false) as completed,
+        COALESCE(mp.time_spent_minutes, 0) as time_spent,
+        mp.completed_at
+       FROM course_modules cm
+       LEFT JOIN module_progress mp ON cm.id = mp.module_id AND mp.enrollment_id = $1
+       WHERE cm.course_id = $2
+       ORDER BY cm.order_index`,
+      [enrollmentId, enrollment.course_id]
+    );
+
+    const totalTimeSpent = progressResult.rows.reduce((acc, curr) => acc + curr.time_spent, 0);
 
     res.json({
       success: true,
       enrollment,
-      lessonProgress,
-      totalTimeSpent: lessonProgress.reduce((acc, curr) => acc + curr.timeSpent, 0)
+      moduleProgress: progressResult.rows,
+      totalTimeSpent,
+      completedModules: progressResult.rows.filter(m => m.completed).length,
+      totalModules: progressResult.rows.length
     });
   } catch (error) {
     console.error('Error fetching progress:', error);
@@ -253,38 +300,70 @@ router.get('/:id/progress', (req: Request, res: Response) => {
   }
 });
 
-// POST /api/enrollment/:id/certificate - Generate certificate
-router.post('/:id/certificate', (req: Request, res: Response) => {
+// POST /api/enrollment/:enrollmentId/certificate - Generate certificate
+router.post('/:enrollmentId/certificate', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const enrollment = mockEnrollments.find(e => e.id === id);
-
-    if (!enrollment) {
-      return res.status(404).json({ error: 'Enrollment not found' });
+    if (!req.user) {
+      return res.status(401).json({ error: 'Authentication required' });
     }
 
-    if (enrollment.progress < 100) {
+    const { enrollmentId } = req.params;
+    const userId = req.user.userId;
+
+    // Verify enrollment and completion
+    const enrollmentResult = await getPool().query(
+      `SELECT e.id, e.course_id, e.progress_percentage, e.completion_date,
+              c.title as course_name,
+              u.first_name, u.last_name
+       FROM enrollments e
+       JOIN courses c ON e.course_id = c.id
+       JOIN users u ON e.user_id = u.id
+       WHERE e.id = $1 AND e.user_id = $2`,
+      [enrollmentId, userId]
+    );
+
+    if (enrollmentResult.rows.length === 0) {
+      return res.status(404).json({ error: 'Enrollment not found or access denied' });
+    }
+
+    const enrollment = enrollmentResult.rows[0];
+
+    if (enrollment.progress_percentage < 100) {
       return res.status(400).json({ error: 'Course must be completed to generate certificate' });
     }
 
-    const verificationCode = `BDS-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    
-    const certificate: Certificate = {
-      id: (Date.now()).toString(),
-      userId: enrollment.userId,
-      courseId: enrollment.courseId,
-      studentName: 'Student Name', // This would come from user data
-      courseName: 'Course Name', // This would come from course data
-      completionDate: enrollment.completionDate || new Date(),
-      certificateUrl: `/certificates/${verificationCode}.pdf`,
-      verificationCode
-    };
+    // Check if certificate already exists
+    const existingCert = await getPool().query(
+      'SELECT id, certificate_number, certificate_url FROM certificates WHERE enrollment_id = $1',
+      [enrollmentId]
+    );
 
-    enrollment.certificateUrl = certificate.certificateUrl;
+    if (existingCert.rows.length > 0) {
+      return res.json({
+        success: true,
+        certificate: existingCert.rows[0],
+        message: 'Certificate already exists'
+      });
+    }
+
+    // Generate certificate
+    const certificateNumber = `BDS-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+    const certificateUrl = `/certificates/${certificateNumber}.pdf`;
+
+    const certResult = await getPool().query(
+      `INSERT INTO certificates (enrollment_id, certificate_number, certificate_url)
+       VALUES ($1, $2, $3)
+       RETURNING id, certificate_number, issued_at, certificate_url`,
+      [enrollmentId, certificateNumber, certificateUrl]
+    );
 
     res.json({
       success: true,
-      certificate,
+      certificate: {
+        ...certResult.rows[0],
+        studentName: `${enrollment.first_name} ${enrollment.last_name}`,
+        courseName: enrollment.course_name
+      },
       message: 'Certificate generated successfully'
     });
   } catch (error) {
@@ -293,21 +372,31 @@ router.post('/:id/certificate', (req: Request, res: Response) => {
   }
 });
 
-// DELETE /api/enrollment/:id - Cancel enrollment
-router.delete('/:id', (req: Request, res: Response) => {
+// DELETE /api/enrollment/:id - Cancel enrollment (soft delete)
+router.delete('/:id', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const enrollmentIndex = mockEnrollments.findIndex(e => e.id === id);
-
-    if (enrollmentIndex === -1) {
-      return res.status(404).json({ error: 'Enrollment not found' });
+    if (!req.user) {
+      return res.status(401).json({ error: 'Authentication required' });
     }
 
-    mockEnrollments[enrollmentIndex].status = 'cancelled';
+    const { id } = req.params;
+    const userId = req.user.userId;
+
+    const result = await getPool().query(
+      `UPDATE enrollments
+       SET status = 'cancelled'
+       WHERE id = $1 AND user_id = $2
+       RETURNING id, status`,
+      [id, userId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Enrollment not found or access denied' });
+    }
 
     res.json({
       success: true,
-      enrollment: mockEnrollments[enrollmentIndex],
+      enrollment: result.rows[0],
       message: 'Enrollment cancelled successfully'
     });
   } catch (error) {
@@ -316,23 +405,51 @@ router.delete('/:id', (req: Request, res: Response) => {
   }
 });
 
-// GET /api/enrollment/analytics/overview - Get enrollment analytics
-router.get('/analytics/overview', (req: Request, res: Response) => {
+// GET /api/enrollment/analytics/overview - Get enrollment analytics (admin only)
+router.get('/analytics/overview', async (req: Request, res: Response) => {
   try {
-    const totalEnrollments = mockEnrollments.length;
-    const activeEnrollments = mockEnrollments.filter(e => e.status === 'active').length;
-    const completedEnrollments = mockEnrollments.filter(e => e.status === 'completed').length;
-    const averageProgress = mockEnrollments.reduce((acc, curr) => acc + curr.progress, 0) / totalEnrollments;
+    if (!req.user) {
+      return res.status(401).json({ error: 'Authentication required' });
+    }
+
+    if (req.user.role !== 'admin' && req.user.role !== 'instructor') {
+      return res.status(403).json({ error: 'Admin or instructor access required' });
+    }
+
+    const stats = await getPool().query(`
+      SELECT
+        COUNT(*) as total_enrollments,
+        COUNT(*) FILTER (WHERE status = 'active') as active_enrollments,
+        COUNT(*) FILTER (WHERE status = 'completed') as completed_enrollments,
+        AVG(progress_percentage) as average_progress
+      FROM enrollments
+    `);
+
+    const recentEnrollments = await getPool().query(`
+      SELECT
+        e.id,
+        e.enrollment_date,
+        e.progress_percentage as progress,
+        e.status,
+        u.first_name,
+        u.last_name,
+        c.title as course_title
+      FROM enrollments e
+      JOIN users u ON e.user_id = u.id
+      JOIN courses c ON e.course_id = c.id
+      ORDER BY e.enrollment_date DESC
+      LIMIT 10
+    `);
 
     const analytics = {
-      totalEnrollments,
-      activeEnrollments,
-      completedEnrollments,
-      completionRate: (completedEnrollments / totalEnrollments) * 100,
-      averageProgress: Math.round(averageProgress),
-      recentEnrollments: mockEnrollments
-        .sort((a, b) => b.enrollmentDate.getTime() - a.enrollmentDate.getTime())
-        .slice(0, 10)
+      totalEnrollments: parseInt(stats.rows[0].total_enrollments),
+      activeEnrollments: parseInt(stats.rows[0].active_enrollments),
+      completedEnrollments: parseInt(stats.rows[0].completed_enrollments),
+      completionRate: stats.rows[0].total_enrollments > 0
+        ? (parseInt(stats.rows[0].completed_enrollments) / parseInt(stats.rows[0].total_enrollments)) * 100
+        : 0,
+      averageProgress: Math.round(parseFloat(stats.rows[0].average_progress) || 0),
+      recentEnrollments: recentEnrollments.rows
     };
 
     res.json({

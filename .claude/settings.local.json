@@ -10,7 +10,8 @@
       "Bash(git push:*)",
       "Bash(git reset:*)",
       "Bash(cat:*)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Bash(npx tsc:*)"
     ],
     "deny": [],
     "ask": []

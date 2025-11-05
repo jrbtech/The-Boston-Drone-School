@@ -12,9 +12,6 @@ const nextConfig = {
       },
     ],
   },
-  env: {
-    ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY || '',
-  },
   // Optimize for production
   reactStrictMode: true,
   poweredByHeader: false,
