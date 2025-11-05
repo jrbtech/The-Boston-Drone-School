@@ -4,6 +4,8 @@
  * Runs all migration files in sequence on deployment
  */
 
+require('dotenv').config();
+
 const { Pool } = require('pg');
 const fs = require('fs').promises;
 const path = require('path');

@@ -1,5 +1,5 @@
 import express from 'express';
-import cors from 'cors';
+import cors, { CorsOptions } from 'cors';
 import dotenv from 'dotenv';
 
 import { createServerConfig } from './config';
@@ -12,13 +12,22 @@ const app = express();
 const config = createServerConfig();
 
 // CORS configuration for production
-const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://learn.thebostondroneschool.org', 'https://thebostondroneschool.org']
-    : ['http://localhost:3000', 'http://localhost:3001'],
+const { allowedOrigins } = config;
+const isProduction = process.env.NODE_ENV === 'production';
+
+const corsOptions: CorsOptions = {
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    console.warn(`Blocked CORS origin: ${origin}`);
+    return callback(new Error(`Origin ${origin} not allowed by CORS policy.`));
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-API-Key']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-API-Key'],
+  optionsSuccessStatus: 204,
 };
 
 // Middleware
@@ -37,7 +46,7 @@ app.use((req, res, next) => {
 });
 
 // Request logging middleware for production
-if (process.env.NODE_ENV === 'production') {
+if (isProduction) {
   app.use((req, res, next) => {
     console.log(`${new Date().toISOString()} - ${req.method} ${req.path} - ${req.ip}`);
     next();
@@ -82,6 +91,7 @@ const server = app.listen(PORT, () => {
   console.log(`🚀 Boston Drone School API running on port ${PORT}`);
   console.log(`📚 Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`🤖 Claude AI: ${process.env.ANTHROPIC_API_KEY ? '✅ Configured' : '❌ Missing API key'}`);
+  console.log(`🌐 Allowed CORS origins: ${allowedOrigins.join(', ') || 'none (CORS disabled)'}`);
 });
 
 // Graceful shutdown
