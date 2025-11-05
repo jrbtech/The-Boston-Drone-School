@@ -9,14 +9,17 @@ export const getPool = (): Pool => {
     return pool;
   }
 
-  const { databaseUrl } = createServerConfig();
+  const { databaseUrl, useSsl } = createServerConfig();
+
+  if (!databaseUrl) {
+    throw new Error(
+      'DATABASE_URL is not configured or is empty after sanitization. Ensure the environment variable is set correctly.',
+    );
+  }
 
   pool = new Pool({
     connectionString: databaseUrl,
-    ssl:
-      process.env.NODE_ENV === 'production'
-        ? { rejectUnauthorized: false }
-        : undefined,
+    ssl: useSsl ? { rejectUnauthorized: false } : undefined,
   });
 
   return pool;

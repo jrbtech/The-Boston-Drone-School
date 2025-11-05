@@ -4,62 +4,166 @@
  * Runs all migration files in sequence on deployment
  */
 
+const dotenv = require('dotenv');
 const { Pool } = require('pg');
 const fs = require('fs').promises;
 const path = require('path');
 
-// Database connection with retry logic
-const createPool = () => {
-  const databaseUrl = process.env.DATABASE_URL;
-  
-  if (!databaseUrl) {
-    console.error('❌ DATABASE_URL environment variable is not set');
-    process.exit(1);
+function normalizeBoolean(value) {
+  if (value === undefined || value === null) {
+    return undefined;
   }
 
-  console.log('🔗 Connecting to database...');
-  console.log('📍 Database URL:', databaseUrl.replace(/\/\/([^:]+):([^@]+)@/, '//[USER]:[PASS]@'));
-  
-  return new Pool({
-    connectionString: databaseUrl,
-    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
-    max: 3,
-    connectionTimeoutMillis: 30000,
-    idleTimeoutMillis: 10000
-  });
-};
+  const normalized = String(value).trim().toLowerCase();
 
-const pool = createPool();
+  if (['1', 'true', 'yes', 'on'].includes(normalized)) {
+    return true;
+  }
 
-async function waitForDatabase(maxRetries = 10, delay = 5000) {
-  console.log('⏳ Waiting for database to be ready...');
-  
-  for (let i = 1; i <= maxRetries; i++) {
-    try {
-      await pool.query('SELECT 1');
-      console.log('✅ Database connection successful!');
-      return;
-    } catch (error) {
-      console.log(`🔄 Attempt ${i}/${maxRetries} failed: ${error.message}`);
-      
-      if (i === maxRetries) {
-        console.error('❌ Failed to connect to database after maximum retries');
-        console.error('💡 Check if DATABASE_URL is correct and database is running');
-        throw error;
-      }
-      
-      console.log(`⏱️  Waiting ${delay/1000} seconds before retry...`);
-      await new Promise(resolve => setTimeout(resolve, delay));
-    }
+  if (['0', 'false', 'no', 'off'].includes(normalized)) {
+    return false;
+  }
+
+  return undefined;
+}
+
+function sanitizeConnectionString(value) {
+  if (!value) {
+    return undefined;
+  }
+
+  const trimmed = String(value).trim();
+  if (!trimmed) {
+    return undefined;
+  }
+
+  const withoutPrefix = trimmed
+    .replace(/^(?:export\s+)?DATABASE_URL\s*=\s*/i, '')
+    .trim();
+
+  const withoutWrappingQuotes = withoutPrefix.replace(/^['"]|['"]$/g, '');
+
+  const compact = withoutWrappingQuotes
+    .split(/\r?\n/)
+    .map(line => line.trim())
+    .join('')
+    .replace(/\s+/g, '');
+
+  return compact || undefined;
+}
+
+function isRemoteDatabaseHost(connectionString) {
+  if (!connectionString) {
+    return false;
+  }
+
+  try {
+    const { hostname } = new URL(connectionString);
+    const host = hostname.toLowerCase();
+
+    return (
+      host.length > 0 &&
+      host !== 'localhost' &&
+      host !== '127.0.0.1' &&
+      host !== '::1' &&
+      !host.endsWith('.local')
+    );
+  } catch (error) {
+    return false;
   }
 }
+
+function shouldLoadDotenv() {
+  const alwaysLoad = normalizeBoolean(process.env.ALWAYS_LOAD_DOTENV ?? process.env.USE_DOTENV);
+  if (alwaysLoad === true) {
+    return true;
+  }
+
+  const disableLoad = normalizeBoolean(process.env.DISABLE_DOTENV);
+  if (disableLoad === true) {
+    return false;
+  }
+
+  const environment = (process.env.NODE_ENV || '').trim().toLowerCase();
+  const runningOnRender = Boolean(
+    process.env.RENDER ||
+      process.env.RENDER_SERVICE_ID ||
+      process.env.RENDER_SERVICE_NAME ||
+      process.env.RENDER_EXTERNAL_URL
+  );
+
+  const sanitizedDatabaseUrl = sanitizeConnectionString(process.env.DATABASE_URL);
+  const hasRemoteDatabase = isRemoteDatabaseHost(sanitizedDatabaseUrl);
+
+  if (runningOnRender || environment === 'production' || hasRemoteDatabase) {
+    return false;
+  }
+
+  return environment === '' || environment === 'development' || environment === 'test';
+}
+
+if (shouldLoadDotenv()) {
+  dotenv.config();
+}
+
+function getDatabaseUrl() {
+  const sanitizedUrl = sanitizeConnectionString(process.env.DATABASE_URL);
+
+  if (!sanitizedUrl) {
+    throw new Error('DATABASE_URL environment variable is not set or empty after sanitization.');
+  }
+
+  return sanitizedUrl;
+}
+
+function shouldUseSsl(connectionString) {
+  const explicit = normalizeBoolean(process.env.DATABASE_SSL);
+  if (explicit !== undefined) {
+    return explicit;
+  }
+
+  const environment = (process.env.NODE_ENV || '').trim().toLowerCase();
+
+  if (!connectionString) {
+    return environment === 'production';
+  }
+
+  const lowered = connectionString.toLowerCase();
+
+  if (lowered.includes('sslmode=require')) {
+    return true;
+  }
+
+  try {
+    const { hostname } = new URL(connectionString);
+    const host = hostname.toLowerCase();
+
+    if (
+      host &&
+      host !== 'localhost' &&
+      host !== '127.0.0.1' &&
+      host !== '::1' &&
+      !host.endsWith('.local')
+    ) {
+      return true;
+    }
+  } catch (error) {
+    // Ignore URL parsing errors and fall through to environment-based decision.
+  }
+
+  return environment === 'production';
+}
+
+// Database connection
+const databaseUrl = getDatabaseUrl();
+const pool = new Pool({
+  connectionString: databaseUrl,
+  ssl: shouldUseSsl(databaseUrl) ? { rejectUnauthorized: false } : undefined
+});
 
 async function runMigrations() {
   console.log('🚀 Boston Drone School - Running Database Migrations');
   console.log('=====================================================');
-
-  // Wait for database to be ready (especially on Render)
-  await waitForDatabase();
 
   try {
     // Create migrations table if it doesn't exist

@@ -1,33 +1,33 @@
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
-
+import express, { Request, Response, NextFunction } from 'express';
+import cors, { CorsOptions } from 'cors';
 import { createServerConfig } from './config';
 import { registerRoutes } from './routes';
+import { loadEnv } from './env';
 
 // Load environment variables
-dotenv.config();
+loadEnv();
 
 const app = express();
 const config = createServerConfig();
 
 // CORS configuration for production
-const allowedOrigins = process.env.NODE_ENV === 'production'
-  ? [
-      'https://learn.thebostondroneschool.org',
-      'https://thebostondroneschool.org',
-      'https://bds-frontend.onrender.com'
-    ]
-  : ['http://localhost:3000', 'http://localhost:3001'];
+const { allowedOrigins } = config;
+const isProduction = process.env.NODE_ENV === 'production';
 
-const corsOptions = {
-  origin: allowedOrigins,
+const corsOptions: CorsOptions = {
+  origin(origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    console.warn(`Blocked CORS origin: ${origin}`);
+    return callback(new Error(`Origin ${origin} not allowed by CORS policy.`));
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-API-Key']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-API-Key'],
+  optionsSuccessStatus: 204,
 };
-
-console.log(`🌐 Allowed CORS origins: ${allowedOrigins.join(', ')}`);
 
 // Middleware
 app.use(cors(corsOptions));
@@ -35,7 +35,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Security headers
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
   res.setHeader('X-XSS-Protection', '1; mode=block');
@@ -45,8 +45,8 @@ app.use((req, res, next) => {
 });
 
 // Request logging middleware for production
-if (process.env.NODE_ENV === 'production') {
-  app.use((req, res, next) => {
+if (isProduction) {
+  app.use((req: Request, res: Response, next: NextFunction) => {
     console.log(`${new Date().toISOString()} - ${req.method} ${req.path} - ${req.ip}`);
     next();
   });
@@ -56,28 +56,28 @@ if (process.env.NODE_ENV === 'production') {
 registerRoutes(app);
 
 // Global error handler with better production error handling
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  // Log the error
+app.use((err: unknown, req: Request, res: Response, _next: NextFunction) => {
+  const error = err as Error & { status?: number };
+
   console.error('Global error handler:', {
-    error: err.message,
-    stack: err.stack,
+    error: error.message,
+    stack: error.stack,
     url: req.url,
     method: req.method,
     timestamp: new Date().toISOString()
   });
 
-  // Don't leak error details in production
-  const isProduction = process.env.NODE_ENV === 'production';
-  
-  res.status(err.status || 500).json({
-    error: isProduction ? 'Internal server error' : err.message,
-    ...((!isProduction) && { stack: err.stack }),
+  const production = process.env.NODE_ENV === 'production';
+
+  res.status(error.status ?? 500).json({
+    error: production ? 'Internal server error' : error.message,
+    ...(!production && { stack: error.stack }),
     timestamp: new Date().toISOString()
   });
 });
 
 // 404 handler - catch all unmatched routes
-app.use((req, res) => {
+app.use((req: Request, res: Response) => {
   res.status(404).json({ 
     error: 'Route not found',
     path: req.originalUrl 
@@ -85,7 +85,7 @@ app.use((req, res) => {
 });
 
 const PORT = Number(process.env.PORT) || config.port || 3001;
-const HOST = '0.0.0.0'; // Bind to all network interfaces for Render deployment
+const HOST = process.env.HOST || '0.0.0.0';
 
 const server = app.listen(PORT, HOST, () => {
   console.log(`🚀 Boston Drone School API running on port ${PORT}`);
@@ -93,6 +93,7 @@ const server = app.listen(PORT, HOST, () => {
   console.log(`📚 Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`  PORT=${PORT}`);
   console.log(`🤖 Claude AI: ${process.env.ANTHROPIC_API_KEY ? '✅ Configured' : '❌ Missing API key'}`);
+  console.log(`🌐 Allowed CORS origins: ${allowedOrigins.join(', ') || 'none (CORS disabled)'}`);
 });
 
 // Graceful shutdown
