@@ -70,8 +70,5 @@ services:
   #   autoDeploy: true
 
 # Database configuration
-databases:
-  - name: bds-postgres
-    databaseName: boston_drone_school
-    user: bds_admin
-    plan: starter
+# Note: Database already exists and is managed separately in Render dashboard
+# Connection via DATABASE_URL environment variable in backend service
