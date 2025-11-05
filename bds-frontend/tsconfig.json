@@ -18,6 +18,7 @@
     "jsx": "preserve",
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
     "plugins": [
       {
         "name": "next"
