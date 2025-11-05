@@ -16,7 +16,7 @@ services:
       - key: NPM_CONFIG_PRODUCTION
         value: "false"
       - key: NEXT_PUBLIC_API_URL
-        value: https://bds-api-node.onrender.com
+        value: https://bds-backend-5ao0.onrender.com
       - key: NEXT_PUBLIC_SITE_URL
         value: https://bds-frontend.onrender.com
       - key: NEXT_PUBLIC_AI_ENABLED
