@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { api } from '../../lib/api'
@@ -12,20 +12,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<'courses' | 'students' | 'analytics'>('courses')
 
-  useEffect(() => {
-    const userData = localStorage.getItem('user')
-    if (!userData) {
-      router.push('/login')
-      return
-    }
-
-    const parsedUser = JSON.parse(userData)
-    // TODO: Check if user has admin role
-    setUser(parsedUser)
-    loadCourses()
-  }, [])
-
-  async function loadCourses() {
+  const loadCourses = useCallback(async () => {
     try {
       setLoading(true)
       const response = await api.getCourses({})
@@ -35,7 +22,20 @@ export default function AdminPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    const userData = typeof window !== 'undefined' ? localStorage.getItem('user') : null
+    if (!userData) {
+      router.push('/login')
+      return
+    }
+
+    const parsedUser = JSON.parse(userData)
+    // TODO: Check if user has admin role
+    setUser(parsedUser)
+    loadCourses()
+  }, [loadCourses, router])
 
   async function handleDeleteCourse(courseId: string) {
     if (!confirm('Are you sure you want to delete this course?')) return

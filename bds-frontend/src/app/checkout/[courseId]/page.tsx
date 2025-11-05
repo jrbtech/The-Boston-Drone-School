@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { api, Course } from '../../../lib/api'
 
 export default function CheckoutPage() {
@@ -13,8 +14,26 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(true)
   const [processing, setProcessing] = useState(false)
 
+  const courseId = Array.isArray(params.courseId) ? params.courseId[0] : params.courseId
+
+  const loadCourse = useCallback(async () => {
+    if (!courseId) {
+      return
+    }
+
+    try {
+      setLoading(true)
+      const response = await api.getCourse(courseId as string)
+      setCourse(response.course)
+    } catch (error) {
+      console.error('Failed to load course:', error)
+    } finally {
+      setLoading(false)
+    }
+  }, [courseId])
+
   useEffect(() => {
-    const userData = localStorage.getItem('user')
+    const userData = typeof window !== 'undefined' ? localStorage.getItem('user') : null
     if (!userData) {
       router.push('/login')
       return
@@ -22,41 +41,33 @@ export default function CheckoutPage() {
 
     setUser(JSON.parse(userData))
     loadCourse()
-  }, [params.courseId])
-
-  async function loadCourse() {
-    try {
-      setLoading(true)
-      const response = await api.getCourse(params.courseId as string)
-      setCourse(response.course)
-    } catch (error) {
-      console.error('Failed to load course:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
+  }, [loadCourse, router])
 
   async function handlePayment(e: React.FormEvent) {
     e.preventDefault()
     setProcessing(true)
 
     try {
-      // NOTE: For production, integrate with actual Stripe Elements
-      // For now, using simplified enrollment for demo/testing
+        // NOTE: For production, integrate with actual Stripe Elements
+        // For now, using simplified enrollment for demo/testing
 
-      // Option 1: Create Stripe payment intent (requires STRIPE_SECRET_KEY in backend .env)
-      // const paymentResponse = await api.createPaymentIntent(params.courseId as string)
-      // const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
-      // await stripe.confirmCardPayment(paymentResponse.clientSecret, { ... })
+        // Option 1: Create Stripe payment intent (requires STRIPE_SECRET_KEY in backend .env)
+        // const paymentResponse = await api.createPaymentIntent(params.courseId as string)
+        // const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
+        // await stripe.confirmCardPayment(paymentResponse.clientSecret, { ... })
 
-      // Option 2: Direct enrollment for demo/testing (current implementation)
-      await new Promise(resolve => setTimeout(resolve, 1500)) // Simulate processing
+        // Option 2: Direct enrollment for demo/testing (current implementation)
+        await new Promise(resolve => setTimeout(resolve, 1500)) // Simulate processing
 
-      // Enroll user in course
-      await api.confirmEnrollment(params.courseId as string)
+        // Enroll user in course
+        if (!courseId) {
+          throw new Error('Missing course identifier')
+        }
 
-      alert('Payment successful! You are now enrolled in the course.')
-      router.push(`/learn/${params.courseId}`)
+        await api.confirmEnrollment(courseId as string)
+
+        alert('Payment successful! You are now enrolled in the course.')
+        router.push(`/learn/${courseId}`)
     } catch (error: any) {
       console.error('Payment error:', error)
       alert('Payment failed: ' + (error.message || 'Please try again'))
@@ -204,18 +215,21 @@ export default function CheckoutPage() {
                 <h2 className="text-lg font-bold text-gray-900 mb-4">Order Summary</h2>
 
                 <div className="space-y-4">
-                  <div>
-                    <div className="aspect-video bg-gradient-to-br from-blue-500 to-orange-500 rounded-lg mb-3 flex items-center justify-center">
-                      {course.thumbnailUrl ? (
-                        <img
-                          src={course.thumbnailUrl}
-                          alt={course.title}
-                          className="w-full h-full object-cover rounded-lg"
-                        />
-                      ) : (
-                        <span className="text-4xl">🚁</span>
-                      )}
-                    </div>
+                    <div>
+                      <div className="aspect-video bg-gradient-to-br from-blue-500 to-orange-500 rounded-lg mb-3 flex items-center justify-center relative overflow-hidden">
+                        {course.thumbnailUrl ? (
+                          <Image
+                            src={course.thumbnailUrl}
+                            alt={course.title}
+                            fill
+                            className="object-cover rounded-lg"
+                            sizes="(min-width: 768px) 320px, 100vw"
+                            priority={false}
+                          />
+                        ) : (
+                          <span className="text-4xl">🚁</span>
+                        )}
+                      </div>
 
                     <h3 className="font-semibold text-gray-900">{course.title}</h3>
                     <p className="text-sm text-gray-600 mt-1">{course.instructor}</p>
