@@ -4,11 +4,53 @@
  * Runs all migration files in sequence on deployment
  */
 
-require('dotenv').config();
-
+const dotenv = require('dotenv');
 const { Pool } = require('pg');
 const fs = require('fs').promises;
 const path = require('path');
+
+function normalizeBoolean(value) {
+  if (value === undefined || value === null) {
+    return undefined;
+  }
+
+  const normalized = String(value).trim().toLowerCase();
+
+  if (['1', 'true', 'yes', 'on'].includes(normalized)) {
+    return true;
+  }
+
+  if (['0', 'false', 'no', 'off'].includes(normalized)) {
+    return false;
+  }
+
+  return undefined;
+}
+
+function shouldLoadDotenv() {
+  const alwaysLoad = normalizeBoolean(process.env.ALWAYS_LOAD_DOTENV ?? process.env.USE_DOTENV);
+  if (alwaysLoad === true) {
+    return true;
+  }
+
+  const disableLoad = normalizeBoolean(process.env.DISABLE_DOTENV);
+  if (disableLoad === true) {
+    return false;
+  }
+
+  const environment = (process.env.NODE_ENV || '').trim().toLowerCase();
+  const runningOnRender = Boolean(process.env.RENDER);
+
+  if (runningOnRender || environment === 'production') {
+    return false;
+  }
+
+  return environment === '' || environment === 'development' || environment === 'test';
+}
+
+if (shouldLoadDotenv()) {
+  dotenv.config();
+}
 
 function getDatabaseUrl() {
   const rawUrl = process.env.DATABASE_URL;
@@ -35,24 +77,6 @@ function getDatabaseUrl() {
   }
 
   return compact;
-}
-
-function normalizeBoolean(value) {
-  if (value === undefined || value === null) {
-    return undefined;
-  }
-
-  const normalized = String(value).trim().toLowerCase();
-
-  if (['1', 'true', 'yes', 'on'].includes(normalized)) {
-    return true;
-  }
-
-  if (['0', 'false', 'no', 'off'].includes(normalized)) {
-    return false;
-  }
-
-  return undefined;
 }
 
 function shouldUseSsl(connectionString) {
