@@ -31,6 +31,15 @@ const corsOptions: CorsOptions = {
 
 // Middleware
 app.use(cors(corsOptions));
+
+// Special handling for Stripe webhook - needs raw body for signature verification
+// This MUST come before express.json() middleware
+app.use(
+  '/api/payments/webhook',
+  express.raw({ type: 'application/json', limit: '10mb' })
+);
+
+// General body parsers for all other routes
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 

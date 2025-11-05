@@ -5,13 +5,14 @@ import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { api, Course } from '@/lib/api'
 import { getVideoEmbedUrl } from '@/lib/video'
+import { useAuth } from '@/contexts/AuthContext'
 
 export default function CoursePlayerPage() {
   const params = useParams()
   const router = useRouter()
   const videoRef = useRef<HTMLVideoElement>(null)
+  const { user, loading: authLoading } = useAuth()
 
-  const [user, setUser] = useState<any>(null)
   const [course, setCourse] = useState<Course | null>(null)
   const [lessons, setLessons] = useState<any[]>([])
   const [enrollment, setEnrollment] = useState<any>(null)
@@ -24,24 +25,23 @@ export default function CoursePlayerPage() {
   const [aiLoading, setAiLoading] = useState(false)
 
   useEffect(() => {
-    const userData = localStorage.getItem('user')
-    if (!userData) {
+    if (!authLoading && !user) {
       router.push('/login')
       return
     }
 
-    const parsedUser = JSON.parse(userData)
-    setUser(parsedUser)
-    loadCourseData(parsedUser.id)
-  }, [params.courseId])
+    if (user) {
+      loadCourseData()
+    }
+  }, [params.courseId, user, authLoading])
 
-  async function loadCourseData(userId: string) {
+  async function loadCourseData() {
     try {
       setLoading(true)
       const [courseResponse, lessonsResponse, enrollmentsResponse] = await Promise.all([
         api.getCourse(params.courseId as string),
         api.getCourseLessons(params.courseId as string),
-        api.getUserEnrollments(userId)
+        api.getUserEnrollments()
       ])
 
       setCourse(courseResponse.course)

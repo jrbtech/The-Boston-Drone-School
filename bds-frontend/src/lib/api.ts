@@ -99,16 +99,16 @@ class ApiClient {
   }
 
   // Enrollment
-  async enrollCourse(userId: string, courseId: string) {
+  async enrollCourse(courseId: string) {
     return this.fetch('/api/enrollment/enroll', {
       method: 'POST',
-      body: JSON.stringify({ userId, courseId }),
+      body: JSON.stringify({ courseId }),
     });
   }
 
-  async getUserEnrollments(userId: string, status?: string) {
+  async getUserEnrollments(status?: string) {
     const params = status ? `?status=${status}` : '';
-    return this.fetch(`/api/enrollment/user/${userId}${params}`);
+    return this.fetch(`/api/enrollment/user${params}`);
   }
 
   async getEnrollment(id: string) {

@@ -4,7 +4,13 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import { getPool } from '../db';
 
 const router = Router();
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
+
+// Require JWT_SECRET - fail fast if not configured
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  throw new Error('SECURITY ERROR: JWT_SECRET environment variable is required. Application cannot start without it.');
+}
+
 const JWT_EXPIRES_IN = '7d';
 
 type UserRow = {

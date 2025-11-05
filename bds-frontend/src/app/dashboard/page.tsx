@@ -4,10 +4,11 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { api, Enrollment, Course } from '@/lib/api'
+import { useAuth } from '@/contexts/AuthContext'
 
 export default function DashboardPage() {
   const router = useRouter()
-  const [user, setUser] = useState<any>(null)
+  const { user, loading: authLoading, logout } = useAuth()
   const [enrollments, setEnrollments] = useState<Enrollment[]>([])
   const [courses, setCourses] = useState<{ [key: string]: Course }>({})
   const [loading, setLoading] = useState(true)
@@ -15,20 +16,20 @@ export default function DashboardPage() {
 
   useEffect(() => {
     // Check if user is logged in
-    const userData = localStorage.getItem('user')
-    if (!userData) {
+    if (!authLoading && !user) {
       router.push('/login')
       return
     }
 
-    setUser(JSON.parse(userData))
-    loadEnrollments(JSON.parse(userData).id)
-  }, [router])
+    if (user) {
+      loadEnrollments()
+    }
+  }, [user, authLoading, router])
 
-  async function loadEnrollments(userId: string) {
+  async function loadEnrollments() {
     try {
       setLoading(true)
-      const response = await api.getUserEnrollments(userId)
+      const response = await api.getUserEnrollments()
       const enrollmentData = response.enrollments || []
       setEnrollments(enrollmentData)
 
@@ -53,8 +54,7 @@ export default function DashboardPage() {
   }
 
   function handleLogout() {
-    localStorage.removeItem('user')
-    router.push('/')
+    logout()
   }
 
   const filteredEnrollments = enrollments.filter((e) =>
