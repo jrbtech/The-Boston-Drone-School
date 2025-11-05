@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import { 
   chatWithClaude, 
   analyzeDroneContent, 
@@ -12,7 +12,7 @@ import {
 const router = Router();
 
 // Chat endpoint
-router.post('/chat', async (req, res) => {
+router.post('/chat', async (req: Request, res: Response) => {
   try {
     const { message } = req.body;
     
@@ -29,7 +29,7 @@ router.post('/chat', async (req, res) => {
 });
 
 // Content analysis endpoint
-router.post('/analyze', async (req, res) => {
+router.post('/analyze', async (req: Request, res: Response) => {
   try {
     const { content } = req.body;
     
@@ -46,7 +46,7 @@ router.post('/analyze', async (req, res) => {
 });
 
 // Course content generation endpoint
-router.post('/generate-course', async (req, res) => {
+router.post('/generate-course', async (req: Request, res: Response) => {
   try {
     const { topic, level } = req.body;
     
@@ -67,7 +67,7 @@ router.post('/generate-course', async (req, res) => {
 });
 
 // Personalized recommendations endpoint
-router.post('/recommendations', async (req, res) => {
+router.post('/recommendations', async (req: Request, res: Response) => {
   try {
     const { userProfile } = req.body;
     
@@ -84,7 +84,7 @@ router.post('/recommendations', async (req, res) => {
 });
 
 // Adaptive learning path endpoint
-router.post('/learning-path', async (req, res) => {
+router.post('/learning-path', async (req: Request, res: Response) => {
   try {
     const { studentProgress } = req.body;
     
@@ -101,7 +101,7 @@ router.post('/learning-path', async (req, res) => {
 });
 
 // Student assistance endpoint
-router.post('/assistance', async (req, res) => {
+router.post('/assistance', async (req: Request, res: Response) => {
   try {
     const { question, courseContext, studentLevel } = req.body;
     
@@ -122,7 +122,7 @@ router.post('/assistance', async (req, res) => {
 });
 
 // Quiz generation endpoint
-router.post('/generate-quiz', async (req, res) => {
+router.post('/generate-quiz', async (req: Request, res: Response) => {
   try {
     const { lessonContent, difficulty, questionCount } = req.body;
     

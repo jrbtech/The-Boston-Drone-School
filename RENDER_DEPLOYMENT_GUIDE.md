@@ -58,13 +58,13 @@ All code has been tested, built successfully, and pushed to GitHub. You can now 
 4. **Add Environment Variables**:
    Click "Advanced" → "Add Environment Variable" for each:
 
-   ```env
-   NODE_ENV=production
-   PORT=10000
-   JWT_SECRET=<generate-a-32+-character-random-string>
-   ANTHROPIC_API_KEY=<your-anthropic-api-key-from-console.anthropic.com>
-   CORS_ORIGIN=https://learn.thebostondroneschool.org,https://thebostondroneschool.org
-   ```
+    ```env
+    NODE_ENV=production
+    PORT=10000
+    JWT_SECRET=<generate-a-32+-character-random-string>
+    ANTHROPIC_API_KEY=<your-anthropic-api-key-from-console.anthropic.com>
+    CORS_ORIGIN=https://bds-frontend.onrender.com,https://learn.thebostondroneschool.org,https://thebostondroneschool.org
+    ```
 
    **Link Database**:
    - Click "Add Environment Variable"
