@@ -7,6 +7,74 @@ const router = Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
 const JWT_EXPIRES_IN = '7d';
 
+type UserRow = {
+  id: number;
+  email: string;
+  first_name: string;
+  last_name: string;
+  role: string;
+  created_at: string;
+};
+
+type ResolvedNames = {
+  firstName: string;
+  lastName: string;
+  fullName: string;
+};
+
+const toTrimmedOrUndefined = (value: unknown): string | undefined => {
+  if (typeof value !== 'string') {
+    return undefined;
+  }
+
+  const trimmed = value.trim();
+  return trimmed.length ? trimmed : undefined;
+};
+
+const resolveNames = (body: Request['body']): ResolvedNames | null => {
+  const providedFirst = toTrimmedOrUndefined(body?.firstName);
+  const providedLast = toTrimmedOrUndefined(body?.lastName);
+  const providedFull = toTrimmedOrUndefined(body?.name);
+
+  let firstName = providedFirst;
+  let lastName = providedLast;
+
+  if ((!firstName || !lastName) && providedFull) {
+    const parts = providedFull.split(/\s+/).filter(Boolean);
+
+    if (parts.length >= 2) {
+      firstName = firstName ?? parts[0];
+      lastName = lastName ?? parts.slice(1).join(' ');
+    }
+  }
+
+  if (!firstName || !lastName) {
+    return null;
+  }
+
+  return {
+    firstName,
+    lastName,
+    fullName: `${firstName} ${lastName}`.replace(/\s+/g, ' ').trim(),
+  };
+};
+
+const buildUserResponse = (row: UserRow) => {
+  const firstName = row.first_name.trim();
+  const lastName = row.last_name.trim();
+  const fullName = `${firstName} ${lastName}`.replace(/\s+/g, ' ').trim();
+
+  return {
+    id: row.id,
+    email: row.email,
+    firstName,
+    lastName,
+    name: fullName,
+    role: row.role,
+    createdAt: row.created_at,
+  };
+};
+
 // Middleware to verify JWT
 export const authenticateToken: RequestHandler = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -29,6 +97,9 @@ export const authenticateToken: RequestHandler = (req, res, next) => {
       userId?: number | string;
       email?: string;
       role?: string;
+      firstName?: string;
+      lastName?: string;
+      name?: string;
     };
 
     const rawUserId = payload.userId;
@@ -38,11 +109,20 @@ export const authenticateToken: RequestHandler = (req, res, next) => {
       return res.status(403).json({ error: 'Invalid token payload' });
     }
 
+    const firstName = toTrimmedOrUndefined(payload.firstName);
+    const lastName = toTrimmedOrUndefined(payload.lastName);
+    const fullNameFromToken = toTrimmedOrUndefined(payload.name);
+    const combinedName = [firstName, lastName].filter(Boolean).join(' ').trim();
+    const derivedName = fullNameFromToken ?? (combinedName ? combinedName : undefined);
+
     req.user = {
       ...payload,
       userId,
       email: payload.email,
       role: payload.role,
+      ...(firstName ? { firstName } : {}),
+      ...(lastName ? { lastName } : {}),
+      ...(derivedName ? { name: derivedName } : {}),
     };
 
     next();
@@ -52,10 +132,19 @@ export const authenticateToken: RequestHandler = (req, res, next) => {
 // POST /api/auth/register
 router.post('/register', async (req: Request, res: Response) => {
   try {
-    const { email, password, name } = req.body;
+    const { email, password } = req.body;
 
-    // Validate
-    if (!email || !password || !name) {
+    const normalizedEmail = toTrimmedOrUndefined(email)?.toLowerCase();
+    if (!normalizedEmail) {
+      return res.status(400).json({ error: 'Valid email is required' });
+    }
+
+    const names = resolveNames(req.body);
+    if (!names) {
+      return res.status(400).json({ error: 'First name and last name are required' });
+    }
+
+    if (!password) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
@@ -66,7 +155,7 @@ router.post('/register', async (req: Request, res: Response) => {
     // Check if user exists
     const existingUser = await getPool().query(
       'SELECT id FROM users WHERE email = $1',
-      [email]
+      [normalizedEmail]
     );
 
     if (existingUser.rows.length > 0) {
@@ -78,15 +167,24 @@ router.post('/register', async (req: Request, res: Response) => {
 
     // Create user
     const result = await getPool().query(
-      'INSERT INTO users (email, password_hash, name, role) VALUES ($1, $2, $3, $4) RETURNING id, email, name, role, created_at',
-      [email, hashedPassword, name, 'student']
+      `INSERT INTO users (email, password_hash, first_name, last_name, role)
+       VALUES ($1, $2, $3, $4, $5)
+       RETURNING id, email, first_name, last_name, role, created_at`,
+      [normalizedEmail, hashedPassword, names.firstName, names.lastName, 'student']
     );
 
-    const user = result.rows[0];
+    const user = buildUserResponse(result.rows[0] as UserRow);
 
     // Generate JWT
     const token = jwt.sign(
-      { userId: user.id, email: user.email, role: user.role },
+      {
+        userId: user.id,
+        email: user.email,
+        role: user.role,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        name: user.name,
+      },
       JWT_SECRET,
       { expiresIn: JWT_EXPIRES_IN }
     );
@@ -94,12 +192,8 @@ router.post('/register', async (req: Request, res: Response) => {
     res.json({
       token,
       user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        role: user.role,
-        createdAt: user.created_at
-      }
+        ...user,
+      },
     });
   } catch (error) {
     console.error('Registration error:', error);
@@ -117,27 +211,40 @@ router.post('/login', async (req: Request, res: Response) => {
     }
 
     // Find user
+    const normalizedEmail = toTrimmedOrUndefined(email)?.toLowerCase();
+    if (!normalizedEmail) {
+      return res.status(400).json({ error: 'Missing credentials' });
+    }
+
     const result = await getPool().query(
-      'SELECT id, email, password_hash, name, role FROM users WHERE email = $1',
-      [email]
+      'SELECT id, email, password_hash, first_name, last_name, role, created_at FROM users WHERE email = $1',
+      [normalizedEmail]
     );
 
     if (result.rows.length === 0) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    const user = result.rows[0];
+    const row = result.rows[0] as UserRow & { password_hash: string };
 
     // Verify password
-    const valid = await bcrypt.compare(password, user.password_hash);
+    const valid = await bcrypt.compare(password, row.password_hash);
 
     if (!valid) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
     // Generate JWT
+    const user = buildUserResponse(row);
     const token = jwt.sign(
-      { userId: user.id, email: user.email, role: user.role },
+      {
+        userId: user.id,
+        email: user.email,
+        role: user.role,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        name: user.name,
+      },
       JWT_SECRET,
       { expiresIn: JWT_EXPIRES_IN }
     );
@@ -145,11 +252,8 @@ router.post('/login', async (req: Request, res: Response) => {
     res.json({
       token,
       user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        role: user.role
-      }
+        ...user,
+      },
     });
   } catch (error) {
     console.error('Login error:', error);
@@ -165,7 +269,7 @@ router.get('/me', authenticateToken, async (req: Request, res: Response) => {
     }
 
     const result = await getPool().query(
-      'SELECT id, email, name, role, created_at FROM users WHERE id = $1',
+      'SELECT id, email, first_name, last_name, role, created_at FROM users WHERE id = $1',
       [req.user.userId]
     );
 
@@ -173,7 +277,7 @@ router.get('/me', authenticateToken, async (req: Request, res: Response) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    res.json({ user: result.rows[0] });
+    res.json({ user: buildUserResponse(result.rows[0] as UserRow) });
   } catch (error) {
     console.error('Get user error:', error);
     res.status(500).json({ error: 'Failed to get user' });
