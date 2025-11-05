@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { api, Course } from '../../../lib/api'
@@ -15,16 +15,18 @@ export default function CourseDetailPage() {
   const [loading, setLoading] = useState(true)
   const [enrolling, setEnrolling] = useState(false)
 
-  useEffect(() => {
-    loadCourseData()
-  }, [params.id])
+  const courseId = Array.isArray(params.id) ? params.id[0] : params.id
 
-  async function loadCourseData() {
+  const loadCourseData = useCallback(async () => {
+    if (!courseId) {
+      return
+    }
+
     try {
       setLoading(true)
       const [courseResponse, lessonsResponse] = await Promise.all([
-        api.getCourse(params.id as string),
-        api.getCourseLessons(params.id as string)
+        api.getCourse(courseId as string),
+        api.getCourseLessons(courseId as string)
       ])
 
       setCourse(courseResponse.course)
@@ -34,9 +36,17 @@ export default function CourseDetailPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [courseId])
+
+  useEffect(() => {
+    loadCourseData()
+  }, [loadCourseData])
 
   async function handleEnroll() {
+    if (!courseId) {
+      return
+    }
+
     if (!user) {
       router.push('/login')
       return
@@ -45,9 +55,9 @@ export default function CourseDetailPage() {
     try {
       setEnrolling(true)
       // In production, this would go through payment first
-      await api.enrollCourse(params.id as string)
+      await api.enrollCourse(courseId as string)
       alert('Successfully enrolled! Redirecting to course...')
-      router.push(`/learn/${params.id}`)
+      router.push(`/learn/${courseId}`)
     } catch (error: any) {
       alert(error.message || 'Enrollment failed')
     } finally {
@@ -165,8 +175,8 @@ export default function CourseDetailPage() {
           {/* Main Content */}
           <div className="md:col-span-2 space-y-8">
             {/* What You'll Learn */}
-            <div className="bg-white rounded-xl shadow-md p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">What You'll Learn</h2>
+              <div className="bg-white rounded-xl shadow-md p-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">What You&apos;ll Learn</h2>
               <ul className="space-y-3">
                 {course.learningObjectives.map((objective, index) => (
                   <li key={index} className="flex items-start gap-3">

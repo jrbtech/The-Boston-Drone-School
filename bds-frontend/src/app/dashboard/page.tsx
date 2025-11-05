@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { api, Enrollment, Course } from '../../lib/api'
 import { useAuth } from '../../contexts/AuthContext'
@@ -14,19 +15,7 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<'active' | 'completed'>('active')
 
-  useEffect(() => {
-    // Check if user is logged in
-    if (!authLoading && !user) {
-      router.push('/login')
-      return
-    }
-
-    if (user) {
-      loadEnrollments()
-    }
-  }, [user, authLoading, router])
-
-  async function loadEnrollments() {
+  const loadEnrollments = useCallback(async () => {
     try {
       setLoading(true)
       const response = await api.getUserEnrollments()
@@ -51,7 +40,20 @@ export default function DashboardPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    if (authLoading) {
+      return
+    }
+
+    if (!user) {
+      router.push('/login')
+      return
+    }
+
+    loadEnrollments()
+  }, [authLoading, user, router, loadEnrollments])
 
   function handleLogout() {
     logout()
@@ -208,12 +210,15 @@ export default function DashboardPage() {
                 >
                   <div className="flex flex-col md:flex-row">
                     {/* Course Thumbnail */}
-                    <div className="md:w-64 h-48 bg-gradient-to-br from-blue-500 to-orange-500 flex items-center justify-center">
+                    <div className="md:w-64 h-48 bg-gradient-to-br from-blue-500 to-orange-500 flex items-center justify-center relative overflow-hidden">
                       {course.thumbnailUrl ? (
-                        <img
+                        <Image
                           src={course.thumbnailUrl}
                           alt={course.title}
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
+                          sizes="(min-width: 768px) 256px, 100vw"
+                          priority={false}
                         />
                       ) : (
                         <span className="text-6xl">🚁</span>

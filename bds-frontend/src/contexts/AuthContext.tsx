@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface User {
@@ -30,12 +30,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
-  // Fetch current user on mount
-  useEffect(() => {
-    refreshUser();
-  }, []);
-
-  const refreshUser = async () => {
+  const refreshUser = useCallback(async () => {
     const token = localStorage.getItem('authToken');
 
     if (!token) {
@@ -67,7 +62,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [API_URL]);
+
+  // Fetch current user on mount
+  useEffect(() => {
+    refreshUser();
+  }, [refreshUser]);
 
   const login = async (email: string, password: string) => {
     const response = await fetch(`${API_URL}/api/auth/login`, {
