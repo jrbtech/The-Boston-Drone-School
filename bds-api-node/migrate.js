@@ -17,7 +17,11 @@ function getDatabaseUrl() {
     throw new Error('DATABASE_URL environment variable is not set.');
   }
 
-  const sanitized = rawUrl.trim().replace(/\s*\r?\n\s*/g, '');
+  const sanitized = rawUrl
+    .trim()
+    .replace(/^DATABASE_URL\s*=\s*/i, '')
+    .replace(/^['"]|['"]$/g, '')
+    .replace(/\s*\r?\n\s*/g, '');
 
   if (!sanitized) {
     throw new Error('DATABASE_URL is empty after trimming.');
