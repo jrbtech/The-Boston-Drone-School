@@ -161,11 +161,50 @@ const pool = new Pool({
   ssl: shouldUseSsl(databaseUrl) ? { rejectUnauthorized: false } : undefined
 });
 
+/**
+ * Wait for database to be available with retry logic
+ * @param {number} maxRetries - Maximum number of retry attempts
+ * @param {number} delayMs - Initial delay in milliseconds
+ */
+async function waitForDatabase(maxRetries = 10, delayMs = 2000) {
+  console.log('🔌 Attempting to connect to database...');
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      // Try to execute a simple query to test the connection
+      await pool.query('SELECT 1');
+      console.log('✅ Database connection established!');
+      return true;
+    } catch (error) {
+      const isLastAttempt = attempt === maxRetries;
+
+      if (isLastAttempt) {
+        console.error(`❌ Failed to connect after ${maxRetries} attempts`);
+        console.error(`Error: ${error.message}`);
+        throw error;
+      }
+
+      // Calculate exponential backoff delay
+      const waitTime = delayMs * Math.pow(1.5, attempt - 1);
+      console.log(`⏳ Attempt ${attempt}/${maxRetries} failed. Retrying in ${Math.round(waitTime / 1000)}s...`);
+      console.log(`   Error: ${error.message}`);
+
+      // Wait before next retry
+      await new Promise(resolve => setTimeout(resolve, waitTime));
+    }
+  }
+
+  return false;
+}
+
 async function runMigrations() {
   console.log('🚀 Boston Drone School - Running Database Migrations');
   console.log('=====================================================');
 
   try {
+    // Wait for database to be available
+    await waitForDatabase();
+
     // Create migrations table if it doesn't exist
     await pool.query(`
       CREATE TABLE IF NOT EXISTS migrations (
