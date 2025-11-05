@@ -18,14 +18,18 @@
     "jsx": "preserve",
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "plugins": [
       {
         "name": "next"
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./*"],
+      "@/components/*": ["./components/*"],
+      "@/lib/*": ["./lib/*"],
+      "@/contexts/*": ["./contexts/*"],
+      "@/app/*": ["./app/*"]
     }
   },
   "include": [
