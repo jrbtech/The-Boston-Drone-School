@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { api, Course } from '../../../lib/api'
@@ -24,23 +24,18 @@ export default function CoursePlayerPage() {
   const [aiResponse, setAiResponse] = useState('')
   const [aiLoading, setAiLoading] = useState(false)
 
-  useEffect(() => {
-    if (!authLoading && !user) {
-      router.push('/login')
+  const courseId = Array.isArray(params.courseId) ? params.courseId[0] : params.courseId
+
+  const loadCourseData = useCallback(async () => {
+    if (!courseId) {
       return
     }
 
-    if (user) {
-      loadCourseData()
-    }
-  }, [params.courseId, user, authLoading])
-
-  async function loadCourseData() {
     try {
       setLoading(true)
       const [courseResponse, lessonsResponse, enrollmentsResponse] = await Promise.all([
-        api.getCourse(params.courseId as string),
-        api.getCourseLessons(params.courseId as string),
+        api.getCourse(courseId as string),
+        api.getCourseLessons(courseId as string),
         api.getUserEnrollments()
       ])
 
@@ -50,12 +45,12 @@ export default function CoursePlayerPage() {
 
       // Find enrollment for this course
       const userEnrollment = enrollmentsResponse.enrollments?.find(
-        (e: any) => e.courseId === params.courseId
+        (e: any) => e.courseId === courseId
       )
 
       if (!userEnrollment) {
         alert('You are not enrolled in this course')
-        router.push(`/courses/${params.courseId}`)
+        router.push(`/courses/${courseId}`)
         return
       }
 
@@ -70,7 +65,20 @@ export default function CoursePlayerPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [courseId, router])
+
+  useEffect(() => {
+    if (authLoading) {
+      return
+    }
+
+    if (!user) {
+      router.push('/login')
+      return
+    }
+
+    loadCourseData()
+  }, [authLoading, user, loadCourseData, router])
 
   async function handleMarkComplete() {
     if (!currentLesson || !enrollment) return

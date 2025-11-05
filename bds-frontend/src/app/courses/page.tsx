@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { api, Course } from '../../lib/api'
 
 export default function CoursesPage() {
@@ -11,11 +12,7 @@ export default function CoursesPage() {
   const [selectedLevel, setSelectedLevel] = useState<string>('all')
   const [searchQuery, setSearchQuery] = useState('')
 
-  useEffect(() => {
-    loadCourses()
-  }, [selectedCategory, selectedLevel])
-
-  async function loadCourses() {
+  const loadCourses = useCallback(async () => {
     try {
       setLoading(true)
       const filters: any = {}
@@ -29,7 +26,11 @@ export default function CoursesPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [selectedCategory, selectedLevel])
+
+  useEffect(() => {
+    loadCourses()
+  }, [loadCourses])
 
   async function handleSearch(e: React.FormEvent) {
     e.preventDefault()
@@ -146,7 +147,6 @@ export default function CoursesPage() {
                 setSelectedCategory('all')
                 setSelectedLevel('all')
                 setSearchQuery('')
-                loadCourses()
               }}
               className="self-end px-6 py-2 text-gray-600 hover:text-gray-900"
             >
@@ -178,10 +178,13 @@ export default function CoursesPage() {
                 {/* Course Thumbnail */}
                 <div className="relative h-48 bg-gradient-to-br from-blue-500 to-orange-500 overflow-hidden">
                   {course.thumbnailUrl ? (
-                    <img
+                    <Image
                       src={course.thumbnailUrl}
                       alt={course.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      priority={false}
                     />
                   ) : (
                     <div className="flex items-center justify-center h-full">
