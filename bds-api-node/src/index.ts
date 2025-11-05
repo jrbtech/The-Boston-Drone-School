@@ -1,12 +1,11 @@
 import express from 'express';
 import cors, { CorsOptions } from 'cors';
-import dotenv from 'dotenv';
-
 import { createServerConfig } from './config';
 import { registerRoutes } from './routes';
+import { loadEnv } from './env';
 
 // Load environment variables
-dotenv.config();
+loadEnv();
 
 const app = express();
 const config = createServerConfig();
