@@ -60,10 +60,12 @@ class ApiClient {
   }
 
   // Authentication
-  async register(email: string, password: string, name: string) {
+  async register(email: string, password: string, firstName: string, lastName: string) {
+    const fullName = `${firstName} ${lastName}`.replace(/\s+/g, ' ').trim();
+
     return this.fetch('/api/auth/register', {
       method: 'POST',
-      body: JSON.stringify({ email, password, name }),
+      body: JSON.stringify({ email, password, firstName, lastName, name: fullName }),
     });
   }
 
