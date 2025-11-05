@@ -7,6 +7,7 @@
     "dev": "nodemon src/index.ts",
     "build": "tsc",
     "start": "npm run migrate && node dist/index.js",
+    "start:safe": "node dist/index.js",
     "migrate": "node migrate.js",
     "test": "echo \"No tests specified\" && exit 0"
   },
