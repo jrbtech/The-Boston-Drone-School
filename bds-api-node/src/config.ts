@@ -1,6 +1,6 @@
-import dotenv from 'dotenv';
+import { loadEnv } from './env';
 
-dotenv.config();
+loadEnv();
 
 export type ServerConfig = {
   port: number;
