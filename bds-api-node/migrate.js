@@ -27,6 +27,52 @@ function normalizeBoolean(value) {
   return undefined;
 }
 
+function sanitizeConnectionString(value) {
+  if (!value) {
+    return undefined;
+  }
+
+  const trimmed = String(value).trim();
+  if (!trimmed) {
+    return undefined;
+  }
+
+  const withoutPrefix = trimmed
+    .replace(/^(?:export\s+)?DATABASE_URL\s*=\s*/i, '')
+    .trim();
+
+  const withoutWrappingQuotes = withoutPrefix.replace(/^['"]|['"]$/g, '');
+
+  const compact = withoutWrappingQuotes
+    .split(/\r?\n/)
+    .map(line => line.trim())
+    .join('')
+    .replace(/\s+/g, '');
+
+  return compact || undefined;
+}
+
+function isRemoteDatabaseHost(connectionString) {
+  if (!connectionString) {
+    return false;
+  }
+
+  try {
+    const { hostname } = new URL(connectionString);
+    const host = hostname.toLowerCase();
+
+    return (
+      host.length > 0 &&
+      host !== 'localhost' &&
+      host !== '127.0.0.1' &&
+      host !== '::1' &&
+      !host.endsWith('.local')
+    );
+  } catch (error) {
+    return false;
+  }
+}
+
 function shouldLoadDotenv() {
   const alwaysLoad = normalizeBoolean(process.env.ALWAYS_LOAD_DOTENV ?? process.env.USE_DOTENV);
   if (alwaysLoad === true) {
@@ -39,9 +85,17 @@ function shouldLoadDotenv() {
   }
 
   const environment = (process.env.NODE_ENV || '').trim().toLowerCase();
-  const runningOnRender = Boolean(process.env.RENDER);
+  const runningOnRender = Boolean(
+    process.env.RENDER ||
+      process.env.RENDER_SERVICE_ID ||
+      process.env.RENDER_SERVICE_NAME ||
+      process.env.RENDER_EXTERNAL_URL
+  );
 
-  if (runningOnRender || environment === 'production') {
+  const sanitizedDatabaseUrl = sanitizeConnectionString(process.env.DATABASE_URL);
+  const hasRemoteDatabase = isRemoteDatabaseHost(sanitizedDatabaseUrl);
+
+  if (runningOnRender || environment === 'production' || hasRemoteDatabase) {
     return false;
   }
 
@@ -53,30 +107,13 @@ if (shouldLoadDotenv()) {
 }
 
 function getDatabaseUrl() {
-  const rawUrl = process.env.DATABASE_URL;
+  const sanitizedUrl = sanitizeConnectionString(process.env.DATABASE_URL);
 
-  if (!rawUrl) {
-    throw new Error('DATABASE_URL environment variable is not set.');
+  if (!sanitizedUrl) {
+    throw new Error('DATABASE_URL environment variable is not set or empty after sanitization.');
   }
 
-  const withoutPrefix = rawUrl
-    .trim()
-    .replace(/^(?:export\s+)?DATABASE_URL\s*=\s*/i, '')
-    .trim();
-
-  const withoutWrappingQuotes = withoutPrefix.replace(/^['"]|['"]$/g, '');
-
-  const compact = withoutWrappingQuotes
-    .split(/\r?\n/)
-    .map(line => line.trim())
-    .join('')
-    .replace(/\s+/g, '');
-
-  if (!compact) {
-    throw new Error('DATABASE_URL is empty after trimming.');
-  }
-
-  return compact;
+  return sanitizedUrl;
 }
 
 function shouldUseSsl(connectionString) {
