@@ -17,6 +17,8 @@ services:
         value: https://bds-backend-5ao0.onrender.com
       - key: NEXT_PUBLIC_SITE_URL
         value: https://bds-frontend.onrender.com
+      - key: NEXT_PUBLIC_AI_ENABLED
+        value: "true"
       - key: ANTHROPIC_API_KEY
         sync: false
     plan: starter
