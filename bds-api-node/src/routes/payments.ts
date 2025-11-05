@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import Stripe from 'stripe';
 import { getPool } from '../db';
 import { authenticateToken } from './auth';
@@ -14,14 +14,19 @@ if (process.env.STRIPE_SECRET_KEY) {
 }
 
 // POST /api/payments/create-payment-intent
-router.post('/create-payment-intent', authenticateToken, async (req, res) => {
+router.post('/create-payment-intent', authenticateToken, async (req: Request, res: Response) => {
   try {
     if (!stripe) {
       return res.status(503).json({ error: 'Payment system not configured' });
     }
 
     const { courseId } = req.body;
-    const userId = (req as any).user.userId;
+
+    if (!req.user) {
+      return res.status(401).json({ error: 'Access token required' });
+    }
+
+    const userId = req.user.userId;
 
     if (!courseId) {
       return res.status(400).json({ error: 'Course ID is required' });
@@ -75,7 +80,7 @@ router.post('/create-payment-intent', authenticateToken, async (req, res) => {
 });
 
 // POST /api/payments/webhook - Stripe webhook handler
-router.post('/webhook', async (req, res) => {
+router.post('/webhook', async (req: Request, res: Response) => {
   if (!stripe) {
     return res.status(503).json({ error: 'Payment system not configured' });
   }
@@ -134,10 +139,15 @@ router.post('/webhook', async (req, res) => {
 });
 
 // POST /api/payments/confirm-enrollment - Manual enrollment after test payment
-router.post('/confirm-enrollment', authenticateToken, async (req, res) => {
+router.post('/confirm-enrollment', authenticateToken, async (req: Request, res: Response) => {
   try {
     const { courseId } = req.body;
-    const userId = (req as any).user.userId;
+
+    if (!req.user) {
+      return res.status(401).json({ error: 'Access token required' });
+    }
+
+    const userId = req.user.userId;
 
     if (!courseId) {
       return res.status(400).json({ error: 'Course ID is required' });
