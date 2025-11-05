@@ -1,4 +1,4 @@
-import { Express } from 'express';
+import { Express, Request, Response } from 'express';
 import anthropicRoutes from './anthropic';
 import coursesRoutes from './courses';
 import enrollmentRoutes from './enrollment';
@@ -6,7 +6,7 @@ import authRoutes from './auth';
 import paymentRoutes from './payments';
 
 export const registerRoutes = (app: Express): void => {
-  app.get('/', (req, res) => {
+  app.get('/', (req: Request, res: Response) => {
     res.json({
       message: 'Welcome to the Boston Drone School E-Learning Platform API',
       status: 'success',
@@ -29,7 +29,7 @@ export const registerRoutes = (app: Express): void => {
   app.use('/api/payments', paymentRoutes);
   
   // Health check endpoint
-  app.get('/api/health', (req, res) => {
+  app.get('/api/health', (req: Request, res: Response) => {
     res.json({
       status: 'healthy',
       timestamp: new Date().toISOString(),
