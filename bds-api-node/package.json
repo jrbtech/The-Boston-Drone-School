@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/index.ts",
     "build": "tsc",
-    "start": "npm run migrate && node dist/index.js",
+    "start": "npm run migrate:prod && node dist/index.js",
     "start:safe": "node dist/index.js",
     "migrate": "ts-node src/migrate.ts",
     "migrate:prod": "node dist/migrate.js",

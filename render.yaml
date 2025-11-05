@@ -13,7 +13,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: NEXT_PUBLIC_API_URL
-        value: https://bds-api-node.onrender.com
+        value: https://bds-backend-5ao0.onrender.com
       - key: NEXT_PUBLIC_SITE_URL
         value: https://bds-frontend.onrender.com
     plan: starter
@@ -21,7 +21,7 @@ services:
 
   # Backend API - Node.js/Express
   - type: web
-    name: bds-api-node
+    name: bds-backend
     rootDir: bds-api-node
     env: node
     buildCommand: "npm ci && npm run build"
