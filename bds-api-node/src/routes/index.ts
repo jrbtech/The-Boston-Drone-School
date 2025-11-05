@@ -21,6 +21,16 @@ export const registerRoutes = (app: Express): void => {
     });
   });
 
+  // Health check endpoint at root level for Render
+  app.get('/health', (req: Request, res: Response) => {
+    res.status(200).json({
+      status: 'healthy',
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+      service: 'Boston Drone School API'
+    });
+  });
+
   // Register API routes
   app.use('/api/auth', authRoutes);
   app.use('/api/ai', anthropicRoutes);
