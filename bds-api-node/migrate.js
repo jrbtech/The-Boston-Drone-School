@@ -158,7 +158,12 @@ function shouldUseSsl(connectionString) {
 const databaseUrl = getDatabaseUrl();
 const pool = new Pool({
   connectionString: databaseUrl,
-  ssl: shouldUseSsl(databaseUrl) ? { rejectUnauthorized: false } : undefined
+  ssl: shouldUseSsl(databaseUrl) ? { rejectUnauthorized: false } : undefined,
+  max: 5,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 10000,
+  statement_timeout: 30000,
+  query_timeout: 30000
 });
 
 /**
