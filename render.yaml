@@ -7,6 +7,7 @@ services:
     name: bds-frontend
     rootDir: bds-frontend
     env: node
+    runtime: node
     buildCommand: "npm ci && npm run build"
     startCommand: "npm start"
     envVars:
@@ -26,6 +27,7 @@ services:
     name: bds-backend
     rootDir: bds-api-node
     env: node
+    runtime: node
     buildCommand: "npm ci && npm run build"
     startCommand: "npm start"
     healthCheckPath: "/api/health"
