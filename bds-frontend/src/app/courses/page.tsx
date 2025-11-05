@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { api, Course } from '@/lib/api'
+import { api, Course } from '../../lib/api'
 
 export default function CoursesPage() {
   const [courses, setCourses] = useState<Course[]>([])

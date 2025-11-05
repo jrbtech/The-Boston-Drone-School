@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { api, Course } from '@/lib/api'
-import { useAuth } from '@/contexts/AuthContext'
+import { api, Course } from '../../../lib/api'
+import { useAuth } from '../../../contexts/AuthContext'
 
 export default function CourseDetailPage() {
   const params = useParams()

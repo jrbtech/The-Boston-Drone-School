@@ -1,7 +1,7 @@
 import './globals.css'
 import type { Metadata, Viewport } from 'next'
 import { Inter, Poppins } from 'next/font/google'
-import { AuthProvider } from '@/contexts/AuthContext'
+import { AuthProvider } from '../contexts/AuthContext'
 
 const inter = Inter({
   subsets: ['latin'],
