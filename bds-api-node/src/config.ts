@@ -32,7 +32,11 @@ const sanitizeConnectionString = (
     return undefined;
   }
 
-  return trimmed.replace(/\s*\r?\n\s*/g, '');
+  const withoutPrefix = trimmed.replace(/^DATABASE_URL\s*=\s*/i, '');
+  const withoutWrappingQuotes = withoutPrefix.replace(/^['"]|['"]$/g, '');
+  const compact = withoutWrappingQuotes.replace(/\s*\r?\n\s*/g, '');
+
+  return compact || undefined;
 };
 
 export const createServerConfig = (): ServerConfig => {
