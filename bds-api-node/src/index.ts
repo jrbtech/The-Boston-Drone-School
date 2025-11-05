@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import cors, { CorsOptions } from 'cors';
 import { createServerConfig } from './config';
 import { registerRoutes } from './routes';
@@ -15,7 +15,7 @@ const { allowedOrigins } = config;
 const isProduction = process.env.NODE_ENV === 'production';
 
 const corsOptions: CorsOptions = {
-  origin(origin, callback) {
+  origin(origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
     if (!origin || allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
@@ -35,7 +35,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Security headers
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
   res.setHeader('X-XSS-Protection', '1; mode=block');
@@ -46,7 +46,7 @@ app.use((req, res, next) => {
 
 // Request logging middleware for production
 if (isProduction) {
-  app.use((req, res, next) => {
+  app.use((req: Request, res: Response, next: NextFunction) => {
     console.log(`${new Date().toISOString()} - ${req.method} ${req.path} - ${req.ip}`);
     next();
   });
@@ -56,28 +56,28 @@ if (isProduction) {
 registerRoutes(app);
 
 // Global error handler with better production error handling
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  // Log the error
+app.use((err: unknown, req: Request, res: Response, _next: NextFunction) => {
+  const error = err as Error & { status?: number };
+
   console.error('Global error handler:', {
-    error: err.message,
-    stack: err.stack,
+    error: error.message,
+    stack: error.stack,
     url: req.url,
     method: req.method,
     timestamp: new Date().toISOString()
   });
 
-  // Don't leak error details in production
-  const isProduction = process.env.NODE_ENV === 'production';
-  
-  res.status(err.status || 500).json({
-    error: isProduction ? 'Internal server error' : err.message,
-    ...((!isProduction) && { stack: err.stack }),
+  const production = process.env.NODE_ENV === 'production';
+
+  res.status(error.status ?? 500).json({
+    error: production ? 'Internal server error' : error.message,
+    ...(!production && { stack: error.stack }),
     timestamp: new Date().toISOString()
   });
 });
 
 // 404 handler - catch all unmatched routes
-app.use((req, res) => {
+app.use((req: Request, res: Response) => {
   res.status(404).json({ 
     error: 'Route not found',
     path: req.originalUrl 
