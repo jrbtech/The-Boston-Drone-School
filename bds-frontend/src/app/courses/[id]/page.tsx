@@ -3,8 +3,10 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { api, Course, Lesson } from '../../../lib/api'
 import { useAuth } from '../../../contexts/AuthContext'
+import VideoModal from '../../../components/VideoModal'
 
 const formatLessonDuration = (duration: number): string => {
   if (!duration || Number.isNaN(duration)) {
@@ -33,6 +35,7 @@ export default function CourseDetailPage() {
   const [lessons, setLessons] = useState<Lesson[]>([])
   const [loading, setLoading] = useState(true)
   const [enrolling, setEnrolling] = useState(false)
+  const [showVideoModal, setShowVideoModal] = useState(false)
 
   const courseId = Array.isArray(params.id) ? params.id[0] : params.id
 
@@ -71,17 +74,23 @@ export default function CourseDetailPage() {
       return
     }
 
+    // Check if already enrolled
     try {
-      setEnrolling(true)
-      // In production, this would go through payment first
-      await api.enrollCourse(courseId as string)
-      alert('Successfully enrolled! Redirecting to course...')
-      router.push(`/learn/${courseId}`)
-    } catch (error: any) {
-      alert(error.message || 'Enrollment failed')
-    } finally {
-      setEnrolling(false)
+      const enrollments = await api.getUserEnrollments()
+      const existingEnrollment = enrollments.enrollments?.find(
+        (e: any) => e.courseId === courseId
+      )
+
+      if (existingEnrollment) {
+        router.push(`/learn/${courseId}`)
+        return
+      }
+    } catch (error) {
+      console.error('Error checking enrollments:', error)
     }
+
+    // Redirect to checkout for payment
+    router.push(`/checkout/${courseId}`)
   }
 
   if (loading) {
@@ -126,67 +135,179 @@ export default function CourseDetailPage() {
         </div>
       </header>
 
-        {/* Course Hero */}
-        <section className="bg-black text-white py-20">
-          <div className="container mx-auto px-6">
-            <div className="grid md:grid-cols-2 gap-12 items-start">
-            <div>
+        {/* Course Hero with Background Image */}
+      <section className="relative bg-black text-white py-20 overflow-hidden">
+        {/* Background with gradient overlay */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900/95 to-black z-10" />
+          <div className="absolute inset-0 opacity-20">
+            <Image
+              src="/images/drone-flight-bg.jpg"
+              alt="Drone flight background"
+              fill
+              className="object-cover"
+              priority
+              onError={(e) => {
+                // Fallback to gradient if image fails
+                e.currentTarget.style.display = 'none'
+              }}
+            />
+          </div>
+          {/* Animated gradient orbs */}
+          <div className="absolute top-20 right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
+        </div>
+
+        <div className="container mx-auto px-6 relative z-20">
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            <div className="space-y-6 animate-fadeIn">
+              {/* Badge Tags */}
               <div className="flex gap-2 mb-4">
-                  <span className="px-3 py-1 border border-white/40 text-white text-xs font-semibold uppercase tracking-[0.3em]">
+                <span className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-semibold uppercase tracking-[0.3em] rounded-lg">
                   {course.category}
                 </span>
-                  <span className="px-3 py-1 border border-white/40 text-white text-xs font-semibold uppercase tracking-[0.3em]">
-                    {course.level}
+                <span className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-semibold uppercase tracking-[0.3em] rounded-lg">
+                  {course.level}
                 </span>
               </div>
 
-                <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">{course.title}</h1>
-                <p className="text-lg text-gray-300 leading-relaxed mb-8">{course.description}</p>
+              <h1 className="text-4xl md:text-6xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-300">
+                {course.title}
+              </h1>
 
-                <div className="flex flex-wrap gap-8 text-sm uppercase tracking-[0.3em] text-gray-400 mb-10">
-                  <div className="space-y-1">
-                    <span className="block text-xs">Duration</span>
-                    <div className="text-white">{course.duration}</div>
+              <p className="text-lg text-gray-300 leading-relaxed">
+                {course.description}
+              </p>
+
+              {/* Stats Grid */}
+              <div className="grid grid-cols-3 gap-4 py-6">
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4 text-center hover:bg-white/10 transition-all">
+                  <div className="text-xs text-gray-400 uppercase tracking-[0.3em] mb-2">Duration</div>
+                  <div className="text-white font-bold text-xl">{course.duration}</div>
                 </div>
-                  <div className="space-y-1">
-                    <span className="block text-xs">Instructor</span>
-                    <div className="text-white">{course.instructor}</div>
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4 text-center hover:bg-white/10 transition-all">
+                  <div className="text-xs text-gray-400 uppercase tracking-[0.3em] mb-2">Instructor</div>
+                  <div className="text-white font-bold text-xl">Expert</div>
                 </div>
-                  <div className="space-y-1">
-                    <span className="block text-xs">Level</span>
-                    <div className="text-white capitalize">{course.level}</div>
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4 text-center hover:bg-white/10 transition-all">
+                  <div className="text-xs text-gray-400 uppercase tracking-[0.3em] mb-2">Level</div>
+                  <div className="text-white font-bold text-xl capitalize">{course.level}</div>
                 </div>
               </div>
 
-              <div className="flex gap-4">
+              {/* CTA Buttons */}
+              <div className="flex gap-4 pt-4">
                 <button
                   onClick={handleEnroll}
                   disabled={enrolling}
-                    className="bg-white text-black hover:bg-gray-200 disabled:bg-gray-600 disabled:text-gray-300 px-10 py-4 text-lg font-semibold uppercase tracking-widest transition-colors"
+                  className="group relative bg-gradient-to-r from-white to-gray-200 text-black hover:from-gray-100 hover:to-white disabled:from-gray-600 disabled:to-gray-700 disabled:text-gray-300 px-10 py-4 text-lg font-semibold uppercase tracking-widest transition-all rounded-lg overflow-hidden"
                 >
-                  {enrolling ? 'Enrolling...' : `Enroll Now - $${course.price}`}
+                  <span className="relative z-10">
+                    {enrolling ? 'Processing...' : `Enroll Now - $${course.price}`}
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-20 transition-opacity" />
                 </button>
+              </div>
+
+              {/* Trust Indicators */}
+              <div className="flex items-center gap-6 pt-4 text-sm text-gray-400">
+                <div className="flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                  <span>FAA Certified</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  <span>Certificate of Completion</span>
+                </div>
               </div>
             </div>
 
-            <div className="relative">
-                <div className="aspect-video bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl overflow-hidden">
-                {course.videoUrl ? (
-                  <video
-                    src={course.videoUrl}
-                    controls
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                    <div className="flex items-center justify-center h-full text-gray-500 uppercase tracking-[0.5em]">
-                      Preview
-                  </div>
+            {/* Video Preview */}
+            <div className="relative animate-fadeIn delay-200">
+              <div className="relative aspect-video bg-gradient-to-br from-gray-900 to-black border border-white/20 rounded-2xl overflow-hidden shadow-2xl group">
+                {/* Preview Image/Thumbnail */}
+                <div className="absolute inset-0">
+                  {course.thumbnailUrl ? (
+                    <Image
+                      src={course.thumbnailUrl}
+                      alt={course.title}
+                      fill
+                      className="object-cover"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none'
+                      }}
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-center">
+                        <div className="w-20 h-20 mx-auto mb-4 border-2 border-white/20 rounded-full flex items-center justify-center">
+                          <svg className="w-10 h-10 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                        <div className="text-white/60 text-sm uppercase tracking-[0.3em]">Course Preview</div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Overlay gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                </div>
+
+                {/* Play Button Overlay */}
+                {course.videoUrl && (
+                  <button
+                    onClick={() => setShowVideoModal(true)}
+                    className="absolute inset-0 flex items-center justify-center group-hover:bg-black/30 transition-all"
+                  >
+                    <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 group-hover:bg-white transition-all shadow-2xl">
+                      <svg className="w-10 h-10 text-black ml-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                      </svg>
+                    </div>
+                    <div className="absolute bottom-6 left-6 right-6 text-white">
+                      <div className="text-sm font-semibold uppercase tracking-[0.2em]">Watch Preview</div>
+                      <div className="text-xs text-gray-300 mt-1">Click to play course introduction</div>
+                    </div>
+                  </button>
                 )}
+
+                {/* Decorative corners */}
+                <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-white/30" />
+                <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-white/30" />
+                <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-white/30" />
+                <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-white/30" />
+              </div>
+
+              {/* Floating stats */}
+              <div className="absolute -bottom-6 left-6 right-6 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg p-4 shadow-2xl">
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-3">
+                    <div className="text-yellow-400">★★★★★</div>
+                    <span className="text-white text-sm">4.9/5.0 Rating</span>
+                  </div>
+                  <div className="text-white text-sm">{lessons.length} Modules</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Video Modal */}
+      {course.videoUrl && (
+        <VideoModal
+          isOpen={showVideoModal}
+          onClose={() => setShowVideoModal(false)}
+          videoUrl={course.videoUrl}
+          title={`${course.title} - Course Preview`}
+        />
+      )}
 
       {/* Course Content */}
       <section className="container mx-auto px-6 py-12">

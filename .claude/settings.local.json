@@ -17,7 +17,11 @@
       "WebSearch",
       "WebFetch(domain:www.faa.gov)",
       "WebFetch(domain:www.ecfr.gov)",
-      "WebFetch(domain:www.law.cornell.edu)"
+      "WebFetch(domain:www.law.cornell.edu)",
+      "Bash(npm run migrate:*)",
+      "Bash(node:*)",
+      "Bash(git log:*)",
+      "Bash(git pull:*)"
     ],
     "deny": [],
     "ask": []
