@@ -1,66 +1,73 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import LiteYouTubeEmbed from '@/components/marketing/LiteYouTubeEmbed'
+import Image from "next/image";
+import Link from "next/link";
+import LiteYouTubeEmbed from "@/components/marketing/LiteYouTubeEmbed";
 
 const operations = [
   {
-    title: 'Real Estate Media',
-    description: 'Sharp aerial photos, floor plan overlays, and highlight reels that help listings stand out on any platform.'
+    title: "Infrastructure Intelligence",
+    description:
+      "Certified crews capture structural condition data, volumetrics, and change detection for campuses, utilities, and construction programs.",
   },
   {
-    title: 'Photogrammetry & 3D Modeling',
-    description: 'Accurate maps, point clouds, and models for planning, inspection, and compliance reporting.'
+    title: "Regulated Airspace Projects",
+    description:
+      "Mission planning, waivers, and on-site coordination that move public agencies and enterprise security teams from concept to flight.",
   },
   {
-    title: 'Construction Progress Updates',
-    description: 'Scheduled flights that document milestones while keeping stakeholders aligned on timeline and safety.'
+    title: "Geospatial Mapping & Analytics",
+    description:
+      "Survey-grade photogrammetry, orthomosaics, and 3D deliverables tuned for engineers, planners, and permitting authorities.",
   },
   {
-    title: 'STEM Workforce Programs',
-    description: 'Hands-on workshops and credential pathways that introduce students and job seekers to drone careers.'
-  }
-]
+    title: "STEM to Workforce Pipelines",
+    description:
+      "Immersive certification pathways that help students and career shifters apply classroom learning on real drone missions.",
+  },
+];
 
 const missionHighlights = [
-  'Clear plans for safe drone adoption with public and private partners.',
-  'Active advocacy through the Boston Drone School Drone Advocacy Group.',
-  'Programs that help current teams and future pilots learn together.'
-]
+  "Lifecycle support—from aerial strategy to actionable reporting—for public, private, and education partners.",
+  "Operational playbooks that embed FAA compliance, safety management, and community engagement in every sortie.",
+  "Rapid-response instructors who translate flight data into decisions for boards, councils, and classrooms.",
+];
 
 const partnershipHighlights = [
-  'Member of the NASA m:N Working Group contributing to national policy.',
-  "Partner in Massachusetts' first registered Drone Apprenticeship program.",
-  'Regular collaborations with municipal, academic, and enterprise teams across New England.'
-]
+  "Contributor to the NASA m:N Working Group shaping advanced air mobility policy.",
+  "Leader of the Boston Drone School Drone Advocacy Group connecting municipalities and innovators.",
+  "Collaborations with Massachusetts’ registered apprenticeship, universities, and enterprise innovation labs.",
+];
 
 const admissionsChecklist = [
-  'Live webinar series that covers Part 107 basics and exam tips.',
-  'Simple mission planning tools you can apply right away.',
-  'Direct help from our team at info@thebostondroneschool.org.'
-]
+  "Scenario-based Part 107 prep that links aeronautical knowledge to mission execution.",
+  "Mission planning templates, risk matrices, and crew briefings you can deploy this quarter.",
+  "Direct advisory time with Boston Drone School instructors for procurement, compliance, and hiring plans.",
+];
 
 const heroVideo = {
-  title: 'Mission-Ready Drone Operations Overview',
-  youtubeId: 'l5I4t1bBqwA'
-}
+  title: "Get Your Drone License in 2025: Step-by-Step Guide",
+  youtubeId: "1KfE77q0nGI",
+};
 
 const videoShowcase = [
   {
-    title: 'Training Progression for New Remote Pilots',
-    youtubeId: '0e3GPea1Tyg',
-    description: 'Walk through our competency-based training ladder and Part 107 exam prep approach led by Gregory Anthony Blaize.'
+    title: "Drone Training Exercises for New Pilots",
+    youtubeId: "ixYnzcZZu9g",
+    description:
+      "Fifteen simulator and live-flight drills that build muscle memory before crews step into complex operations.",
   },
   {
-    title: 'Data Products & Reporting in Action',
-    youtubeId: 'YH3c1QZzRK4',
-    description: 'Explore photogrammetry outputs, report templates, and stakeholder briefings that keep teams aligned after every flight.'
+    title: "Part 107 Sectional Chart Deep Dive",
+    youtubeId: "21b9hODOhGc",
+    description:
+      "Review five challenging airspace scenarios that mirror the chart interpretation work we coach in Boston Drone School programs.",
   },
   {
-    title: 'Community & Advocacy Spotlights',
-    youtubeId: 'G7KNmW9a75Y',
-    description: 'See how public partners and the Boston Drone School Drone Advocacy Group collaborate to expand safe UAS adoption.'
-  }
-]
+    title: "Free Drone Certification Study Guide Walkthrough",
+    youtubeId: "6_ucCKFJUCU",
+    description:
+      "Walk through a modern Part 107 study framework with emphasis on risk management, weather decisions, and crew coordination.",
+  },
+];
 
 export default function MarketingHomePage() {
   return (
@@ -74,15 +81,21 @@ export default function MarketingHomePage() {
         <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-24 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl space-y-8">
             <div className="space-y-4">
-              <p className="text-xs uppercase tracking-[0.24em] text-white/60">Boston Drone School</p>
+              <p className="text-xs uppercase tracking-[0.24em] text-white/60">
+                Boston Drone School
+              </p>
               <h1 className="text-4xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-5xl md:tracking-tight">
-                Practical Drone Support For Every Mission
+                Operational Drone Programs For Complex Missions
               </h1>
               <p className="text-base leading-relaxed text-white/70 md:text-lg">
-                Boston Drone School delivers licensed flights, clear guidance, and ready-to-use training for teams that need dependable aerial support across New England.
+                Boston Drone School architects drone programs that stand up
+                quickly, stay compliant, and deliver evidence-grade visuals for
+                every stakeholder.
               </p>
               <p className="text-base leading-relaxed text-white/70 md:text-lg">
-                We help real estate, construction, education, and civic partners plan missions, capture data, and build confident crews while staying compliant and mission-ready.
+                Our remote pilots integrate flight operations, regulatory
+                approvals, and workforce training so New England partners can
+                fly safely and brief decision-makers with confidence.
               </p>
             </div>
             <div className="flex flex-wrap gap-4 text-xs uppercase tracking-[0.22em]">
@@ -101,21 +114,32 @@ export default function MarketingHomePage() {
             </div>
             <div className="flex flex-wrap gap-6 text-sm text-white/70">
               <div className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-white/60">Operating Domains</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-white/60">
+                  Operating Domains
+                </p>
                 <p className="mt-2 leading-relaxed">
-                  Real Estate Media · Photogrammetry · 3D Modeling · Construction Progress · STEM Education · Policy Advocacy
+                  Infrastructure Intelligence · Geospatial Analytics · Regulated
+                  Missions · Workforce Development · Policy Advocacy
                 </p>
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-white/60">Contact</p>
-                <a href="mailto:info@thebostondroneschool.org" className="mt-2 inline-block text-white underline-offset-4 hover:underline">
+                <p className="text-xs uppercase tracking-[0.2em] text-white/60">
+                  Contact
+                </p>
+                <a
+                  href="mailto:info@thebostondroneschool.org"
+                  className="mt-2 inline-block text-white underline-offset-4 hover:underline"
+                >
                   info@thebostondroneschool.org
                 </a>
               </div>
             </div>
           </div>
           <div className="w-full max-w-xl">
-            <LiteYouTubeEmbed youtubeId={heroVideo.youtubeId} title={heroVideo.title} />
+            <LiteYouTubeEmbed
+              youtubeId={heroVideo.youtubeId}
+              title={heroVideo.title}
+            />
           </div>
         </div>
       </section>
@@ -123,37 +147,54 @@ export default function MarketingHomePage() {
       <section className="mx-auto w-full max-w-6xl px-6 py-20">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-start">
           <div className="space-y-6">
-            <p className="text-xs uppercase tracking-[0.22em] text-gray-500">Our Mission</p>
+            <p className="text-xs uppercase tracking-[0.22em] text-gray-500">
+              Our Mission
+            </p>
             <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-4xl">
-              Safe and practical drone operations for every mission.
+              Safe, data-driven drone operations built for regulated missions.
             </h2>
             <div className="flex flex-col gap-4 rounded-3xl border border-gray-200 bg-white/95 p-5 shadow-lg sm:flex-row sm:items-center sm:p-6">
               <div className="flex items-center justify-center">
-                <div className="flex h-32 w-32 items-center justify-center rounded-2xl border border-gray-100 bg-white p-2 shadow-inner">
+                <div className="flex h-32 w-32 overflow-hidden rounded-2xl border border-gray-100 bg-white/80 shadow-inner">
                   <Image
                     src="/images/gregory-anthony-blaize-portrait.svg"
-                    alt="Gregory Anthony Blaize"
+                    alt="Portrait of Gregory Anthony Blaize"
                     width={160}
                     height={160}
                     sizes="(max-width: 640px) 128px, 160px"
-                    className="h-full w-full object-contain"
+                    className="h-full w-full object-cover"
+                    priority
                   />
                 </div>
               </div>
               <div className="space-y-2 text-center sm:flex-1 sm:text-left">
-                <p className="text-sm font-semibold uppercase tracking-[0.14em] text-gray-900">Gregory Anthony Blaize</p>
-                <p className="text-xs uppercase tracking-[0.12em] text-gray-500">Founder · FAA Certified Remote Pilot</p>
+                <p className="text-sm font-semibold uppercase tracking-[0.14em] text-gray-900">
+                  Gregory Anthony Blaize
+                </p>
+                <p className="text-xs uppercase tracking-[0.12em] text-gray-500">
+                  Founder · FAA Certified Remote Pilot
+                </p>
                 <p className="text-sm leading-relaxed text-gray-700">
-                  Gregory blends policy work, community partnerships, and flight experience to guide each Boston Drone School engagement—from mission design to data delivery.
+                  Gregory pairs FAA regulatory expertise with years of public
+                  policy, community development, and live mission support. He
+                  advises municipal agencies, enterprise innovators, and
+                  educators on how to deploy drones responsibly and with lasting
+                  impact.
                 </p>
               </div>
             </div>
             <p className="text-base leading-relaxed text-gray-700">
-              Founded in 2020, Boston Drone School offers a straightforward path to safe drone adoption. We cover data capture, regulatory alignment, and training so clients can move from idea to mission with confidence.
+              Founded in 2020, Boston Drone School delivers a complete path to
+              safe drone adoption—from executive briefings and airspace
+              approvals to instructor-led flights and analytics. Every
+              engagement is designed so clients can move from concept to mission
+              with confidence.
             </p>
           </div>
           <div className="space-y-5 rounded-2xl border border-gray-200 bg-gray-50 p-8">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-600">What guides our work</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-600">
+              What guides our work
+            </h3>
             <ul className="space-y-4 text-sm leading-relaxed text-gray-700">
               {missionHighlights.map((item) => (
                 <li key={item} className="flex items-start gap-3">
@@ -169,9 +210,11 @@ export default function MarketingHomePage() {
       <section className="bg-gray-100 py-20">
         <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
           <div className="space-y-6">
-            <p className="text-xs uppercase tracking-[0.22em] text-gray-600">Valuable Partnerships</p>
+            <p className="text-xs uppercase tracking-[0.22em] text-gray-600">
+              Valuable Partnerships
+            </p>
             <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-4xl">
-              Trusted collaborators moving the drone ecosystem forward.
+              Trusted collaborators accelerating the drone ecosystem.
             </h2>
           </div>
           <div className="space-y-4 rounded-2xl border border-gray-200 bg-white p-8 text-sm leading-relaxed text-gray-700">
@@ -185,20 +228,31 @@ export default function MarketingHomePage() {
       <section className="mx-auto w-full max-w-6xl px-6 py-20">
         <div className="space-y-12">
           <div className="space-y-5 text-center md:text-left">
-            <p className="text-xs uppercase tracking-[0.22em] text-gray-500">Corporate Citizenship</p>
+            <p className="text-xs uppercase tracking-[0.22em] text-gray-500">
+              Corporate Citizenship
+            </p>
             <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-4xl">
-              Building the next generation drone workforce.
+              Building the next generation of drone workforce leaders.
             </h2>
             <p className="mx-auto max-w-3xl text-base leading-relaxed text-gray-700 md:mx-0">
-              We create pathways for students, career changers, and seasoned teams to build the skills and safety mindset needed to use drones responsibly.
+              We create pathways for students, career changers, and seasoned
+              teams to build the technical fluency and safety mindset required
+              to operate drones responsibly.
             </p>
           </div>
 
           <div className="grid gap-6 md:grid-cols-2">
             {operations.map((item) => (
-              <div key={item.title} className="space-y-3 rounded-2xl border border-gray-200 bg-gray-50 p-6 shadow-sm">
-                <h3 className="text-lg font-semibold uppercase tracking-[0.06em]">{item.title}</h3>
-                <p className="text-sm leading-relaxed text-gray-700">{item.description}</p>
+              <div
+                key={item.title}
+                className="space-y-3 rounded-2xl border border-gray-200 bg-gray-50 p-6 shadow-sm"
+              >
+                <h3 className="text-lg font-semibold uppercase tracking-[0.06em]">
+                  {item.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-gray-700">
+                  {item.description}
+                </p>
               </div>
             ))}
           </div>
@@ -208,12 +262,16 @@ export default function MarketingHomePage() {
       <section className="bg-gray-900 text-white">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-20 lg:flex-row lg:items-start">
           <div className="space-y-6">
-            <p className="text-xs uppercase tracking-[0.24em] text-white/60">Admissions & Corporate Citizenship</p>
+            <p className="text-xs uppercase tracking-[0.24em] text-white/60">
+              Admissions & Corporate Citizenship
+            </p>
             <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-4xl">
-              Interested in a Drone Pilot License?
+              Preparing for an FAA Part 107 Drone Pilot Certificate?
             </h2>
             <p className="text-base leading-relaxed text-white/70">
-              Join our live webinar series to build Part 107 knowledge and mission planning skills with real examples you can apply right away.
+              Join our live mission readiness briefings to align FAA
+              aeronautical knowledge with the planning tools and checklists our
+              crews use every week.
             </p>
             <ul className="space-y-3 text-sm leading-relaxed text-white/70">
               {admissionsChecklist.map((item) => (
@@ -224,15 +282,24 @@ export default function MarketingHomePage() {
               ))}
             </ul>
             <div className="text-sm uppercase tracking-[0.24em] text-white/60">
-              <a href="mailto:info@thebostondroneschool.org" className="hover:text-white">
+              <a
+                href="mailto:info@thebostondroneschool.org"
+                className="hover:text-white"
+              >
                 info@thebostondroneschool.org
               </a>
             </div>
           </div>
 
           <div className="flex-1 rounded-2xl border border-white/20 bg-white/5 p-8">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-white/70">Enrollment</h3>
-            <form className="mt-6 grid gap-5" action="https://formspree.io/f/moqgdnge" method="POST">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-white/70">
+              Enrollment
+            </h3>
+            <form
+              className="mt-6 grid gap-5"
+              action="https://formspree.io/f/moqgdnge"
+              method="POST"
+            >
               <label className="space-y-2 text-xs uppercase tracking-[0.22em] text-white/60">
                 Name
                 <input
@@ -274,7 +341,8 @@ export default function MarketingHomePage() {
                 Submit Application
               </button>
               <p className="text-[0.7rem] leading-relaxed text-white/50">
-                This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.
+                This site is protected by reCAPTCHA and the Google Privacy
+                Policy and Terms of Service apply.
               </p>
             </form>
           </div>
@@ -284,21 +352,32 @@ export default function MarketingHomePage() {
       <section className="bg-white py-20">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-6">
           <div className="space-y-4 text-center md:text-left">
-            <p className="text-xs uppercase tracking-[0.22em] text-gray-500">Mission Footage</p>
+            <p className="text-xs uppercase tracking-[0.22em] text-gray-500">
+              Mission Footage
+            </p>
             <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-4xl">
               Experience the workflows our crews deliver.
             </h2>
             <p className="mx-auto max-w-3xl text-base leading-relaxed text-gray-600 md:mx-0">
-              Explore how Boston Drone School teams capture visuals, coach pilots, and package insights after every mission. Each short video highlights a different stage of our engagements.
+              Explore how Boston Drone School teams capture visuals, coach
+              pilots, and package insights after every mission. Each short video
+              highlights a different stage of our engagements.
             </p>
           </div>
           <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
             {videoShowcase.map((video) => (
               <div key={video.youtubeId} className="space-y-4">
-                <LiteYouTubeEmbed youtubeId={video.youtubeId} title={video.title} />
+                <LiteYouTubeEmbed
+                  youtubeId={video.youtubeId}
+                  title={video.title}
+                />
                 <div className="space-y-2">
-                  <h3 className="text-base font-semibold uppercase tracking-[0.12em] text-gray-900">{video.title}</h3>
-                  <p className="text-sm leading-relaxed text-gray-600">{video.description}</p>
+                  <h3 className="text-base font-semibold uppercase tracking-[0.12em] text-gray-900">
+                    {video.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-gray-600">
+                    {video.description}
+                  </p>
                 </div>
               </div>
             ))}
@@ -309,12 +388,17 @@ export default function MarketingHomePage() {
       <section className="bg-gray-50 py-20">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="space-y-6">
-            <p className="text-xs uppercase tracking-[0.22em] text-gray-600">Learning Platform</p>
+            <p className="text-xs uppercase tracking-[0.22em] text-gray-600">
+              Learning Platform
+            </p>
             <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-4xl">
               Continue inside the Boston Drone School learning portal.
             </h2>
             <p className="max-w-2xl text-base leading-relaxed text-gray-700">
-              Access structured coursework, instructor feedback, and mission ready resources tailored to the engagements you explore on this site. Your next briefing, certification, or deployment plan is waiting inside the portal.
+              Access structured coursework, instructor feedback, and mission
+              ready resources tailored to the engagements you explore on this
+              site. Your next briefing, certification, or deployment plan is
+              waiting inside the portal.
             </p>
             <div className="flex flex-wrap gap-4 text-xs uppercase tracking-[0.24em]">
               <Link
@@ -333,21 +417,27 @@ export default function MarketingHomePage() {
           </div>
           <div className="grid w-full gap-6 rounded-2xl border border-gray-200 bg-white p-8 text-sm text-gray-700 md:max-w-lg">
             <div>
-              <p className="text-xs uppercase tracking-[0.24em] text-gray-500">Structured Programs</p>
+              <p className="text-xs uppercase tracking-[0.24em] text-gray-500">
+                Structured Programs
+              </p>
               <p className="mt-2 leading-relaxed">
-                FAA Part 107 prep, advanced photogrammetry, STEM ready instruction, and policy workflows aligned to enterprise needs.
+                FAA Part 107 prep, advanced photogrammetry, STEM ready
+                instruction, and policy workflows aligned to enterprise needs.
               </p>
             </div>
             <div className="h-px w-full bg-gray-200" />
             <div>
-              <p className="text-xs uppercase tracking-[0.24em] text-gray-500">Mission Support</p>
+              <p className="text-xs uppercase tracking-[0.24em] text-gray-500">
+                Mission Support
+              </p>
               <p className="mt-2 leading-relaxed">
-                Download checklists, mission report templates, and quick reference guides updated by the Boston Drone School faculty.
+                Download checklists, mission report templates, and quick
+                reference guides updated by the Boston Drone School faculty.
               </p>
             </div>
           </div>
         </div>
       </section>
     </div>
-  )
+  );
 }
