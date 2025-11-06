@@ -3,10 +3,11 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { api } from '../../lib/api'
+import { useAuth } from '../../contexts/AuthContext'
 
 export default function LoginPage() {
   const router = useRouter()
+  const { login } = useAuth()
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -20,12 +21,7 @@ export default function LoginPage() {
     setLoading(true)
 
     try {
-      const response = await api.login(formData.email, formData.password)
-
-      // Store token and user data
-      localStorage.setItem('authToken', response.token)
-      localStorage.setItem('user', JSON.stringify(response.user))
-
+      await login(formData.email, formData.password)
       router.push('/dashboard')
     } catch (err: any) {
       setError(err.message || 'Invalid email or password')
