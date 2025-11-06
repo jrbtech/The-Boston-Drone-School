@@ -8,28 +8,20 @@ export default function MissionPage() {
             The Boston Drone School
           </h1>
           <p className="text-base leading-relaxed text-white/70 md:text-lg">
-            Founded in 2020 and established in 2022, The Boston Drone School provides a model for safe drone integration into both the
-            public and private domain. We are a drone services company that simultaneously practices corporate citizenship through a
-            STEAM-focused future workforce education model.
+            Since 2020 we have paired licensed drone services with community minded training so organizations can adopt unmanned aircraft responsibly.
           </p>
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-5xl space-y-10 px-6 py-16 text-base leading-relaxed text-gray-700">
+      <section className="mx-auto w-full max-w-5xl space-y-8 px-6 py-16 text-base leading-relaxed text-gray-700">
         <p>
-          The Boston Drone School is rooted in delivering state-of-the-art drone operations for organizations seeking to modernize and
-          optimize their business processes. From infrastructure project management to creative media, we build operations that align with
-          regulatory standards and mission requirements.
+          Boston Drone School helps partners modernize daily work with reliable flight operations. From infrastructure projects to creative media, every mission is built around compliance, safety, and clear communication.
         </p>
         <p>
-          Our founder, Gregory Anthony Blaize—an FAA-certified Drone Pilot—brings expansive experience in government affairs, political
-          science, international relations, law enforcement, and community-based organizations. This multidisciplinary perspective informs
-          how we design policy-conscious, community-aware drone engagements.
+          Our founder, Gregory Anthony Blaize, is an FAA certified Remote Pilot with experience across government affairs, international relations, law enforcement, and community organizations. That breadth keeps each engagement grounded in real policies and real people.
         </p>
         <p>
-          The mission of The Boston Drone School is to safely integrate and facilitate drone operations for entities ready to modernize their
-          operations. We advocate for effective policy, deliver high-performing flight teams, and create educational pathways so that both
-          current professionals and future graduates can thrive in the emerging UAS industry.
+          Our mission is simple: make drone operations safe, accessible, and useful. We advocate for smart policy, provide skilled flight teams, and deliver training that prepares today&apos;s professionals and tomorrow&apos;s pilots to succeed.
         </p>
       </section>
     </div>

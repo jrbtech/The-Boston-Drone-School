@@ -53,7 +53,7 @@ const supportHighlights = [
   },
   {
     label: 'Office hours',
-    value: 'Mon – Fri · 8:00a – 6:00p ET',
+    value: 'Mon to Fri · 8:00a to 6:00p ET',
   },
   {
     label: 'Platform status',
