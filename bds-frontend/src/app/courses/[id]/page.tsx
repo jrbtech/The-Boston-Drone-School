@@ -3,15 +3,34 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { api, Course } from '../../../lib/api'
+import { api, Course, Lesson } from '../../../lib/api'
 import { useAuth } from '../../../contexts/AuthContext'
+
+const formatLessonDuration = (duration: number): string => {
+  if (!duration || Number.isNaN(duration)) {
+    return 'Self-paced'
+  }
+
+  if (duration >= 60) {
+    const hours = Math.floor(duration / 60)
+    const minutes = duration % 60
+
+    if (minutes === 0) {
+      return `${hours}h`
+    }
+
+    return `${hours}h ${minutes}m`
+  }
+
+  return `${duration} min`
+}
 
 export default function CourseDetailPage() {
   const params = useParams()
   const router = useRouter()
   const { user } = useAuth()
   const [course, setCourse] = useState<Course | null>(null)
-  const [lessons, setLessons] = useState<any[]>([])
+  const [lessons, setLessons] = useState<Lesson[]>([])
   const [loading, setLoading] = useState(true)
   const [enrolling, setEnrolling] = useState(false)
 
@@ -206,9 +225,9 @@ export default function CourseDetailPage() {
                             <p className="text-sm text-gray-600">{lesson.description}</p>
                           </div>
                         </div>
-                        <div className="text-sm text-gray-500 uppercase tracking-[0.2em]">
-                          {Math.floor(lesson.duration / 60)} min
-                        </div>
+                          <div className="text-sm text-gray-500 uppercase tracking-[0.2em]">
+                            {formatLessonDuration(lesson.duration)}
+                          </div>
                       </div>
                     </div>
                   ))}
