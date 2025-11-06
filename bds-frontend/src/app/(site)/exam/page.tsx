@@ -10,8 +10,7 @@ export default function ExamAccessPage() {
             Account Sign In
           </h1>
           <p className="text-base leading-relaxed text-white/70 md:text-lg">
-            Sign in to the Boston Drone School learning portal to access your profile, course history, proctored exam resources, and
-            private pages secured for your cohort.
+            Sign in to the Boston Drone School portal to access your profile, course history, proctored exam resources, and private pages secured for your cohort.
           </p>
         </div>
       </section>
@@ -19,8 +18,7 @@ export default function ExamAccessPage() {
       <section className="mx-auto w-full max-w-4xl space-y-6 px-6 py-16 text-sm leading-relaxed text-gray-700">
         <div className="rounded-2xl border border-gray-200 bg-gray-50 p-8 text-center md:text-left">
           <p className="text-base text-gray-800">
-            Use the links below to authenticate with the e-learning portal. Once signed in, exam preparation modules and certification
-            checkpoints will be available under your dashboard.
+            Use the links below to sign in to the learning portal. Once authenticated, exam preparation modules and certification checkpoints appear inside your dashboard.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-4 text-xs uppercase tracking-[0.32em] md:justify-start">
             <Link

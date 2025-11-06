@@ -2,12 +2,11 @@ const faqs = [
   {
     question: 'Is the Boston Drone School a school?',
     answer:
-      'We are FAA licensed Remote Pilot operators delivering a spectrum of drone services under Part 107 regulations. Our name reflects a corporate citizenship model focused on safe integration, advocacy, and education for private businesses, public sector partners, and community organizations.'
+      'We are FAA licensed Remote Pilot operators delivering a range of drone services under Part 107 regulations. The name reflects our commitment to safe integration, advocacy, and education for private, public, and community partners.'
   },
   {
     question: 'How do I become a Drone Pilot?',
-    answer:
-      'Register for our Flight Instruction Course and we will equip you with the knowledge to launch your Part 107 certification journey.'
+    answer: 'Register for our Flight Instruction Course and we will equip you with the knowledge to start your Part 107 journey.'
   }
 ]
 
@@ -21,7 +20,7 @@ export default function InquiryPage() {
             Frequently Asked Questions
           </h1>
           <p className="text-base leading-relaxed text-white/70 md:text-lg">
-            Please reach out if you cannot find an answer to your question. We respond to most inquiries within one business day.
+            Reach out if you do not see your question. We respond to most inquiries within one business day.
           </p>
         </div>
       </section>
@@ -35,11 +34,11 @@ export default function InquiryPage() {
             </div>
           ))}
         </div>
-        <div className="mt-10 space-y-4 text-sm leading-relaxed text-gray-700">
-          <p>
-            Still need support? Email <a href="mailto:info@thebostondroneschool.org" className="underline underline-offset-4">info@thebostondroneschool.org</a> or submit an enrollment form through our admissions section to begin a tailored conversation about your objectives.
-          </p>
-        </div>
+          <div className="mt-10 space-y-4 text-sm leading-relaxed text-gray-700">
+            <p>
+              Still need support? Email <a href="mailto:info@thebostondroneschool.org" className="underline underline-offset-4">info@thebostondroneschool.org</a> or submit an enrollment form to start a tailored conversation about your objectives.
+            </p>
+          </div>
       </section>
     </div>
   )

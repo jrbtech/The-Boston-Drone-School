@@ -3,18 +3,15 @@ import Link from 'next/link'
 const pillars = [
   {
     title: 'Policy Intelligence',
-    description:
-      'Translate federal guidance, emerging legislation, and local ordinances into operational policy that keeps your missions compliant and resilient.'
+    description: 'Turn new regulations and local ordinances into plain language plans that keep your missions compliant.'
   },
   {
     title: 'Stakeholder Engagement',
-    description:
-      'Craft public relations and communication strategies that build trust with regulators, communities, and partners impacted by UAS deployments.'
+    description: 'Shape outreach that builds trust with regulators, neighbors, and partners who share your airspace.'
   },
   {
     title: 'Integration Strategy',
-    description:
-      'Design mission frameworks that align technology, training, and documentation to accelerate safe adoption of unmanned systems.'
+    description: 'Align technology, training, and documentation so unmanned systems fit smoothly into daily work.'
   }
 ]
 
@@ -22,18 +19,16 @@ export default function AdvocacyGroupPage() {
   return (
     <div className="bg-white text-gray-900">
       <section className="bg-black text-white">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 py-20">
+          <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 py-20">
           <p className="text-xs uppercase tracking-[0.4em] text-white/60">Boston Drone School&rsquo;s Drone Advocacy Group</p>
           <h1 className="max-w-3xl text-4xl font-semibold uppercase leading-tight tracking-[0.05em] md:text-5xl">
-            Subject matter experts ensuring safe UAS integration.
+              Policy partners for safe UAS integration.
           </h1>
           <p className="max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
-            We are a team of seasoned policy consultants with deep public relations and government affairs expertise. Our work centers on
-            building frameworks that allow unmanned aircraft systems to operate safely within evolving federal and state guidance.
+              Our policy consultants combine government affairs and public relations expertise to help you move projects forward without guesswork.
           </p>
           <p className="max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
-            The Drone Advocacy Group maintains nationwide relationships, industry insight, and influence needed to move your project forward.
-            From municipal advisement to enterprise integration, we ensure your policy roadmap becomes a tangible asset.
+              From municipal advisement to enterprise integration, we turn complicated guidance into clear steps you can act on right away.
           </p>
           <div className="flex flex-wrap gap-4 text-xs uppercase tracking-[0.32em]">
             <a
@@ -53,21 +48,19 @@ export default function AdvocacyGroupPage() {
       </section>
 
       <section className="mx-auto w-full max-w-6xl px-6 py-16">
-        <div className="grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] md:items-start">
+          <div className="grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] md:items-start">
           <div className="space-y-5">
             <h2 className="text-2xl font-semibold uppercase tracking-[0.08em] text-gray-900">Our Advisory Pillars</h2>
             <p className="text-sm leading-relaxed text-gray-700">
-              Every engagement is grounded in practical policy experience and real-world operations. We work alongside your leadership, legal
-              teams, and mission specialists to architect solutions that withstand regulatory scrutiny and public visibility.
+                Every engagement is grounded in real policy experience and real operations. We work with leadership, legal teams, and specialists to build solutions that stand up to public review.
             </p>
           </div>
           <div className="rounded-2xl border border-gray-200 bg-gray-50 p-8 text-sm leading-relaxed text-gray-700">
             <p>
-              Discovery calls include a discussion of current UAS objectives, policy hurdles, and stakeholder alignment. We outline required
-              resources, timelines, and deliverables to move from assessment to implementation.
+                Discovery calls cover your current UAS goals, policy hurdles, and stakeholder needs. We outline resources, timelines, and deliverables that move you from assessment to implementation.
             </p>
             <p className="mt-4 text-xs uppercase tracking-[0.28em] text-gray-600">
-              Standard retainer fees apply – scope is confirmed after discovery.
+                Standard retainer fees apply; scope is confirmed after discovery.
             </p>
           </div>
         </div>
@@ -85,10 +78,9 @@ export default function AdvocacyGroupPage() {
       <section className="bg-gray-100 py-16">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 md:flex-row md:items-center md:justify-between">
           <div className="max-w-xl space-y-4">
-            <h2 className="text-2xl font-semibold uppercase tracking-[0.08em] text-gray-900">Ready to brief stakeholders?</h2>
+              <h2 className="text-2xl font-semibold uppercase tracking-[0.08em] text-gray-900">Ready to brief stakeholders?</h2>
             <p className="text-sm leading-relaxed text-gray-700">
-              Pair policy advisement with course enrollment to give your teams hands-on training alongside strategic direction. The Drone
-              Advocacy Group collaborates closely with Boston Drone School faculty to align curriculum with your regulatory milestones.
+                Pair policy advisement with course enrollment to give your teams practical training alongside clear direction. The Drone Advocacy Group works with Boston Drone School faculty to match curriculum with your regulatory milestones.
             </p>
           </div>
           <div className="flex flex-wrap gap-4 text-xs uppercase tracking-[0.32em]">

@@ -23,16 +23,16 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://thebostondroneschool.org'),
-  title: 'The Boston Drone School – Operations, Advocacy, and E-Learning',
+  title: 'The Boston Drone School | Operations, Advocacy, and Learning',
   description:
-    'Professional drone services, policy consultation, and mission-ready training programs delivered by The Boston Drone School.',
+    'Professional drone services, policy consultation, and mission ready training programs delivered by The Boston Drone School.',
   keywords:
-    'Boston Drone School, drone operations, UAS training, FAA Part 107, photogrammetry, drone advocacy, STEM engagements, e-learning',
+    'Boston Drone School, drone operations, UAS training, FAA Part 107, photogrammetry, drone advocacy, STEM engagements, learning portal',
   authors: [{ name: 'The Boston Drone School' }],
   openGraph: {
-    title: 'The Boston Drone School – Drone Operations & Learning Portal',
+    title: 'The Boston Drone School | Drone Operations and Learning Portal',
     description:
-      'Explore Boston Drone School services, policy advocacy, and access the e-learning portal for certification and mission training.',
+      'Explore Boston Drone School services, policy advocacy, and access the learning portal for certification and mission training.',
     url: 'https://thebostondroneschool.org',
     siteName: 'The Boston Drone School',
     type: 'website',

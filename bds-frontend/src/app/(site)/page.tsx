@@ -1,44 +1,41 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 const operations = [
   {
     title: 'Real Estate Media',
-    description:
-      'High-impact aerial photography and cinematics that deliver premium visuals for listings, marketing campaigns, and investor briefings.'
+    description: 'Sharp aerial photos and video that help listings stand out.'
   },
   {
     title: 'Photogrammetry & 3D Modeling',
-    description:
-      'Precision data capture, orthomosaics, and volumetric analytics to inform infrastructure planning and coastal monitoring.'
+    description: 'Accurate maps and models for planning, inspection, and reporting.'
   },
   {
-    title: 'Construction Progress Management',
-    description:
-      'Scheduled capture workflows that keep stakeholders aligned with documentation, inspection, and compliance needs.'
+    title: 'Construction Progress Updates',
+    description: 'Scheduled flights that document milestones and keep everyone on the same page.'
   },
   {
-    title: 'STEM Workforce Programming',
-    description:
-      'Applied learning engagements that expose the emerging workforce to UAS careers and operational readiness.'
+    title: 'STEM Workforce Programs',
+    description: 'Hands-on workshops that introduce students and job seekers to drone careers.'
   }
 ]
 
 const missionHighlights = [
-  'UAS policy consultation and integration planning for private and public sector partners.',
-  'Dedicated advocacy through the Boston Drone School Drone Advocacy Group to shape safe regulation.',
-  'A corporate citizenship model that trains, exposes, and enlightens the future workforce.'
+  'Clear plans for safe drone adoption with public and private partners.',
+  'Active advocacy through the Boston Drone School Drone Advocacy Group.',
+  'Programs that help current teams and future pilots learn together.'
 ]
 
 const partnershipHighlights = [
-  'NASA m:N Working Group member contributing to national policy discussions.',
-  "Pilot partner for Massachusetts' first registered Drone Apprenticeship program.",
-  'Collaborations with municipal, academic, and enterprise organizations across New England.'
+  'Member of the NASA m:N Working Group contributing to national policy.',
+  "Partner in Massachusetts' first registered Drone Apprenticeship program.",
+  'Regular collaborations with municipal, academic, and enterprise teams across New England.'
 ]
 
 const admissionsChecklist = [
-  'Virtual webinar series covering Part 107 certification foundations.',
-  'Operational readiness planning tailored to your mission profile.',
-  'Guided enrollment support via info@thebostondroneschool.org.'
+  'Live webinar series that covers Part 107 basics and exam tips.',
+  'Simple mission planning tools you can apply right away.',
+  'Direct help from our team at info@thebostondroneschool.org.'
 ]
 
 export default function MarketingHomePage() {
@@ -49,13 +46,13 @@ export default function MarketingHomePage() {
           <div className="space-y-6">
             <p className="text-xs uppercase tracking-[0.38em] text-white/60">About Us</p>
             <h1 className="max-w-3xl text-4xl font-semibold uppercase leading-tight tracking-[0.05em] md:text-5xl">
-              Future Industry Optimization
+              Practical Drone Support For Every Mission
             </h1>
             <p className="max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
-              We modernize operations by delivering professional drone services and comprehensive workforce training. From real estate media to photogrammetry and 3D rendering, our teams translate aerial intelligence into decisive business outcomes.
+              Boston Drone School delivers licensed flights, clear guidance, and ready-to-use training for teams that need dependable aerial support.
             </p>
             <p className="max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
-              The Boston Drone School equips enterprises, educators, and civic partners with tailored consultation, immersive engagements, and credential pathways that secure safe integration of unmanned aircraft systems.
+              We help real estate, construction, education, and civic partners plan missions, capture data, and build confident crews.
             </p>
             <div className="flex flex-wrap gap-4 text-xs uppercase tracking-[0.32em]">
               <Link href="/procurement" className="inline-flex items-center justify-center border border-white px-6 py-3 text-white transition hover:bg-white hover:text-black">
@@ -89,13 +86,27 @@ export default function MarketingHomePage() {
           <div className="space-y-6">
             <p className="text-xs uppercase tracking-[0.38em] text-gray-500">Our Mission</p>
             <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.06em] md:text-4xl">
-              Safely integrating state-of-the-art drone operations.
+              Safe and practical drone operations for every mission.
             </h2>
+            <div className="flex flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm sm:flex-row sm:items-center">
+              <Image
+                src="/images/gregory-anthony-blaize-portrait.svg"
+                alt="Illustration of Gregory Anthony Blaize"
+                width={160}
+                height={160}
+                className="h-32 w-auto"
+                priority
+              />
+              <div className="space-y-1 text-center sm:text-left">
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-900">Gregory Anthony Blaize</p>
+                <p className="text-xs uppercase tracking-[0.18em] text-gray-500">Founder and FAA Certified Remote Pilot</p>
+                <p className="text-sm leading-relaxed text-gray-700">
+                  Gregory blends policy work, community partnerships, and flight experience to guide every project Boston Drone School delivers.
+                </p>
+              </div>
+            </div>
             <p className="text-base leading-relaxed text-gray-700">
-              Founded in 2020 and formally established in 2022, The Boston Drone School provides a proven model for safe drone integration across public and private domains. Our service portfolio spans aerial data collection, regulatory alignment, and immersive educational programming.
-            </p>
-            <p className="text-base leading-relaxed text-gray-700">
-              Gregory Anthony Blaize, our founder and FAA Certified Remote Pilot, brings deep experience across government affairs, international relations, law enforcement, and community leadership. That multidisciplinary perspective informs deployments that respect both compliance mandates and operational realities.
+              Founded in 2020, Boston Drone School offers a straightforward path to safe drone adoption. We cover data capture, regulatory alignment, and training so clients can move from idea to mission with confidence.
             </p>
           </div>
           <div className="space-y-5 rounded-2xl border border-gray-200 bg-gray-50 p-8">
@@ -117,7 +128,7 @@ export default function MarketingHomePage() {
           <div className="space-y-6">
             <p className="text-xs uppercase tracking-[0.38em] text-gray-600">Valuable Partnerships</p>
             <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.06em] md:text-4xl">
-              Trusted collaborators propelling the drone ecosystem forward.
+              Trusted collaborators moving the drone ecosystem forward.
             </h2>
           </div>
           <div className="space-y-4 rounded-2xl border border-gray-200 bg-white p-8 text-sm leading-relaxed text-gray-700">
@@ -133,10 +144,10 @@ export default function MarketingHomePage() {
           <div className="space-y-5 text-center md:text-left">
             <p className="text-xs uppercase tracking-[0.38em] text-gray-500">Corporate Citizenship</p>
             <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.06em] md:text-4xl">
-              Building the 22nd century workforce with clean technology.
+              Building the next generation drone workforce.
             </h2>
             <p className="mx-auto max-w-3xl text-base leading-relaxed text-gray-700 md:mx-0">
-              Our corporate citizenship model ensures the next generation of drone professionals gains the technical, ethical, and operational skills required to lead a global UAS industry. We integrate clean energy practices, community engagement, and continuous training into every program.
+              We create pathways for students, career changers, and seasoned teams to build the skills and safety mindset needed to use drones responsibly.
             </p>
           </div>
 
@@ -154,12 +165,12 @@ export default function MarketingHomePage() {
       <section className="bg-gray-900 text-white">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-20 lg:flex-row lg:items-start">
           <div className="space-y-6">
-            <p className="text-xs uppercase tracking-[0.4em] text-white/60">Admissions – Corporate Citizenship</p>
+            <p className="text-xs uppercase tracking-[0.4em] text-white/60">Admissions & Corporate Citizenship</p>
             <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.05em] md:text-4xl">
               Interested in a Drone Pilot License?
             </h2>
             <p className="text-base leading-relaxed text-white/70">
-              Enroll in our virtual webinar series to accelerate your Part 107 preparation and operational readiness. We guide you from theory to mission planning with instructor-led sessions that mirror real deployment scenarios.
+              Join our live webinar series to build Part 107 knowledge and mission planning skills with real examples you can apply right away.
             </p>
             <ul className="space-y-3 text-sm leading-relaxed text-white/70">
               {admissionsChecklist.map((item) => (
@@ -232,10 +243,10 @@ export default function MarketingHomePage() {
           <div className="space-y-6">
             <p className="text-xs uppercase tracking-[0.38em] text-gray-600">Learning Platform</p>
             <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.06em] md:text-4xl">
-              Continue inside the Boston Drone School e-learning portal.
+              Continue inside the Boston Drone School learning portal.
             </h2>
             <p className="max-w-2xl text-base leading-relaxed text-gray-700">
-              Access structured coursework, instructor feedback, and mission-ready resources tailored to the engagements you explore on this site. Your next briefing, certification, or deployment plan is waiting inside the portal.
+              Access structured coursework, instructor feedback, and mission ready resources tailored to the engagements you explore on this site. Your next briefing, certification, or deployment plan is waiting inside the portal.
             </p>
             <div className="flex flex-wrap gap-4 text-xs uppercase tracking-[0.32em]">
               <Link href="/portal" className="inline-flex items-center justify-center border border-gray-900 px-6 py-3 text-gray-900 transition hover:bg-gray-900 hover:text-white">
@@ -250,14 +261,14 @@ export default function MarketingHomePage() {
             <div>
               <p className="text-xs uppercase tracking-[0.32em] text-gray-500">Structured Programs</p>
               <p className="mt-2 leading-relaxed">
-                FAA Part 107 prep, advanced photogrammetry, STEM-ready instruction, and policy workflows aligned to enterprise needs.
+                FAA Part 107 prep, advanced photogrammetry, STEM ready instruction, and policy workflows aligned to enterprise needs.
               </p>
             </div>
             <div className="h-px w-full bg-gray-200" />
             <div>
               <p className="text-xs uppercase tracking-[0.32em] text-gray-500">Mission Support</p>
               <p className="mt-2 leading-relaxed">
-                Download checklists, mission report templates, and quick-reference guides updated by the Boston Drone School faculty.
+                Download checklists, mission report templates, and quick reference guides updated by the Boston Drone School faculty.
               </p>
             </div>
           </div>
