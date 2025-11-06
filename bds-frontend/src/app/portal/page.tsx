@@ -2,8 +2,8 @@
 
 import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
-import { api, Course } from '../lib/api'
-import { useAuth } from '../contexts/AuthContext'
+import { api, Course } from '@/lib/api'
+import { useAuth } from '@/contexts/AuthContext'
 
 const platformFeatures = [
   {
@@ -69,7 +69,7 @@ const arrowIcon = (
   </span>
 )
 
-export default function HomePage() {
+export default function PortalLandingPage() {
   const { user } = useAuth()
   const [featuredCourses, setFeaturedCourses] = useState<Course[]>([])
   const [coursesLoaded, setCoursesLoaded] = useState(false)
@@ -95,7 +95,7 @@ export default function HomePage() {
         const courseList = Array.isArray(response?.courses) ? (response.courses as Course[]) : []
         setFeaturedCourses(courseList.slice(0, 3))
       } catch (error) {
-        console.error('Failed to load courses for the landing page:', error)
+        console.error('Failed to load courses for the portal page:', error)
       } finally {
         if (isMounted) {
           setCoursesLoaded(true)
@@ -123,9 +123,12 @@ export default function HomePage() {
               <span className="text-[0.64rem] uppercase tracking-[0.38em] text-foreground/60">Learning Portal</span>
             </div>
           </Link>
-          <nav className="hidden md:flex items-center gap-8 text-xs uppercase tracking-[0.3em]">
+          <nav className="hidden items-center gap-8 text-xs uppercase tracking-[0.3em] md:flex">
             <Link href="/courses" className="text-foreground/65 transition hover:text-foreground">
               Courses
+            </Link>
+            <Link href="/" className="text-foreground/65 transition hover:text-foreground">
+              Marketing Site
             </Link>
             {isAuthenticated && (
               <Link href="/dashboard" className="text-foreground/65 transition hover:text-foreground">
@@ -135,10 +138,7 @@ export default function HomePage() {
           </nav>
           <div className="flex items-center gap-3">
             {isAuthenticated ? (
-              <Link
-                href="/dashboard"
-                className="cta-button-primary h-12 px-7 text-[0.7rem] tracking-[0.24em]"
-              >
+              <Link href="/dashboard" className="cta-button-primary h-12 px-7 text-[0.7rem] tracking-[0.24em]">
                 Continue to dashboard
               </Link>
             ) : (
@@ -149,10 +149,7 @@ export default function HomePage() {
                 >
                   Log in
                 </Link>
-                <Link
-                  href="/register"
-                  className="cta-button-primary h-12 px-7 text-[0.7rem] tracking-[0.24em]"
-                >
+                <Link href="/register" className="cta-button-primary h-12 px-7 text-[0.7rem] tracking-[0.24em]">
                   Create account
                 </Link>
               </>
@@ -166,13 +163,11 @@ export default function HomePage() {
           <div className="grid gap-16 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-start">
             <div className="space-y-10">
               <div className="space-y-5">
-                <p className="headline-kicker text-foreground/60">
-                  Boston Drone School E-Learning Platform
-                </p>
+                <p className="headline-kicker text-foreground/60">Boston Drone School E-Learning Platform</p>
                 <h1 className="text-4xl font-semibold uppercase leading-snug tracking-[0.06em] md:text-5xl">
                   Everything you need to move from first flight to mission-ready deployments in one portal.
                 </h1>
-                <p className="max-w-2xl text-base md:text-lg leading-relaxed text-foreground/70">
+                <p className="max-w-2xl text-base leading-relaxed text-foreground/70 md:text-lg">
                   Log in to continue your syllabus, review mission prep materials, and collaborate with instructors. This portal is the
                   dedicated learning environment you reach after visiting the public site at thebostondroneschool.org.
                 </p>
@@ -183,10 +178,7 @@ export default function HomePage() {
                 )}
               </div>
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                <Link
-                  href={isAuthenticated ? '/dashboard' : '/login'}
-                  className="cta-button-primary gap-3"
-                >
+                <Link href={isAuthenticated ? '/dashboard' : '/login'} className="cta-button-primary gap-3">
                   {isAuthenticated ? 'Go to dashboard' : 'Sign in to continue'}
                   {arrowIcon}
                 </Link>
@@ -277,7 +269,7 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {(!coursesLoaded && featuredCourses.length === 0) && (
+          {!coursesLoaded && featuredCourses.length === 0 && (
             <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
               {Array.from({ length: 3 }).map((_, index) => (
                 <div
@@ -288,7 +280,7 @@ export default function HomePage() {
             </div>
           )}
 
-          {(coursesLoaded && featuredCourses.length === 0) && (
+          {coursesLoaded && featuredCourses.length === 0 && (
             <div className="mt-12 rounded-2xl border border-foreground/12 bg-background px-6 py-10 text-center text-sm uppercase tracking-[0.28em] text-foreground/55">
               Public course previews will appear here once catalog data is published.
             </div>
@@ -310,12 +302,8 @@ export default function HomePage() {
                       {course.level}
                     </span>
                   </div>
-                  <h3 className="text-xl font-semibold uppercase leading-tight text-foreground">
-                    {course.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-foreground/70 line-clamp-3">
-                    {course.description}
-                  </p>
+                  <h3 className="text-xl font-semibold uppercase leading-tight text-foreground">{course.title}</h3>
+                  <p className="text-sm leading-relaxed text-foreground/70 line-clamp-3">{course.description}</p>
                   <div className="mt-auto flex items-center justify-between text-[0.65rem] uppercase tracking-[0.32em] text-foreground/60">
                     <span>{course.instructor.split(',')[0]}</span>
                     <span>{course.duration}</span>
@@ -336,8 +324,7 @@ export default function HomePage() {
                 We are ready to help with access, billing, or curriculum questions.
               </h2>
               <p className="text-sm leading-relaxed text-white/70">
-                Reach out to the Boston Drone School support team if you need help getting into the portal or aligning a program to your
-                operational goals.
+                Reach out to the Boston Drone School support team if you need help getting into the portal or aligning a program to your operational goals.
               </p>
             </div>
             <div className="grid gap-6 sm:grid-cols-2">
