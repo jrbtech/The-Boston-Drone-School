@@ -4,7 +4,6 @@ import LiteYouTubeEmbed from "@/components/marketing/LiteYouTubeEmbed";
 
 const operations = [
   {
-<<<<<<< HEAD
     title: 'Real Estate Intelligence',
     description: 'High-resolution aerial imaging and cinematic videography delivering competitive advantage in property marketing.'
   },
@@ -20,109 +19,48 @@ const operations = [
     title: 'STEM Workforce Development',
     description: 'Experiential learning programs introducing students and professionals to UAS career pathways and aerospace technology applications.'
   }
-]
+];
 
 const missionHighlights = [
   'Strategic UAS integration roadmaps designed for public and private sector stakeholders.',
   'Proactive policy advocacy through the Boston Drone School Drone Advocacy Group.',
   'Comprehensive professional development programs cultivating operational excellence across multi-generational flight teams.'
-]
+];
 
 const partnershipHighlights = [
   'Active member of the NASA Mobility Network (m:N) Working Group, contributing to national unmanned aircraft systems policy development.',
   "Strategic partner in Massachusetts' inaugural FAA-registered Drone Apprenticeship Program, advancing workforce development initiatives.",
   'Sustained collaborative engagements with municipal governments, academic research institutions, and enterprise organizations throughout the New England corridor.'
-]
-=======
-    title: "Infrastructure Intelligence",
-    description:
-      "Certified crews capture structural condition data, volumetrics, and change detection for campuses, utilities, and construction programs.",
-  },
-  {
-    title: "Regulated Airspace Projects",
-    description:
-      "Mission planning, waivers, and on-site coordination that move public agencies and enterprise security teams from concept to flight.",
-  },
-  {
-    title: "Geospatial Mapping & Analytics",
-    description:
-      "Survey-grade photogrammetry, orthomosaics, and 3D deliverables tuned for engineers, planners, and permitting authorities.",
-  },
-  {
-    title: "STEM to Workforce Pipelines",
-    description:
-      "Immersive certification pathways that help students and career shifters apply classroom learning on real drone missions.",
-  },
 ];
-
-const missionHighlights = [
-  "Lifecycle support—from aerial strategy to actionable reporting—for public, private, and education partners.",
-  "Operational playbooks that embed FAA compliance, safety management, and community engagement in every sortie.",
-  "Rapid-response instructors who translate flight data into decisions for boards, councils, and classrooms.",
-];
-
-const partnershipHighlights = [
-  "Contributor to the NASA m:N Working Group shaping advanced air mobility policy.",
-  "Leader of the Boston Drone School Drone Advocacy Group connecting municipalities and innovators.",
-  "Collaborations with Massachusetts’ registered apprenticeship, universities, and enterprise innovation labs.",
-];
->>>>>>> b2beea4c094ce33acf351defc79eb58f0ab8fad2
 
 const admissionsChecklist = [
-  "Scenario-based Part 107 prep that links aeronautical knowledge to mission execution.",
-  "Mission planning templates, risk matrices, and crew briefings you can deploy this quarter.",
-  "Direct advisory time with Boston Drone School instructors for procurement, compliance, and hiring plans.",
+  'Live webinar series that covers Part 107 basics and exam tips.',
+  'Simple mission planning tools you can apply right away.',
+  'Direct help from our team at info@thebostondroneschool.org.'
 ];
 
 const heroVideo = {
-<<<<<<< HEAD
-  title: 'Professional Drone Operations & Safety',
-  youtubeId: '8zEqfmgCi6Q' // Professional drone cinematography and operations
-}
-
-const videoShowcase = [
-  {
-    title: 'FAA Part 107 Remote Pilot Certification',
-    youtubeId: 'kOhNI8Xpe5E', // Official FAA Part 107 overview
-    description: 'Comprehensive overview of FAA Part 107 requirements and certification process for commercial drone operations.'
-  },
-  {
-    title: 'Advanced Drone Flight Operations',
-    youtubeId: 'Lm2p4QHAmLs', // Professional drone flight techniques
-    description: 'Professional flight techniques, safety protocols, and advanced maneuvers for commercial drone operations.'
-  },
-  {
-    title: 'Drone Technology & Industry Applications',
-    youtubeId: '6CW44t6LYQw', // Commercial drone applications
-    description: 'Explore cutting-edge drone technology applications across real estate, construction, and public safety sectors.'
-  }
-]
-=======
-  title: "Get Your Drone License in 2025: Step-by-Step Guide",
-  youtubeId: "1KfE77q0nGI",
+  title: "Professional Drone Operations & Safety",
+  youtubeId: "1KfE77q0nGI" // Get Your Drone License in 2025
 };
 
 const videoShowcase = [
   {
-    title: "Drone Training Exercises for New Pilots",
+    title: "FAA Part 107 Remote Pilot Certification",
     youtubeId: "ixYnzcZZu9g",
-    description:
-      "Fifteen simulator and live-flight drills that build muscle memory before crews step into complex operations.",
+    description: "Comprehensive training exercises and simulator drills that build professional competency for commercial drone operations."
   },
   {
-    title: "Part 107 Sectional Chart Deep Dive",
+    title: "Advanced Airspace Navigation",
     youtubeId: "21b9hODOhGc",
-    description:
-      "Review five challenging airspace scenarios that mirror the chart interpretation work we coach in Boston Drone School programs.",
+    description: "Professional sectional chart interpretation and complex airspace scenario analysis for certified remote pilots."
   },
   {
-    title: "Free Drone Certification Study Guide Walkthrough",
+    title: "Professional Certification Study Framework",
     youtubeId: "6_ucCKFJUCU",
-    description:
-      "Walk through a modern Part 107 study framework with emphasis on risk management, weather decisions, and crew coordination.",
-  },
+    description: "Comprehensive Part 107 study methodology emphasizing risk management, weather analysis, and operational coordination."
+  }
 ];
->>>>>>> b2beea4c094ce33acf351defc79eb58f0ab8fad2
 
 export default function MarketingHomePage() {
   return (
@@ -140,7 +78,6 @@ export default function MarketingHomePage() {
                 Boston Drone School
               </p>
               <h1 className="text-4xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-5xl md:tracking-tight">
-<<<<<<< HEAD
                 Professional Unmanned Aircraft Solutions
               </h1>
               <p className="text-base leading-relaxed text-white/70 md:text-lg">
@@ -148,19 +85,6 @@ export default function MarketingHomePage() {
               </p>
               <p className="text-base leading-relaxed text-white/70 md:text-lg">
                 We partner with real estate developers, infrastructure firms, educational institutions, and municipal agencies to execute precision missions, acquire actionable intelligence, and cultivate expert flight operations teams.
-=======
-                Operational Drone Programs For Complex Missions
-              </h1>
-              <p className="text-base leading-relaxed text-white/70 md:text-lg">
-                Boston Drone School architects drone programs that stand up
-                quickly, stay compliant, and deliver evidence-grade visuals for
-                every stakeholder.
-              </p>
-              <p className="text-base leading-relaxed text-white/70 md:text-lg">
-                Our remote pilots integrate flight operations, regulatory
-                approvals, and workforce training so New England partners can
-                fly safely and brief decision-makers with confidence.
->>>>>>> b2beea4c094ce33acf351defc79eb58f0ab8fad2
               </p>
             </div>
             <div className="flex flex-wrap gap-4 text-xs uppercase tracking-[0.22em]">
@@ -183,8 +107,7 @@ export default function MarketingHomePage() {
                   Operating Domains
                 </p>
                 <p className="mt-2 leading-relaxed">
-                  Infrastructure Intelligence · Geospatial Analytics · Regulated
-                  Missions · Workforce Development · Policy Advocacy
+                  Real Estate Intelligence · Photogrammetry · 3D Modeling · Construction Progress · STEM Education · Policy Advocacy
                 </p>
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
@@ -216,11 +139,7 @@ export default function MarketingHomePage() {
               Our Mission
             </p>
             <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-4xl">
-<<<<<<< HEAD
               Precision unmanned aircraft operations engineered for mission-critical applications.
-=======
-              Safe, data-driven drone operations built for regulated missions.
->>>>>>> b2beea4c094ce33acf351defc79eb58f0ab8fad2
             </h2>
             <div className="flex flex-col gap-4 rounded-3xl border border-gray-200 bg-white/95 p-5 shadow-lg sm:flex-row sm:items-center sm:p-6">
               <div className="flex items-center justify-center">
@@ -244,28 +163,12 @@ export default function MarketingHomePage() {
                   Founder · FAA Certified Remote Pilot
                 </p>
                 <p className="text-sm leading-relaxed text-gray-700">
-<<<<<<< HEAD
                   Gregory integrates extensive experience in governmental affairs, international relations, and law enforcement with advanced UAS operations expertise to deliver comprehensive aerial intelligence solutions.
-=======
-                  Gregory pairs FAA regulatory expertise with years of public
-                  policy, community development, and live mission support. He
-                  advises municipal agencies, enterprise innovators, and
-                  educators on how to deploy drones responsibly and with lasting
-                  impact.
->>>>>>> b2beea4c094ce33acf351defc79eb58f0ab8fad2
                 </p>
               </div>
             </div>
             <p className="text-base leading-relaxed text-gray-700">
-<<<<<<< HEAD
               Established in 2020, The Boston Drone School provides a strategic framework for organizational UAS integration. Our comprehensive services encompass advanced data acquisition, regulatory compliance architecture, and professional pilot development—enabling clients to transition seamlessly from conceptualization to operational deployment.
-=======
-              Founded in 2020, Boston Drone School delivers a complete path to
-              safe drone adoption—from executive briefings and airspace
-              approvals to instructor-led flights and analytics. Every
-              engagement is designed so clients can move from concept to mission
-              with confidence.
->>>>>>> b2beea4c094ce33acf351defc79eb58f0ab8fad2
             </p>
           </div>
           <div className="space-y-5 rounded-2xl border border-gray-200 bg-gray-50 p-8">
@@ -291,7 +194,7 @@ export default function MarketingHomePage() {
               Valuable Partnerships
             </p>
             <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-4xl">
-              Trusted collaborators accelerating the drone ecosystem.
+              Trusted collaborators moving the drone ecosystem forward.
             </h2>
           </div>
           <div className="space-y-4 rounded-2xl border border-gray-200 bg-white p-8 text-sm leading-relaxed text-gray-700">
@@ -309,19 +212,10 @@ export default function MarketingHomePage() {
               Corporate Citizenship
             </p>
             <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-4xl">
-<<<<<<< HEAD
               Cultivating Advanced UAS Professionals
             </h2>
             <p className="mx-auto max-w-3xl text-base leading-relaxed text-gray-700 md:mx-0">
               We architect professional development pathways for emerging talent, transitioning professionals, and established organizations—fostering the technical competencies and safety culture essential for responsible unmanned aircraft systems deployment.
-=======
-              Building the next generation of drone workforce leaders.
-            </h2>
-            <p className="mx-auto max-w-3xl text-base leading-relaxed text-gray-700 md:mx-0">
-              We create pathways for students, career changers, and seasoned
-              teams to build the technical fluency and safety mindset required
-              to operate drones responsibly.
->>>>>>> b2beea4c094ce33acf351defc79eb58f0ab8fad2
             </p>
           </div>
 
@@ -350,12 +244,10 @@ export default function MarketingHomePage() {
               Admissions & Corporate Citizenship
             </p>
             <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-4xl">
-              Preparing for an FAA Part 107 Drone Pilot Certificate?
+              Interested in a Drone Pilot License?
             </h2>
             <p className="text-base leading-relaxed text-white/70">
-              Join our live mission readiness briefings to align FAA
-              aeronautical knowledge with the planning tools and checklists our
-              crews use every week.
+              Join our live webinar series to build Part 107 knowledge and mission planning skills with real examples you can apply right away.
             </p>
             <ul className="space-y-3 text-sm leading-relaxed text-white/70">
               {admissionsChecklist.map((item) => (
