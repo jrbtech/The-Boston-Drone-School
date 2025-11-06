@@ -55,20 +55,20 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-orange-600 flex items-center justify-center px-6 py-12">
+    <div className="min-h-screen bg-black flex items-center justify-center px-6 py-12 text-white">
       <div className="w-full max-w-md">
         {/* Logo */}
-        <Link href="/" className="flex items-center justify-center space-x-2 mb-8">
-          <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
-            <span className="text-blue-600 font-bold text-xl">BDS</span>
+        <Link href="/" className="flex items-center justify-center gap-3 mb-8 text-white">
+          <div className="w-12 h-12 border border-white flex items-center justify-center text-sm font-semibold tracking-widest uppercase">
+            BDS
           </div>
-          <span className="text-2xl font-bold text-white">The Boston Drone School</span>
+          <span className="text-2xl font-semibold uppercase tracking-[0.3em]">The Boston Drone School</span>
         </Link>
 
         {/* Registration Card */}
-        <div className="bg-white rounded-2xl shadow-2xl p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Create Account</h1>
-          <p className="text-gray-600 mb-8">Start your drone training journey today</p>
+        <div className="bg-white rounded-2xl p-8 text-gray-900">
+          <h1 className="text-3xl font-bold mb-2 uppercase tracking-[0.2em]">Create Account</h1>
+          <p className="text-gray-600 mb-8 uppercase tracking-[0.2em] text-xs">Start your drone training journey today</p>
 
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
@@ -82,30 +82,30 @@ export default function RegisterPage() {
                 <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
                   First Name
                 </label>
-                <input
-                  id="firstName"
-                  type="text"
-                  required
-                  value={formData.firstName}
-                  onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="John"
-                />
+                  <input
+                    id="firstName"
+                    type="text"
+                    required
+                    value={formData.firstName}
+                    onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+                    placeholder="John"
+                  />
               </div>
 
               <div>
                 <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
                   Last Name
                 </label>
-                <input
-                  id="lastName"
-                  type="text"
-                  required
-                  value={formData.lastName}
-                  onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Doe"
-                />
+                  <input
+                    id="lastName"
+                    type="text"
+                    required
+                    value={formData.lastName}
+                    onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+                    placeholder="Doe"
+                  />
               </div>
             </div>
 
@@ -113,30 +113,30 @@ export default function RegisterPage() {
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                 Email Address
               </label>
-              <input
-                id="email"
-                type="email"
-                required
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="you@example.com"
-              />
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+                  placeholder="you@example.com"
+                />
             </div>
 
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
                 Password
               </label>
-              <input
-                id="password"
-                type="password"
-                required
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="••••••••"
-              />
+                <input
+                  id="password"
+                  type="password"
+                  required
+                  value={formData.password}
+                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+                  placeholder="••••••••"
+                />
               <p className="mt-1 text-xs text-gray-500">Must be at least 8 characters</p>
             </div>
 
@@ -144,36 +144,36 @@ export default function RegisterPage() {
               <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
                 Confirm Password
               </label>
-              <input
-                id="confirmPassword"
-                type="password"
-                required
-                value={formData.confirmPassword}
-                onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="••••••••"
-              />
+                <input
+                  id="confirmPassword"
+                  type="password"
+                  required
+                  value={formData.confirmPassword}
+                  onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+                  placeholder="••••••••"
+                />
             </div>
 
-            <div className="flex items-start">
-              <input
-                id="terms"
-                type="checkbox"
-                required
-                className="mt-1 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              />
-              <label htmlFor="terms" className="ml-2 text-sm text-gray-600">
-                I agree to the{' '}
-                <Link href="/terms" className="text-blue-600 hover:underline">Terms of Service</Link>
-                {' '}and{' '}
-                <Link href="/privacy" className="text-blue-600 hover:underline">Privacy Policy</Link>
-              </label>
+              <div className="flex items-start">
+                <input
+                  id="terms"
+                  type="checkbox"
+                  required
+                  className="mt-1 rounded border-gray-300 text-black focus:ring-gray-900"
+                />
+                <label htmlFor="terms" className="ml-2 text-sm text-gray-600">
+                  I agree to the{' '}
+                  <Link href="/terms" className="text-gray-900 underline">Terms of Service</Link>
+                  {' '}and{' '}
+                  <Link href="/privacy" className="text-gray-900 underline">Privacy Policy</Link>
+                </label>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white py-3 rounded-lg font-semibold transition-colors"
+                className="w-full bg-black hover:bg-gray-800 disabled:bg-gray-500 text-white py-3 rounded-lg font-semibold uppercase tracking-[0.2em] transition-colors"
             >
               {loading ? 'Creating account...' : 'Create Account'}
             </button>
@@ -182,7 +182,7 @@ export default function RegisterPage() {
           {/* Sign In Link */}
           <p className="mt-8 text-center text-sm text-gray-600">
             Already have an account?{' '}
-            <Link href="/login" className="font-semibold text-blue-600 hover:underline">
+              <Link href="/login" className="font-semibold text-gray-900 underline">
               Sign in
             </Link>
           </p>
@@ -190,8 +190,8 @@ export default function RegisterPage() {
 
         {/* Back to Home */}
         <div className="text-center mt-6">
-          <Link href="/" className="text-white hover:underline text-sm">
-            ← Back to Home
+          <Link href="/" className="text-sm uppercase tracking-[0.3em] underline">
+            Back to Home
           </Link>
         </div>
       </div>

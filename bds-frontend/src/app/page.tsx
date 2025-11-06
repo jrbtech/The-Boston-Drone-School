@@ -1,37 +1,38 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 
 // Hero Section Component
 const HeroSection = () => {
   return (
-    <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-orange-600 text-white">
-      <div className="absolute inset-0 bg-black opacity-20"></div>
-      <div className="relative container mx-auto px-6 py-24 text-center">
-        <h1 className="text-5xl md:text-7xl font-bold font-heading mb-6">
-          The Boston Drone School
-        </h1>
-        <p className="text-xl md:text-2xl mb-4 opacity-90">
-          Future Industry Optimization
-        </p>
-        <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto opacity-80">
-          Professional drone education and certification programs with AI-powered personalized learning. 
-          Train with industry experts and advance your career in the emerging drone technology sector.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link 
-            href="/courses" 
-            className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
-          >
-            Explore Courses
-          </Link>
-          <Link 
-            href="/enrollment" 
-            className="bg-transparent border-2 border-white hover:bg-white hover:text-blue-900 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300"
-          >
-            Start Learning
-          </Link>
+    <section className="relative bg-black text-white">
+      <div className="absolute inset-0 bg-gradient-to-r from-black via-black to-gray-900 opacity-90" />
+      <div className="relative container mx-auto px-6 py-24">
+        <div className="max-w-4xl">
+          <p className="uppercase tracking-[0.3em] text-sm text-gray-400 mb-6">
+            Boston&apos;s Premier Unmanned Aviation Academy
+          </p>
+          <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-8">
+            Drone mastery for professionals who refuse compromise.
+          </h1>
+          <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-3xl">
+            The Boston Drone School delivers intensive training, disciplined flight labs, and certification programs designed for pilots, engineers, and operations leaders shaping the next era of aerial services.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link
+              href="/courses"
+              className="inline-flex items-center justify-center bg-white text-black px-10 py-4 text-lg font-semibold uppercase tracking-wide transition-all duration-200 hover:bg-gray-200"
+            >
+              View Programs
+            </Link>
+            <Link
+              href="/enrollment"
+              className="inline-flex items-center justify-center border border-white text-white px-10 py-4 text-lg font-semibold uppercase tracking-wide transition-all duration-200 hover:bg-white hover:text-black"
+            >
+              Request Enrollment
+            </Link>
+          </div>
         </div>
       </div>
     </section>
@@ -43,45 +44,60 @@ const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
+    <nav className="bg-white/95 backdrop-blur border-b border-gray-200 sticky top-0 z-50">
       <div className="container mx-auto px-6">
         <div className="flex justify-between items-center h-16">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-orange-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">BDS</span>
+            <Link href="/" className="flex items-center gap-3">
+              <div className="h-10 w-10 border border-gray-900 flex items-center justify-center text-sm font-semibold tracking-widest uppercase">
+                BDS
+              </div>
+              <span className="text-lg font-semibold tracking-wide text-gray-900 uppercase">
+                The Boston Drone School
+              </span>
+            </Link>
+
+            <div className="hidden md:flex items-center gap-8 text-sm font-medium uppercase tracking-wider">
+              <Link href="/courses" className="text-gray-800 hover:text-black transition-colors">Programs</Link>
+              <Link href="/about" className="text-gray-600 hover:text-black transition-colors">About</Link>
+              <Link href="/services" className="text-gray-600 hover:text-black transition-colors">Services</Link>
+              <Link href="/contact" className="text-gray-600 hover:text-black transition-colors">Contact</Link>
+              <Link href="/login" className="text-gray-900 hover:text-black transition-colors">Login</Link>
+              <Link
+                href="/signup"
+                className="border border-gray-900 px-6 py-2 hover:bg-gray-900 hover:text-white transition-colors"
+              >
+                Apply
+              </Link>
             </div>
-            <span className="text-xl font-bold text-gray-900">The Boston Drone School</span>
-          </Link>
-          
-          <div className="hidden md:flex items-center space-x-8">
-            <Link href="/courses" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-              Courses
-            </Link>
-            <Link href="/about" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-              About
-            </Link>
-            <Link href="/services" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-              Services
-            </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-              Contact
-            </Link>
-            <Link href="/login" className="text-blue-600 hover:text-blue-700 font-medium transition-colors">
-              Login
-            </Link>
-            <Link href="/signup" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
-              Sign Up
-            </Link>
+
+            <button
+              className="md:hidden"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle navigation"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
           </div>
 
-          <button 
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
+          {isMenuOpen && (
+            <div className="md:hidden border-t border-gray-200 py-6">
+              <div className="flex flex-col gap-4 text-sm font-medium uppercase tracking-wider text-gray-700">
+                <Link href="/courses" className="transition-colors hover:text-black">Programs</Link>
+                <Link href="/about" className="transition-colors hover:text-black">About</Link>
+                <Link href="/services" className="transition-colors hover:text-black">Services</Link>
+                <Link href="/contact" className="transition-colors hover:text-black">Contact</Link>
+                <Link href="/login" className="transition-colors hover:text-black">Login</Link>
+                <Link
+                  href="/signup"
+                  className="border border-gray-900 px-6 py-2 text-center hover:bg-gray-900 hover:text-white transition-colors"
+                >
+                  Apply
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </nav>
@@ -92,57 +108,48 @@ const Navigation = () => {
 const FeaturesSection = () => {
   const features = [
     {
-      title: "AI-Powered Learning",
-      description: "Personalized course recommendations and adaptive learning paths powered by Claude AI",
-      icon: "🤖"
+      title: 'Precision-Crafted Curriculum',
+      description: 'Sequenced instruction refined with industry advisors, covering mission planning, flight control, and data workflows.'
     },
     {
-      title: "Industry Expert Instructors",
-      description: "Learn from certified professionals with real-world drone operation experience",
-      icon: "👨‍🏫"
+      title: 'Instructors with Flight Hours',
+      description: 'Certified pilots and operations directors deliver practitioner-led workshops anchored in real deployments.'
     },
     {
-      title: "Hands-On Training",
-      description: "Practical flight training with state-of-the-art drone equipment and simulators",
-      icon: "🚁"
+      title: 'Hands-On Flight Laboratories',
+      description: 'Structured field exercises and simulator time ensure graduates master manual, automated, and BVLOS operations.'
     },
     {
-      title: "Certification Programs",
-      description: "FAA Part 107 certification prep and advanced commercial drone operator licenses",
-      icon: "📜"
-    },
-    {
-      title: "Corporate Training",
-      description: "Customized training programs for businesses integrating drone technology",
-      icon: "🏢"
-    },
-    {
-      title: "Safety First",
-      description: "Comprehensive safety protocols and regulatory compliance training",
-      icon: "🛡️"
+      title: 'Compliance and Risk Governance',
+      description: 'Dedicated modules on regulatory frameworks, safety management, and enterprise-grade documentation.'
     }
   ]
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-24 bg-white">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Why Choose Our Platform?
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Advanced e-learning technology combined with expert instruction for comprehensive drone education
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <div key={index} className="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition-shadow duration-300">
-              <div className="text-4xl mb-4">{feature.icon}</div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">{feature.title}</h3>
-              <p className="text-gray-600">{feature.description}</p>
-            </div>
-          ))}
+        <div className="grid md:grid-cols-2 gap-12">
+          <div>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              Built for mission-ready pilots and operations teams.
+            </h2>
+            <p className="text-lg text-gray-600 leading-relaxed">
+              Every course is developed in collaboration with aerospace counsel, insurers, and commercial drone leaders to ensure you graduate with capabilities that meet the expectations of regulated enterprises.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-8">
+            {features.map((feature) => (
+              <div key={feature.title} className="border border-gray-200 p-6 flex flex-col gap-4 bg-white transition-shadow duration-200 hover:shadow-xl">
+                <div className="h-[2px] w-16 bg-gray-900" />
+                <h3 className="text-lg font-semibold text-gray-900 uppercase tracking-wide">
+                  {feature.title}
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -159,13 +166,13 @@ const StatsSection = () => {
   ]
 
   return (
-    <section className="py-16 bg-gradient-to-r from-blue-800 to-orange-600 text-white">
+    <section className="py-20 bg-gray-100">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {stats.map((stat, index) => (
-            <div key={index}>
-              <div className="text-4xl md:text-5xl font-bold mb-2">{stat.number}</div>
-              <div className="text-lg opacity-90">{stat.label}</div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
+          {stats.map((stat) => (
+            <div key={stat.label} className="space-y-3">
+              <div className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">{stat.number}</div>
+              <div className="text-sm uppercase tracking-[0.2em] text-gray-500">{stat.label}</div>
             </div>
           ))}
         </div>
@@ -177,71 +184,78 @@ const StatsSection = () => {
 // Main Homepage Component
 export default function HomePage() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-white text-gray-900">
       <Navigation />
       <HeroSection />
       <FeaturesSection />
       <StatsSection />
       
       {/* CTA Section */}
-      <section className="py-20 bg-gray-900 text-white">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Ready to Take Flight?
-          </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Join hundreds of students who have advanced their careers through our comprehensive drone education programs
-          </p>
-          <Link 
-            href="/enrollment" 
-            className="bg-orange-600 hover:bg-orange-700 text-white px-12 py-4 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg inline-block"
-          >
-            Enroll Now
-          </Link>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white py-12">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-lg font-semibold mb-4">The Boston Drone School</h3>
-              <p className="text-gray-400">
-                Professional drone education for the future workforce
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Courses</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/courses/basic" className="hover:text-white">Basic Pilot Training</Link></li>
-                <li><Link href="/courses/commercial" className="hover:text-white">Commercial Operations</Link></li>
-                <li><Link href="/courses/photography" className="hover:text-white">Drone Photography</Link></li>
-                <li><Link href="/courses/mapping" className="hover:text-white">Aerial Mapping</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Services</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/services/media" className="hover:text-white">Real Estate Media</Link></li>
-                <li><Link href="/services/mapping" className="hover:text-white">Photogrammetry</Link></li>
-                <li><Link href="/services/construction" className="hover:text-white">Construction Management</Link></li>
-                <li><Link href="/services/consultation" className="hover:text-white">Consultation</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Contact</h4>
-              <div className="space-y-2 text-gray-400">
-                <p>info@thebostondroneschool.org</p>
-                <p>Boston, Massachusetts</p>
+        <section className="py-24 bg-black text-white">
+          <div className="container mx-auto px-6">
+            <div className="grid md:grid-cols-2 gap-12 items-end">
+              <div>
+                <p className="uppercase tracking-[0.3em] text-xs text-gray-500 mb-4">Enrollment</p>
+                <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
+                  Admissions interviews are conducted monthly for limited cohort placements.
+                </h2>
+                <p className="text-lg text-gray-300 leading-relaxed">
+                  Submit your experience and training goals to join a cohort tailored to commercial, public safety, or enterprise flight operations.
+                </p>
+              </div>
+              <div className="md:text-right">
+                <Link
+                  href="/enrollment"
+                  className="inline-flex items-center justify-center border border-white px-10 py-4 text-lg font-semibold uppercase tracking-wide transition-colors duration-200 hover:bg-white hover:text-black"
+                >
+                  Begin Application
+                </Link>
               </div>
             </div>
           </div>
-          <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 The Boston Drone School - All Rights Reserved</p>
+        </section>
+
+      {/* Footer */}
+        <footer className="bg-gray-900 text-white py-12">
+          <div className="container mx-auto px-6">
+            <div className="grid md:grid-cols-4 gap-8">
+              <div>
+                <h3 className="text-lg font-semibold mb-4">The Boston Drone School</h3>
+                <p className="text-gray-400">
+                  Professional drone education for the future workforce
+                </p>
+              </div>
+              <div>
+                <h4 className="font-semibold mb-4">Courses</h4>
+                <ul className="space-y-2 text-gray-400">
+                  <li><Link href="/courses/basic" className="hover:text-white">Basic Pilot Training</Link></li>
+                  <li><Link href="/courses/commercial" className="hover:text-white">Commercial Operations</Link></li>
+                  <li><Link href="/courses/photography" className="hover:text-white">Drone Photography</Link></li>
+                  <li><Link href="/courses/mapping" className="hover:text-white">Aerial Mapping</Link></li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold mb-4">Services</h4>
+                <ul className="space-y-2 text-gray-400">
+                  <li><Link href="/services/media" className="hover:text-white">Real Estate Media</Link></li>
+                  <li><Link href="/services/mapping" className="hover:text-white">Photogrammetry</Link></li>
+                  <li><Link href="/services/construction" className="hover:text-white">Construction Management</Link></li>
+                  <li><Link href="/services/consultation" className="hover:text-white">Consultation</Link></li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold mb-4">Contact</h4>
+                <div className="space-y-2 text-gray-400">
+                  <p>info@thebostondroneschool.org</p>
+                  <p>Boston, Massachusetts</p>
+                </div>
+              </div>
+            </div>
+            <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+              <p>&copy; 2025 The Boston Drone School - All Rights Reserved</p>
+            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
     </main>
   )
 }
