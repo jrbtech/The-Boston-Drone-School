@@ -143,35 +143,6 @@ class ApiClient {
     });
   }
 
-  // AI Features
-  async chatWithAI(message: string) {
-    return this.fetch('/api/ai/chat', {
-      method: 'POST',
-      body: JSON.stringify({ message }),
-    });
-  }
-
-  async getCourseRecommendations(userProfile: any) {
-    return this.fetch('/api/ai/recommendations', {
-      method: 'POST',
-      body: JSON.stringify({ userProfile }),
-    });
-  }
-
-  async generateQuiz(lessonContent: string, difficulty: string, questionCount: number) {
-    return this.fetch('/api/ai/generate-quiz', {
-      method: 'POST',
-      body: JSON.stringify({ lessonContent, difficulty, questionCount }),
-    });
-  }
-
-  async getStudentAssistance(question: string, courseContext: string, studentLevel: string) {
-    return this.fetch('/api/ai/assistance', {
-      method: 'POST',
-      body: JSON.stringify({ question, courseContext, studentLevel }),
-    });
-  }
-
   // Payments
   async createPaymentIntent(courseId: string) {
     return this.fetch('/api/payments/create-payment-intent', {
