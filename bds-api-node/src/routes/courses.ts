@@ -18,47 +18,127 @@ const requireAdmin = (req: Request, res: Response, next: Function) => {
   next();
 };
 
+type RawCourseRow = {
+  id: number;
+  title: string;
+  description: string | null;
+  category: string | null;
+  level: string | null;
+  duration_hours: number | null;
+  price: number | null;
+  created_at: string;
+  updated_at: string;
+  instructor_name: string | null;
+};
+
+type RawModuleRow = {
+  id: number;
+  courseId: number;
+  title: string;
+  description: string | null;
+  order: number;
+  duration: number | null;
+  contentType: string | null;
+  contentUrl: string | null;
+};
+
+const FALLBACK_INSTRUCTOR = 'Boston Drone School Faculty';
+
+const formatDuration = (hours: number | null): string => {
+  if (!hours || Number.isNaN(hours)) {
+    return 'Self-paced';
+  }
+
+  if (hours < 1) {
+    const minutes = Math.round(hours * 60);
+    return `${minutes} minutes`;
+  }
+
+  return `${hours} hour${hours === 1 ? '' : 's'}`;
+};
+
+const mapCourseRow = (row: RawCourseRow) => ({
+  id: row.id.toString(),
+  title: row.title,
+  description: row.description ?? '',
+  category: row.category ?? 'General',
+  level: (row.level ?? 'beginner') as string,
+  duration: formatDuration(row.duration_hours),
+  durationHours: row.duration_hours ?? 0,
+  price: row.price ?? 0,
+  instructor: row.instructor_name?.trim() || FALLBACK_INSTRUCTOR,
+  thumbnailUrl: null,
+  videoUrl: null,
+  materials: [] as string[],
+  prerequisites: [] as string[],
+  learningObjectives: [] as string[],
+  createdAt: row.created_at,
+  updatedAt: row.updated_at,
+});
+
+const mapModuleRow = (row: RawModuleRow) => ({
+  id: row.id.toString(),
+  courseId: row.courseId?.toString(),
+  title: row.title,
+  description: row.description ?? '',
+  order: row.order,
+  duration: row.duration ?? 0,
+  contentType: row.contentType ?? 'video',
+  videoUrl: row.contentUrl ?? null,
+  materials: [] as string[],
+});
+
 // GET /api/courses - Get all published courses
 router.get('/', async (req: Request, res: Response) => {
   try {
     const { category, level, search } = req.query;
 
     let query = `
-      SELECT id, title, description, category, difficulty_level as level,
-             duration_hours, price, created_at, updated_at
-      FROM courses
-      WHERE is_published = true
+      SELECT
+        c.id,
+        c.title,
+        c.description,
+        c.category,
+        c.difficulty_level AS level,
+        c.duration_hours,
+        c.price,
+        c.created_at,
+        c.updated_at,
+        CONCAT_WS(' ', u.first_name, u.last_name) AS instructor_name
+      FROM courses c
+      LEFT JOIN users u ON c.instructor_id = u.id
+      WHERE c.is_published = true
     `;
     const params: any[] = [];
     let paramIndex = 1;
 
-    // Apply filters
     if (category) {
-      query += ` AND category ILIKE $${paramIndex}`;
+      query += ` AND c.category ILIKE $${paramIndex}`;
       params.push(category as string);
       paramIndex++;
     }
 
     if (level) {
-      query += ` AND difficulty_level = $${paramIndex}`;
+      query += ` AND c.difficulty_level = $${paramIndex}`;
       params.push(level as string);
       paramIndex++;
     }
 
     if (search) {
-      query += ` AND (title ILIKE $${paramIndex} OR description ILIKE $${paramIndex})`;
+      query += ` AND (c.title ILIKE $${paramIndex} OR c.description ILIKE $${paramIndex})`;
       params.push(`%${search}%`);
       paramIndex++;
     }
 
-    query += ' ORDER BY created_at DESC';
+    query += ' ORDER BY c.created_at DESC';
 
     const result = await getPool().query(query, params);
+    const courses = (result.rows as RawCourseRow[]).map(mapCourseRow);
 
     res.json({
       success: true,
-      courses: result.rows,
-      total: result.rows.length
+      courses,
+      total: courses.length,
     });
   } catch (error) {
     console.error('Error fetching courses:', error);
@@ -72,36 +152,53 @@ router.get('/:id', async (req: Request, res: Response) => {
     const { id } = req.params;
 
     // Get course details
-    const courseResult = await getPool().query(
-      `SELECT id, title, description, category, difficulty_level as level,
-              duration_hours, price, created_at, updated_at
-       FROM courses
-       WHERE id = $1 AND is_published = true`,
-      [id]
-    );
+      const courseResult = await getPool().query(
+        `SELECT
+            c.id,
+            c.title,
+            c.description,
+            c.category,
+            c.difficulty_level AS level,
+            c.duration_hours,
+            c.price,
+            c.created_at,
+            c.updated_at,
+            CONCAT_WS(' ', u.first_name, u.last_name) AS instructor_name
+         FROM courses c
+         LEFT JOIN users u ON c.instructor_id = u.id
+         WHERE c.id = $1 AND c.is_published = true`,
+        [id]
+      );
 
     if (courseResult.rows.length === 0) {
       return res.status(404).json({ error: 'Course not found' });
     }
 
-    const course = courseResult.rows[0];
+      const course = mapCourseRow(courseResult.rows[0] as RawCourseRow);
 
     // Get course modules
     const modulesResult = await getPool().query(
-      `SELECT id, title, description, order_index as "order",
-              content_type, duration_minutes
-       FROM course_modules
-       WHERE course_id = $1
-       ORDER BY order_index`,
+        `SELECT
+            id,
+            course_id AS "courseId",
+            title,
+            description,
+            order_index AS "order",
+            duration_minutes AS duration,
+            content_type AS "contentType",
+            content_url AS "contentUrl"
+         FROM course_modules
+         WHERE course_id = $1
+         ORDER BY order_index`,
       [id]
     );
 
     res.json({
       success: true,
-      course: {
-        ...course,
-        modules: modulesResult.rows
-      }
+        course: {
+          ...course,
+          modules: (modulesResult.rows as RawModuleRow[]).map(mapModuleRow),
+        },
     });
   } catch (error) {
     console.error('Error fetching course:', error);
@@ -125,20 +222,29 @@ router.get('/:id/lessons', async (req: Request, res: Response) => {
     }
 
     // Get lessons (modules)
-    const lessonsResult = await getPool().query(
-      `SELECT id, course_id as "courseId", title, description,
-              duration_minutes as duration, order_index as "order"
-       FROM course_modules
-       WHERE course_id = $1
-       ORDER BY order_index`,
-      [id]
-    );
+      const lessonsResult = await getPool().query(
+        `SELECT
+            id,
+            course_id AS "courseId",
+            title,
+            description,
+            duration_minutes AS duration,
+            order_index AS "order",
+            content_type AS "contentType",
+            content_url AS "contentUrl"
+         FROM course_modules
+         WHERE course_id = $1
+         ORDER BY order_index`,
+        [id]
+      );
 
-    res.json({
-      success: true,
-      lessons: lessonsResult.rows,
-      total: lessonsResult.rows.length
-    });
+      const lessons = (lessonsResult.rows as RawModuleRow[]).map(mapModuleRow);
+
+      res.json({
+        success: true,
+        lessons,
+        total: lessons.length,
+      });
   } catch (error) {
     console.error('Error fetching lessons:', error);
     res.status(500).json({ error: 'Failed to fetch lessons' });
