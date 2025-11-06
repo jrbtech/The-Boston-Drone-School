@@ -65,94 +65,94 @@ export default function DashboardPage() {
 
   if (!user) return null
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-orange-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">BDS</span>
-              </div>
-              <span className="text-xl font-bold text-gray-900">The Boston Drone School</span>
-            </Link>
-
-            <nav className="flex items-center space-x-6">
-              <Link href="/courses" className="text-gray-700 hover:text-blue-600">Browse Courses</Link>
-              <Link href="/dashboard" className="text-blue-600 font-medium">Dashboard</Link>
-              <div className="relative group">
-                <button className="flex items-center gap-2 text-gray-700 hover:text-blue-600">
-                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-semibold">
-                    {user.name?.charAt(0) || 'U'}
-                  </div>
-                  <span>{user.name}</span>
-                </button>
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 hidden group-hover:block">
-                  <Link href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                    Profile Settings
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
-                  >
-                    Sign Out
-                  </button>
+    return (
+      <div className="min-h-screen bg-white text-gray-900">
+        {/* Header */}
+        <header className="bg-white/95 backdrop-blur border-b border-gray-200">
+          <div className="container mx-auto px-6 py-4">
+            <div className="flex justify-between items-center">
+              <Link href="/" className="flex items-center gap-3">
+                <div className="w-10 h-10 border border-gray-900 flex items-center justify-center text-sm font-semibold tracking-widest uppercase">
+                  BDS
                 </div>
-              </div>
-            </nav>
+                <span className="text-lg font-semibold tracking-wide uppercase text-gray-900">The Boston Drone School</span>
+              </Link>
+
+              <nav className="flex items-center gap-6 text-sm font-medium uppercase tracking-wider">
+                <Link href="/courses" className="text-gray-600 hover:text-black transition-colors">Programs</Link>
+                <Link href="/dashboard" className="text-gray-900">Dashboard</Link>
+                <div className="relative group">
+                  <button className="flex items-center gap-3 text-gray-700 hover:text-black transition-colors">
+                    <div className="w-8 h-8 border border-gray-900 rounded-full flex items-center justify-center text-xs font-semibold">
+                      {user.name?.charAt(0) || 'U'}
+                    </div>
+                    <span className="text-xs uppercase tracking-[0.3em]">{user.name}</span>
+                  </button>
+                  <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg py-2 hidden group-hover:block">
+                    <Link href="/profile" className="block px-4 py-2 text-xs uppercase tracking-[0.2em] text-gray-700 hover:bg-gray-100">
+                      Profile Settings
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 text-xs uppercase tracking-[0.2em] text-gray-900 hover:bg-gray-100"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                </div>
+              </nav>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
 
       {/* Dashboard Content */}
       <div className="container mx-auto px-6 py-12">
         {/* Welcome Section */}
-        <div className="bg-gradient-to-r from-blue-600 to-orange-600 rounded-2xl p-8 text-white mb-8">
-          <h1 className="text-3xl font-bold mb-2">Welcome back, {user.name?.split(' ')[0]}! 👋</h1>
-          <p className="text-lg opacity-90">Continue your learning journey</p>
+        <div className="rounded-2xl border border-gray-900 bg-black text-white p-8 mb-8">
+          <h1 className="text-3xl font-bold mb-3 uppercase tracking-[0.2em]">Welcome back, {user.name?.split(' ')[0]}</h1>
+          <p className="text-sm uppercase tracking-[0.3em] text-gray-400">Continue your training schedule</p>
         </div>
 
         {/* Stats */}
         <div className="grid md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-xl shadow-md p-6">
-            <div className="text-gray-600 text-sm mb-1">Active Courses</div>
+          <div className="bg-white border border-gray-200 rounded-xl p-6">
+            <div className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-2">Active Courses</div>
             <div className="text-3xl font-bold text-gray-900">
               {enrollments.filter((e) => e.status === 'active').length}
             </div>
           </div>
-          <div className="bg-white rounded-xl shadow-md p-6">
-            <div className="text-gray-600 text-sm mb-1">Completed</div>
-            <div className="text-3xl font-bold text-green-600">
+          <div className="bg-white border border-gray-200 rounded-xl p-6">
+            <div className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-2">Completed</div>
+            <div className="text-3xl font-bold text-gray-900">
               {enrollments.filter((e) => e.status === 'completed').length}
             </div>
           </div>
-          <div className="bg-white rounded-xl shadow-md p-6">
-            <div className="text-gray-600 text-sm mb-1">Total Progress</div>
-            <div className="text-3xl font-bold text-blue-600">
+          <div className="bg-white border border-gray-200 rounded-xl p-6">
+            <div className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-2">Total Progress</div>
+            <div className="text-3xl font-bold text-gray-900">
               {enrollments.length > 0
                 ? Math.round(enrollments.reduce((acc, e) => acc + e.progress, 0) / enrollments.length)
                 : 0}%
             </div>
           </div>
-          <div className="bg-white rounded-xl shadow-md p-6">
-            <div className="text-gray-600 text-sm mb-1">Certificates</div>
-            <div className="text-3xl font-bold text-orange-600">
+          <div className="bg-white border border-gray-200 rounded-xl p-6">
+            <div className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-2">Certificates</div>
+            <div className="text-3xl font-bold text-gray-900">
               {enrollments.filter((e) => e.certificateUrl).length}
             </div>
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="bg-white rounded-xl shadow-md mb-6">
+          {/* Tabs */}
+          <div className="bg-white border border-gray-200 rounded-xl mb-6">
           <div className="border-b">
             <div className="flex">
               <button
                 onClick={() => setActiveTab('active')}
                 className={`px-8 py-4 font-semibold transition-colors ${
                   activeTab === 'active'
-                    ? 'text-blue-600 border-b-2 border-blue-600'
-                    : 'text-gray-600 hover:text-gray-900'
+                      ? 'text-gray-900 border-b-2 border-gray-900'
+                      : 'text-gray-500 hover:text-gray-900'
                 }`}
               >
                 Active Courses ({enrollments.filter((e) => e.status === 'active').length})
@@ -161,8 +161,8 @@ export default function DashboardPage() {
                 onClick={() => setActiveTab('completed')}
                 className={`px-8 py-4 font-semibold transition-colors ${
                   activeTab === 'completed'
-                    ? 'text-blue-600 border-b-2 border-blue-600'
-                    : 'text-gray-600 hover:text-gray-900'
+                      ? 'text-gray-900 border-b-2 border-gray-900'
+                      : 'text-gray-500 hover:text-gray-900'
                 }`}
               >
                 Completed ({enrollments.filter((e) => e.status === 'completed').length})
@@ -174,43 +174,42 @@ export default function DashboardPage() {
         {/* Course List */}
         {loading ? (
           <div className="text-center py-12">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
             <p className="mt-4 text-gray-600">Loading your courses...</p>
           </div>
-        ) : filteredEnrollments.length === 0 ? (
-          <div className="bg-white rounded-xl shadow-md p-12 text-center">
-            <div className="text-6xl mb-4">📚</div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">
-              {activeTab === 'active' ? 'No Active Courses' : 'No Completed Courses Yet'}
-            </h3>
-            <p className="text-gray-600 mb-6">
-              {activeTab === 'active'
-                ? 'Start your learning journey by enrolling in a course'
-                : 'Complete your active courses to see them here'}
-            </p>
-            {activeTab === 'active' && (
-              <Link
-                href="/courses"
-                className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold"
-              >
-                Browse Courses
-              </Link>
-            )}
-          </div>
+          ) : filteredEnrollments.length === 0 ? (
+            <div className="bg-white border border-gray-200 rounded-xl p-12 text-center">
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                {activeTab === 'active' ? 'No Active Courses' : 'No Completed Courses Yet'}
+              </h3>
+              <p className="text-gray-600 mb-6 uppercase tracking-[0.2em] text-xs">
+                {activeTab === 'active'
+                  ? 'Enroll to begin your progression'
+                  : 'Complete outstanding modules to unlock certificates'}
+              </p>
+              {activeTab === 'active' && (
+                <Link
+                  href="/courses"
+                  className="inline-flex items-center justify-center bg-black hover:bg-gray-800 text-white px-8 py-3 rounded-lg font-semibold uppercase tracking-[0.2em]"
+                >
+                  Browse Programs
+                </Link>
+              )}
+            </div>
         ) : (
           <div className="space-y-6">
             {filteredEnrollments.map((enrollment) => {
               const course = courses[enrollment.courseId]
               if (!course) return null
 
-              return (
-                <div
-                  key={enrollment.id}
-                  className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow overflow-hidden"
-                >
+                return (
+                  <div
+                    key={enrollment.id}
+                    className="bg-white border border-gray-200 rounded-xl hover:shadow-lg transition-shadow overflow-hidden"
+                  >
                   <div className="flex flex-col md:flex-row">
                     {/* Course Thumbnail */}
-                    <div className="md:w-64 h-48 bg-gradient-to-br from-blue-500 to-orange-500 flex items-center justify-center relative overflow-hidden">
+                      <div className="md:w-64 h-48 bg-gray-200 flex items-center justify-center relative overflow-hidden">
                       {course.thumbnailUrl ? (
                         <Image
                           src={course.thumbnailUrl}
@@ -221,7 +220,7 @@ export default function DashboardPage() {
                           priority={false}
                         />
                       ) : (
-                        <span className="text-6xl">🚁</span>
+                          <span className="text-sm uppercase tracking-[0.4em] text-gray-500">BDS</span>
                       )}
                     </div>
 
@@ -235,10 +234,9 @@ export default function DashboardPage() {
                         {enrollment.certificateUrl && (
                           <Link
                             href={enrollment.certificateUrl}
-                            className="flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors"
+                              className="flex items-center gap-2 px-4 py-2 border border-gray-900 text-gray-900 rounded-lg hover:bg-gray-900 hover:text-white transition-colors text-xs uppercase tracking-[0.2em]"
                           >
-                            <span>📜</span>
-                            <span className="font-semibold">Certificate</span>
+                              <span className="font-semibold">Certificate</span>
                           </Link>
                         )}
                       </div>
@@ -251,7 +249,7 @@ export default function DashboardPage() {
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2">
                           <div
-                            className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                              className="bg-black h-2 rounded-full transition-all duration-300"
                             style={{ width: `${enrollment.progress}%` }}
                           ></div>
                         </div>
@@ -261,13 +259,13 @@ export default function DashboardPage() {
                       <div className="flex gap-4">
                         <Link
                           href={`/learn/${course.id}`}
-                          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-lg font-semibold transition-colors"
+                            className="flex-1 bg-black hover:bg-gray-800 text-white text-center py-3 rounded-lg font-semibold uppercase tracking-[0.2em] transition-colors"
                         >
                           {enrollment.progress === 0 ? 'Start Course' : 'Continue Learning'}
                         </Link>
                         <Link
                           href={`/courses/${course.id}`}
-                          className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+                            className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors uppercase tracking-[0.2em] text-xs"
                         >
                           View Details
                         </Link>

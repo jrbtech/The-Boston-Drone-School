@@ -18,11 +18,6 @@ export default function CoursePlayerPage() {
   const [enrollment, setEnrollment] = useState<any>(null)
   const [currentLesson, setCurrentLesson] = useState<any>(null)
   const [loading, setLoading] = useState(true)
-  const [showNotes, setShowNotes] = useState(false)
-  const [showAI, setShowAI] = useState(false)
-  const [aiQuestion, setAiQuestion] = useState('')
-  const [aiResponse, setAiResponse] = useState('')
-  const [aiLoading, setAiLoading] = useState(false)
 
   const courseId = Array.isArray(params.courseId) ? params.courseId[0] : params.courseId
 
@@ -105,75 +100,47 @@ export default function CoursePlayerPage() {
     }
   }
 
-  async function handleAskAI() {
-    if (!aiQuestion.trim() || !course) return
-
-    try {
-      setAiLoading(true)
-      const response = await api.getStudentAssistance(
-        aiQuestion,
-        course.title,
-        course.level
-      )
-      setAiResponse(response.assistance)
-    } catch (error) {
-      console.error('AI assistance failed:', error)
-      setAiResponse('Sorry, I could not process your question at this time.')
-    } finally {
-      setAiLoading(false)
-    }
-  }
-
   if (loading || !course) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
       </div>
     )
   }
 
-  return (
-    <div className="min-h-screen bg-gray-900 flex flex-col">
-      {/* Top Bar */}
-      <header className="bg-gray-800 border-b border-gray-700 px-6 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-6">
-          <Link
-            href="/dashboard"
-            className="text-gray-400 hover:text-white flex items-center gap-2"
-          >
-            <span>←</span>
-            <span>Back to Dashboard</span>
-          </Link>
-          <div>
-            <h1 className="text-white font-semibold">{course.title}</h1>
-            <div className="text-sm text-gray-400">
-              Progress: {enrollment?.progress || 0}%
+    return (
+      <div className="min-h-screen bg-black flex flex-col">
+        {/* Top Bar */}
+        <header className="bg-black border-b border-gray-800 px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <Link
+              href="/dashboard"
+              className="text-xs uppercase tracking-[0.3em] text-gray-400 hover:text-white transition-colors"
+            >
+              Dashboard
+            </Link>
+            <div>
+              <h1 className="text-white font-semibold text-lg">{course.title}</h1>
+              <div className="text-xs uppercase tracking-[0.3em] text-gray-500 mt-1">
+                Progress {enrollment?.progress || 0}%
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="flex items-center gap-4">
-          <button
-            onClick={() => setShowAI(!showAI)}
-            className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-colors"
-          >
-            🤖 AI Assistant
-          </button>
           <Link
             href="/dashboard"
-            className="px-4 py-2 border border-gray-600 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors"
+            className="px-5 py-2 border border-gray-700 text-gray-300 rounded-lg uppercase tracking-[0.25em] text-xs hover:bg-white hover:text-black transition-colors"
           >
             Exit Course
           </Link>
-        </div>
-      </header>
+        </header>
 
       {/* Main Content */}
       <div className="flex-1 flex">
         {/* Video Player Area */}
         <div className="flex-1 flex flex-col bg-black">
           {/* Video */}
-          <div className="flex-1 flex items-center justify-center">
+            <div className="flex-1 flex items-center justify-center">
             {currentLesson?.videoUrl ? (
               currentLesson.videoUrl.includes('youtube.com') ||
               currentLesson.videoUrl.includes('youtu.be') ||
@@ -196,12 +163,11 @@ export default function CoursePlayerPage() {
                 />
               )
             ) : (
-              <div className="text-center text-gray-400">
-                <div className="text-6xl mb-4">📹</div>
-                <p>Video player will appear here</p>
-                <p className="text-sm mt-2">
-                  Supports YouTube, Vimeo, and direct video files
-                </p>
+                <div className="text-center text-gray-500 uppercase tracking-[0.2em]">
+                  <p>Video module not available</p>
+                  <p className="text-xs mt-3 tracking-[0.3em]">
+                    Upload or link a compliant media source
+                  </p>
               </div>
             )}
           </div>
@@ -209,7 +175,7 @@ export default function CoursePlayerPage() {
           {/* Lesson Info & Controls */}
           <div className="bg-gray-800 p-6">
             <div className="container mx-auto">
-              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-between mb-4">
                 <div>
                   <h2 className="text-2xl font-bold text-white mb-2">
                     {currentLesson?.title || 'Select a lesson'}
@@ -218,7 +184,7 @@ export default function CoursePlayerPage() {
                 </div>
                 <button
                   onClick={handleMarkComplete}
-                  className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold"
+                    className="bg-white text-black hover:bg-gray-200 px-6 py-3 rounded-lg font-semibold uppercase tracking-[0.2em]"
                 >
                   Mark as Complete
                 </button>
@@ -230,12 +196,12 @@ export default function CoursePlayerPage() {
                   <h3 className="text-white font-semibold mb-2">Lesson Resources:</h3>
                   <div className="flex flex-wrap gap-2">
                     {currentLesson.materials.map((material: string, index: number) => (
-                      <button
-                        key={index}
-                        className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-lg text-sm"
-                      >
-                        📄 {material}
-                      </button>
+                        <div
+                          key={index}
+                          className="px-4 py-2 bg-gray-700 text-gray-200 rounded-lg text-sm uppercase tracking-[0.2em]"
+                        >
+                          {material}
+                        </div>
                     ))}
                   </div>
                 </div>
@@ -250,18 +216,20 @@ export default function CoursePlayerPage() {
             <h3 className="text-white font-bold text-lg mb-4">Course Content</h3>
 
             <div className="space-y-2">
-              {lessons.map((lesson, index) => (
-                <button
-                  key={lesson.id}
-                  onClick={() => setCurrentLesson(lesson)}
-                  className={`w-full text-left p-4 rounded-lg transition-colors ${
-                    currentLesson?.id === lesson.id
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                  }`}
-                >
+                {lessons.map((lesson, index) => (
+                  <button
+                    key={lesson.id}
+                    onClick={() => setCurrentLesson(lesson)}
+                    className={`w-full text-left p-4 rounded-lg transition-colors border ${
+                      currentLesson?.id === lesson.id
+                        ? 'bg-white text-black border-white'
+                        : 'bg-gray-800 text-gray-300 border-gray-700 hover:bg-gray-700'
+                    }`}
+                  >
                   <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center text-sm font-semibold">
+                      <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold ${
+                        currentLesson?.id === lesson.id ? 'bg-black text-white' : 'bg-gray-700 text-gray-300'
+                      }`}>
                       {index + 1}
                     </div>
                     <div className="flex-1">
@@ -278,71 +246,6 @@ export default function CoursePlayerPage() {
           </div>
         </div>
 
-        {/* AI Assistant Sidebar */}
-        {showAI && (
-          <div className="w-96 bg-gray-800 border-l border-gray-700 flex flex-col">
-            <div className="p-6 border-b border-gray-700">
-              <h3 className="text-white font-bold text-lg">AI Learning Assistant</h3>
-              <p className="text-gray-400 text-sm mt-1">Ask questions about the course content</p>
-            </div>
-
-            <div className="flex-1 p-6 overflow-y-auto">
-              {aiResponse && (
-                <div className="bg-gray-700 rounded-lg p-4 mb-4">
-                  <div className="text-purple-400 font-semibold mb-2">🤖 AI Assistant:</div>
-                  <div className="text-gray-300 text-sm">{aiResponse}</div>
-                </div>
-              )}
-
-              {aiLoading && (
-                <div className="text-center text-gray-400">
-                  <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mb-2"></div>
-                  <p className="text-sm">Thinking...</p>
-                </div>
-              )}
-            </div>
-
-            <div className="p-6 border-t border-gray-700">
-              <div className="space-y-3">
-                <textarea
-                  value={aiQuestion}
-                  onChange={(e) => setAiQuestion(e.target.value)}
-                  placeholder="Ask a question about this lesson..."
-                  className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-purple-600"
-                  rows={3}
-                />
-                <button
-                  onClick={handleAskAI}
-                  disabled={aiLoading || !aiQuestion.trim()}
-                  className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 text-white py-3 rounded-lg font-semibold"
-                >
-                  {aiLoading ? 'Processing...' : 'Ask AI'}
-                </button>
-              </div>
-
-              <div className="mt-4 space-y-2">
-                <button
-                  onClick={() => setAiQuestion('Can you explain this concept in simpler terms?')}
-                  className="w-full text-left px-3 py-2 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded text-sm"
-                >
-                  💡 Explain in simpler terms
-                </button>
-                <button
-                  onClick={() => setAiQuestion('What are the key takeaways from this lesson?')}
-                  className="w-full text-left px-3 py-2 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded text-sm"
-                >
-                  📝 Key takeaways
-                </button>
-                <button
-                  onClick={() => setAiQuestion('Give me a practical example of this concept')}
-                  className="w-full text-left px-3 py-2 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded text-sm"
-                >
-                  🎯 Practical example
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   )

@@ -24,7 +24,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://learn.thebostondroneschool.org'),
   title: 'The Boston Drone School - E-Learning Platform',
-  description: 'Professional drone education and certification programs. Learn from industry experts with hands-on training and AI-powered personalized learning paths.',
+  description: 'Professional drone education and certification programs grounded in rigorous training and contemporary industry practice.',
   keywords: 'drone training, UAV education, pilot certification, Boston, drone school, e-learning',
   authors: [{ name: 'The Boston Drone School' }],
   openGraph: {
@@ -43,7 +43,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
-      <body className="font-sans antialiased bg-gray-50 text-gray-900">
+      <body className="font-sans antialiased bg-white text-gray-900">
         <AuthProvider>
           <div id="root" className="min-h-screen">
             {children}
