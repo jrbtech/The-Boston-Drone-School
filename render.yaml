@@ -1,6 +1,12 @@
 # The Boston Drone School - E-Learning Platform
 # Comprehensive deployment configuration for integration with thebostondroneschool.org
 
+databases:
+  - name: bds-postgres
+    databaseName: boston_drone_school
+    user: bds_admin
+    plan: starter
+
 services:
   # Frontend - Next.js E-Learning Platform
   - type: web
@@ -41,7 +47,9 @@ services:
       - key: PORT
         value: 10000
       - key: DATABASE_URL
-        sync: false
+        fromDatabase:
+          name: bds-postgres
+          property: connectionString
       - key: DATABASE_SSL
         value: "true"
       - key: JWT_SECRET
@@ -76,5 +84,5 @@ services:
   #   autoDeploy: true
 
 # Database configuration
-# Note: Database already exists and is managed separately in Render dashboard
-# Connection via DATABASE_URL environment variable in backend service
+# Render will provision the `bds-postgres` database defined above and
+# automatically inject the `DATABASE_URL` connection string into the backend service.
