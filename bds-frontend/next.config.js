@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'thebostondroneschool.org',
       },
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+      },
     ],
   },
   // Optimize for production
@@ -17,12 +21,12 @@ const nextConfig = {
   poweredByHeader: false,
   // Ensure ES modules work correctly
   experimental: {
-    esmExternals: true
+    esmExternals: true,
   },
   // Disable type checking during build (we'll rely on tsc for this)
   typescript: {
-    ignoreBuildErrors: false
-  }
+    ignoreBuildErrors: false,
+  },
 }
 
 module.exports = nextConfig

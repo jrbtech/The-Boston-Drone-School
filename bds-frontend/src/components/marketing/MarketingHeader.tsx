@@ -25,20 +25,23 @@ const navLinks: NavLink[] = [
 ]
 
 const brandBlock = (
-  <Link href="/" className="flex items-center gap-3 text-left">
-    <Image
-      src="/images/boston-drone-school-logo.svg"
-      alt="Boston Drone School logo"
-      width={112}
-      height={80}
-      priority
-      className="h-14 w-auto"
-    />
+  <Link href="/" className="flex items-center gap-4 text-left">
+    <span className="flex h-14 w-20 items-center justify-center rounded-xl border border-gray-200 bg-white shadow-sm">
+      <Image
+        src="/images/boston-drone-school-logo.svg"
+        alt="Boston Drone School logo"
+        width={112}
+        height={80}
+        sizes="80px"
+        priority
+        className="h-10 w-auto object-contain"
+      />
+    </span>
     <span className="flex flex-col">
-      <span className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-900">
+      <span className="text-xs font-semibold uppercase tracking-[0.24em] text-gray-900">
         Boston Drone School
       </span>
-      <span className="text-[0.62rem] uppercase tracking-[0.28em] text-gray-500">
+      <span className="text-[0.62rem] uppercase tracking-[0.24em] text-gray-500">
         Operations, Training, Advocacy
       </span>
     </span>
@@ -80,7 +83,7 @@ export function MarketingHeader() {
       <div className="mx-auto flex h-20 w-full max-w-6xl items-center justify-between px-6">
         {brandBlock}
 
-        <nav className="hidden items-center gap-6 text-xs font-medium uppercase tracking-[0.28em] text-gray-600 lg:flex">
+        <nav className="hidden items-center gap-6 text-xs font-medium uppercase tracking-[0.22em] text-gray-600 lg:flex">
           {navLinks.map((link) => {
             const active = isCurrent(pathname, link.href)
             if (link.emphasis === 'primary') {
@@ -119,7 +122,7 @@ export function MarketingHeader() {
 
       {menuOpen && (
         <div className="border-t border-black/10 bg-white lg:hidden">
-          <nav className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-6 text-sm uppercase tracking-[0.22em] text-gray-700">
+          <nav className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-6 text-sm uppercase tracking-[0.2em] text-gray-700">
             {navLinks.map((link) => {
               const active = isCurrent(pathname, link.href)
               if (link.emphasis === 'primary') {
