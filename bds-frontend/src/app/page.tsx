@@ -1,458 +1,384 @@
 'use client'
 
-import { useState } from 'react'
 import Link from 'next/link'
+import { useEffect, useMemo, useState } from 'react'
+import { api, Course } from '../lib/api'
+import { useAuth } from '../contexts/AuthContext'
 
-const navLinks = [
-  { href: '/courses', label: 'Programs' },
-  { href: '/about', label: 'About' },
-  { href: '/services', label: 'Services' },
-  { href: '/contact', label: 'Contact' },
-]
-
-const heroHighlights = [
-  'Scenario-based simulator and live flight intensives',
-  'Compliance playbooks for enterprise and public safety teams',
-  'Dedicated mission coaches and post-certification support',
-]
-
-const stripHighlights = [
-  { label: 'Next Cohort', value: 'January 2026 interviews now in progress' },
-  { label: 'Corporate Programs', value: 'Custom training for utilities, media, and public safety divisions' },
-  { label: 'Certifications', value: 'FAA Part 107, BVLOS readiness, and specialization pathways' },
-]
-
-const featureList = [
+const platformFeatures = [
   {
-    title: 'Precision-Crafted Curriculum',
+    title: 'Structured learning paths',
     description:
-      'Sequenced instruction co-developed with aerospace counsel, covering mission design, flight control systems, and data delivery.',
+      'Progress through modules, simulations, and assessments in the order your instructors designed.',
   },
   {
-    title: 'Operators With Air Time',
+    title: 'Real-time progress tracking',
     description:
-      'Commercial pilots, engineers, and operations leads translate real deployments into immersive labs and workshops.',
+      'Pick up where you left off, see what is due next, and stay on track toward certification milestones.',
   },
   {
-    title: 'Immersive Flight Laboratories',
+    title: 'Operational resources',
     description:
-      'Structured field exercises, simulator intensives, and BVLOS scenarios accelerate disciplined decision-making.',
-  },
-  {
-    title: 'Risk & Compliance Architecture',
-    description:
-      'Enterprise-grade SOPs, documentation, and regulatory frameworks ensure graduates meet regulated sector criteria.',
+      'Download checklists, mission plans, and reporting templates that mirror real-world deployments.',
   },
 ]
 
-const stats = [
-  { number: '500+', label: 'Teams Trained' },
-  { number: '95%', label: 'Certification Rate' },
-  { number: '50+', label: 'Enterprise Partners' },
-  { number: '10+', label: 'Program Tracks' },
+const quickStartSteps = [
+  {
+    step: '01',
+    title: 'Create your account',
+    description: 'Use your invite or register with your work email to unlock the BDS learning environment.',
+  },
+  {
+    step: '02',
+    title: 'Enroll in a program',
+    description: 'Choose the pathway aligned to your mission profile and confirm enrollment in minutes.',
+  },
+  {
+    step: '03',
+    title: 'Launch your training',
+    description: 'Stream lessons, join live sessions, and complete assessments with built-in progress tracking.',
+  },
+  {
+    step: '04',
+    title: 'Earn certification assets',
+    description: 'Access completion certificates, compliance documentation, and next-step recommendations.',
+  },
 ]
 
-const Navigation = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+const supportHighlights = [
+  {
+    label: 'Technical support',
+    value: 'info@thebostondroneschool.org',
+  },
+  {
+    label: 'Office hours',
+    value: 'Mon – Fri · 8:00a – 6:00p ET',
+  },
+  {
+    label: 'Platform status',
+    value: 'All systems operational',
+  },
+]
+
+const arrowIcon = (
+  <span className="inline-flex h-4 w-4 items-center justify-center">
+    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+      <path d="M3 11L11 3M11 3H4.6M11 3V9.4" />
+    </svg>
+  </span>
+)
+
+export default function HomePage() {
+  const { user } = useAuth()
+  const [featuredCourses, setFeaturedCourses] = useState<Course[]>([])
+  const [coursesLoaded, setCoursesLoaded] = useState(false)
+
+  const isAuthenticated = Boolean(user)
+  const learnerName = useMemo(() => {
+    if (!user) return ''
+    if (user.firstName) return user.firstName
+    if (user.name) {
+      const [first] = user.name.split(' ')
+      return first
+    }
+    return ''
+  }, [user])
+
+  useEffect(() => {
+    let isMounted = true
+
+    const loadCourses = async () => {
+      try {
+        const response = await api.getCourses({})
+        if (!isMounted) return
+        const courseList = Array.isArray(response?.courses) ? (response.courses as Course[]) : []
+        setFeaturedCourses(courseList.slice(0, 3))
+      } catch (error) {
+        console.error('Failed to load courses for the landing page:', error)
+      } finally {
+        if (isMounted) {
+          setCoursesLoaded(true)
+        }
+      }
+    }
+
+    loadCourses()
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-foreground/10 bg-background/90 backdrop-blur">
-      <div className="section-shell">
-        <div className="flex h-20 items-center justify-between">
-          <Link href="/" className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center border border-foreground/40 text-xs font-semibold uppercase tracking-[0.4em]">
+    <main className="min-h-screen bg-background text-foreground">
+      <header className="sticky top-0 z-40 border-b border-foreground/10 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
+        <div className="section-shell flex h-20 items-center justify-between">
+          <Link href="/" className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center border border-foreground/40 text-xs font-semibold uppercase tracking-[0.4em]">
               BDS
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-semibold uppercase tracking-[0.3em]">
-                Boston Drone School
-              </span>
-              <span className="text-xs uppercase tracking-[0.35em] text-foreground/60">
-                Precision Flight Training
-              </span>
+              <span className="text-xs font-semibold uppercase tracking-[0.32em]">Boston Drone School</span>
+              <span className="text-[0.64rem] uppercase tracking-[0.38em] text-foreground/60">Learning Portal</span>
             </div>
           </Link>
-          <div className="hidden lg:flex items-center gap-10 text-[0.72rem] uppercase tracking-[0.4em]">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-foreground/60 transition-colors hover:text-foreground"
-              >
-                {link.label}
+          <nav className="hidden md:flex items-center gap-8 text-xs uppercase tracking-[0.3em]">
+            <Link href="/courses" className="text-foreground/65 transition hover:text-foreground">
+              Courses
+            </Link>
+            {isAuthenticated && (
+              <Link href="/dashboard" className="text-foreground/65 transition hover:text-foreground">
+                Dashboard
               </Link>
+            )}
+          </nav>
+          <div className="flex items-center gap-3">
+            {isAuthenticated ? (
+              <Link
+                href="/dashboard"
+                className="cta-button-primary h-12 px-7 text-[0.7rem] tracking-[0.24em]"
+              >
+                Continue to dashboard
+              </Link>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="hidden text-xs uppercase tracking-[0.28em] text-foreground/70 transition-colors hover:text-foreground md:inline"
+                >
+                  Log in
+                </Link>
+                <Link
+                  href="/register"
+                  className="cta-button-primary h-12 px-7 text-[0.7rem] tracking-[0.24em]"
+                >
+                  Create account
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
+      </header>
+
+      <section className="border-b border-foreground/10 bg-secondary">
+        <div className="section-shell py-20">
+          <div className="grid gap-16 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-start">
+            <div className="space-y-10">
+              <div className="space-y-5">
+                <p className="headline-kicker text-foreground/60">
+                  Boston Drone School E-Learning Platform
+                </p>
+                <h1 className="text-4xl font-semibold uppercase leading-snug tracking-[0.06em] md:text-5xl">
+                  Everything you need to move from first flight to mission-ready deployments in one portal.
+                </h1>
+                <p className="max-w-2xl text-base md:text-lg leading-relaxed text-foreground/70">
+                  Log in to continue your syllabus, review mission prep materials, and collaborate with instructors. This portal is the
+                  dedicated learning environment you reach after visiting the public site at thebostondroneschool.org.
+                </p>
+                {isAuthenticated && learnerName && (
+                  <div className="inline-flex items-center gap-2 rounded-full border border-foreground/10 bg-background px-5 py-2 text-xs uppercase tracking-[0.28em] text-foreground/60">
+                    Welcome back, {learnerName}
+                  </div>
+                )}
+              </div>
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+                <Link
+                  href={isAuthenticated ? '/dashboard' : '/login'}
+                  className="cta-button-primary gap-3"
+                >
+                  {isAuthenticated ? 'Go to dashboard' : 'Sign in to continue'}
+                  {arrowIcon}
+                </Link>
+                <Link href="/courses" className="cta-button-secondary">
+                  Browse courses
+                </Link>
+              </div>
+              <div className="grid gap-6 sm:grid-cols-2">
+                {platformFeatures.slice(0, 2).map((feature) => (
+                  <div key={feature.title} className="flex flex-col gap-3 rounded-xl border border-foreground/12 bg-secondary/70 p-6">
+                    <span className="text-xs uppercase tracking-[0.35em] text-foreground/55">Inside the portal</span>
+                    <h3 className="text-lg font-semibold uppercase leading-tight">{feature.title}</h3>
+                    <p className="text-sm leading-relaxed text-foreground/70">{feature.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="space-y-6 rounded-2xl border border-foreground/12 bg-background p-8">
+              <div className="space-y-3">
+                <span className="text-xs uppercase tracking-[0.35em] text-foreground/55">Quick access</span>
+                <h2 className="text-2xl font-semibold uppercase leading-tight">Your dedicated learning workspace</h2>
+                <p className="text-sm leading-relaxed text-foreground/70">
+                  Jump straight to your dashboard to resume active courses, review instructor feedback, and download course materials.
+                </p>
+              </div>
+              <div className="flex flex-col gap-3 text-sm uppercase tracking-[0.3em] text-foreground/60">
+                <div className="flex items-center justify-between rounded-lg border border-foreground/10 px-4 py-3">
+                  <span>Active courses</span>
+                  <span className="text-foreground">Dashboard</span>
+                </div>
+                <div className="flex items-center justify-between rounded-lg border border-foreground/10 px-4 py-3">
+                  <span>Resources</span>
+                  <span className="text-foreground">Downloads</span>
+                </div>
+                <div className="flex items-center justify-between rounded-lg border border-foreground/10 px-4 py-3">
+                  <span>Certificates</span>
+                  <span className="text-foreground">Issued</span>
+                </div>
+              </div>
+              <Link
+                href={isAuthenticated ? '/dashboard' : '/register'}
+                className="inline-flex items-center justify-center rounded-lg border border-black bg-black px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-transparent hover:text-foreground"
+              >
+                {isAuthenticated ? 'Continue learning' : 'Set up access'}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-foreground/10 bg-background">
+        <div className="section-shell py-16">
+          <div className="space-y-6 text-center md:text-left">
+            <p className="headline-kicker">How it works</p>
+            <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.06em] md:text-4xl">
+              The portal keeps teams aligned from enrollment to certification.
+            </h2>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {quickStartSteps.map((step) => (
+              <div
+                key={step.step}
+                className="flex h-full flex-col gap-4 rounded-2xl border border-foreground/12 bg-secondary p-6"
+              >
+                <span className="text-xs uppercase tracking-[0.4em] text-foreground/55">Step {step.step}</span>
+                <h3 className="text-lg font-semibold uppercase leading-tight">{step.title}</h3>
+                <p className="text-sm leading-relaxed text-foreground/70">{step.description}</p>
+              </div>
             ))}
           </div>
-          <div className="hidden lg:flex items-center gap-6">
-            <Link
-              href="/login"
-              className="text-xs uppercase tracking-[0.28em] text-foreground transition-colors hover:text-foreground/60"
-            >
-              Client Login
-            </Link>
-            <Link
-              href="/enrollment"
-              className="inline-flex items-center justify-center gap-3 border border-black bg-black px-7 py-3 text-xs font-semibold uppercase tracking-[0.32em] text-white transition-all duration-200 hover:bg-transparent hover:text-foreground"
-            >
-              Speak to Admissions
-            </Link>
-          </div>
-          <button
-            className="inline-flex h-12 w-12 items-center justify-center border border-foreground/40 lg:hidden"
-            onClick={() => setIsMenuOpen((prev) => !prev)}
-            aria-label="Toggle navigation"
-            type="button"
-          >
-            <span className="sr-only">Toggle navigation</span>
-            <svg
-              className="h-5 w-5"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              {isMenuOpen ? (
-                <path d="M6 6l12 12M6 18L18 6" />
-              ) : (
-                <path d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
         </div>
-      </div>
-      {isMenuOpen && (
-        <div className="border-t border-foreground/10 bg-background lg:hidden">
-          <div className="section-shell py-10">
-            <div className="flex flex-col gap-6 text-sm uppercase tracking-[0.35em]">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="border-b border-foreground/15 pb-4 text-foreground/70 transition-colors hover:text-foreground"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <Link
-                href="/enrollment"
-                className="inline-flex items-center justify-center border border-black bg-black px-6 py-3 text-xs font-semibold uppercase tracking-[0.32em] text-white transition-all duration-200 hover:bg-transparent hover:text-foreground"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Speak to Admissions
-              </Link>
-              <Link
-                href="/login"
-                className="text-xs uppercase tracking-[0.28em] text-foreground transition-colors hover:text-foreground/60"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Client Login
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
-    </nav>
-  )
-}
+      </section>
 
-const HeroSection = () => {
-  return (
-    <section className="relative overflow-hidden border-b border-foreground/10 bg-secondary">
-      <div
-        className="absolute inset-y-0 right-0 hidden w-1/2 bg-gradient-to-l from-black/15 via-black/5 to-transparent lg:block"
-        aria-hidden
-      />
-      <div className="section-shell relative py-24 md:py-36">
-        <div className="grid gap-16 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-          <div className="space-y-12">
-            <div className="space-y-6">
-              <p className="headline-kicker">Precision Drone Education</p>
-              <h1 className="text-5xl font-semibold uppercase leading-[0.92] tracking-[0.08em] md:text-6xl lg:text-7xl">
-                Command the airspace with disciplined mastery.
-              </h1>
-              <p className="max-w-xl text-lg leading-relaxed text-foreground/70">
-                The Boston Drone School enables pilots, engineers, and operators to build confident, compliant, and revenue-ready
-                aerial programs through immersive flight labs and executive-level advisory.
+      <section className="bg-secondary">
+        <div className="section-shell py-20">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl space-y-4">
+              <p className="headline-kicker">Browse programs</p>
+              <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.06em] md:text-4xl">
+                Featured courses ready to join today.
+              </h2>
+              <p className="text-sm leading-relaxed text-foreground/70">
+                Filtered down from the full catalog so you can preview what is available before you sign in or create an account.
               </p>
             </div>
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-              <Link href="/enrollment" className="cta-button-primary gap-3">
-                Start Application
-                <span className="inline-flex h-4 w-4 items-center justify-center">
-                  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
-                    <path d="M3 11L11 3M11 3H4.6M11 3V9.4" />
-                  </svg>
-                </span>
-              </Link>
-              <Link href="/courses" className="cta-button-secondary">
-                View Programs
-              </Link>
+            <Link href="/courses" className="cta-button-secondary">
+              View all courses
+            </Link>
+          </div>
+
+          {(!coursesLoaded && featuredCourses.length === 0) && (
+            <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {Array.from({ length: 3 }).map((_, index) => (
+                <div
+                  key={`course-skeleton-${index}`}
+                  className="h-48 rounded-2xl border border-foreground/10 bg-background loading-pulse"
+                />
+              ))}
             </div>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {heroHighlights.map((item) => (
-                <div key={item} className="flex flex-col gap-3 border-t border-foreground/15 pt-4">
-                  <span className="text-xs uppercase tracking-[0.35em] text-foreground/55">Capability</span>
-                  <p className="text-sm font-medium leading-relaxed text-foreground">{item}</p>
+          )}
+
+          {(coursesLoaded && featuredCourses.length === 0) && (
+            <div className="mt-12 rounded-2xl border border-foreground/12 bg-background px-6 py-10 text-center text-sm uppercase tracking-[0.28em] text-foreground/55">
+              Public course previews will appear here once catalog data is published.
+            </div>
+          )}
+
+          {featuredCourses.length > 0 && (
+            <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {featuredCourses.map((course) => (
+                <Link
+                  key={course.id}
+                  href={`/courses/${course.id}`}
+                  className="group flex h-full flex-col gap-4 rounded-2xl border border-foreground/12 bg-background p-6 transition-transform duration-200 hover:-translate-y-1"
+                >
+                  <div className="flex items-center gap-3 text-[0.65rem] uppercase tracking-[0.32em] text-foreground/55">
+                    <span className="rounded-full border border-foreground/15 px-3 py-1 text-foreground/70">
+                      {course.category}
+                    </span>
+                    <span className="rounded-full border border-foreground/15 px-3 py-1 text-foreground/70">
+                      {course.level}
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-semibold uppercase leading-tight text-foreground">
+                    {course.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-foreground/70 line-clamp-3">
+                    {course.description}
+                  </p>
+                  <div className="mt-auto flex items-center justify-between text-[0.65rem] uppercase tracking-[0.32em] text-foreground/60">
+                    <span>{course.instructor.split(',')[0]}</span>
+                    <span>{course.duration}</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="bg-black text-white">
+        <div className="section-shell py-16">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
+            <div className="space-y-4">
+              <p className="headline-kicker text-white/50">Need assistance?</p>
+              <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.06em] md:text-4xl">
+                We are ready to help with access, billing, or curriculum questions.
+              </h2>
+              <p className="text-sm leading-relaxed text-white/70">
+                Reach out to the Boston Drone School support team if you need help getting into the portal or aligning a program to your
+                operational goals.
+              </p>
+            </div>
+            <div className="grid gap-6 sm:grid-cols-2">
+              {supportHighlights.map((item) => (
+                <div key={item.label} className="rounded-xl border border-white/20 bg-white/5 p-6">
+                  <span className="text-xs uppercase tracking-[0.35em] text-white/60">{item.label}</span>
+                  <p className="mt-3 text-base font-medium tracking-[0.02em] text-white">
+                    {item.label === 'Technical support' ? (
+                      <a href={`mailto:${item.value}`} className="underline decoration-white/40 underline-offset-4">
+                        {item.value}
+                      </a>
+                    ) : (
+                      item.value
+                    )}
+                  </p>
                 </div>
               ))}
             </div>
           </div>
-          <div className="relative isolate overflow-hidden border border-foreground/15 bg-black px-10 py-12 text-white">
-            <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/60" aria-hidden />
-            <div className="relative space-y-8">
-              <div className="space-y-2">
-                <span className="text-xs uppercase tracking-[0.4em] text-white/60">Admissions Intelligence</span>
-                <p className="text-3xl font-semibold leading-snug">
-                  Cohorts curated for enterprise, public safety, and creative operations.
-                </p>
-              </div>
-              <p className="text-sm leading-relaxed text-white/70">
-                Submit your portfolio and mission objectives to receive a tailored training proposal and flight-readiness roadmap
-                within 48 hours of application.
-              </p>
-              <div className="flex flex-col gap-3 text-xs uppercase tracking-[0.35em] text-white/60">
-                <span>Part 107 &amp; BVLOS readiness</span>
-                <span>Operational risk frameworks</span>
-                <span>Equipment integration labs</span>
-              </div>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-3 text-sm font-medium uppercase tracking-[0.35em] text-white transition-opacity hover:opacity-70"
-              >
-                Book Advisory Call
-                <span className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-white/40">
-                  <svg
-                    viewBox="0 0 14 14"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    className="h-3 w-3"
-                    aria-hidden
-                  >
-                    <path d="M3 11L11 3M11 3H4.6M11 3V9.4" />
-                  </svg>
-                </span>
+        </div>
+      </section>
+
+      <footer className="border-t border-foreground/10 bg-background">
+        <div className="section-shell flex flex-col gap-6 py-12 text-center text-xs uppercase tracking-[0.26em] text-foreground/55 md:flex-row md:items-center md:justify-between md:text-left">
+          <span>© {new Date().getFullYear()} The Boston Drone School · Learning Portal</span>
+          <div className="flex items-center justify-center gap-6 md:justify-end">
+            <a href="mailto:info@thebostondroneschool.org" className="transition-colors hover:text-foreground">
+              Contact support
+            </a>
+            {isAuthenticated ? (
+              <Link href="/dashboard" className="transition-colors hover:text-foreground">
+                Dashboard
               </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-const HighlightsStrip = () => {
-  return (
-    <section className="border-y border-foreground/10 bg-background">
-      <div className="section-shell py-10">
-        <div className="grid gap-8 md:grid-cols-3">
-          {stripHighlights.map((item) => (
-            <div key={item.label} className="flex flex-col gap-2">
-              <span className="text-xs uppercase tracking-[0.4em] text-foreground/55">{item.label}</span>
-              <p className="text-base font-medium leading-relaxed text-foreground">{item.value}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-const FeaturesSection = () => {
-  return (
-    <section className="bg-secondary py-24">
-      <div className="section-shell">
-        <div className="grid gap-20 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-          <div className="space-y-6">
-            <p className="headline-kicker">Why leaders choose BDS</p>
-            <h2 className="text-4xl font-semibold uppercase leading-[0.96] tracking-[0.06em] md:text-5xl">
-              Precision training engineered for enterprise impact.
-            </h2>
-            <p className="max-w-xl text-base md:text-lg leading-relaxed text-foreground/70">
-              Each program is built with risk officers, insurers, and operational directors to ensure your teams earn credentials,
-              document compliance, and deploy mission-ready flight capabilities.
-            </p>
-          </div>
-          <div className="grid gap-6 sm:grid-cols-2">
-            {featureList.map((feature, index) => (
-              <div
-                key={feature.title}
-                className="group border border-foreground/12 bg-secondary/60 p-8 transition-all duration-300 hover:-translate-y-1 hover:bg-secondary"
-              >
-                <span className="text-xs uppercase tracking-[0.4em] text-foreground/55">0{index + 1}</span>
-                <h3 className="mt-4 text-xl font-semibold uppercase leading-tight">{feature.title}</h3>
-                <p className="mt-4 text-sm leading-relaxed text-foreground/70">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-const StatsSection = () => {
-  return (
-    <section className="bg-black text-white">
-      <div className="section-shell py-24">
-        <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-xl space-y-4">
-            <p className="headline-kicker text-white/50">Measured outcomes</p>
-            <h2 className="text-4xl font-semibold uppercase leading-[0.96] tracking-[0.06em] md:text-5xl">
-              Proven performance across regulated sectors.
-            </h2>
-            <p className="text-sm leading-relaxed text-white/65">
-              From utilities to creative agencies, we align training outcomes with flight-readiness KPIs, certification mandates, and
-              operational ROI.
-            </p>
-          </div>
-          <Link
-            href="/learn"
-            className="inline-flex items-center justify-center gap-3 border border-white/40 px-7 py-3 text-xs font-semibold uppercase tracking-[0.32em] text-white transition-all duration-200 hover:bg-white hover:text-black"
-          >
-            View Case Studies
-          </Link>
-        </div>
-        <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat) => (
-            <div key={stat.label} className="space-y-2 border-t border-white/20 pt-6">
-              <div className="text-4xl font-semibold tracking-tight md:text-5xl">{stat.number}</div>
-              <div className="text-xs uppercase tracking-[0.3em] text-white/60">{stat.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-const FinalCTASection = () => {
-  return (
-    <section className="border-t border-foreground/10 bg-secondary py-24">
-      <div className="section-shell">
-        <div className="grid gap-12 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
-          <div className="space-y-6">
-            <p className="headline-kicker">Schedule a strategy consult</p>
-            <h2 className="text-4xl font-semibold uppercase leading-[0.94] tracking-[0.06em] md:text-5xl">
-              Secure your seat in the next admissions cohort.
-            </h2>
-            <p className="max-w-2xl text-base leading-relaxed text-foreground/70">
-              Share your operational objectives and current fleet capabilities. Our admissions team will curate the right program track,
-              outline investment, and prepare your stakeholders for launch.
-            </p>
-          </div>
-          <div className="flex flex-col gap-4 sm:flex-row">
-            <Link href="/enrollment" className="cta-button-primary gap-3">
-              Schedule Consultation
-              <span className="inline-flex h-4 w-4 items-center justify-center">
-                <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
-                  <path d="M3 11L11 3M11 3H4.6M11 3V9.4" />
-                </svg>
-              </span>
-            </Link>
-            <Link href="/courses" className="cta-button-secondary">
-              Download Prospectus
-            </Link>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-const Footer = () => {
-  return (
-    <footer className="border-t border-foreground/10 bg-background py-16">
-      <div className="section-shell">
-        <div className="grid gap-12 md:grid-cols-4">
-          <div className="space-y-4">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.3em]">Boston Drone School</h3>
-            <p className="text-sm leading-relaxed text-foreground/70">
-              Professional drone education and certification engineered for mission-critical teams.
-            </p>
-          </div>
-          <div className="space-y-4">
-            <h4 className="text-xs uppercase tracking-[0.35em] text-foreground/60">Programs</h4>
-            <ul className="space-y-3 text-sm text-foreground/70">
-              <li>
-                <Link href="/courses/basic" className="transition-colors hover:text-foreground">
-                  Pilot Foundations
-                </Link>
-              </li>
-              <li>
-                <Link href="/courses/commercial" className="transition-colors hover:text-foreground">
-                  Commercial Operations
-                </Link>
-              </li>
-              <li>
-                <Link href="/courses/mapping" className="transition-colors hover:text-foreground">
-                  Aerial Mapping &amp; Data
-                </Link>
-              </li>
-              <li>
-                <Link href="/courses/enterprise" className="transition-colors hover:text-foreground">
-                  Enterprise Cohorts
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div className="space-y-4">
-            <h4 className="text-xs uppercase tracking-[0.35em] text-foreground/60">Services</h4>
-            <ul className="space-y-3 text-sm text-foreground/70">
-              <li>
-                <Link href="/services/media" className="transition-colors hover:text-foreground">
-                  Aerial Media
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/consultation" className="transition-colors hover:text-foreground">
-                  Program Consulting
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/mapping" className="transition-colors hover:text-foreground">
-                  Photogrammetry
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/support" className="transition-colors hover:text-foreground">
-                  Fleet Support
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div className="space-y-4">
-            <h4 className="text-xs uppercase tracking-[0.35em] text-foreground/60">Contact</h4>
-            <div className="space-y-3 text-sm text-foreground/70">
-              <p>info@thebostondroneschool.org</p>
-              <p>Boston, Massachusetts</p>
-              <Link href="/contact" className="transition-colors hover:text-foreground">
-                Request Information
+            ) : (
+              <Link href="/register" className="transition-colors hover:text-foreground">
+                Create account
               </Link>
-            </div>
+            )}
           </div>
         </div>
-        <div className="mt-12 border-t border-foreground/10 pt-8 text-center text-xs uppercase tracking-[0.25em] text-foreground/50">
-          © {new Date().getFullYear()} The Boston Drone School — All Rights Reserved
-        </div>
-      </div>
-    </footer>
-  )
-}
-
-export default function HomePage() {
-  return (
-    <main className="min-h-screen bg-background text-foreground">
-      <Navigation />
-      <HeroSection />
-      <HighlightsStrip />
-      <FeaturesSection />
-      <StatsSection />
-      <FinalCTASection />
-      <Footer />
+      </footer>
     </main>
   )
 }
