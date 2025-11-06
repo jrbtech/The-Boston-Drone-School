@@ -8,20 +8,20 @@ export default function MissionPage() {
             The Boston Drone School
           </h1>
           <p className="text-base leading-relaxed text-white/70 md:text-lg">
-            Since 2020 we have paired licensed drone services with community minded training so organizations can adopt unmanned aircraft responsibly.
+            Since 2020, we have integrated FAA-certified aerial operations with strategic workforce development to enable organizations to deploy unmanned aircraft systems with regulatory precision and operational excellence.
           </p>
         </div>
       </section>
 
       <section className="mx-auto w-full max-w-5xl space-y-8 px-6 py-16 text-base leading-relaxed text-gray-700">
         <p>
-          Boston Drone School helps partners modernize daily work with reliable flight operations. From infrastructure projects to creative media, every mission is built around compliance, safety, and clear communication.
+          The Boston Drone School enables organizations to advance operational capabilities through precision unmanned aircraft systems deployment. From critical infrastructure assessment to commercial real estate marketing, our engagements are architected around regulatory compliance, operational safety protocols, and transparent stakeholder communication.
         </p>
         <p>
-          Our founder, Gregory Anthony Blaize, is an FAA certified Remote Pilot with experience across government affairs, international relations, law enforcement, and community organizations. That breadth keeps each engagement grounded in real policies and real people.
+          Founder Gregory Anthony Blaize brings a distinguished background spanning governmental policy development, international diplomatic relations, law enforcement collaboration, and community engagement initiatives. This multidisciplinary expertise ensures every client engagement is informed by regulatory frameworks, operational realities, and mission stakeholder requirements.
         </p>
         <p>
-          Our mission is simple: make drone operations safe, accessible, and useful. We advocate for smart policy, provide skilled flight teams, and deliver training that prepares today&apos;s professionals and tomorrow&apos;s pilots to succeed.
+          Our mission remains unequivocal: to establish unmanned aircraft operations as secure, accessible, and strategically valuable. We champion evidence-based policy advancement, deliver expert flight operations teams, and architect training programs that prepare current professionals and emerging talent for sustained success in the evolving UAS landscape.
         </p>
       </section>
     </div>

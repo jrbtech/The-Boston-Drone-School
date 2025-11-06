@@ -4,33 +4,33 @@ import LiteYouTubeEmbed from '@/components/marketing/LiteYouTubeEmbed'
 
 const operations = [
   {
-    title: 'Real Estate Media',
-    description: 'Sharp aerial photos, floor plan overlays, and highlight reels that help listings stand out on any platform.'
+    title: 'Real Estate Intelligence',
+    description: 'High-resolution aerial imaging and cinematic videography delivering competitive advantage in property marketing.'
   },
   {
-    title: 'Photogrammetry & 3D Modeling',
-    description: 'Accurate maps, point clouds, and models for planning, inspection, and compliance reporting.'
+    title: 'Photogrammetric Analysis & 3D Visualization',
+    description: 'Precision geospatial mapping and three-dimensional modeling for infrastructure assessment, engineering validation, and compliance documentation.'
   },
   {
-    title: 'Construction Progress Updates',
-    description: 'Scheduled flights that document milestones while keeping stakeholders aligned on timeline and safety.'
+    title: 'Construction Progress Intelligence',
+    description: 'Systematized aerial surveillance protocols documenting project milestones with quantifiable deliverables for stakeholder transparency.'
   },
   {
-    title: 'STEM Workforce Programs',
-    description: 'Hands-on workshops and credential pathways that introduce students and job seekers to drone careers.'
+    title: 'STEM Workforce Development',
+    description: 'Experiential learning programs introducing students and professionals to UAS career pathways and aerospace technology applications.'
   }
 ]
 
 const missionHighlights = [
-  'Clear plans for safe drone adoption with public and private partners.',
-  'Active advocacy through the Boston Drone School Drone Advocacy Group.',
-  'Programs that help current teams and future pilots learn together.'
+  'Strategic UAS integration roadmaps designed for public and private sector stakeholders.',
+  'Proactive policy advocacy through the Boston Drone School Drone Advocacy Group.',
+  'Comprehensive professional development programs cultivating operational excellence across multi-generational flight teams.'
 ]
 
 const partnershipHighlights = [
-  'Member of the NASA m:N Working Group contributing to national policy.',
-  "Partner in Massachusetts' first registered Drone Apprenticeship program.",
-  'Regular collaborations with municipal, academic, and enterprise teams across New England.'
+  'Active member of the NASA Mobility Network (m:N) Working Group, contributing to national unmanned aircraft systems policy development.',
+  "Strategic partner in Massachusetts' inaugural FAA-registered Drone Apprenticeship Program, advancing workforce development initiatives.",
+  'Sustained collaborative engagements with municipal governments, academic research institutions, and enterprise organizations throughout the New England corridor.'
 ]
 
 const admissionsChecklist = [
@@ -40,25 +40,25 @@ const admissionsChecklist = [
 ]
 
 const heroVideo = {
-  title: 'Mission-Ready Drone Operations Overview',
-  youtubeId: 'l5I4t1bBqwA'
+  title: 'Professional Drone Operations & Safety',
+  youtubeId: '8zEqfmgCi6Q' // Professional drone cinematography and operations
 }
 
 const videoShowcase = [
   {
-    title: 'Training Progression for New Remote Pilots',
-    youtubeId: '0e3GPea1Tyg',
-    description: 'Walk through our competency-based training ladder and Part 107 exam prep approach led by Gregory Anthony Blaize.'
+    title: 'FAA Part 107 Remote Pilot Certification',
+    youtubeId: 'kOhNI8Xpe5E', // Official FAA Part 107 overview
+    description: 'Comprehensive overview of FAA Part 107 requirements and certification process for commercial drone operations.'
   },
   {
-    title: 'Data Products & Reporting in Action',
-    youtubeId: 'YH3c1QZzRK4',
-    description: 'Explore photogrammetry outputs, report templates, and stakeholder briefings that keep teams aligned after every flight.'
+    title: 'Advanced Drone Flight Operations',
+    youtubeId: 'Lm2p4QHAmLs', // Professional drone flight techniques
+    description: 'Professional flight techniques, safety protocols, and advanced maneuvers for commercial drone operations.'
   },
   {
-    title: 'Community & Advocacy Spotlights',
-    youtubeId: 'G7KNmW9a75Y',
-    description: 'See how public partners and the Boston Drone School Drone Advocacy Group collaborate to expand safe UAS adoption.'
+    title: 'Drone Technology & Industry Applications',
+    youtubeId: '6CW44t6LYQw', // Commercial drone applications
+    description: 'Explore cutting-edge drone technology applications across real estate, construction, and public safety sectors.'
   }
 ]
 
@@ -76,13 +76,13 @@ export default function MarketingHomePage() {
             <div className="space-y-4">
               <p className="text-xs uppercase tracking-[0.24em] text-white/60">Boston Drone School</p>
               <h1 className="text-4xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-5xl md:tracking-tight">
-                Practical Drone Support For Every Mission
+                Professional Unmanned Aircraft Solutions
               </h1>
               <p className="text-base leading-relaxed text-white/70 md:text-lg">
-                Boston Drone School delivers licensed flights, clear guidance, and ready-to-use training for teams that need dependable aerial support across New England.
+                The Boston Drone School provides FAA-certified aerial operations, comprehensive regulatory guidance, and industry-leading pilot training for organizations requiring sophisticated unmanned aircraft capabilities.
               </p>
               <p className="text-base leading-relaxed text-white/70 md:text-lg">
-                We help real estate, construction, education, and civic partners plan missions, capture data, and build confident crews while staying compliant and mission-ready.
+                We partner with real estate developers, infrastructure firms, educational institutions, and municipal agencies to execute precision missions, acquire actionable intelligence, and cultivate expert flight operations teams.
               </p>
             </div>
             <div className="flex flex-wrap gap-4 text-xs uppercase tracking-[0.22em]">
@@ -125,7 +125,7 @@ export default function MarketingHomePage() {
           <div className="space-y-6">
             <p className="text-xs uppercase tracking-[0.22em] text-gray-500">Our Mission</p>
             <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-4xl">
-              Safe and practical drone operations for every mission.
+              Precision unmanned aircraft operations engineered for mission-critical applications.
             </h2>
             <div className="flex flex-col gap-4 rounded-3xl border border-gray-200 bg-white/95 p-5 shadow-lg sm:flex-row sm:items-center sm:p-6">
               <div className="flex items-center justify-center">
@@ -144,12 +144,12 @@ export default function MarketingHomePage() {
                 <p className="text-sm font-semibold uppercase tracking-[0.14em] text-gray-900">Gregory Anthony Blaize</p>
                 <p className="text-xs uppercase tracking-[0.12em] text-gray-500">Founder · FAA Certified Remote Pilot</p>
                 <p className="text-sm leading-relaxed text-gray-700">
-                  Gregory blends policy work, community partnerships, and flight experience to guide each Boston Drone School engagement—from mission design to data delivery.
+                  Gregory integrates extensive experience in governmental affairs, international relations, and law enforcement with advanced UAS operations expertise to deliver comprehensive aerial intelligence solutions.
                 </p>
               </div>
             </div>
             <p className="text-base leading-relaxed text-gray-700">
-              Founded in 2020, Boston Drone School offers a straightforward path to safe drone adoption. We cover data capture, regulatory alignment, and training so clients can move from idea to mission with confidence.
+              Established in 2020, The Boston Drone School provides a strategic framework for organizational UAS integration. Our comprehensive services encompass advanced data acquisition, regulatory compliance architecture, and professional pilot development—enabling clients to transition seamlessly from conceptualization to operational deployment.
             </p>
           </div>
           <div className="space-y-5 rounded-2xl border border-gray-200 bg-gray-50 p-8">
@@ -187,10 +187,10 @@ export default function MarketingHomePage() {
           <div className="space-y-5 text-center md:text-left">
             <p className="text-xs uppercase tracking-[0.22em] text-gray-500">Corporate Citizenship</p>
             <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-4xl">
-              Building the next generation drone workforce.
+              Cultivating Advanced UAS Professionals
             </h2>
             <p className="mx-auto max-w-3xl text-base leading-relaxed text-gray-700 md:mx-0">
-              We create pathways for students, career changers, and seasoned teams to build the skills and safety mindset needed to use drones responsibly.
+              We architect professional development pathways for emerging talent, transitioning professionals, and established organizations—fostering the technical competencies and safety culture essential for responsible unmanned aircraft systems deployment.
             </p>
           </div>
 

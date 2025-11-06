@@ -4,13 +4,14 @@ import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { api } from '../../lib/api'
+import FileUpload from '../../components/admin/FileUpload'
 
 export default function AdminPage() {
   const router = useRouter()
   const [user, setUser] = useState<any>(null)
   const [courses, setCourses] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<'courses' | 'students' | 'analytics'>('courses')
+  const [activeTab, setActiveTab] = useState<'courses' | 'students' | 'analytics' | 'files'>('courses')
 
   const loadCourses = useCallback(async () => {
     try {
@@ -139,6 +140,16 @@ export default function AdminPage() {
               >
                 Analytics
               </button>
+              <button
+                onClick={() => setActiveTab('files')}
+                className={`px-8 py-4 font-semibold transition-colors ${
+                  activeTab === 'files'
+                    ? 'text-blue-600 border-b-2 border-blue-600'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                Files
+              </button>
             </div>
           </div>
         </div>
@@ -222,6 +233,103 @@ export default function AdminPage() {
           <div className="bg-white rounded-xl shadow-md p-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Analytics Dashboard</h2>
             <p className="text-gray-600">Analytics features coming soon...</p>
+          </div>
+        )}
+
+        {/* Files Tab */}
+        {activeTab === 'files' && (
+          <div className="space-y-8">
+            <div className="bg-white rounded-xl shadow-md p-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">File Management</h2>
+              <p className="text-gray-600 mb-8">Upload course materials and FAA reference documents for students.</p>
+              
+              <div className="grid lg:grid-cols-2 gap-8">
+                {/* Course Materials Upload */}
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Course Materials</h3>
+                  <p className="text-gray-600 mb-4">Upload materials for specific courses (PDFs, videos, presentations).</p>
+                  
+                  <div className="mb-4">
+                    <label htmlFor="course-select" className="block text-sm font-medium text-gray-700 mb-2">
+                      Select Course
+                    </label>
+                    <select 
+                      id="course-select"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="">Choose a course...</option>
+                      {courses.map((course) => (
+                        <option key={course.id} value={course.id}>
+                          {course.title}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  
+                  <FileUpload 
+                    courseId="1" // TODO: Use selected course ID
+                    type="course-material"
+                    onUploadComplete={(result) => {
+                      console.log('Course material uploaded:', result)
+                      // TODO: Refresh materials list
+                    }}
+                  />
+                </div>
+
+                {/* FAA Materials Upload */}
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">FAA Reference Materials</h3>
+                  <p className="text-gray-600 mb-4">Upload official FAA documents and study materials available to all students.</p>
+                  
+                  <FileUpload 
+                    type="faa-material"
+                    onUploadComplete={(result) => {
+                      console.log('FAA material uploaded:', result)
+                      // TODO: Refresh materials list
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Instructions */}
+            <div className="bg-blue-50 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-blue-900 mb-4">Quick Setup: FAA Materials</h3>
+              <div className="space-y-3 text-sm text-blue-800">
+                <div className="flex items-start gap-2">
+                  <span className="text-blue-600">1.</span>
+                  <div>
+                    <strong>Download FAA Study Guide:</strong> 
+                    <a 
+                      href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/media/remote_pilot_study_guide.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 underline ml-1"
+                    >
+                      Right click → Save as
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-blue-600">2.</span>
+                  <div>
+                    <strong>Download Aviation Weather Handbook:</strong> 
+                    <a 
+                      href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/media/00-6B-WX-Book.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 underline ml-1"
+                    >
+                      Right click → Save as
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-blue-600">3.</span>
+                  <span>Upload them using the FAA Materials form above</span>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>
