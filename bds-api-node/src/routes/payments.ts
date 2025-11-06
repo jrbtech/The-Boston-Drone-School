@@ -115,10 +115,21 @@ router.post('/webhook', async (req: Request, res: Response) => {
         }
 
         // Enroll user in course
-        await getPool().query(
-          'INSERT INTO enrollments (user_id, course_id, status, progress, enrolled_at) VALUES ($1, $2, $3, $4, NOW()) ON CONFLICT (user_id, course_id) DO NOTHING',
-          [userId, courseId, 'active', 0]
-        );
+          const parsedUserId = Number(userId);
+          const parsedCourseId = Number(courseId);
+
+          if (Number.isNaN(parsedUserId) || Number.isNaN(parsedCourseId)) {
+            console.error('Invalid metadata IDs, skipping enrollment', { userId, courseId });
+            break;
+          }
+
+          await getPool().query(
+            `INSERT INTO enrollments (user_id, course_id, status, progress_percentage)
+             VALUES ($1, $2, $3, $4)
+             ON CONFLICT (user_id, course_id)
+             DO UPDATE SET status = EXCLUDED.status`,
+            [parsedUserId, parsedCourseId, 'active', 0]
+          );
 
         console.log('User enrolled after successful payment:', { userId, courseId, paymentIntentId: paymentIntent.id });
         break;
@@ -142,22 +153,28 @@ router.post('/webhook', async (req: Request, res: Response) => {
 // POST /api/payments/confirm-enrollment - Manual enrollment after test payment
 router.post('/confirm-enrollment', authenticateToken, async (req: Request, res: Response) => {
   try {
-    const { courseId } = req.body;
+      const { courseId } = req.body;
 
     if (!req.user) {
       return res.status(401).json({ error: 'Access token required' });
     }
 
-    const userId = req.user.userId;
+      const userId = req.user.userId;
 
     if (!courseId) {
       return res.status(400).json({ error: 'Course ID is required' });
     }
 
+      const parsedCourseId = Number(courseId);
+
+      if (Number.isNaN(parsedCourseId)) {
+        return res.status(400).json({ error: 'Invalid course identifier' });
+      }
+
     // Check if course exists
     const courseResult = await getPool().query(
       'SELECT id FROM courses WHERE id = $1',
-      [courseId]
+        [parsedCourseId]
     );
 
     if (courseResult.rows.length === 0) {
@@ -166,8 +183,12 @@ router.post('/confirm-enrollment', authenticateToken, async (req: Request, res: 
 
     // Enroll user
     const result = await getPool().query(
-      'INSERT INTO enrollments (user_id, course_id, status, progress, enrolled_at) VALUES ($1, $2, $3, $4, NOW()) ON CONFLICT (user_id, course_id) DO UPDATE SET status = $3 RETURNING id',
-      [userId, courseId, 'active', 0]
+        `INSERT INTO enrollments (user_id, course_id, status, progress_percentage)
+         VALUES ($1, $2, $3, $4)
+         ON CONFLICT (user_id, course_id)
+         DO UPDATE SET status = EXCLUDED.status
+         RETURNING id`,
+        [userId, parsedCourseId, 'active', 0]
     );
 
     res.json({

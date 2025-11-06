@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { api, Course } from '../../../lib/api'
 
 export default function CheckoutPage() {
@@ -13,8 +14,26 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(true)
   const [processing, setProcessing] = useState(false)
 
+  const courseId = Array.isArray(params.courseId) ? params.courseId[0] : params.courseId
+
+  const loadCourse = useCallback(async () => {
+    if (!courseId) {
+      return
+    }
+
+    try {
+      setLoading(true)
+      const response = await api.getCourse(courseId as string)
+      setCourse(response.course)
+    } catch (error) {
+      console.error('Failed to load course:', error)
+    } finally {
+      setLoading(false)
+    }
+  }, [courseId])
+
   useEffect(() => {
-    const userData = localStorage.getItem('user')
+    const userData = typeof window !== 'undefined' ? localStorage.getItem('user') : null
     if (!userData) {
       router.push('/login')
       return
@@ -22,41 +41,33 @@ export default function CheckoutPage() {
 
     setUser(JSON.parse(userData))
     loadCourse()
-  }, [params.courseId])
-
-  async function loadCourse() {
-    try {
-      setLoading(true)
-      const response = await api.getCourse(params.courseId as string)
-      setCourse(response.course)
-    } catch (error) {
-      console.error('Failed to load course:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
+  }, [loadCourse, router])
 
   async function handlePayment(e: React.FormEvent) {
     e.preventDefault()
     setProcessing(true)
 
     try {
-      // NOTE: For production, integrate with actual Stripe Elements
-      // For now, using simplified enrollment for demo/testing
+        // NOTE: For production, integrate with actual Stripe Elements
+        // For now, using simplified enrollment for demo/testing
 
-      // Option 1: Create Stripe payment intent (requires STRIPE_SECRET_KEY in backend .env)
-      // const paymentResponse = await api.createPaymentIntent(params.courseId as string)
-      // const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
-      // await stripe.confirmCardPayment(paymentResponse.clientSecret, { ... })
+        // Option 1: Create Stripe payment intent (requires STRIPE_SECRET_KEY in backend .env)
+        // const paymentResponse = await api.createPaymentIntent(params.courseId as string)
+        // const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
+        // await stripe.confirmCardPayment(paymentResponse.clientSecret, { ... })
 
-      // Option 2: Direct enrollment for demo/testing (current implementation)
-      await new Promise(resolve => setTimeout(resolve, 1500)) // Simulate processing
+        // Option 2: Direct enrollment for demo/testing (current implementation)
+        await new Promise(resolve => setTimeout(resolve, 1500)) // Simulate processing
 
-      // Enroll user in course
-      await api.confirmEnrollment(params.courseId as string)
+        // Enroll user in course
+        if (!courseId) {
+          throw new Error('Missing course identifier')
+        }
 
-      alert('Payment successful! You are now enrolled in the course.')
-      router.push(`/learn/${params.courseId}`)
+        await api.confirmEnrollment(courseId as string)
+
+        alert('Payment successful! You are now enrolled in the course.')
+        router.push(`/learn/${courseId}`)
     } catch (error: any) {
       console.error('Payment error:', error)
       alert('Payment failed: ' + (error.message || 'Please try again'))
@@ -68,21 +79,21 @@ export default function CheckoutPage() {
   if (loading || !course) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white text-gray-900">
       {/* Header */}
-      <header className="bg-white shadow-sm">
+      <header className="bg-white/95 backdrop-blur border-b border-gray-200">
         <div className="container mx-auto px-6 py-4">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-orange-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">BDS</span>
+          <Link href="/" className="flex items-center gap-3">
+            <div className="w-10 h-10 border border-gray-900 flex items-center justify-center text-sm font-semibold tracking-widest uppercase">
+              BDS
             </div>
-            <span className="text-xl font-bold text-gray-900">The Boston Drone School</span>
+            <span className="text-lg font-semibold tracking-wide uppercase text-gray-900">The Boston Drone School</span>
           </Link>
         </div>
       </header>
@@ -103,12 +114,12 @@ export default function CheckoutPage() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Card Number
                     </label>
-                    <input
-                      type="text"
-                      placeholder="4242 4242 4242 4242"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
-                    />
+                      <input
+                        type="text"
+                        placeholder="4242 4242 4242 4242"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+                        required
+                      />
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
@@ -119,7 +130,7 @@ export default function CheckoutPage() {
                       <input
                         type="text"
                         placeholder="MM / YY"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
                         required
                       />
                     </div>
@@ -130,7 +141,7 @@ export default function CheckoutPage() {
                       <input
                         type="text"
                         placeholder="123"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
                         required
                       />
                     </div>
@@ -140,86 +151,89 @@ export default function CheckoutPage() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Cardholder Name
                     </label>
-                    <input
-                      type="text"
-                      placeholder="John Doe"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
-                    />
+                      <input
+                        type="text"
+                        placeholder="John Doe"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+                        required
+                      />
                   </div>
 
                   <div className="border-t pt-6">
                     <h3 className="font-semibold text-gray-900 mb-4">Billing Address</h3>
 
                     <div className="space-y-4">
-                      <input
-                        type="text"
-                        placeholder="Street Address"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        required
-                      />
+                        <input
+                          type="text"
+                          placeholder="Street Address"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+                          required
+                        />
 
                       <div className="grid grid-cols-2 gap-4">
-                        <input
-                          type="text"
-                          placeholder="City"
-                          className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                          required
-                        />
-                        <input
-                          type="text"
-                          placeholder="State"
-                          className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                          required
-                        />
+                          <input
+                            type="text"
+                            placeholder="City"
+                            className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+                            required
+                          />
+                          <input
+                            type="text"
+                            placeholder="State"
+                            className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+                            required
+                          />
                       </div>
 
-                      <input
-                        type="text"
-                        placeholder="ZIP Code"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        required
-                      />
+                        <input
+                          type="text"
+                          placeholder="ZIP Code"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+                          required
+                        />
                     </div>
                   </div>
 
-                  <button
-                    type="submit"
-                    disabled={processing}
-                    className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white py-4 rounded-lg font-semibold text-lg transition-colors"
-                  >
-                    {processing ? 'Processing Payment...' : `Pay $${course.price}`}
-                  </button>
+                    <button
+                      type="submit"
+                      disabled={processing}
+                      className="w-full bg-black hover:bg-gray-800 disabled:bg-gray-500 text-white py-4 rounded-lg font-semibold text-lg uppercase tracking-[0.2em] transition-colors"
+                    >
+                      {processing ? 'Processing Payment...' : `Pay $${course.price}`}
+                    </button>
 
-                  <p className="text-center text-sm text-gray-600">
-                    🔒 Secure payment powered by Stripe
-                  </p>
+                    <p className="text-center text-xs uppercase tracking-[0.3em] text-gray-500">
+                      Secure checkout session
+                    </p>
                 </form>
               </div>
             </div>
 
             {/* Order Summary */}
-            <div>
-              <div className="bg-white rounded-xl shadow-md p-6 sticky top-6">
+              <div>
+                <div className="bg-white border border-gray-200 rounded-xl p-6 sticky top-6">
                 <h2 className="text-lg font-bold text-gray-900 mb-4">Order Summary</h2>
 
                 <div className="space-y-4">
-                  <div>
-                    <div className="aspect-video bg-gradient-to-br from-blue-500 to-orange-500 rounded-lg mb-3 flex items-center justify-center">
-                      {course.thumbnailUrl ? (
-                        <img
-                          src={course.thumbnailUrl}
-                          alt={course.title}
-                          className="w-full h-full object-cover rounded-lg"
-                        />
-                      ) : (
-                        <span className="text-4xl">🚁</span>
-                      )}
-                    </div>
+                    <div>
+                      <div className="aspect-video bg-gray-200 rounded-lg mb-3 flex items-center justify-center relative overflow-hidden">
+                        {course.thumbnailUrl ? (
+                          <Image
+                            src={course.thumbnailUrl}
+                            alt={course.title}
+                            fill
+                            className="object-cover rounded-lg"
+                            sizes="(min-width: 768px) 320px, 100vw"
+                            priority={false}
+                          />
+                        ) : (
+                          <span className="text-xs uppercase tracking-[0.4em] text-gray-500">BDS</span>
+                        )}
+                      </div>
 
-                    <h3 className="font-semibold text-gray-900">{course.title}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{course.instructor}</p>
-                  </div>
+                      <h3 className="font-semibold text-gray-900">{course.title}</h3>
+                      <p className="text-sm text-gray-600 mt-1">{course.instructor}</p>
+                    </div>
 
                   <div className="border-t pt-4 space-y-2">
                     <div className="flex justify-between text-sm">
@@ -235,23 +249,14 @@ export default function CheckoutPage() {
                   <div className="border-t pt-4">
                     <div className="flex justify-between">
                       <span className="font-bold text-gray-900">Total</span>
-                      <span className="font-bold text-blue-600 text-xl">${course.price}</span>
+                        <span className="font-bold text-gray-900 text-xl">${course.price}</span>
                     </div>
                   </div>
 
                   <div className="border-t pt-4 space-y-2 text-sm text-gray-600">
-                    <div className="flex items-center gap-2">
-                      <span className="text-green-500">✓</span>
-                      <span>Lifetime access</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-green-500">✓</span>
-                      <span>Certificate of completion</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-green-500">✓</span>
-                      <span>30-day money-back guarantee</span>
-                    </div>
+                      <p>Lifetime access</p>
+                      <p>Certificate of completion</p>
+                      <p>30-day money-back guarantee</p>
                   </div>
                 </div>
               </div>
