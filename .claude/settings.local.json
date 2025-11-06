@@ -21,7 +21,8 @@
       "Bash(npm run migrate:*)",
       "Bash(node:*)",
       "Bash(git log:*)",
-      "Bash(git pull:*)"
+      "Bash(git pull:*)",
+      "Bash(git rebase:*)"
     ],
     "deny": [],
     "ask": []
