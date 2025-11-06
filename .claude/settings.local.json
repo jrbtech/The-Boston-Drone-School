@@ -12,7 +12,12 @@
       "Bash(cat:*)",
       "Bash(npm run dev:*)",
       "Bash(npx tsc:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(npm config:*)",
+      "WebSearch",
+      "WebFetch(domain:www.faa.gov)",
+      "WebFetch(domain:www.ecfr.gov)",
+      "WebFetch(domain:www.law.cornell.edu)"
     ],
     "deny": [],
     "ask": []

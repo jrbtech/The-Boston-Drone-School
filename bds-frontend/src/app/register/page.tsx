@@ -3,10 +3,11 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { api } from '../../lib/api'
+import { useAuth } from '../../contexts/AuthContext'
 
 export default function RegisterPage() {
   const router = useRouter()
+  const { register } = useAuth()
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -35,16 +36,12 @@ export default function RegisterPage() {
     setLoading(true)
 
     try {
-      const response = await api.register(
+      await register(
         formData.email,
         formData.password,
         formData.firstName,
         formData.lastName
       )
-
-      // Store token and user data
-      localStorage.setItem('authToken', response.token)
-      localStorage.setItem('user', JSON.stringify(response.user))
 
       router.push('/dashboard')
     } catch (err: any) {
