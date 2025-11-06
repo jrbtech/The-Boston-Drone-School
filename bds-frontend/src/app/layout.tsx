@@ -43,7 +43,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
-      <body className="font-sans antialiased bg-white text-gray-900">
+      <body className="min-h-screen bg-background text-foreground font-sans antialiased selection:bg-black selection:text-white">
         <AuthProvider>
           <div id="root" className="min-h-screen">
             {children}
