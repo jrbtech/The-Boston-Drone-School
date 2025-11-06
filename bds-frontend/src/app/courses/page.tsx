@@ -50,8 +50,19 @@ export default function CoursesPage() {
     }
   }
 
-  const categories = ['Certification', 'Photography', 'Surveying', 'Construction', 'Commercial']
-  const levels = ['beginner', 'intermediate', 'advanced']
+    const categories = [
+      'Certification',
+      'Photography',
+      'Surveying',
+      'Construction',
+      'Commercial',
+      'Consultation',
+      'Flight Operations',
+      'Policy',
+      'Education',
+      'Enterprise',
+    ]
+    const levels = ['beginner', 'intermediate', 'advanced']
 
   return (
       <div className="min-h-screen bg-white text-gray-900">
