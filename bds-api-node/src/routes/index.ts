@@ -4,6 +4,7 @@ import coursesRoutes from './courses';
 import enrollmentRoutes from './enrollment';
 import authRoutes from './auth';
 import paymentRoutes from './payments';
+import uploadRoutes from './upload';
 
 export const registerRoutes = (app: Express): void => {
   app.get('/', (req: Request, res: Response) => {
@@ -37,6 +38,7 @@ export const registerRoutes = (app: Express): void => {
   app.use('/api/courses', coursesRoutes);
   app.use('/api/enrollment', enrollmentRoutes);
   app.use('/api/payments', paymentRoutes);
+  app.use('/api/upload', uploadRoutes);
   
   // Health check endpoint
   app.get('/api/health', (req: Request, res: Response) => {

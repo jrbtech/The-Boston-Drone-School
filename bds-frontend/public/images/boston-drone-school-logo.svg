@@ -1,25 +1,102 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 260" role="img" aria-labelledby="title desc">
-  <title id="title">Boston Drone School Logo</title>
-  <desc id="desc">Semi-circle skyline logo with the words Boston Drone School</desc>
-  <rect width="420" height="260" fill="white" />
-  <path d="M36 210 Q210 60 384 210" fill="none" stroke="#111" stroke-width="6" stroke-linecap="round" />
-  <g fill="#050505" transform="translate(60,120)">
-    <rect x="0" y="70" width="36" height="40" />
-    <rect x="44" y="48" width="32" height="62" />
-    <rect x="94" y="28" width="30" height="82" />
-    <polygon points="142,110 142,24 160,24 160,110" />
-    <rect x="172" y="10" width="34" height="100" />
-    <polygon points="222,110 222,0 246,0 246,110" />
-    <rect x="266" y="40" width="30" height="70" />
-    <rect x="310" y="58" width="32" height="52" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 280" role="img" aria-labelledby="logo-title logo-desc">
+  <title id="logo-title">Boston Drone School</title>
+  <desc id="logo-desc">Professional logo featuring Boston skyline silhouette with drone and text</desc>
+
+  <!-- Background -->
+  <rect width="600" height="280" fill="#ffffff"/>
+
+  <!-- Skyline arc -->
+  <path d="M50 220 Q300 70 550 220"
+        fill="none"
+        stroke="#000000"
+        stroke-width="4"
+        stroke-linecap="round"/>
+
+  <!-- Building skyline -->
+  <g fill="#000000" opacity="0.95">
+    <!-- Short buildings -->
+    <rect x="80" y="180" width="40" height="40" rx="2"/>
+    <rect x="130" y="160" width="35" height="60" rx="2"/>
+    <rect x="175" y="145" width="32" height="75" rx="2"/>
+
+    <!-- Tall buildings -->
+    <rect x="220" y="120" width="38" height="100" rx="2"/>
+    <rect x="270" y="105" width="42" height="115" rx="2"/>
+    <rect x="325" y="90" width="40" height="130" rx="2"/>
+
+    <!-- More buildings -->
+    <rect x="380" y="110" width="36" height="110" rx="2"/>
+    <rect x="430" y="145" width="35" height="75" rx="2"/>
+    <rect x="480" y="170" width="40" height="50" rx="2"/>
   </g>
-  <ellipse cx="210" cy="80" rx="20" ry="8" fill="#050505" />
-  <rect x="196" y="73" width="28" height="4" rx="2" fill="#f4f4f4" opacity="0.5" />
-  <text x="210" y="188" text-anchor="middle" font-family="'Montserrat', 'Arial Black', sans-serif" font-size="64" font-weight="700" fill="#050505">
+
+  <!-- Windows on buildings -->
+  <g fill="#ffffff" opacity="0.4">
+    <rect x="90" y="188" width="8" height="8"/>
+    <rect x="100" y="188" width="8" height="8"/>
+    <rect x="90" y="200" width="8" height="8"/>
+    <rect x="100" y="200" width="8" height="8"/>
+
+    <rect x="280" y="115" width="10" height="10"/>
+    <rect x="280" y="130" width="10" height="10"/>
+    <rect x="280" y="145" width="10" height="10"/>
+    <rect x="294" y="115" width="10" height="10"/>
+    <rect x="294" y="130" width="10" height="10"/>
+    <rect x="294" y="145" width="10" height="10"/>
+
+    <rect x="335" y="100" width="10" height="10"/>
+    <rect x="335" y="115" width="10" height="10"/>
+    <rect x="335" y="130" width="10" height="10"/>
+    <rect x="350" y="100" width="10" height="10"/>
+    <rect x="350" y="115" width="10" height="10"/>
+    <rect x="350" y="130" width="10" height="10"/>
+  </g>
+
+  <!-- Drone icon -->
+  <g transform="translate(300, 50)">
+    <!-- Drone body -->
+    <ellipse cx="0" cy="0" rx="24" ry="10" fill="#000000"/>
+    <rect x="-20" y="-3" width="40" height="6" rx="3" fill="#333333"/>
+
+    <!-- Propellers -->
+    <circle cx="-28" cy="-18" r="14" fill="none" stroke="#000000" stroke-width="2" opacity="0.6"/>
+    <circle cx="28" cy="-18" r="14" fill="none" stroke="#000000" stroke-width="2" opacity="0.6"/>
+    <circle cx="-28" cy="18" r="14" fill="none" stroke="#000000" stroke-width="2" opacity="0.6"/>
+    <circle cx="28" cy="18" r="14" fill="none" stroke="#000000" stroke-width="2" opacity="0.6"/>
+
+    <!-- Propeller arms -->
+    <line x1="-20" y1="-3" x2="-28" y2="-18" stroke="#000000" stroke-width="2"/>
+    <line x1="20" y1="-3" x2="28" y2="-18" stroke="#000000" stroke-width="2"/>
+    <line x1="-20" y1="3" x2="-28" y2="18" stroke="#000000" stroke-width="2"/>
+    <line x1="20" y1="3" x2="28" y2="18" stroke="#000000" stroke-width="2"/>
+  </g>
+
+  <!-- Main text: BOSTON -->
+  <text x="300" y="250"
+        text-anchor="middle"
+        font-family="'Montserrat', 'Arial', sans-serif"
+        font-size="56"
+        font-weight="800"
+        fill="#000000"
+        letter-spacing="6">
     BOSTON
   </text>
-  <text x="210" y="222" text-anchor="middle" font-family="'Playfair Display', 'Georgia', serif" font-size="28" font-weight="500" fill="#050505">
-    Drone School
+
+  <!-- Subtitle: DRONE SCHOOL -->
+  <text x="300" y="270"
+        text-anchor="middle"
+        font-family="'Inter', 'Helvetica', sans-serif"
+        font-size="18"
+        font-weight="500"
+        fill="#000000"
+        letter-spacing="8">
+    DRONE SCHOOL
   </text>
-  <path d="M110 230 H310" stroke="#050505" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Underline decoration -->
+  <line x1="150" y1="275" x2="450" y2="275"
+        stroke="#000000"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        opacity="0.6"/>
 </svg>
