@@ -129,8 +129,113 @@ const courseContentOverrides: Record<string, Partial<Omit<Course, 'id' | 'title'
     ],
     videoUrl: null,
     thumbnailUrl: null
-  },
-  'Advanced Mapping & Surveying': {
+    },
+    'Executive UAS Consultation Series': {
+      learningObjectives: [
+        'Develop an organization-wide UAS strategy aligned with regulatory expectations.',
+        'Map executive-level communications for internal, public, and regulatory audiences.',
+        'Document governance workflows that support safe, repeatable missions.'
+      ],
+      prerequisites: [
+        'Existing or planned UAS operations requiring executive oversight.',
+        'Access to internal policy or legal stakeholders for alignment sessions.'
+      ],
+      materials: [
+        'Executive mission planning workbook',
+        'Sample policy and communications templates',
+        'Risk assessment checklists'
+      ],
+      videoUrl: null,
+      thumbnailUrl: null
+    },
+    'Part 107 Live Webinar Intensive': {
+      learningObjectives: [
+        'Interpret FAA Part 107 regulations and waiver processes with confidence.',
+        'Apply weather and aeronautical knowledge to build go/no-go mission plans.',
+        'Prepare effectively for the FAA Remote Pilot knowledge test.'
+      ],
+      prerequisites: [
+        'Internet-connected device capable of joining live webinar sessions.'
+      ],
+      materials: [
+        'Part 107 exam readiness guide',
+        'Airspace classification reference deck',
+        'Mission risk matrix worksheet'
+      ],
+      videoUrl: null,
+      thumbnailUrl: null
+    },
+    'Guided Flight Experience': {
+      learningObjectives: [
+        'Perform safe takeoffs, maneuvers, and landings with instructor feedback.',
+        'Execute standardized checklists that reduce operational risk.',
+        'Identify post-flight insights that accelerate independent practice.'
+      ],
+      prerequisites: [
+        'Access to an approved flight location or Boston Drone School training site.',
+        'FAA Part 107 certification in progress or planned.'
+      ],
+      materials: [
+        'Pre-flight briefing worksheet',
+        'Pilot proficiency tracker',
+        'Post-flight debrief template'
+      ],
+      videoUrl: null,
+      thumbnailUrl: null
+    },
+    'Drone Advocacy & Policy Lab': {
+      learningObjectives: [
+        'Analyze evolving UAS policy and translate it to operational implications.',
+        'Design communications that build public trust and stakeholder alignment.',
+        'Simulate policy briefings to practice persuasive advocacy.'
+      ],
+      prerequisites: [
+        'Existing or planned interface with regulators, media, or community partners.'
+      ],
+      materials: [
+        'Policy landscape monitoring checklist',
+        'Community meeting facilitation guide',
+        'Sample press briefing framework'
+      ],
+      videoUrl: null,
+      thumbnailUrl: null
+    },
+    'STEM Workforce Readiness Program': {
+      learningObjectives: [
+        'Introduce learners to the breadth of drone technology careers.',
+        'Build foundational mission planning and safety awareness.',
+        'Collaborate on a capstone mission challenge that reinforces teamwork.'
+      ],
+      prerequisites: [
+        'Interest in STEM or emerging technology careers.'
+      ],
+      materials: [
+        'STEM mission handbook',
+        'Instructor-led simulation exercises',
+        'Capstone presentation template'
+      ],
+      videoUrl: null,
+      thumbnailUrl: null
+    },
+    'Enterprise UAS Integration Workshop': {
+      learningObjectives: [
+        'Design procurement and vendor evaluation frameworks for enterprise UAS initiatives.',
+        'Draft SOPs and risk mitigation plans aligned to compliance requirements.',
+        'Establish data lifecycle practices that uphold governance standards.'
+      ],
+      prerequisites: [
+        'Enterprise stakeholders responsible for UAS adoption or expansion.',
+        'Baseline knowledge of current organizational operations.'
+      ],
+      materials: [
+        'Enterprise integration workbook',
+        'Sample SOP and crew resource templates',
+        'Data governance checklist'
+      ],
+      videoUrl: null,
+      thumbnailUrl: null
+    },
+    'Advanced Mapping & Surveying': {
     learningObjectives: [
       'Execute autonomous survey missions with photogrammetric overlap targets.',
       'Process ortho-mosaics and point clouds inside industry GIS platforms.',
