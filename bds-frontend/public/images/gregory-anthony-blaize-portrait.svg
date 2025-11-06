@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 360" role="img" aria-labelledby="title desc">
+  <title id="title">Portrait illustration of Gregory Anthony Blaize</title>
+  <desc id="desc">Stylized illustration showing Gregory Anthony Blaize in a suit inside a circular frame.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f2937" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="suit" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#030712" />
+    </linearGradient>
+  </defs>
+  <rect width="320" height="360" fill="#ffffff" />
+  <circle cx="160" cy="150" r="140" fill="url(#bg)" />
+  <path d="M160 80c-42 0-60 34-60 70s18 76 60 76 60-40 60-76-18-70-60-70z" fill="#f6d6b8" />
+  <path d="M119 138c4-22 17-38 41-38s38 16 41 38" fill="#1f2937" />
+  <path d="M116 140c6-6 20-10 44-10s38 4 44 10c0 0-8-58-44-58s-44 58-44 58z" fill="#111827" />
+  <path d="M116 246c18 12 28 16 44 16s26-4 44-16v72H116z" fill="#f6d6b8" />
+  <path d="M116 246c-26 16-53 46-58 78h204c-5-32-32-62-58-78" fill="url(#suit)" />
+  <path d="M160 244c-16 0-30-6-44-18 12-6 26-10 44-10s32 4 44 10c-14 12-28 18-44 18z" fill="#e7bfa0" />
+  <path d="M132 150a10 10 0 1 1-10-10 10 10 0 0 1 10 10zm76 0a10 10 0 1 1-10-10 10 10 0 0 1 10 10z" fill="#0f172a" />
+  <path d="M140 174c12 8 28 8 40 0" fill="none" stroke="#d38c5f" stroke-width="6" stroke-linecap="round" />
+  <path d="M160 198c-10 0-20-2-28-6 8 14 20 22 28 22s20-8 28-22c-8 4-18 6-28 6z" fill="#d38c5f" />
+  <rect x="102" y="308" width="116" height="20" rx="10" fill="#111827" opacity="0.85" />
+  <text x="160" y="322" text-anchor="middle" font-family="'Poppins', 'Arial', sans-serif" font-size="18" font-weight="600" fill="#f9fafb">
+    Gregory Anthony Blaize
+  </text>
+</svg>

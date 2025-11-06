@@ -6,7 +6,7 @@ const workflows = [
     title: 'Consultation',
     subtitle: 'Executive Advisory',
     description:
-      'Three one-hour executive consultation sessions tailored to UAS technology integration, policy navigation, and public relations for your organization.',
+      'Three one hour executive sessions focused on UAS integration, policy navigation, and public relations for your organization.',
     callout: 'Includes strategic roadmap and compliance briefing.',
     courseTitle: 'Executive UAS Consultation Series'
   },
@@ -14,16 +14,16 @@ const workflows = [
     title: 'Part 107 Live Webinar Series',
     subtitle: 'Certification Intensive',
     description:
-      'A three-part seminar covering regulations, airspace management, weather, and mission planning—built to streamline your Remote Pilot Certificate preparation.',
-    callout: 'Led by FAA-certified instructors with exam insights.',
+      'A three part seminar covering regulations, airspace, weather, and mission planning so your Remote Pilot Certificate prep stays simple.',
+    callout: 'Led by FAA certified instructors with exam insights.',
     courseTitle: 'Part 107 Live Webinar Intensive'
   },
   {
     title: 'Flight Experience',
-    subtitle: 'Hands-On Instruction',
+    subtitle: 'Hands On Instruction',
     description:
-      'Reserve a one-hour guided flight session at your location or one of our pre-approved sites. Perfect for novice pilots seeking safe fundamentals.',
-    callout: 'Includes pre-flight briefing and post-flight debrief.',
+      'Reserve a one hour guided flight session at your location or one of our approved sites. Ideal for new pilots building safe fundamentals.',
+    callout: 'Includes preflight briefing and postflight debrief.',
     courseTitle: 'Guided Flight Experience'
   }
 ]
@@ -38,8 +38,7 @@ export default function ProcurementPage() {
             Procurement built for immediate deployment.
           </h1>
           <p className="max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
-            Secure executive consultation, live webinar instruction, or guided flight experiences engineered to accelerate integration of
-            unmanned aircraft systems. Each workflow is delivered by subject matter experts who align operations with your mission profile.
+            Secure executive consultation, live webinar instruction, or guided flight sessions designed to speed up your drone integration. Each workflow brings you subject matter experts who align every step with your mission.
           </p>
           <div className="flex flex-wrap gap-4 text-xs uppercase tracking-[0.32em]">
             <a
@@ -60,11 +59,10 @@ export default function ProcurementPage() {
 
       <section className="mx-auto w-full max-w-6xl px-6 py-16">
         <div className="space-y-12">
-          <div className="space-y-4">
+            <div className="space-y-4">
             <h2 className="text-2xl font-semibold uppercase tracking-[0.08em] text-gray-900">Workflows</h2>
             <p className="max-w-3xl text-sm leading-relaxed text-gray-700">
-              Select a workflow to be paired with a Boston Drone School specialist. For organizations already inside the e-learning portal,
-              these offerings appear alongside your course catalog for streamlined enrollment and billing.
+                Select a workflow to connect with a Boston Drone School specialist. Organizations already inside the learning portal see these options next to existing courses for easy enrollment and billing.
             </p>
           </div>
 
@@ -95,11 +93,10 @@ export default function ProcurementPage() {
 
       <section className="bg-gray-100 py-16">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-6 md:flex-row md:items-center md:justify-between">
-          <div className="max-w-xl space-y-4">
+            <div className="max-w-xl space-y-4">
             <h2 className="text-2xl font-semibold uppercase tracking-[0.08em] text-gray-900">Need a custom engagement?</h2>
             <p className="text-sm leading-relaxed text-gray-700">
-              We coordinate enterprise procurement, multi-day flight operations, and policy briefings tailored to your stakeholders. Use the
-              inquiry form or email our team with mission objectives to receive a scoping session within two business days.
+                We coordinate enterprise procurement, multi day flight operations, and policy briefings that match your stakeholders. Use the inquiry form or email the team with mission objectives to receive a scoping session within two business days.
             </p>
           </div>
           <div className="flex flex-wrap gap-4 text-xs uppercase tracking-[0.32em]">

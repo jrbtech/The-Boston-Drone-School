@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -25,15 +26,20 @@ const navLinks: NavLink[] = [
 
 const brandBlock = (
   <Link href="/" className="flex items-center gap-3 text-left">
-    <span className="flex h-11 w-11 items-center justify-center border border-gray-900 text-sm font-semibold uppercase tracking-[0.4em]">
-      BDS
-    </span>
+    <Image
+      src="/images/boston-drone-school-logo.svg"
+      alt="Boston Drone School logo"
+      width={112}
+      height={80}
+      priority
+      className="h-14 w-auto"
+    />
     <span className="flex flex-col">
-      <span className="text-xs font-semibold uppercase tracking-[0.32em] text-gray-900">
-        The Boston Drone School
+      <span className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-900">
+        Boston Drone School
       </span>
-      <span className="text-[0.62rem] uppercase tracking-[0.38em] text-gray-500">
-        Drone Operations & Training
+      <span className="text-[0.62rem] uppercase tracking-[0.28em] text-gray-500">
+        Operations, Training, Advocacy
       </span>
     </span>
   </Link>
