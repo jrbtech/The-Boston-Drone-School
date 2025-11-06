@@ -1,32 +1,32 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from "next/image";
+import Link from "next/link";
 
 const footerLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'Procurement', href: '/procurement' },
-  { label: 'Drone Advocacy Group', href: '/drone-advocacy-group' },
-  { label: 'Services', href: '/services' },
-  { label: 'Mission', href: '/mission' },
-  { label: 'Engagements', href: '/engagements' },
-  { label: 'Inquiry', href: '/inquiry' },
-]
+  { label: "Home", href: "/" },
+  { label: "Procurement", href: "/procurement" },
+  { label: "Drone Advocacy Group", href: "/drone-advocacy-group" },
+  { label: "Services", href: "/services" },
+  { label: "Mission", href: "/mission" },
+  { label: "Engagements", href: "/engagements" },
+  { label: "Inquiry", href: "/inquiry" },
+];
 
 export function MarketingFooter() {
-  const year = new Date().getFullYear()
+  const year = new Date().getFullYear();
 
   return (
     <footer className="border-t border-black/10 bg-black text-white">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-12 lg:flex-row lg:items-start lg:justify-between">
         <div className="max-w-md space-y-4">
           <div className="flex items-center gap-3">
-            <span className="flex h-12 w-16 items-center justify-center rounded-lg border border-white/20 bg-white/5">
+            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/25 bg-white/10">
               <Image
                 src="/images/boston-drone-school-logo.svg"
                 alt="Boston Drone School logo"
                 width={96}
-                height={68}
-                sizes="64px"
-                className="h-8 w-auto object-contain"
+                height={96}
+                sizes="48px"
+                className="h-8 w-8 object-contain"
               />
             </span>
             <div className="flex flex-col">
@@ -34,15 +34,20 @@ export function MarketingFooter() {
                 Boston Drone School
               </span>
               <span className="text-[0.62rem] uppercase tracking-[0.24em] text-white/50">
-                Operations, Training, Advocacy
+                Mission Support · Training · Advocacy
               </span>
             </div>
           </div>
           <p className="text-sm leading-relaxed text-white/70">
-            We deliver licensed drone services, policy guidance, and focused training for public, private, and community partners across New England.
+            We deliver licensed drone services, policy guidance, and focused
+            training for public, private, and community partners across New
+            England.
           </p>
           <div className="flex flex-wrap gap-4 text-xs uppercase tracking-[0.22em] text-white/60">
-            <a href="mailto:info@thebostondroneschool.org" className="hover:text-white">
+            <a
+              href="mailto:info@thebostondroneschool.org"
+              className="hover:text-white"
+            >
               info@thebostondroneschool.org
             </a>
             <span className="hidden text-white/30 sm:inline">|</span>
@@ -54,7 +59,9 @@ export function MarketingFooter() {
 
         <div className="grid flex-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.26em] text-white/70">Explore</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.26em] text-white/70">
+              Explore
+            </h3>
             <ul className="space-y-3 text-xs uppercase tracking-[0.22em] text-white/60">
               {footerLinks.map((link) => (
                 <li key={link.href}>
@@ -67,7 +74,9 @@ export function MarketingFooter() {
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.26em] text-white/70">Operations</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.26em] text-white/70">
+              Operations
+            </h3>
             <ul className="space-y-3 text-xs uppercase tracking-[0.22em] text-white/60">
               <li>Real Estate Media & Documentation</li>
               <li>Photogrammetry & 3D Modeling</li>
@@ -77,10 +86,15 @@ export function MarketingFooter() {
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.26em] text-white/70">Get Involved</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.26em] text-white/70">
+              Get Involved
+            </h3>
             <ul className="space-y-3 text-xs uppercase tracking-[0.22em] text-white/60">
               <li>
-                <a href="mailto:info@thebostondroneschool.org" className="hover:text-white">
+                <a
+                  href="mailto:info@thebostondroneschool.org"
+                  className="hover:text-white"
+                >
                   Request Consultation
                 </a>
               </li>
@@ -111,7 +125,7 @@ export function MarketingFooter() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
 
-export default MarketingFooter
+export default MarketingFooter;
