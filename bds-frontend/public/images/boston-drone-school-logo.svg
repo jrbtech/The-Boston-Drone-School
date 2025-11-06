@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 260" role="img" aria-labelledby="title desc">
+  <title id="title">Boston Drone School Logo</title>
+  <desc id="desc">Semi-circle skyline logo with the words Boston Drone School</desc>
+  <rect width="420" height="260" fill="white" />
+  <path d="M36 210 Q210 60 384 210" fill="none" stroke="#111" stroke-width="6" stroke-linecap="round" />
+  <g fill="#050505" transform="translate(60,120)">
+    <rect x="0" y="70" width="36" height="40" />
+    <rect x="44" y="48" width="32" height="62" />
+    <rect x="94" y="28" width="30" height="82" />
+    <polygon points="142,110 142,24 160,24 160,110" />
+    <rect x="172" y="10" width="34" height="100" />
+    <polygon points="222,110 222,0 246,0 246,110" />
+    <rect x="266" y="40" width="30" height="70" />
+    <rect x="310" y="58" width="32" height="52" />
+  </g>
+  <ellipse cx="210" cy="80" rx="20" ry="8" fill="#050505" />
+  <rect x="196" y="73" width="28" height="4" rx="2" fill="#f4f4f4" opacity="0.5" />
+  <text x="210" y="188" text-anchor="middle" font-family="'Montserrat', 'Arial Black', sans-serif" font-size="64" font-weight="700" fill="#050505">
+    BOSTON
+  </text>
+  <text x="210" y="222" text-anchor="middle" font-family="'Playfair Display', 'Georgia', serif" font-size="28" font-weight="500" fill="#050505">
+    Drone School
+  </text>
+  <path d="M110 230 H310" stroke="#050505" stroke-width="2" stroke-linecap="round" />
+</svg>
