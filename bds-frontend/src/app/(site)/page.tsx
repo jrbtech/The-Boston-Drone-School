@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import AutoplayVideo from "@/components/marketing/AutoplayVideo";
+import Footer from "@/components/layout/Footer";
 
 const operations = [
   {
@@ -127,11 +128,12 @@ const pricingTiers = [
 export default function MarketingHomePage() {
   return (
     <div className="bg-white text-gray-900">
-      <section className="relative overflow-hidden bg-black text-white">
+      <section className="relative overflow-hidden bg-black text-white gradient-animated-bg">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-black via-black/70 to-gray-900" />
-          <div className="absolute -left-24 top-14 h-64 w-64 rounded-full bg-white/10 blur-3xl sm:left-12" />
-          <div className="absolute -right-20 bottom-12 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+          <div className="absolute -left-24 top-14 h-64 w-64 rounded-full bg-white/10 blur-3xl sm:left-12 animate-float" />
+          <div className="absolute -right-20 bottom-12 h-72 w-72 rounded-full bg-white/10 blur-3xl animate-float-delayed" />
+          <div className="absolute left-1/2 top-1/3 h-48 w-48 rounded-full bg-blue-500/5 blur-3xl animate-pulse-slow" />
         </div>
         <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-24 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl space-y-8">
@@ -141,28 +143,28 @@ export default function MarketingHomePage() {
                 alt="Boston Drone School"
                 width={400}
                 height={280}
-                className="h-20 w-auto"
+                className="h-20 w-auto text-reveal"
               />
-              <h1 className="text-4xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-5xl md:tracking-tight">
+              <h1 className="text-4xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-5xl md:tracking-tight text-reveal stagger-1">
                 Professional Unmanned Aircraft Solutions
               </h1>
-              <p className="text-base leading-relaxed text-white/70 md:text-lg">
+              <p className="text-base leading-relaxed text-white/70 md:text-lg text-reveal stagger-2">
                 The Boston Drone School provides FAA-certified aerial operations, comprehensive regulatory guidance, and industry-leading pilot training for organizations requiring sophisticated unmanned aircraft capabilities.
               </p>
-              <p className="text-base leading-relaxed text-white/70 md:text-lg">
+              <p className="text-base leading-relaxed text-white/70 md:text-lg text-reveal stagger-3">
                 We partner with real estate developers, infrastructure firms, educational institutions, and municipal agencies to execute precision missions, acquire actionable intelligence, and cultivate expert flight operations teams.
               </p>
             </div>
-            <div className="flex flex-wrap gap-4 text-xs uppercase tracking-[0.22em]">
+            <div className="flex flex-wrap gap-4 text-xs uppercase tracking-[0.22em] text-reveal stagger-4">
               <Link
                 href="/procurement"
-                className="inline-flex items-center justify-center rounded-full border border-white px-6 py-3 text-white transition hover:bg-white hover:text-black"
+                className="inline-flex items-center justify-center rounded-full border border-white px-6 py-3 text-white transition hover:bg-white hover:text-black ripple-effect"
               >
                 Explore Workflows
               </Link>
               <Link
                 href="/portal"
-                className="inline-flex items-center justify-center rounded-full border border-white/40 bg-white px-6 py-3 text-black transition hover:bg-transparent hover:text-white"
+                className="inline-flex items-center justify-center rounded-full border border-white/40 bg-white px-6 py-3 text-black transition hover:bg-transparent hover:text-white ripple-effect"
               >
                 Enter Learning Portal
               </Link>
@@ -209,27 +211,30 @@ export default function MarketingHomePage() {
             <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-4xl">
               Precision unmanned aircraft operations engineered for mission-critical applications.
             </h2>
-            <div className="flex flex-col gap-4 rounded-3xl border border-gray-200 bg-white/95 p-5 shadow-lg sm:flex-row sm:items-center sm:p-6">
-              <div className="flex items-center justify-center">
-                <div className="flex h-32 w-32 overflow-hidden rounded-2xl border border-gray-100 bg-white/80 shadow-inner">
+            <div className="flex flex-col gap-6 rounded-3xl border border-gray-200 bg-gradient-to-br from-white to-gray-50 p-6 shadow-xl sm:flex-row sm:items-center sm:p-8 card-sophisticated">
+              <div className="flex items-center justify-center sm:flex-shrink-0">
+                <div className="relative overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg">
                   <Image
                     src="/images/gregory-anthony-blaize-real.webp"
-                    alt="Portrait of Gregory Anthony Blaize"
-                    width={160}
-                    height={160}
-                    sizes="(max-width: 640px) 128px, 160px"
-                    className="h-full w-full object-cover"
+                    alt="Portrait of Gregory Anthony Blaize, Founder and FAA Certified Remote Pilot"
+                    width={180}
+                    height={180}
+                    sizes="(max-width: 640px) 160px, 180px"
+                    className="h-40 w-40 sm:h-44 sm:w-44 object-cover"
                     priority
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
                 </div>
               </div>
-              <div className="space-y-2 text-center sm:flex-1 sm:text-left">
-                <p className="text-sm font-semibold uppercase tracking-[0.14em] text-gray-900">
-                  Gregory Anthony Blaize
-                </p>
-                <p className="text-xs uppercase tracking-[0.12em] text-gray-500">
-                  Founder • FAA Certified Remote Pilot
-                </p>
+              <div className="space-y-3 text-center sm:flex-1 sm:text-left">
+                <div className="space-y-1">
+                  <p className="text-base font-bold uppercase tracking-[0.14em] text-gray-900">
+                    Gregory Anthony Blaize
+                  </p>
+                  <p className="text-xs uppercase tracking-[0.18em] text-gray-600 font-medium">
+                    Founder • FAA Certified Remote Pilot
+                  </p>
+                </div>
                 <p className="text-sm leading-relaxed text-gray-700">
                   Gregory integrates extensive experience in governmental affairs, international relations, and law enforcement with advanced UAS operations expertise to deliver comprehensive aerial intelligence solutions.
                 </p>
@@ -288,10 +293,10 @@ export default function MarketingHomePage() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-2">
-            {operations.map((item) => (
+            {operations.map((item, index) => (
               <div
                 key={item.title}
-                className="space-y-3 rounded-2xl border border-gray-200 bg-gray-50 p-6 shadow-sm"
+                className={`space-y-3 rounded-2xl border border-gray-200 bg-gray-50 p-6 shadow-sm card-sophisticated card-reveal stagger-${index + 1}`}
               >
                 <h3 className="text-lg font-semibold uppercase tracking-[0.06em]">
                   {item.title}
@@ -587,6 +592,8 @@ export default function MarketingHomePage() {
           </div>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 }

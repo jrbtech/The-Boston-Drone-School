@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { api, Course } from '../../lib/api'
+import Footer from '@/components/layout/Footer'
 
 export default function CoursesPage() {
   const [courses, setCourses] = useState<Course[]>([])
@@ -96,12 +97,16 @@ export default function CoursesPage() {
         </header>
 
         {/* Hero Section */}
-        <section className="bg-black text-white py-20">
-          <div className="container mx-auto px-6">
+        <section className="relative bg-black text-white py-20 gradient-animated-bg overflow-hidden">
+          <div className="pointer-events-none absolute inset-0">
+            <div className="absolute -left-24 top-14 h-64 w-64 rounded-full bg-white/10 blur-3xl animate-float" />
+            <div className="absolute -right-20 bottom-12 h-72 w-72 rounded-full bg-white/10 blur-3xl animate-float-delayed" />
+          </div>
+          <div className="container mx-auto px-6 relative z-10">
             <div className="max-w-4xl">
-              <p className="uppercase tracking-[0.3em] text-sm text-gray-500 mb-5">Academics</p>
-              <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">Select a training pathway engineered for professional deployment.</h1>
-              <p className="text-lg text-gray-300 leading-relaxed">
+              <p className="uppercase tracking-[0.3em] text-sm text-gray-500 mb-5 text-reveal">Academics</p>
+              <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6 text-reveal stagger-1">Select a training pathway engineered for professional deployment.</h1>
+              <p className="text-lg text-gray-300 leading-relaxed text-reveal stagger-2">
                 Each syllabus blends regulatory mastery, operational precision, and analytical technique. Filter by specialization or experience level to identify the program that meets your mission profile.
               </p>
             </div>
@@ -189,29 +194,30 @@ export default function CoursesPage() {
           </div>
         ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {courses.map((course) => (
+              {courses.map((course, index) => (
                 <Link
                   key={course.id}
                   href={`/courses/${course.id}`}
-                  className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden group"
+                  className={`bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group card-sophisticated card-reveal stagger-${(index % 4) + 1}`}
                 >
                   {/* Course Thumbnail */}
-                  <div className="relative h-48 bg-gray-200 overflow-hidden">
+                  <div className="relative h-48 bg-gray-200 overflow-hidden zoom-on-hover">
                     {course.thumbnailUrl ? (
                       <Image
                         src={course.thumbnailUrl}
                         alt={course.title}
                         fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="object-cover transition-transform duration-500"
                         sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                         priority={false}
                       />
                     ) : (
-                      <div className="flex items-center justify-center h-full">
+                      <div className="flex items-center justify-center h-full bg-gradient-to-br from-gray-100 to-gray-300">
                         <span className="text-lg tracking-[0.5em] uppercase text-gray-500">BDS</span>
                       </div>
                     )}
-                    <div className="absolute top-4 right-4 bg-white/90 px-3 py-1 text-xs font-semibold tracking-widest uppercase border border-gray-300">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-semibold tracking-widest uppercase border border-gray-300 shadow-sm">
                       ${course.price}
                     </div>
                   </div>
@@ -246,14 +252,7 @@ export default function CoursesPage() {
         )}
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 mt-20">
-        <div className="container mx-auto px-6 text-center">
-          <p className="text-gray-400">
-            © 2025 The Boston Drone School - All Rights Reserved
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

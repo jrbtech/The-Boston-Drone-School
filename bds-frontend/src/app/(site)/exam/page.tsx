@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Footer from '@/components/layout/Footer'
 
 export default function ExamAccessPage() {
   return (
@@ -45,6 +46,7 @@ export default function ExamAccessPage() {
           </p>
         </div>
       </section>
+      <Footer />
     </div>
   )
 }
