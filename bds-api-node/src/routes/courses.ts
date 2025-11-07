@@ -88,6 +88,41 @@ const mapModuleRow = (row: RawModuleRow) => ({
   materials: [] as string[],
 });
 
+// GET /api/courses/free - Get all free courses
+router.get('/free', async (req: Request, res: Response) => {
+  try {
+    const query = `
+      SELECT
+        c.id,
+        c.title,
+        c.description,
+        c.category,
+        c.difficulty_level AS level,
+        c.duration_hours,
+        c.price,
+        c.created_at,
+        c.updated_at,
+        CONCAT_WS(' ', u.first_name, u.last_name) AS instructor_name
+      FROM courses c
+      LEFT JOIN users u ON c.instructor_id = u.id
+      WHERE c.is_published = true AND c.price = 0
+      ORDER BY c.created_at DESC
+    `;
+
+    const result = await getPool().query(query);
+    const courses = (result.rows as RawCourseRow[]).map(mapCourseRow);
+
+    res.json({
+      success: true,
+      courses,
+      total: courses.length,
+    });
+  } catch (error) {
+    console.error('Error fetching free courses:', error);
+    res.status(500).json({ error: 'Failed to fetch free courses' });
+  }
+});
+
 // GET /api/courses - Get all published courses
 router.get('/', async (req: Request, res: Response) => {
   try {
