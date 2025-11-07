@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '../../contexts/AuthContext'
 
@@ -34,11 +35,14 @@ export default function LoginPage() {
     <div className="min-h-screen bg-black flex items-center justify-center px-6 py-12 text-white">
       <div className="w-full max-w-md">
         {/* Logo */}
-        <Link href="/" className="flex items-center justify-center gap-3 mb-8 text-white">
-          <div className="w-12 h-12 border border-white flex items-center justify-center text-sm font-semibold tracking-widest uppercase">
-            BDS
-          </div>
-          <span className="text-2xl font-semibold uppercase tracking-[0.3em]">The Boston Drone School</span>
+        <Link href="/" className="flex items-center justify-center mb-8">
+          <Image
+            src="/images/boston-drone-school-logo-real.jpg"
+            alt="Boston Drone School"
+            width={160}
+            height={112}
+            className="h-auto w-32 object-contain"
+          />
         </Link>
 
         {/* Login Card */}
