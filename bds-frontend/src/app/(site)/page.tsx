@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import LiteYouTubeEmbed from "@/components/marketing/LiteYouTubeEmbed";
+import AutoplayYouTubeEmbed from "@/components/marketing/AutoplayYouTubeEmbed";
 
 const operations = [
   {
@@ -40,25 +41,25 @@ const admissionsChecklist = [
 ];
 
 const heroVideo = {
-  title: "Professional Drone Operations & Safety",
-  youtubeId: "1KfE77q0nGI" // Get Your Drone License in 2025
+  title: "Cinematic Drone Operations",
+  youtubeId: "P1hi6ajAhJg" // Professional drone cinematography showcase
 };
 
 const videoShowcase = [
   {
-    title: "FAA Part 107 Remote Pilot Certification",
-    youtubeId: "ixYnzcZZu9g",
-    description: "Comprehensive training exercises and simulator drills that build professional competency for commercial drone operations."
+    title: "Advanced Aerial Cinematography",
+    youtubeId: "QEGeBP1T9g4", // Cinematic drone footage compilation
+    description: "Professional aerial cinematography techniques showcasing sophisticated flight operations and advanced camera movements."
   },
   {
-    title: "Advanced Airspace Navigation",
-    youtubeId: "21b9hODOhGc",
-    description: "Professional sectional chart interpretation and complex airspace scenario analysis for certified remote pilots."
+    title: "Commercial Drone Operations", 
+    youtubeId: "Vi3Lc_K5k2Y", // DJI commercial drone operations
+    description: "Real-world commercial drone applications including real estate, construction monitoring, and infrastructure inspection."
   },
   {
-    title: "Professional Certification Study Framework",
-    youtubeId: "6_ucCKFJUCU",
-    description: "Comprehensive Part 107 study methodology emphasizing risk management, weather analysis, and operational coordination."
+    title: "Professional Drone Techniques",
+    youtubeId: "ZkXcTGrhZPY", // Professional drone flying techniques
+    description: "Advanced maneuvering and professional flight techniques demonstrating the technical capabilities of modern drone systems."
   }
 ];
 
@@ -124,9 +125,11 @@ export default function MarketingHomePage() {
             </div>
           </div>
           <div className="w-full max-w-xl">
-            <LiteYouTubeEmbed
+            <AutoplayYouTubeEmbed
               youtubeId={heroVideo.youtubeId}
               title={heroVideo.title}
+              autoplay={true}
+              muted={true}
             />
           </div>
         </div>
