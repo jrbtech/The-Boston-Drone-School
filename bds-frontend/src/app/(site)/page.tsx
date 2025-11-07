@@ -69,319 +69,302 @@ const videoShowcase = [
 
 const pricingTiers = [
   {
-    name: "Free Tier",
-    price: "$0",
-    period: "forever",
-    description: "Perfect for exploring drone education and getting started with basic training.",
-    features: [
-      "Access to 3 introductory courses",
-      "Basic Part 107 prep materials",
-      "Community forum access",
-      "Monthly webinar recordings",
-      "Email support",
-      "Course completion certificates"
-    ],
-    cta: "Start Free",
-    ctaLink: "/register?tier=free",
-    highlighted: false
-  },
-  {
-    name: "Professional",
+    name: "Part 107 Complete",
     price: "$297",
-    period: "per course",
-    description: "Comprehensive training for serious drone operators pursuing FAA certification and commercial work.",
+    period: "one-time",
+    description: "Comprehensive online FAA Part 107 certification course with lifetime access.",
     features: [
-      "Full access to premium courses",
-      "Live instructor-led webinars",
-      "1-on-1 mentorship sessions",
-      "Advanced Part 107 exam prep",
-      "Real-world mission planning tools",
-      "Job placement assistance",
+      "40 hours of video training",
+      "500+ practice exam questions",
+      "Interactive airspace maps",
+      "Weather interpretation tutorials",
+      "Live instructor Q&A sessions",
+      "Exam prep checklist",
       "Lifetime course access",
-      "Priority support"
+      "30-day money-back guarantee"
     ],
-    cta: "Browse Courses",
-    ctaLink: "/courses",
-    highlighted: true
+    cta: "Enroll Now",
+    ctaLink: "/checkout/part-107-complete",
+    highlighted: false,
+    badge: "MOST POPULAR"
   },
   {
-    name: "Enterprise",
-    price: "Custom",
-    period: "contact us",
-    description: "Tailored solutions for organizations building drone programs and training multiple team members.",
+    name: "Intensive Bootcamp",
+    price: "$497",
+    period: "weekend",
+    description: "Fast-track certification with intensive 2-day weekend training program.",
     features: [
-      "Custom curriculum development",
-      "Bulk team enrollment",
-      "On-site training options",
-      "Dedicated account manager",
-      "Regulatory compliance consulting",
-      "Advanced analytics dashboard",
-      "API integrations",
-      "White-label options"
+      "16 hours over 2 days",
+      "In-person OR live virtual",
+      "Hands-on drone practice",
+      "Direct instructor mentorship",
+      "Exam scheduling assistance",
+      "30 days post-course support",
+      "All materials included",
+      "Small class sizes (max 12)"
     ],
-    cta: "Contact Sales",
-    ctaLink: "/inquiry",
-    highlighted: false
+    cta: "Reserve Seat",
+    ctaLink: "/checkout/part-107-intensive",
+    highlighted: true,
+    badge: "BEST VALUE"
+  },
+  {
+    name: "Premium + Business",
+    price: "$997",
+    period: "complete package",
+    description: "Part 107 certification PLUS business launch guidance for professional pilots.",
+    features: [
+      "Everything in Complete Course",
+      "Business formation guidance",
+      "Marketing & client acquisition",
+      "Equipment recommendations",
+      "Legal contracts & templates",
+      "4 hours 1-on-1 mentorship",
+      "Job placement assistance",
+      "Priority lifetime support"
+    ],
+    cta: "Get Started",
+    ctaLink: "/checkout/part-107-premium",
+    highlighted: false,
+    badge: "PROFESSIONAL"
   }
 ];
 
 export default function MarketingHomePage() {
   return (
-    <div className="bg-white text-gray-900">
-      <section className="relative overflow-hidden bg-black text-white gradient-animated-bg">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-black via-black/70 to-gray-900" />
-          <div className="absolute -left-24 top-14 h-64 w-64 rounded-full bg-white/10 blur-3xl sm:left-12 animate-float" />
-          <div className="absolute -right-20 bottom-12 h-72 w-72 rounded-full bg-white/10 blur-3xl animate-float-delayed" />
-          <div className="absolute left-1/2 top-1/3 h-48 w-48 rounded-full bg-blue-500/5 blur-3xl animate-pulse-slow" />
-        </div>
-        <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-24 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-3xl space-y-8">
-            <div className="space-y-6">
-              <Image
-                src="/images/boston-drone-school-logo-real.jpg"
-                alt="Boston Drone School"
-                width={400}
-                height={280}
-                className="h-20 w-auto text-reveal"
-              />
-              <h1 className="text-4xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-5xl md:tracking-tight text-reveal stagger-1">
-                Professional Unmanned Aircraft Solutions
-              </h1>
-              <p className="text-base leading-relaxed text-white/70 md:text-lg text-reveal stagger-2">
-                The Boston Drone School provides FAA-certified aerial operations, comprehensive regulatory guidance, and industry-leading pilot training for organizations requiring sophisticated unmanned aircraft capabilities.
-              </p>
-              <p className="text-base leading-relaxed text-white/70 md:text-lg text-reveal stagger-3">
-                We partner with real estate developers, infrastructure firms, educational institutions, and municipal agencies to execute precision missions, acquire actionable intelligence, and cultivate expert flight operations teams.
-              </p>
+    <div className="bg-white text-black">
+      {/* Premium Hero Section with Video Background */}
+      <section className="hero-video-container" style={{ minHeight: '100vh' }}>
+        {/* Fallback gradient background for when video is loading/missing */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black" />
+
+        {/* Video will go here - currently shows gradient until videos are downloaded */}
+        {/* <video autoPlay muted loop playsInline poster="/assets/posters/hero-poster.jpg">
+          <source src="/assets/videos/hero-drone-flight.mp4" type="video/mp4" />
+        </video> */}
+
+        <div className="semantic-overlay overlay-enhanced">
+          <div className="max-w-4xl mx-auto px-6">
+            <div className="mb-6">
+              <span className="faa-certified-badge">
+                FAA Part 107 Certified Training
+              </span>
             </div>
-            <div className="flex flex-wrap gap-4 text-xs uppercase tracking-[0.22em] text-reveal stagger-4">
-              <Link
-                href="/procurement"
-                className="inline-flex items-center justify-center rounded-full border border-white px-6 py-3 text-white transition hover:bg-white hover:text-black ripple-effect"
-              >
-                Explore Workflows
-              </Link>
-              <Link
-                href="/portal"
-                className="inline-flex items-center justify-center rounded-full border border-white/40 bg-white px-6 py-3 text-black transition hover:bg-transparent hover:text-white ripple-effect"
-              >
-                Enter Learning Portal
-              </Link>
-            </div>
-            <div className="flex flex-wrap gap-6 text-sm text-white/70">
-              <div className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-white/60">
-                  Operating Domains
-                </p>
-                <p className="mt-2 leading-relaxed">
-                  Real Estate Intelligence • Photogrammetry • 3D Modeling • Construction Progress • STEM Education • Policy Advocacy
-                </p>
-              </div>
-              <div className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-white/60">
-                  Contact
-                </p>
-                <a
-                  href="mailto:info@thebostondroneschool.org"
-                  className="mt-2 inline-block text-white underline-offset-4 hover:underline"
-                >
-                  info@thebostondroneschool.org
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="w-full max-w-xl">
-            <AutoplayVideo
-              src={heroVideo.src}
-              poster={heroVideo.poster}
-              title={heroVideo.title}
-              className="rounded-xl border border-white/20 shadow-2xl"
+            <Image
+              src="/images/boston-drone-school-logo-real.jpg"
+              alt="Boston Drone School"
+              width={400}
+              height={280}
+              className="h-20 w-auto mx-auto mb-8 grayscale-image"
+              priority
             />
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto w-full max-w-6xl px-6 py-20">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-start">
-          <div className="space-y-6">
-            <p className="text-xs uppercase tracking-[0.22em] text-gray-500">
-              Our Mission
+            <h1 className="text-high-contrast text-center">
+              Master Professional Drone Operations
+            </h1>
+            <p className="text-high-contrast text-center max-w-3xl mx-auto opacity-95">
+              Earn your <span className="text-highlight">FAA Part 107</span> certification and launch your commercial drone career. Industry-leading training with a 98% first-time pass rate.
             </p>
-            <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-4xl">
-              Precision unmanned aircraft operations engineered for mission-critical applications.
-            </h2>
-            <div className="flex flex-col gap-6 rounded-3xl border border-gray-200 bg-gradient-to-br from-white to-gray-50 p-6 shadow-xl sm:flex-row sm:items-center sm:p-8 card-sophisticated">
-              <div className="flex items-center justify-center sm:flex-shrink-0">
-                <div className="relative overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg">
-                  <Image
-                    src="/images/gregory-anthony-blaize-real.webp"
-                    alt="Portrait of Gregory Anthony Blaize, Founder and FAA Certified Remote Pilot"
-                    width={180}
-                    height={180}
-                    sizes="(max-width: 640px) 160px, 180px"
-                    className="h-40 w-40 sm:h-44 sm:w-44 object-cover"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
-                </div>
+            <div className="flex flex-wrap gap-4 justify-center mt-8">
+              <Link
+                href="/study-guide"
+                className="btn-premium-cta no-underline"
+              >
+                <span>Free Study Guide</span>
+              </Link>
+              <Link
+                href="#courses"
+                className="btn-tertiary no-underline"
+              >
+                View Courses
+              </Link>
+            </div>
+            <div className="mt-8 flex flex-wrap gap-6 justify-center text-sm text-white/80">
+              <div className="trust-indicator bg-white/10 border-white text-white">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                </svg>
+                <span>500+ Pilots Certified</span>
               </div>
-              <div className="space-y-3 text-center sm:flex-1 sm:text-left">
-                <div className="space-y-1">
-                  <p className="text-base font-bold uppercase tracking-[0.14em] text-gray-900">
-                    Gregory Anthony Blaize
-                  </p>
-                  <p className="text-xs uppercase tracking-[0.18em] text-gray-600 font-medium">
-                    Founder • FAA Certified Remote Pilot
-                  </p>
-                </div>
-                <p className="text-sm leading-relaxed text-gray-700">
-                  Gregory integrates extensive experience in governmental affairs, international relations, and law enforcement with advanced UAS operations expertise to deliver comprehensive aerial intelligence solutions.
-                </p>
+              <div className="trust-indicator bg-white/10 border-white text-white">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>98% Pass Rate</span>
               </div>
             </div>
-            <p className="text-base leading-relaxed text-gray-700">
-              Established in 2020, The Boston Drone School provides a strategic framework for organizational UAS integration. Our comprehensive services encompass advanced data acquisition, regulatory compliance architecture, and professional pilot development to enable clients to transition seamlessly from conceptualization to operational deployment.
-            </p>
-          </div>
-          <div className="space-y-5 rounded-2xl border border-gray-200 bg-gray-50 p-8">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-600">
-              What guides our work
-            </h3>
-            <ul className="space-y-4 text-sm leading-relaxed text-gray-700">
-              {missionHighlights.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="mt-[6px] h-2 w-2 rounded-full bg-gray-900" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </section>
 
-      <section className="bg-gray-100 py-20">
-        <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
-          <div className="space-y-6">
-            <p className="text-xs uppercase tracking-[0.22em] text-gray-600">
-              Valuable Partnerships
-            </p>
-            <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-4xl">
-              Trusted collaborators moving the drone ecosystem forward.
-            </h2>
-          </div>
-          <div className="space-y-4 rounded-2xl border border-gray-200 bg-white p-8 text-sm leading-relaxed text-gray-700">
-            {partnershipHighlights.map((item) => (
-              <p key={item}>{item}</p>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto w-full max-w-6xl px-6 py-20">
-        <div className="space-y-12">
-          <div className="space-y-5 text-center md:text-left">
-            <p className="text-xs uppercase tracking-[0.22em] text-gray-500">
-              Corporate Citizenship
-            </p>
-            <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-4xl">
-              Cultivating Advanced UAS Professionals
-            </h2>
-            <p className="mx-auto max-w-3xl text-base leading-relaxed text-gray-700 md:mx-0">
-              We architect professional development pathways for emerging talent, transitioning professionals, and established organizations while fostering the technical competencies and safety culture essential for responsible unmanned aircraft systems deployment.
-            </p>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2">
-            {operations.map((item, index) => (
-              <div
-                key={item.title}
-                className={`space-y-3 rounded-2xl border border-gray-200 bg-gray-50 p-6 shadow-sm card-sophisticated card-reveal stagger-${index + 1}`}
-              >
-                <h3 className="text-lg font-semibold uppercase tracking-[0.06em]">
-                  {item.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-gray-700">
-                  {item.description}
-                </p>
+      {/* Mission Section - Premium Styling */}
+      <section className="section-spacing bg-white">
+        <div className="container-premium">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-start reveal-on-scroll">
+            <div className="space-y-6">
+              <span className="caption text-gray-500">Our Mission</span>
+              <h2 className="h2">
+                Precision unmanned aircraft operations engineered for mission-critical applications.
+              </h2>
+              <div className="course-card p-8 flex flex-col sm:flex-row gap-6 items-center">
+                <div className="flex-shrink-0">
+                  <div className="relative overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg">
+                    <Image
+                      src="/images/gregory-anthony-blaize-real.webp"
+                      alt="Gregory Anthony Blaize, Founder and FAA Certified Remote Pilot"
+                      width={180}
+                      height={180}
+                      className="h-44 w-44 object-cover grayscale-image"
+                      priority
+                    />
+                  </div>
+                </div>
+                <div className="space-y-3 text-center sm:text-left flex-1">
+                  <div>
+                    <p className="text-base font-bold uppercase tracking-wider text-gray-900">
+                      Gregory Anthony Blaize
+                    </p>
+                    <p className="caption text-gray-600">
+                      Founder • FAA Certified Remote Pilot
+                    </p>
+                  </div>
+                  <p className="small-text text-gray-700">
+                    Gregory integrates extensive experience in governmental affairs, international relations, and law enforcement with advanced UAS operations expertise to deliver comprehensive aerial intelligence solutions.
+                  </p>
+                </div>
               </div>
-            ))}
+              <p className="body text-gray-700">
+                Established in 2020, The Boston Drone School provides a strategic framework for organizational UAS integration. Our comprehensive services encompass advanced data acquisition, regulatory compliance architecture, and professional pilot development.
+              </p>
+            </div>
+            <div className="course-card p-8 bg-off-white">
+              <h3 className="caption text-gray-600 mb-6">
+                What guides our work
+              </h3>
+              <ul className="space-y-4">
+                {missionHighlights.map((item) => (
+                  <li key={item} className="flex items-start gap-3 small-text text-gray-700">
+                    <span className="mt-1.5 h-2 w-2 rounded-full bg-black flex-shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-gradient-to-br from-gray-900 via-black to-gray-900 py-24 text-white">
-        <div className="mx-auto w-full max-w-6xl px-6">
-          <div className="mb-16 space-y-6 text-center">
-            <p className="text-xs uppercase tracking-[0.24em] text-white/60">
-              Investment Options
-            </p>
-            <h2 className="text-4xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-5xl">
-              Choose Your Training Pathway
+      {/* Partnerships Section - Premium Styling */}
+      <section className="section-spacing bg-off-white">
+        <div className="container-premium reveal-on-scroll">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
+            <div className="space-y-6">
+              <span className="caption text-gray-600">Valuable Partnerships</span>
+              <h2 className="h2">
+                Trusted collaborators moving the drone ecosystem forward.
+              </h2>
+            </div>
+            <div className="course-card p-8 bg-white space-y-4">
+              {partnershipHighlights.map((item) => (
+                <p key={item} className="small-text text-gray-700">{item}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Operations Section - Premium Card Grid */}
+      <section className="section-spacing bg-white">
+        <div className="container-premium">
+          <div className="space-y-12 reveal-on-scroll">
+            <div className="space-y-5 text-center">
+              <span className="caption text-gray-500">Corporate Citizenship</span>
+              <h2 className="h2">
+                Cultivating Advanced UAS Professionals
+              </h2>
+              <p className="body-large text-gray-700 max-w-3xl mx-auto">
+                We architect professional development pathways for emerging talent, transitioning professionals, and established organizations while fostering the technical competencies and safety culture essential for responsible unmanned aircraft systems deployment.
+              </p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              {operations.map((item, index) => (
+                <div
+                  key={item.title}
+                  className="course-card p-8 space-y-3 fade-in-delayed"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <h3 className="h3">
+                    {item.title}
+                  </h3>
+                  <p className="body text-gray-700">
+                    {item.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section - Premium Dark Theme */}
+      <section id="courses" className="section-spacing bg-black text-white">
+        <div className="container-premium">
+          <div className="mb-16 space-y-6 text-center reveal-on-scroll">
+            <div className="mb-6">
+              <span className="part-107-badge">FAA Part 107 Courses</span>
+            </div>
+            <h2 className="h2 text-high-contrast">
+              Professional Drone Pilot Training
             </h2>
-            <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/70 md:text-lg">
-              From free introductory access to comprehensive professional training and custom enterprise solutions, we provide flexible options for every stage of your drone career journey.
+            <p className="body-large text-white/90 max-w-3xl mx-auto">
+              Choose the course that fits your schedule and goals. All courses include our <span className="text-highlight">98% pass rate guarantee</span> and lifetime access to materials.
             </p>
           </div>
 
-          <div className="grid gap-8 lg:grid-cols-3">
-            {pricingTiers.map((tier) => (
+          <div className="premium-grid">
+            {pricingTiers.map((tier, index) => (
               <div
                 key={tier.name}
-                className={`relative flex flex-col rounded-2xl border p-8 transition-all duration-300 ${
+                className={`million-dollar-card flex flex-col ${
                   tier.highlighted
-                    ? 'border-white bg-white text-gray-900 shadow-2xl lg:scale-105'
-                    : 'border-white/20 bg-white/5 backdrop-blur hover:border-white/40'
-                }`}
+                    ? 'bg-white text-black lg:scale-105 border-4 border-white'
+                    : 'bg-white text-black border-2 border-gray-200'
+                } fade-in-delayed`}
+                style={{ animationDelay: `${index * 150}ms` }}
               >
-                {tier.highlighted && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 transform">
-                    <span className="rounded-full border border-gray-900 bg-gray-900 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white">
-                      Most Popular
-                    </span>
-                  </div>
-                )}
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                  <span className="premium-badge">
+                    {tier.badge}
+                  </span>
+                </div>
 
                 <div className="mb-6 space-y-3 border-b border-current/10 pb-6">
-                  <h3 className="text-xl font-semibold uppercase tracking-[0.1em]">
+                  <h3 className="h3">
                     {tier.name}
                   </h3>
                   <div className="flex items-baseline gap-2">
                     <span className="text-4xl font-bold">{tier.price}</span>
-                    <span className="text-sm opacity-70">/{tier.period}</span>
+                    <span className="small-text opacity-70">/{tier.period}</span>
                   </div>
-                  <p
-                    className={`text-sm leading-relaxed ${
-                      tier.highlighted ? 'text-gray-600' : 'text-white/70'
-                    }`}
-                  >
+                  <p className={`small-text ${tier.highlighted ? 'text-gray-600' : 'text-white/70'}`}>
                     {tier.description}
                   </p>
                 </div>
 
-                <ul className="mb-8 flex-1 space-y-3 text-sm">
+                <ul className="mb-8 flex-1 space-y-3">
                   {tier.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-3">
+                    <li key={idx} className="flex items-start gap-3 small-text">
                       <svg
                         className={`mt-0.5 h-5 w-5 flex-shrink-0 ${
-                          tier.highlighted ? 'text-gray-900' : 'text-white'
+                          tier.highlighted ? 'text-black' : 'text-white'
                         }`}
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
-                      <span
-                        className={
-                          tier.highlighted ? 'text-gray-700' : 'text-white/80'
-                        }
-                      >
+                      <span className={tier.highlighted ? 'text-gray-700' : 'text-white/80'}>
                         {feature}
                       </span>
                     </li>
@@ -390,11 +373,7 @@ export default function MarketingHomePage() {
 
                 <Link
                   href={tier.ctaLink}
-                  className={`inline-flex items-center justify-center rounded-full border px-6 py-3 text-center text-xs font-semibold uppercase tracking-[0.24em] transition-all ${
-                    tier.highlighted
-                      ? 'border-gray-900 bg-gray-900 text-white hover:bg-black'
-                      : 'border-white text-white hover:bg-white hover:text-black'
-                  }`}
+                  className={tier.highlighted ? 'btn-primary' : 'btn-tertiary'}
                 >
                   {tier.cta}
                 </Link>
@@ -403,9 +382,9 @@ export default function MarketingHomePage() {
           </div>
 
           <div className="mt-12 text-center">
-            <p className="text-sm text-white/60">
+            <p className="small-text text-white/60">
               All courses include lifetime access and certification upon completion.{' '}
-              <Link href="/courses" className="underline hover:text-white">
+              <Link href="/courses" className="underline hover:text-white transition">
                 View all courses
               </Link>
             </p>
@@ -413,181 +392,157 @@ export default function MarketingHomePage() {
         </div>
       </section>
 
-      <section className="bg-gray-900 text-white">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-20 lg:flex-row lg:items-start">
-          <div className="space-y-6">
-            <p className="text-xs uppercase tracking-[0.24em] text-white/60">
-              Admissions & Corporate Citizenship
-            </p>
-            <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-4xl">
-              Interested in a Drone Pilot License?
-            </h2>
-            <p className="text-base leading-relaxed text-white/70">
-              Join our live webinar series to build Part 107 knowledge and mission planning skills with real examples you can apply right away.
-            </p>
-            <ul className="space-y-3 text-sm leading-relaxed text-white/70">
-              {admissionsChecklist.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="mt-[6px] h-2 w-2 rounded-full bg-white/80" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="text-sm uppercase tracking-[0.24em] text-white/60">
-              <a
-                href="mailto:info@thebostondroneschool.org"
-                className="hover:text-white"
-              >
-                info@thebostondroneschool.org
-              </a>
-            </div>
-          </div>
-
-          <div className="flex-1 rounded-2xl border border-white/20 bg-white/5 p-8">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-white/70">
-              Enrollment
-            </h3>
-            <form
-              className="mt-6 grid gap-5"
-              action="https://formspree.io/f/moqgdnge"
-              method="POST"
-            >
-              <label className="space-y-2 text-xs uppercase tracking-[0.22em] text-white/60">
-                Name
-                <input
-                  type="text"
-                  name="name"
-                  required
-                  className="w-full border border-white/20 bg-black/40 px-4 py-3 text-sm uppercase tracking-[0.14em] text-white outline-none transition focus:border-white/60"
-                />
-              </label>
-              <label className="space-y-2 text-xs uppercase tracking-[0.22em] text-white/60">
-                Phone
-                <input
-                  type="tel"
-                  name="phone"
-                  className="w-full border border-white/20 bg-black/40 px-4 py-3 text-sm uppercase tracking-[0.14em] text-white outline-none transition focus:border-white/60"
-                />
-              </label>
-              <label className="space-y-2 text-xs uppercase tracking-[0.22em] text-white/60">
-                Email*
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  className="w-full border border-white/20 bg-black/40 px-4 py-3 text-sm uppercase tracking-[0.14em] text-white outline-none transition focus:border-white/60"
-                />
-              </label>
-              <label className="space-y-2 text-xs uppercase tracking-[0.22em] text-white/60">
-                Attach Resume (optional)
-                <input
-                  type="file"
-                  name="resume"
-                  className="w-full border border-white/20 bg-black/40 px-4 py-2 text-sm text-white file:mr-4 file:border-0 file:bg-white/20 file:px-4 file:py-2 file:text-white file:uppercase file:tracking-[0.18em]"
-                />
-              </label>
-              <button
-                type="submit"
-                className="mt-2 inline-flex items-center justify-center rounded-full border border-white px-6 py-3 text-xs font-semibold uppercase tracking-[0.26em] text-white transition hover:bg-white hover:text-black"
-              >
-                Submit Application
-              </button>
-              <p className="text-[0.7rem] leading-relaxed text-white/50">
-                This site is protected by reCAPTCHA and the Google Privacy
-                Policy and Terms of Service apply.
+      {/* Admissions Section - Premium Dark Theme */}
+      <section className="section-spacing bg-gray-900 text-white">
+        <div className="container-premium">
+          <div className="grid gap-12 lg:grid-cols-2 reveal-on-scroll">
+            <div className="space-y-6">
+              <span className="caption text-white/60">Admissions & Corporate Citizenship</span>
+              <h2 className="h2 text-white">
+                Interested in a Drone Pilot License?
+              </h2>
+              <p className="body text-white/70">
+                Join our live webinar series to build Part 107 knowledge and mission planning skills with real examples you can apply right away.
               </p>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-20">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-6">
-          <div className="space-y-4 text-center md:text-left">
-            <p className="text-xs uppercase tracking-[0.22em] text-gray-500">
-              Mission Footage
-            </p>
-            <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-4xl">
-              Experience the workflows our crews deliver.
-            </h2>
-            <p className="mx-auto max-w-3xl text-base leading-relaxed text-gray-600 md:mx-0">
-              Explore how Boston Drone School teams capture visuals, coach
-              pilots, and package insights after every mission. Each short video
-              highlights a different stage of our engagements.
-            </p>
-          </div>
-          <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-            {videoShowcase.map((video) => (
-              <div key={video.src} className="space-y-4">
-                <AutoplayVideo
-                  src={video.src}
-                  poster={video.poster}
-                  title={video.title}
-                  className="rounded-xl border border-gray-200 shadow-md"
-                />
-                <div className="space-y-2">
-                  <h3 className="text-base font-semibold uppercase tracking-[0.12em] text-gray-900">
-                    {video.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-gray-600">
-                    {video.description}
-                  </p>
-                </div>
+              <ul className="space-y-3">
+                {admissionsChecklist.map((item) => (
+                  <li key={item} className="flex items-start gap-3 small-text text-white/70">
+                    <span className="mt-1.5 h-2 w-2 rounded-full bg-white/80 flex-shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="caption text-white/60">
+                <a
+                  href="mailto:info@thebostondroneschool.org"
+                  className="hover:text-white transition"
+                >
+                  info@thebostondroneschool.org
+                </a>
               </div>
-            ))}
+            </div>
+
+            <div className="course-card p-8 bg-white/5 border border-white/20">
+              <h3 className="caption text-white/70 mb-6">Enrollment</h3>
+              <form
+                className="space-y-5"
+                action="https://formspree.io/f/moqgdnge"
+                method="POST"
+              >
+                <label className="block">
+                  <span className="caption text-white/60 block mb-2">Name</span>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    className="w-full border border-white/20 bg-black/40 px-4 py-3 text-sm text-white outline-none transition focus:border-white/60"
+                  />
+                </label>
+                <label className="block">
+                  <span className="caption text-white/60 block mb-2">Phone</span>
+                  <input
+                    type="tel"
+                    name="phone"
+                    className="w-full border border-white/20 bg-black/40 px-4 py-3 text-sm text-white outline-none transition focus:border-white/60"
+                  />
+                </label>
+                <label className="block">
+                  <span className="caption text-white/60 block mb-2">Email*</span>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    className="w-full border border-white/20 bg-black/40 px-4 py-3 text-sm text-white outline-none transition focus:border-white/60"
+                  />
+                </label>
+                <label className="block">
+                  <span className="caption text-white/60 block mb-2">Attach Resume (optional)</span>
+                  <input
+                    type="file"
+                    name="resume"
+                    className="w-full border border-white/20 bg-black/40 px-4 py-2 text-sm text-white file:mr-4 file:border-0 file:bg-white/20 file:px-4 file:py-2 file:text-white file:uppercase"
+                  />
+                </label>
+                <button type="submit" className="btn-tertiary w-full">
+                  Submit Application
+                </button>
+                <p className="text-xs text-white/50">
+                  This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.
+                </p>
+              </form>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-gray-50 py-20">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 lg:flex-row lg:items-center lg:justify-between">
-          <div className="space-y-6">
-            <p className="text-xs uppercase tracking-[0.22em] text-gray-600">
-              Learning Platform
-            </p>
-            <h2 className="text-3xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-4xl">
-              Continue inside the Boston Drone School learning portal.
-            </h2>
-            <p className="max-w-2xl text-base leading-relaxed text-gray-700">
-              Access structured coursework, instructor feedback, and mission
-              ready resources tailored to the engagements you explore on this
-              site. Your next briefing, certification, or deployment plan is
-              waiting inside the portal.
-            </p>
-            <div className="flex flex-wrap gap-4 text-xs uppercase tracking-[0.24em]">
-              <Link
-                href="/portal"
-                className="inline-flex items-center justify-center rounded-full border border-gray-900 px-6 py-3 text-gray-900 transition hover:bg-gray-900 hover:text-white"
-              >
-                Access Portal
-              </Link>
-              <Link
-                href="/courses"
-                className="inline-flex items-center justify-center rounded-full border border-gray-300 px-6 py-3 text-gray-700 transition hover:border-gray-900 hover:text-gray-900"
-              >
-                Browse Courses
-              </Link>
+      {/* Video Showcase Section - Premium Grid */}
+      <section className="section-spacing bg-white">
+        <div className="container-premium">
+          <div className="space-y-10 reveal-on-scroll">
+            <div className="space-y-4 text-center">
+              <span className="caption text-gray-500">Mission Footage</span>
+              <h2 className="h2">
+                Experience the workflows our crews deliver.
+              </h2>
+              <p className="body-large text-gray-600 max-w-3xl mx-auto">
+                Explore how Boston Drone School teams capture visuals, coach pilots, and package insights after every mission. Each short video highlights a different stage of our engagements.
+              </p>
+            </div>
+            <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+              {videoShowcase.map((video, index) => (
+                <div key={video.src} className="space-y-4 fade-in-delayed" style={{ animationDelay: `${index * 100}ms` }}>
+                  <AutoplayVideo
+                    src={video.src}
+                    poster={video.poster}
+                    title={video.title}
+                    className="rounded-xl border border-gray-200 shadow-md grayscale-image"
+                  />
+                  <div className="space-y-2">
+                    <h3 className="h4">{video.title}</h3>
+                    <p className="small-text text-gray-600">{video.description}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-          <div className="grid w-full gap-6 rounded-2xl border border-gray-200 bg-white p-8 text-sm text-gray-700 md:max-w-lg">
-            <div>
-              <p className="text-xs uppercase tracking-[0.24em] text-gray-500">
-                Structured Programs
+        </div>
+      </section>
+
+      {/* CTA Section - Premium */}
+      <section className="section-spacing bg-off-white">
+        <div className="container-premium">
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-center reveal-on-scroll">
+            <div className="space-y-6">
+              <span className="caption text-gray-600">Learning Platform</span>
+              <h2 className="h2">
+                Continue inside the Boston Drone School learning portal.
+              </h2>
+              <p className="body text-gray-700">
+                Access structured coursework, instructor feedback, and mission ready resources tailored to the engagements you explore on this site. Your next briefing, certification, or deployment plan is waiting inside the portal.
               </p>
-              <p className="mt-2 leading-relaxed">
-                FAA Part 107 prep, advanced photogrammetry, STEM ready
-                instruction, and policy workflows aligned to enterprise needs.
-              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link href="/portal" className="btn-primary">
+                  Access Portal
+                </Link>
+                <Link href="/courses" className="btn-secondary">
+                  Browse Courses
+                </Link>
+              </div>
             </div>
-            <div className="h-px w-full bg-gray-200" />
-            <div>
-              <p className="text-xs uppercase tracking-[0.24em] text-gray-500">
-                Mission Support
-              </p>
-              <p className="mt-2 leading-relaxed">
-                Download checklists, mission report templates, and quick
-                reference guides updated by the Boston Drone School faculty.
-              </p>
+            <div className="course-card p-8 bg-white space-y-6">
+              <div>
+                <span className="caption text-gray-500 block mb-2">Structured Programs</span>
+                <p className="small-text text-gray-700">
+                  FAA Part 107 prep, advanced photogrammetry, STEM ready instruction, and policy workflows aligned to enterprise needs.
+                </p>
+              </div>
+              <div className="h-px w-full bg-gray-200" />
+              <div>
+                <span className="caption text-gray-500 block mb-2">Mission Support</span>
+                <p className="small-text text-gray-700">
+                  Download checklists, mission report templates, and quick reference guides updated by the Boston Drone School faculty.
+                </p>
+              </div>
             </div>
           </div>
         </div>
