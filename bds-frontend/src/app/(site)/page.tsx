@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import LiteYouTubeEmbed from "@/components/marketing/LiteYouTubeEmbed";
-import AutoplayYouTubeEmbed from "@/components/marketing/AutoplayYouTubeEmbed";
+import AutoplayVideo from "@/components/marketing/AutoplayVideo";
 
 const operations = [
   {
@@ -42,24 +41,86 @@ const admissionsChecklist = [
 
 const heroVideo = {
   title: "Cinematic Drone Operations",
-  youtubeId: "P1hi6ajAhJg" // Professional drone cinematography showcase
+  src: "/videos/hero-drone-cinematography.mp4",
+  poster: "/videos/hero-drone-cinematography.jpg"
 };
 
 const videoShowcase = [
   {
     title: "Advanced Aerial Cinematography",
-    youtubeId: "QEGeBP1T9g4", // Cinematic drone footage compilation
+    src: "/videos/aerial-cinematography.mp4",
+    poster: "/videos/aerial-cinematography.jpg",
     description: "Professional aerial cinematography techniques showcasing sophisticated flight operations and advanced camera movements."
   },
   {
-    title: "Commercial Drone Operations", 
-    youtubeId: "Vi3Lc_K5k2Y", // DJI commercial drone operations
+    title: "Commercial Drone Operations",
+    src: "/videos/commercial-operations.mp4",
+    poster: "/videos/commercial-operations.jpg",
     description: "Real-world commercial drone applications including real estate, construction monitoring, and infrastructure inspection."
   },
   {
     title: "Professional Drone Techniques",
-    youtubeId: "ZkXcTGrhZPY", // Professional drone flying techniques
+    src: "/videos/professional-techniques.mp4",
+    poster: "/videos/professional-techniques.jpg",
     description: "Advanced maneuvering and professional flight techniques demonstrating the technical capabilities of modern drone systems."
+  }
+];
+
+const pricingTiers = [
+  {
+    name: "Free Tier",
+    price: "$0",
+    period: "forever",
+    description: "Perfect for exploring drone education and getting started with basic training.",
+    features: [
+      "Access to 3 introductory courses",
+      "Basic Part 107 prep materials",
+      "Community forum access",
+      "Monthly webinar recordings",
+      "Email support",
+      "Course completion certificates"
+    ],
+    cta: "Start Free",
+    ctaLink: "/register?tier=free",
+    highlighted: false
+  },
+  {
+    name: "Professional",
+    price: "$297",
+    period: "per course",
+    description: "Comprehensive training for serious drone operators pursuing FAA certification and commercial work.",
+    features: [
+      "Full access to premium courses",
+      "Live instructor-led webinars",
+      "1-on-1 mentorship sessions",
+      "Advanced Part 107 exam prep",
+      "Real-world mission planning tools",
+      "Job placement assistance",
+      "Lifetime course access",
+      "Priority support"
+    ],
+    cta: "Browse Courses",
+    ctaLink: "/courses",
+    highlighted: true
+  },
+  {
+    name: "Enterprise",
+    price: "Custom",
+    period: "contact us",
+    description: "Tailored solutions for organizations building drone programs and training multiple team members.",
+    features: [
+      "Custom curriculum development",
+      "Bulk team enrollment",
+      "On-site training options",
+      "Dedicated account manager",
+      "Regulatory compliance consulting",
+      "Advanced analytics dashboard",
+      "API integrations",
+      "White-label options"
+    ],
+    cta: "Contact Sales",
+    ctaLink: "/inquiry",
+    highlighted: false
   }
 ];
 
@@ -74,10 +135,14 @@ export default function MarketingHomePage() {
         </div>
         <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-24 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl space-y-8">
-            <div className="space-y-4">
-              <p className="text-xs uppercase tracking-[0.24em] text-white/60">
-                Boston Drone School
-              </p>
+            <div className="space-y-6">
+              <Image
+                src="/images/boston-drone-school-logo-real.jpg"
+                alt="Boston Drone School"
+                width={400}
+                height={280}
+                className="h-20 w-auto"
+              />
               <h1 className="text-4xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-5xl md:tracking-tight">
                 Professional Unmanned Aircraft Solutions
               </h1>
@@ -108,7 +173,7 @@ export default function MarketingHomePage() {
                   Operating Domains
                 </p>
                 <p className="mt-2 leading-relaxed">
-                  Real Estate Intelligence · Photogrammetry · 3D Modeling · Construction Progress · STEM Education · Policy Advocacy
+                  Real Estate Intelligence • Photogrammetry • 3D Modeling • Construction Progress • STEM Education • Policy Advocacy
                 </p>
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
@@ -125,11 +190,11 @@ export default function MarketingHomePage() {
             </div>
           </div>
           <div className="w-full max-w-xl">
-            <AutoplayYouTubeEmbed
-              youtubeId={heroVideo.youtubeId}
+            <AutoplayVideo
+              src={heroVideo.src}
+              poster={heroVideo.poster}
               title={heroVideo.title}
-              autoplay={true}
-              muted={true}
+              className="rounded-xl border border-white/20 shadow-2xl"
             />
           </div>
         </div>
@@ -148,7 +213,7 @@ export default function MarketingHomePage() {
               <div className="flex items-center justify-center">
                 <div className="flex h-32 w-32 overflow-hidden rounded-2xl border border-gray-100 bg-white/80 shadow-inner">
                   <Image
-                    src="/images/gregory-anthony-blaize-portrait.svg"
+                    src="/images/gregory-anthony-blaize-real.webp"
                     alt="Portrait of Gregory Anthony Blaize"
                     width={160}
                     height={160}
@@ -163,7 +228,7 @@ export default function MarketingHomePage() {
                   Gregory Anthony Blaize
                 </p>
                 <p className="text-xs uppercase tracking-[0.12em] text-gray-500">
-                  Founder · FAA Certified Remote Pilot
+                  Founder • FAA Certified Remote Pilot
                 </p>
                 <p className="text-sm leading-relaxed text-gray-700">
                   Gregory integrates extensive experience in governmental affairs, international relations, and law enforcement with advanced UAS operations expertise to deliver comprehensive aerial intelligence solutions.
@@ -171,7 +236,7 @@ export default function MarketingHomePage() {
               </div>
             </div>
             <p className="text-base leading-relaxed text-gray-700">
-              Established in 2020, The Boston Drone School provides a strategic framework for organizational UAS integration. Our comprehensive services encompass advanced data acquisition, regulatory compliance architecture, and professional pilot development—enabling clients to transition seamlessly from conceptualization to operational deployment.
+              Established in 2020, The Boston Drone School provides a strategic framework for organizational UAS integration. Our comprehensive services encompass advanced data acquisition, regulatory compliance architecture, and professional pilot development to enable clients to transition seamlessly from conceptualization to operational deployment.
             </p>
           </div>
           <div className="space-y-5 rounded-2xl border border-gray-200 bg-gray-50 p-8">
@@ -218,7 +283,7 @@ export default function MarketingHomePage() {
               Cultivating Advanced UAS Professionals
             </h2>
             <p className="mx-auto max-w-3xl text-base leading-relaxed text-gray-700 md:mx-0">
-              We architect professional development pathways for emerging talent, transitioning professionals, and established organizations—fostering the technical competencies and safety culture essential for responsible unmanned aircraft systems deployment.
+              We architect professional development pathways for emerging talent, transitioning professionals, and established organizations while fostering the technical competencies and safety culture essential for responsible unmanned aircraft systems deployment.
             </p>
           </div>
 
@@ -236,6 +301,109 @@ export default function MarketingHomePage() {
                 </p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-gradient-to-br from-gray-900 via-black to-gray-900 py-24 text-white">
+        <div className="mx-auto w-full max-w-6xl px-6">
+          <div className="mb-16 space-y-6 text-center">
+            <p className="text-xs uppercase tracking-[0.24em] text-white/60">
+              Investment Options
+            </p>
+            <h2 className="text-4xl font-semibold uppercase leading-tight tracking-[0.01em] md:text-5xl">
+              Choose Your Training Pathway
+            </h2>
+            <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/70 md:text-lg">
+              From free introductory access to comprehensive professional training and custom enterprise solutions, we provide flexible options for every stage of your drone career journey.
+            </p>
+          </div>
+
+          <div className="grid gap-8 lg:grid-cols-3">
+            {pricingTiers.map((tier) => (
+              <div
+                key={tier.name}
+                className={`relative flex flex-col rounded-2xl border p-8 transition-all duration-300 ${
+                  tier.highlighted
+                    ? 'border-white bg-white text-gray-900 shadow-2xl lg:scale-105'
+                    : 'border-white/20 bg-white/5 backdrop-blur hover:border-white/40'
+                }`}
+              >
+                {tier.highlighted && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 transform">
+                    <span className="rounded-full border border-gray-900 bg-gray-900 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white">
+                      Most Popular
+                    </span>
+                  </div>
+                )}
+
+                <div className="mb-6 space-y-3 border-b border-current/10 pb-6">
+                  <h3 className="text-xl font-semibold uppercase tracking-[0.1em]">
+                    {tier.name}
+                  </h3>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-4xl font-bold">{tier.price}</span>
+                    <span className="text-sm opacity-70">/{tier.period}</span>
+                  </div>
+                  <p
+                    className={`text-sm leading-relaxed ${
+                      tier.highlighted ? 'text-gray-600' : 'text-white/70'
+                    }`}
+                  >
+                    {tier.description}
+                  </p>
+                </div>
+
+                <ul className="mb-8 flex-1 space-y-3 text-sm">
+                  {tier.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-start gap-3">
+                      <svg
+                        className={`mt-0.5 h-5 w-5 flex-shrink-0 ${
+                          tier.highlighted ? 'text-gray-900' : 'text-white'
+                        }`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      <span
+                        className={
+                          tier.highlighted ? 'text-gray-700' : 'text-white/80'
+                        }
+                      >
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Link
+                  href={tier.ctaLink}
+                  className={`inline-flex items-center justify-center rounded-full border px-6 py-3 text-center text-xs font-semibold uppercase tracking-[0.24em] transition-all ${
+                    tier.highlighted
+                      ? 'border-gray-900 bg-gray-900 text-white hover:bg-black'
+                      : 'border-white text-white hover:bg-white hover:text-black'
+                  }`}
+                >
+                  {tier.cta}
+                </Link>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-sm text-white/60">
+              All courses include lifetime access and certification upon completion.{' '}
+              <Link href="/courses" className="underline hover:text-white">
+                View all courses
+              </Link>
+            </p>
           </div>
         </div>
       </section>
@@ -345,10 +513,12 @@ export default function MarketingHomePage() {
           </div>
           <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
             {videoShowcase.map((video) => (
-              <div key={video.youtubeId} className="space-y-4">
-                <LiteYouTubeEmbed
-                  youtubeId={video.youtubeId}
+              <div key={video.src} className="space-y-4">
+                <AutoplayVideo
+                  src={video.src}
+                  poster={video.poster}
                   title={video.title}
+                  className="rounded-xl border border-gray-200 shadow-md"
                 />
                 <div className="space-y-2">
                   <h3 className="text-base font-semibold uppercase tracking-[0.12em] text-gray-900">
