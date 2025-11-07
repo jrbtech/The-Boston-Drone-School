@@ -2,7 +2,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import { r2Storage } from '../services/r2Storage';
-import { pool } from '../db';
+import { getPool } from '../db';
 import { authenticateToken, requireAdmin } from '../middleware/auth';
 
 const router = Router();
@@ -87,7 +87,7 @@ router.post('/course-material/:courseId',
         req.file.size,
       ];
 
-      const result = await pool.query(query, values);
+      const result = await getPool().query(query, values);
 
       res.json({
         success: true,
@@ -153,7 +153,7 @@ router.post('/faa-material',
         req.file.size,
       ];
 
-      const result = await pool.query(query, values);
+      const result = await getPool().query(query, values);
 
       res.json({
         success: true,
@@ -180,12 +180,12 @@ router.get('/course-materials/:courseId', async (req, res) => {
     const { courseId } = req.params;
 
     const query = `
-      SELECT * FROM course_materials 
-      WHERE course_id = $1 
+      SELECT * FROM course_materials
+      WHERE course_id = $1
       ORDER BY created_at DESC
     `;
 
-    const result = await pool.query(query, [courseId]);
+    const result = await getPool().query(query, [courseId]);
 
     res.json({
       success: true,
@@ -207,11 +207,11 @@ router.get('/course-materials/:courseId', async (req, res) => {
 router.get('/faa-materials', async (req, res) => {
   try {
     const query = `
-      SELECT * FROM faa_materials 
+      SELECT * FROM faa_materials
       ORDER BY category, created_at DESC
     `;
 
-    const result = await pool.query(query);
+    const result = await getPool().query(query);
 
     res.json({
       success: true,
