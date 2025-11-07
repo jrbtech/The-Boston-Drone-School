@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
 import { api, Course } from '@/lib/api'
 import { useAuth } from '@/contexts/AuthContext'
@@ -115,12 +116,15 @@ export default function PortalLandingPage() {
       <header className="sticky top-0 z-40 border-b border-foreground/10 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
         <div className="section-shell flex h-20 items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center border border-foreground/40 text-xs font-semibold uppercase tracking-[0.4em]">
-              BDS
-            </div>
+            <Image
+              src="/images/boston-drone-school-logo-real.jpg"
+              alt="Boston Drone School"
+              width={100}
+              height={70}
+              className="h-auto w-20 object-contain"
+            />
             <div className="flex flex-col">
-              <span className="text-xs font-semibold uppercase tracking-[0.32em]">Boston Drone School</span>
-              <span className="text-[0.64rem] uppercase tracking-[0.38em] text-foreground/60">Learning Portal</span>
+              <span className="text-xs font-semibold uppercase tracking-[0.32em]">Learning Portal</span>
             </div>
           </Link>
           <nav className="hidden items-center gap-8 text-xs uppercase tracking-[0.3em] md:flex">

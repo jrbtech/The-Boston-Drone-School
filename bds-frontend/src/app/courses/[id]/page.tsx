@@ -121,10 +121,13 @@ export default function CourseDetailPage() {
         <div className="container mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
               <Link href="/" className="flex items-center gap-3">
-                <div className="w-10 h-10 border border-gray-900 flex items-center justify-center text-sm font-semibold tracking-widest uppercase">
-                  BDS
-                </div>
-                <span className="text-lg font-semibold tracking-wide uppercase text-gray-900">The Boston Drone School</span>
+                <Image
+                  src="/images/boston-drone-school-logo-real.jpg"
+                  alt="Boston Drone School"
+                  width={120}
+                  height={84}
+                  className="h-auto w-24 object-contain"
+                />
             </Link>
 
               <nav className="flex items-center space-x-6">
