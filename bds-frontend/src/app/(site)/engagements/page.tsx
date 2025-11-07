@@ -1,3 +1,5 @@
+import Footer from '@/components/layout/Footer'
+
 export default function EngagementsPage() {
   return (
     <div className="bg-white text-gray-900">
@@ -24,6 +26,7 @@ export default function EngagementsPage() {
           Organizations that partner with Boston Drone School gain up to date policy awareness, practical recommendations, and a direct line to conversations shaping the next generation of UAS guidelines.
         </p>
       </section>
+      <Footer />
     </div>
   )
 }

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Footer from '@/components/layout/Footer'
 import { api, Course } from '../../../lib/api'
 import { getVideoEmbedUrl } from '../../../lib/video'
 import { useAuth } from '../../../contexts/AuthContext'
@@ -247,6 +248,7 @@ export default function CoursePlayerPage() {
         </div>
 
       </div>
+      <Footer />
     </div>
   )
 }

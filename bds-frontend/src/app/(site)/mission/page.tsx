@@ -1,3 +1,5 @@
+import Footer from '@/components/layout/Footer'
+
 export default function MissionPage() {
   return (
     <div className="bg-white text-gray-900">
@@ -24,6 +26,7 @@ export default function MissionPage() {
           Our mission remains unequivocal: to establish unmanned aircraft operations as secure, accessible, and strategically valuable. We champion evidence-based policy advancement, deliver expert flight operations teams, and architect training programs that prepare current professionals and emerging talent for sustained success in the evolving UAS landscape.
         </p>
       </section>
+      <Footer />
     </div>
   )
 }

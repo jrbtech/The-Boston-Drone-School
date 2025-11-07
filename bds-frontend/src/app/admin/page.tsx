@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { api } from '../../lib/api'
+import Footer from '@/components/layout/Footer'
 import FileUpload from '../../components/admin/FileUpload'
 
 export default function AdminPage() {
@@ -338,6 +339,7 @@ export default function AdminPage() {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   )
 }

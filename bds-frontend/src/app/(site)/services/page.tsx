@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Footer from '@/components/layout/Footer'
 
 const serviceGroups = [
   {
@@ -145,6 +146,7 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   )
 }
