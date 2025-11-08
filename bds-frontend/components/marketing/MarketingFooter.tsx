@@ -17,24 +17,16 @@ export function MarketingFooter() {
   return (
     <footer className="border-t border-black/10 bg-black text-white">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-12 lg:flex-row lg:items-start lg:justify-between">
-        <div className="max-w-md space-y-4">
-          <div className="flex items-center gap-3">
-            <span className="flex h-16 w-16 items-center justify-center rounded-full border border-white/25 bg-white/10">
-              <Image
-                src="/images/boston-drone-school-logo.svg"
-                alt="Boston Drone School logo"
-                width={600}
-                height={280}
-                sizes="48px"
-                className="h-12 w-12 object-contain brightness-0 invert"
-              />
-            </span>
-            <div className="flex flex-col">
-              <span className="text-xs font-semibold uppercase tracking-[0.24em] text-white/90">
-                Boston Drone School
-              </span>
-            </div>
-          </div>
+        <div className="max-w-md space-y-5">
+          <Link href="/" className="inline-block">
+            <Image
+              src="/images/boston-drone-school-logo.svg"
+              alt="Boston Drone School logo"
+              width={600}
+              height={280}
+              className="h-auto w-48 object-contain brightness-0 invert"
+            />
+          </Link>
           <p className="text-sm leading-relaxed text-white/70">
             We deliver licensed drone services, policy guidance, and focused
             training for public, private, and community partners across New
