@@ -15,7 +15,7 @@ type NavLink = {
 const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "Procurement", href: "/procurement" },
-  { label: "Drone Advocacy Group", href: "/drone-advocacy-group" },
+  { label: "Advocacy", href: "/drone-advocacy-group" },
   { label: "Services", href: "/services" },
   { label: "Mission", href: "/mission" },
   { label: "Engagements", href: "/engagements" },
@@ -35,11 +35,6 @@ const brandBlock = (
       priority
       className="h-auto w-24 object-contain transition group-hover:opacity-90 sm:w-28 grayscale-image"
     />
-    <span className="hidden flex-col xl:flex">
-      <span className="text-[0.62rem] uppercase tracking-[0.24em] text-gray-500">
-        Mission Support · Training · Advocacy
-      </span>
-    </span>
   </Link>
 );
 

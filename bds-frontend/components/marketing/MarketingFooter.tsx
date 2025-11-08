@@ -4,7 +4,7 @@ import Link from "next/link";
 const footerLinks = [
   { label: "Home", href: "/" },
   { label: "Procurement", href: "/procurement" },
-  { label: "Drone Advocacy Group", href: "/drone-advocacy-group" },
+  { label: "Advocacy", href: "/drone-advocacy-group" },
   { label: "Services", href: "/services" },
   { label: "Mission", href: "/mission" },
   { label: "Engagements", href: "/engagements" },
@@ -32,9 +32,6 @@ export function MarketingFooter() {
             <div className="flex flex-col">
               <span className="text-xs font-semibold uppercase tracking-[0.24em] text-white/90">
                 Boston Drone School
-              </span>
-              <span className="text-[0.62rem] uppercase tracking-[0.24em] text-white/50">
-                Mission Support · Training · Advocacy
               </span>
             </div>
           </div>

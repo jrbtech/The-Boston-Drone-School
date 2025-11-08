@@ -158,12 +158,12 @@ export default function MarketingHomePage() {
 
             {/* Headline */}
             <h1 className="text-center text-white text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              Get Your FAA Part 107<br />Drone License
+              Safely Integrating AI & Drone Technology<br />Into Public & Private Domains
             </h1>
 
             {/* Subheadline */}
             <p className="text-center text-white text-xl md:text-2xl mb-4 max-w-3xl mx-auto font-light opacity-95">
-              Start your commercial drone career with industry-leading training
+              Expert consultation, advocacy, and training for the safe integration of unmanned aircraft systems
             </p>
 
             {/* Trust Indicators */}

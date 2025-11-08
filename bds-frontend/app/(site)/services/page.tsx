@@ -13,7 +13,8 @@ const serviceGroups = [
   {
     title: 'Training & Certification',
     items: [
-      'FAA Part 107 licensing courses with live instruction.',
+      'FAA Part 107 Remote Pilot Certificate preparation and licensing courses with live instruction.',
+      'Commercial drone operator certification and recurrent training programs.',
       'Mission labs and simulator drills aligned to your procedures.',
       'Continuing education sessions matched to current regulations.'
     ]

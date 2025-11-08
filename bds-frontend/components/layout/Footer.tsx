@@ -71,7 +71,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/drone-advocacy-group" className="text-sm text-gray-400 hover:text-white transition-colors">
-                  Advocacy Group
+                  Advocacy
                 </Link>
               </li>
               <li>
