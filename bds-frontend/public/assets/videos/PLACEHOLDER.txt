@@ -1,0 +1,29 @@
+PLACEHOLDER - Download Videos Here
+
+This folder needs the following video files:
+
+1. hero-drone-flight.mp4
+   - Duration: 10-30 seconds
+   - Resolution: 1920x1080 or 4K
+   - Subject: Dramatic FPV drone flight
+   - Download from: https://www.pexels.com/search/videos/drone%20fpv/
+
+2. course-training.mp4
+   - Duration: 5-15 seconds
+   - Subject: Drone training/education
+   - Download from: https://www.pexels.com/search/videos/drone%20pilot/
+
+3. course-inspection.mp4
+   - Duration: 5-15 seconds
+   - Subject: Industrial/commercial drone work
+   - Download from: https://www.pexels.com/search/videos/industrial%20drone/
+
+4. course-cinematography.mp4
+   - Duration: 5-15 seconds
+   - Subject: Aerial cinematography
+   - Download from: https://www.pexels.com/search/videos/aerial%20cinematography/
+
+All videos are 100% free for commercial use from Pexels.
+No attribution required.
+
+See: download-assets.md for detailed instructions.

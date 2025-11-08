@@ -33,7 +33,7 @@ const brandBlock = (
       height={84}
       sizes="120px"
       priority
-      className="h-auto w-24 object-contain transition group-hover:opacity-90 sm:w-28"
+      className="h-auto w-24 object-contain transition group-hover:opacity-90 sm:w-28 grayscale-image"
     />
     <span className="hidden flex-col xl:flex">
       <span className="text-[0.62rem] uppercase tracking-[0.24em] text-gray-500">
@@ -74,7 +74,7 @@ export function MarketingHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-black/10 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75">
+    <header className="nav-premium sticky top-0 z-40 border-b border-black/10 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75">
       <div className="mx-auto flex h-20 w-full max-w-6xl items-center justify-between px-6">
         {brandBlock}
 
@@ -97,7 +97,7 @@ export function MarketingHeader() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`transition-colors hover:text-gray-900 ${active ? "text-gray-900" : ""}`}
+                className={`nav-item transition-colors hover:text-gray-900 ${active ? "text-gray-900" : ""}`}
               >
                 {link.label}
               </Link>

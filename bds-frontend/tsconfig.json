@@ -18,7 +18,7 @@
     "jsx": "preserve",
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "plugins": [
       {
         "name": "next"
@@ -35,13 +35,20 @@
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
-    "src/**/*.ts",
-    "src/**/*.tsx"
+    "app/**/*.ts",
+    "app/**/*.tsx",
+    "components/**/*.ts",
+    "components/**/*.tsx",
+    "contexts/**/*.ts",
+    "contexts/**/*.tsx",
+    "lib/**/*.ts",
+    "lib/**/*.tsx"
   ],
   "exclude": [
     "node_modules",
     ".next",
     "out",
+    "src",
     "**/.svelte2tsx-language-server-files/**"
   ]
 }

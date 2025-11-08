@@ -22,7 +22,20 @@
       "Bash(node:*)",
       "Bash(git log:*)",
       "Bash(git pull:*)",
-      "Bash(git rebase:*)"
+      "Bash(git rebase:*)",
+      "WebFetch(domain:thebostondroneschool.org)",
+      "WebFetch(domain:mixkit.co)",
+      "Bash(dir:*)",
+      "Bash(ffmpeg:*)",
+      "Bash(nul)",
+      "Bash(find:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill /F /PID 37328)",
+      "Bash(taskkill //F //PID 37328)",
+      "Bash(npx kill-port:*)",
+      "WebFetch(domain:www.pexels.com)",
+      "WebFetch(domain:coverr.co)"
     ],
     "deny": [],
     "ask": []
