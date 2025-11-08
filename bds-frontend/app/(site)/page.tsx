@@ -158,28 +158,28 @@ export default function MarketingHomePage() {
             </div>
 
             {/* Headline */}
-            <h1 className="text-center text-white text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Professional Drone Consulting<br />& Operational Services
+            <h1 className="text-center text-white text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight max-w-5xl mx-auto">
+              Professional Drone Consulting & Operational Services
             </h1>
 
             {/* Subheadline */}
-            <p className="text-center text-white text-xl md:text-2xl mb-8 max-w-4xl mx-auto font-light opacity-95">
+            <p className="text-center text-white text-lg md:text-xl lg:text-2xl mb-12 max-w-4xl mx-auto font-light opacity-95 leading-relaxed">
               Expert consultation and advocacy for the safe integration of drone technology into your operations
             </p>
 
             {/* Service Highlights */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-10">
-              <div className="text-center">
-                <div className="text-white/90 text-sm font-semibold">Real Estate Media</div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-5xl mx-auto mb-12">
+              <div className="text-center py-3">
+                <div className="text-white/90 text-sm md:text-base font-semibold">Real Estate Media</div>
               </div>
-              <div className="text-center">
-                <div className="text-white/90 text-sm font-semibold">3D Modeling</div>
+              <div className="text-center py-3">
+                <div className="text-white/90 text-sm md:text-base font-semibold">3D Modeling</div>
               </div>
-              <div className="text-center">
-                <div className="text-white/90 text-sm font-semibold">Part 107 Training</div>
+              <div className="text-center py-3">
+                <div className="text-white/90 text-sm md:text-base font-semibold">Part 107 Training</div>
               </div>
-              <div className="text-center">
-                <div className="text-white/90 text-sm font-semibold">Policy Advocacy</div>
+              <div className="text-center py-3">
+                <div className="text-white/90 text-sm md:text-base font-semibold">Policy Advocacy</div>
               </div>
             </div>
 
@@ -210,13 +210,13 @@ export default function MarketingHomePage() {
       {/* Mission Section - Premium Styling */}
       <section className="section-spacing bg-white">
         <div className="container-premium">
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-start reveal-on-scroll">
-            <div className="space-y-6">
+          <div className="grid gap-12 lg:gap-16 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-start reveal-on-scroll">
+            <div className="space-y-8">
               <span className="caption text-gray-500">Our Mission</span>
-              <h2 className="h2">
+              <h2 className="h2 leading-tight">
                 Precision unmanned aircraft operations engineered for mission-critical applications.
               </h2>
-              <div className="course-card p-8 flex flex-col sm:flex-row gap-6 items-center">
+              <div className="course-card p-10 flex flex-col sm:flex-row gap-8 items-center">
                 <div className="flex-shrink-0">
                   <div className="relative overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg">
                     <Image
@@ -229,8 +229,8 @@ export default function MarketingHomePage() {
                     />
                   </div>
                 </div>
-                <div className="space-y-3 text-center sm:text-left flex-1">
-                  <div>
+                <div className="space-y-4 text-center sm:text-left flex-1">
+                  <div className="space-y-2">
                     <p className="text-base font-bold uppercase tracking-wider text-gray-900">
                       Gregory Anthony Blaize
                     </p>
@@ -238,22 +238,22 @@ export default function MarketingHomePage() {
                       Founder • FAA Certified Remote Pilot
                     </p>
                   </div>
-                  <p className="small-text text-gray-700">
+                  <p className="small-text text-gray-700 leading-relaxed">
                     Gregory integrates extensive experience in governmental affairs, international relations, and law enforcement with advanced UAS operations expertise to deliver comprehensive aerial intelligence solutions.
                   </p>
                 </div>
               </div>
-              <p className="body text-gray-700">
+              <p className="body text-gray-700 leading-relaxed">
                 Established in 2020, The Boston Drone School provides a strategic framework for organizational UAS integration. Our comprehensive services encompass advanced data acquisition, regulatory compliance architecture, and professional pilot development.
               </p>
             </div>
-            <div className="course-card p-8 bg-off-white">
-              <h3 className="caption text-gray-600 mb-6">
+            <div className="course-card p-10 bg-off-white">
+              <h3 className="caption text-gray-600 mb-8">
                 What guides our work
               </h3>
-              <ul className="space-y-4">
+              <ul className="space-y-5">
                 {missionHighlights.map((item) => (
-                  <li key={item} className="flex items-start gap-3 small-text text-gray-700">
+                  <li key={item} className="flex items-start gap-4 small-text text-gray-700 leading-relaxed">
                     <span className="mt-1.5 h-2 w-2 rounded-full bg-black flex-shrink-0" />
                     <span>{item}</span>
                   </li>
@@ -267,16 +267,16 @@ export default function MarketingHomePage() {
       {/* Partnerships Section - Premium Styling */}
       <section className="section-spacing bg-off-white">
         <div className="container-premium reveal-on-scroll">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
+          <div className="grid gap-12 lg:gap-16 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
             <div className="space-y-6">
               <span className="caption text-gray-600">Valuable Partnerships</span>
-              <h2 className="h2">
+              <h2 className="h2 leading-tight">
                 Trusted collaborators moving the drone ecosystem forward.
               </h2>
             </div>
-            <div className="course-card p-8 bg-white space-y-4">
+            <div className="course-card p-10 bg-white space-y-6">
               {partnershipHighlights.map((item) => (
-                <p key={item} className="small-text text-gray-700">{item}</p>
+                <p key={item} className="small-text text-gray-700 leading-relaxed">{item}</p>
               ))}
             </div>
           </div>
@@ -286,28 +286,28 @@ export default function MarketingHomePage() {
       {/* Operations Section - Premium Card Grid */}
       <section className="section-spacing bg-white">
         <div className="container-premium">
-          <div className="space-y-12 reveal-on-scroll">
-            <div className="space-y-5 text-center">
+          <div className="space-y-16 reveal-on-scroll">
+            <div className="space-y-6 text-center max-w-4xl mx-auto">
               <span className="caption text-gray-500">Corporate Citizenship</span>
-              <h2 className="h2">
+              <h2 className="h2 leading-tight">
                 Cultivating Advanced UAS Professionals
               </h2>
-              <p className="body-large text-gray-700 max-w-3xl mx-auto">
+              <p className="body-large text-gray-700 leading-relaxed">
                 We architect professional development pathways for emerging talent, transitioning professionals, and established organizations while fostering the technical competencies and safety culture essential for responsible unmanned aircraft systems deployment.
               </p>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-8 md:grid-cols-2 lg:gap-10">
               {operations.map((item, index) => (
                 <div
                   key={item.title}
-                  className="course-card p-8 space-y-3 fade-in-delayed"
+                  className="course-card p-10 space-y-4 fade-in-delayed"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <h3 className="h3">
+                  <h3 className="h3 leading-tight">
                     {item.title}
                   </h3>
-                  <p className="body text-gray-700">
+                  <p className="body text-gray-700 leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -320,23 +320,23 @@ export default function MarketingHomePage() {
       {/* Why Choose Us Section */}
       <section className="section-spacing bg-gray-50">
         <div className="container-premium">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
+          <div className="max-w-5xl mx-auto text-center space-y-12">
             <h2 className="h2 text-black">Why Boston Drone School?</h2>
-            <div className="grid md:grid-cols-3 gap-8 mt-12">
-              <div className="space-y-3">
-                <div className="text-5xl font-bold text-black">NASA</div>
-                <div className="font-semibold text-black">Network Partner</div>
-                <p className="text-sm text-gray-600">Active member of the NASA Mobility Network (m:N) Working Group</p>
+            <div className="grid md:grid-cols-3 gap-12 lg:gap-16">
+              <div className="space-y-4 px-4">
+                <div className="text-5xl lg:text-6xl font-bold text-black">NASA</div>
+                <div className="font-semibold text-lg text-black">Network Partner</div>
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed">Active member of the NASA Mobility Network (m:N) Working Group</p>
               </div>
-              <div className="space-y-3">
-                <div className="text-5xl font-bold text-black">2020</div>
-                <div className="font-semibold text-black">Established</div>
-                <p className="text-sm text-gray-600">Years of operational excellence and consulting expertise</p>
+              <div className="space-y-4 px-4">
+                <div className="text-5xl lg:text-6xl font-bold text-black">2020</div>
+                <div className="font-semibold text-lg text-black">Established</div>
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed">Years of operational excellence and consulting expertise</p>
               </div>
-              <div className="space-y-3">
-                <div className="text-5xl font-bold text-black">MA</div>
-                <div className="font-semibold text-black">Apprenticeship Partner</div>
-                <p className="text-sm text-gray-600">Partner in Massachusetts' FAA-registered Drone Apprenticeship Program</p>
+              <div className="space-y-4 px-4">
+                <div className="text-5xl lg:text-6xl font-bold text-black">MA</div>
+                <div className="font-semibold text-lg text-black">Apprenticeship Partner</div>
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed">Partner in Massachusetts' FAA-registered Drone Apprenticeship Program</p>
               </div>
             </div>
           </div>
@@ -344,26 +344,26 @@ export default function MarketingHomePage() {
       </section>
 
       {/* Training CTA Section */}
-      <section id="courses" className="section-spacing bg-black text-white py-16">
+      <section id="courses" className="section-spacing bg-black text-white py-20">
         <div className="container-premium text-center">
-          <div className="max-w-3xl mx-auto space-y-6">
+          <div className="max-w-4xl mx-auto space-y-8">
             <span className="part-107-badge">Professional Development</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-white">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
               FAA Part 107 Exam Preparation
             </h2>
-            <p className="text-xl text-white/90">
+            <p className="text-lg md:text-xl lg:text-2xl text-white/90 leading-relaxed px-4">
               Comprehensive training programs to help you prepare for the FAA Part 107 Remote Pilot exam and build your UAS expertise.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center pt-4">
               <Link
                 href="/services#training"
-                className="bg-white text-black px-8 py-4 font-bold text-lg hover:bg-gray-100 transition"
+                className="bg-white text-black px-10 py-5 font-bold text-lg hover:bg-gray-100 transition"
               >
                 View Training Options
               </Link>
               <Link
                 href="/portal"
-                className="border border-white text-white px-8 py-4 font-bold text-lg hover:bg-white hover:text-black transition"
+                className="border-2 border-white text-white px-10 py-5 font-bold text-lg hover:bg-white hover:text-black transition"
               >
                 Access Portal
               </Link>
@@ -375,24 +375,24 @@ export default function MarketingHomePage() {
       {/* Admissions Section - Premium Dark Theme */}
       <section className="section-spacing bg-gray-900 text-white">
         <div className="container-premium">
-          <div className="grid gap-12 lg:grid-cols-2 reveal-on-scroll">
-            <div className="space-y-6">
+          <div className="grid gap-12 lg:gap-16 lg:grid-cols-2 reveal-on-scroll">
+            <div className="space-y-8">
               <span className="caption text-white/60">Professional Services & Training</span>
-              <h2 className="h2 text-white">
+              <h2 className="h2 text-white leading-tight">
                 Ready to Integrate Drone Technology Into Your Operations?
               </h2>
-              <p className="body text-white/70">
+              <p className="body text-white/70 leading-relaxed">
                 Partner with us for expert consultation, operational services, and professional training tailored to your organization&apos;s needs.
               </p>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 {admissionsChecklist.map((item) => (
-                  <li key={item} className="flex items-start gap-3 small-text text-white/70">
+                  <li key={item} className="flex items-start gap-4 small-text text-white/70 leading-relaxed">
                     <span className="mt-1.5 h-2 w-2 rounded-full bg-white/80 flex-shrink-0" />
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
-              <div className="caption text-white/60">
+              <div className="caption text-white/60 pt-4">
                 <a
                   href="mailto:info@thebostondroneschool.org"
                   className="hover:text-white transition"
@@ -402,51 +402,51 @@ export default function MarketingHomePage() {
               </div>
             </div>
 
-            <div className="course-card p-8 bg-white/10 border border-white/30">
-              <h3 className="text-base font-bold text-white mb-6">Get Started</h3>
+            <div className="course-card p-10 bg-white/10 border border-white/30">
+              <h3 className="text-lg font-bold text-white mb-8">Get Started</h3>
               <form
-                className="space-y-5"
+                className="space-y-6"
                 action="https://formspree.io/f/moqgdnge"
                 method="POST"
               >
                 <label className="block">
-                  <span className="text-sm font-semibold text-white block mb-2">Name</span>
+                  <span className="text-sm font-semibold text-white block mb-3">Name</span>
                   <input
                     type="text"
                     name="name"
                     required
-                    className="w-full border border-white/30 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white focus:bg-white/10"
+                    className="w-full border border-white/30 bg-white/5 px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white focus:bg-white/10 rounded"
                   />
                 </label>
                 <label className="block">
-                  <span className="text-sm font-semibold text-white block mb-2">Phone</span>
+                  <span className="text-sm font-semibold text-white block mb-3">Phone</span>
                   <input
                     type="tel"
                     name="phone"
-                    className="w-full border border-white/30 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white focus:bg-white/10"
+                    className="w-full border border-white/30 bg-white/5 px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white focus:bg-white/10 rounded"
                   />
                 </label>
                 <label className="block">
-                  <span className="text-sm font-semibold text-white block mb-2">Email*</span>
+                  <span className="text-sm font-semibold text-white block mb-3">Email*</span>
                   <input
                     type="email"
                     name="email"
                     required
-                    className="w-full border border-white/30 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white focus:bg-white/10"
+                    className="w-full border border-white/30 bg-white/5 px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white focus:bg-white/10 rounded"
                   />
                 </label>
                 <label className="block">
-                  <span className="text-sm font-semibold text-white block mb-2">Attach Resume (optional)</span>
+                  <span className="text-sm font-semibold text-white block mb-3">Attach Resume (optional)</span>
                   <input
                     type="file"
                     name="resume"
-                    className="w-full border border-white/30 bg-white/5 px-4 py-2 text-sm text-white file:mr-4 file:border-0 file:bg-white/30 file:px-4 file:py-2 file:text-white file:font-semibold file:uppercase"
+                    className="w-full border border-white/30 bg-white/5 px-4 py-3 text-sm text-white file:mr-4 file:border-0 file:bg-white/30 file:px-4 file:py-2 file:text-white file:font-semibold file:uppercase rounded"
                   />
                 </label>
-                <button type="submit" className="w-full bg-white text-black px-6 py-3 font-bold text-sm uppercase tracking-wider hover:bg-gray-100 transition">
+                <button type="submit" className="w-full bg-white text-black px-6 py-4 font-bold text-sm uppercase tracking-wider hover:bg-gray-100 transition rounded">
                   Submit Application
                 </button>
-                <p className="text-xs text-white/80">
+                <p className="text-xs text-white/70 leading-relaxed pt-2">
                   This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.
                 </p>
               </form>
@@ -458,28 +458,28 @@ export default function MarketingHomePage() {
       {/* Video Showcase Section - Premium Grid */}
       <section className="section-spacing bg-white">
         <div className="container-premium">
-          <div className="space-y-10 reveal-on-scroll">
-            <div className="space-y-4 text-center">
+          <div className="space-y-12 reveal-on-scroll">
+            <div className="space-y-6 text-center">
               <span className="caption text-gray-500">Mission Footage</span>
               <h2 className="h2">
                 Experience the workflows our crews deliver.
               </h2>
-              <p className="body-large text-gray-600 max-w-3xl mx-auto">
+              <p className="body-large text-gray-600 max-w-3xl mx-auto leading-relaxed">
                 Explore how Boston Drone School teams capture visuals, coach pilots, and package insights after every mission. Each short video highlights a different stage of our engagements.
               </p>
             </div>
-            <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+            <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-3 lg:gap-12">
               {videoShowcase.map((video, index) => (
-                <div key={video.src} className="space-y-4 fade-in-delayed" style={{ animationDelay: `${index * 100}ms` }}>
+                <div key={video.src} className="space-y-5 fade-in-delayed" style={{ animationDelay: `${index * 100}ms` }}>
                   <AutoplayVideo
                     src={video.src}
                     poster={video.poster || undefined}
                     title={video.title}
                     className="rounded-xl border border-gray-200 shadow-md grayscale-image"
                   />
-                  <div className="space-y-2">
-                    <h3 className="h4">{video.title}</h3>
-                    <p className="small-text text-gray-600">{video.description}</p>
+                  <div className="space-y-3 px-2">
+                    <h3 className="h4 leading-tight">{video.title}</h3>
+                    <p className="small-text text-gray-600 leading-relaxed">{video.description}</p>
                   </div>
                 </div>
               ))}
@@ -491,16 +491,16 @@ export default function MarketingHomePage() {
       {/* CTA Section - Premium */}
       <section className="section-spacing bg-off-white">
         <div className="container-premium">
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-center reveal-on-scroll">
-            <div className="space-y-6">
+          <div className="grid gap-12 lg:gap-16 lg:grid-cols-2 lg:items-center reveal-on-scroll">
+            <div className="space-y-8">
               <span className="caption text-gray-600">Learning Platform</span>
-              <h2 className="h2">
+              <h2 className="h2 leading-tight">
                 Continue inside the Boston Drone School learning portal.
               </h2>
-              <p className="body text-gray-700">
+              <p className="body text-gray-700 leading-relaxed">
                 Access structured coursework, instructor feedback, and mission ready resources tailored to the engagements you explore on this site. Your next briefing, training module, or deployment plan is waiting inside the portal.
               </p>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-5 pt-2">
                 <Link href="/portal" className="btn-primary">
                   Access Portal
                 </Link>
@@ -509,17 +509,17 @@ export default function MarketingHomePage() {
                 </Link>
               </div>
             </div>
-            <div className="course-card p-8 bg-white space-y-6">
-              <div>
-                <span className="caption text-gray-500 block mb-2">Structured Programs</span>
-                <p className="small-text text-gray-700">
+            <div className="course-card p-10 bg-white space-y-8">
+              <div className="space-y-3">
+                <span className="caption text-gray-500 block">Structured Programs</span>
+                <p className="small-text text-gray-700 leading-relaxed">
                   FAA Part 107 prep, advanced photogrammetry, STEM ready instruction, and policy workflows aligned to enterprise needs.
                 </p>
               </div>
               <div className="h-px w-full bg-gray-200" />
-              <div>
-                <span className="caption text-gray-500 block mb-2">Mission Support</span>
-                <p className="small-text text-gray-700">
+              <div className="space-y-3">
+                <span className="caption text-gray-500 block">Mission Support</span>
+                <p className="small-text text-gray-700 leading-relaxed">
                   Download checklists, mission report templates, and quick reference guides updated by the Boston Drone School faculty.
                 </p>
               </div>
