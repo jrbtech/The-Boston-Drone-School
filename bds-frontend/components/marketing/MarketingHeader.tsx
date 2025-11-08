@@ -27,13 +27,13 @@ const navLinks: NavLink[] = [
 const brandBlock = (
   <Link href="/" className="group flex items-center gap-3 text-left">
     <Image
-      src="/images/boston-drone-school-logo-real.jpg"
+      src="/images/boston-drone-school-logo.svg"
       alt="Boston Drone School"
-      width={120}
-      height={84}
-      sizes="120px"
+      width={600}
+      height={280}
+      sizes="140px"
       priority
-      className="h-auto w-24 object-contain transition group-hover:opacity-90 sm:w-28 grayscale-image"
+      className="h-auto w-28 object-contain transition group-hover:opacity-90 sm:w-32"
     />
   </Link>
 );

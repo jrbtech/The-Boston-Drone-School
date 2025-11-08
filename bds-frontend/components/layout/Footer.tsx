@@ -12,11 +12,11 @@ export default function Footer() {
           <div className="lg:col-span-1 space-y-6">
             <Link href="/" className="inline-block">
               <Image
-                src="/images/boston-drone-school-logo-real.jpg"
+                src="/images/boston-drone-school-logo.svg"
                 alt="Boston Drone School"
-                width={160}
-                height={112}
-                className="h-auto w-32 object-contain brightness-0 invert"
+                width={600}
+                height={280}
+                className="h-auto w-40 object-contain brightness-0 invert"
               />
             </Link>
             <p className="text-sm leading-relaxed text-gray-400">
