@@ -21,12 +21,12 @@ export function MarketingFooter() {
           <div className="flex items-center gap-3">
             <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/25 bg-white/10">
               <Image
-                src="/images/boston-drone-school-logo.svg"
+                src="/images/boston-drone-school-logo-real.jpg"
                 alt="Boston Drone School logo"
                 width={96}
                 height={96}
                 sizes="48px"
-                className="h-8 w-8 object-contain"
+                className="h-8 w-8 object-contain brightness-0 invert"
               />
             </span>
             <div className="flex flex-col">

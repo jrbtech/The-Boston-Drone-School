@@ -40,23 +40,15 @@ const admissionsChecklist = [
   'Direct help from our team at info@thebostondroneschool.org.'
 ];
 
-const heroVideo = {
-  title: "Cinematic Drone Operations",
-  src: "/videos/hero-drone-cinematography.mp4",
-  poster: "/videos/hero-drone-cinematography.jpg"
-};
-
 const videoShowcase = [
   {
     title: "Advanced Aerial Cinematography",
     src: "/videos/aerial-cinematography.mp4",
-    poster: "/videos/aerial-cinematography.jpg",
     description: "Professional aerial cinematography techniques showcasing sophisticated flight operations and advanced camera movements."
   },
   {
     title: "Commercial Drone Operations",
     src: "/videos/commercial-operations.mp4",
-    poster: "/videos/commercial-operations.jpg",
     description: "Real-world commercial drone applications including real estate, construction monitoring, and infrastructure inspection."
   },
   {
@@ -134,9 +126,9 @@ export default function MarketingHomePage() {
   return (
     <div className="bg-white text-black">
       {/* Premium Hero Section with Video Background */}
-      <section className="hero-video-container" style={{ minHeight: '100vh' }}>
+      <section className="hero-video-container relative" style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)' }}>
         {/* Fallback gradient background for when video is loading/missing */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black -z-10" />
 
         {/* Video will go here - currently shows gradient until videos are downloaded */}
         {/* <video autoPlay muted loop playsInline poster="/assets/posters/hero-poster.jpg">
@@ -144,54 +136,78 @@ export default function MarketingHomePage() {
         </video> */}
 
         <div className="semantic-overlay overlay-enhanced">
-          <div className="max-w-4xl mx-auto px-6">
-            <div className="mb-6">
+          <div className="max-w-5xl mx-auto px-6 py-12">
+            {/* Logo */}
+            <div className="flex justify-center mb-8">
+              <Image
+                src="/images/boston-drone-school-logo-real.jpg"
+                alt="Boston Drone School"
+                width={400}
+                height={280}
+                className="h-24 w-auto grayscale-image"
+                priority
+              />
+            </div>
+
+            {/* Badge */}
+            <div className="flex justify-center mb-8">
               <span className="faa-certified-badge">
                 FAA Part 107 Certified Training
               </span>
             </div>
-            <Image
-              src="/images/boston-drone-school-logo-real.jpg"
-              alt="Boston Drone School"
-              width={400}
-              height={280}
-              className="h-20 w-auto mx-auto mb-8 grayscale-image"
-              priority
-            />
-            <h1 className="text-high-contrast text-center">
-              Master Professional Drone Operations
+
+            {/* Headline */}
+            <h1 className="text-center text-white text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+              Get Your FAA Part 107<br />Drone License
             </h1>
-            <p className="text-high-contrast text-center max-w-3xl mx-auto opacity-95">
-              Earn your <span className="text-highlight">FAA Part 107</span> certification and launch your commercial drone career. Industry-leading training with a 98% first-time pass rate.
+
+            {/* Subheadline */}
+            <p className="text-center text-white text-xl md:text-2xl mb-4 max-w-3xl mx-auto font-light opacity-95">
+              Start your commercial drone career with industry-leading training
             </p>
-            <div className="flex flex-wrap gap-4 justify-center mt-8">
-              <Link
-                href="/study-guide"
-                className="btn-premium-cta no-underline"
-              >
-                <span>Free Study Guide</span>
-              </Link>
-              <Link
-                href="#courses"
-                className="btn-tertiary no-underline"
-              >
-                View Courses
-              </Link>
-            </div>
-            <div className="mt-8 flex flex-wrap gap-6 justify-center text-sm text-white/80">
-              <div className="trust-indicator bg-white/10 border-white text-white">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+            {/* Trust Indicators */}
+            <div className="flex flex-wrap gap-6 justify-center mb-10 text-base text-white">
+              <div className="flex items-center gap-2">
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                 </svg>
-                <span>500+ Pilots Certified</span>
+                <span className="font-semibold">98% Pass Rate</span>
               </div>
-              <div className="trust-indicator bg-white/10 border-white text-white">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <div className="flex items-center gap-2">
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
-                <span>98% Pass Rate</span>
+                <span className="font-semibold">500+ Pilots Certified</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="font-semibold">Lifetime Access</span>
               </div>
             </div>
+
+            {/* Primary CTA */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link
+                href="#courses"
+                className="btn-premium-cta no-underline text-center px-12 py-4 text-lg font-bold"
+              >
+                <span>Start Training Now</span>
+              </Link>
+              <Link
+                href="/study-guide"
+                className="btn-tertiary no-underline text-center px-12 py-4 text-lg"
+              >
+                Free Study Guide
+              </Link>
+            </div>
+
+            {/* Guarantee */}
+            <p className="text-center text-white text-sm mt-6 opacity-80">
+              30-Day Money-Back Guarantee • No Risk
+            </p>
           </div>
         </div>
       </section>
@@ -306,18 +322,44 @@ export default function MarketingHomePage() {
         </div>
       </section>
 
+      {/* Why Choose Us Section */}
+      <section className="section-spacing bg-gray-50">
+        <div className="container-premium">
+          <div className="max-w-4xl mx-auto text-center space-y-8">
+            <h2 className="h2 text-black">Why Boston Drone School?</h2>
+            <div className="grid md:grid-cols-3 gap-8 mt-12">
+              <div className="space-y-3">
+                <div className="text-5xl font-bold text-black">98%</div>
+                <div className="font-semibold text-black">First-Time Pass Rate</div>
+                <p className="text-sm text-gray-600">Our students pass the FAA exam on their first attempt</p>
+              </div>
+              <div className="space-y-3">
+                <div className="text-5xl font-bold text-black">500+</div>
+                <div className="font-semibold text-black">Certified Pilots</div>
+                <p className="text-sm text-gray-600">Join hundreds of successful drone professionals</p>
+              </div>
+              <div className="space-y-3">
+                <div className="text-5xl font-bold text-black">∞</div>
+                <div className="font-semibold text-black">Lifetime Access</div>
+                <p className="text-sm text-gray-600">All course materials, forever</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing Section - Premium Dark Theme */}
-      <section id="courses" className="section-spacing bg-black text-white">
+      <section id="courses" className="section-spacing bg-black text-white py-20">
         <div className="container-premium">
           <div className="mb-16 space-y-6 text-center reveal-on-scroll">
             <div className="mb-6">
               <span className="part-107-badge">FAA Part 107 Courses</span>
             </div>
-            <h2 className="h2 text-high-contrast">
-              Professional Drone Pilot Training
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+              Choose Your Path to Certification
             </h2>
-            <p className="body-large text-white/90 max-w-3xl mx-auto">
-              Choose the course that fits your schedule and goals. All courses include our <span className="text-highlight">98% pass rate guarantee</span> and lifetime access to materials.
+            <p className="text-xl text-white/90 max-w-3xl mx-auto">
+              All courses include our 98% pass rate guarantee and lifetime access to materials.
             </p>
           </div>
 
@@ -339,32 +381,30 @@ export default function MarketingHomePage() {
                 </div>
 
                 <div className="mb-6 space-y-3 border-b border-current/10 pb-6">
-                  <h3 className="h3">
+                  <h3 className="h3 text-black">
                     {tier.name}
                   </h3>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-4xl font-bold">{tier.price}</span>
-                    <span className="small-text opacity-70">/{tier.period}</span>
+                    <span className="text-5xl font-bold text-black">{tier.price}</span>
+                    <span className="text-sm text-gray-600">/{tier.period}</span>
                   </div>
-                  <p className={`small-text ${tier.highlighted ? 'text-gray-600' : 'text-white/70'}`}>
+                  <p className="text-sm text-gray-700 leading-relaxed">
                     {tier.description}
                   </p>
                 </div>
 
-                <ul className="mb-8 flex-1 space-y-3">
+                <ul className="mb-8 flex-1 space-y-4">
                   {tier.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-3 small-text">
+                    <li key={idx} className="flex items-start gap-3 text-sm">
                       <svg
-                        className={`mt-0.5 h-5 w-5 flex-shrink-0 ${
-                          tier.highlighted ? 'text-black' : 'text-white'
-                        }`}
+                        className="mt-0.5 h-5 w-5 flex-shrink-0 text-black"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
-                      <span className={tier.highlighted ? 'text-gray-700' : 'text-white/80'}>
+                      <span className="text-gray-800 leading-relaxed">
                         {feature}
                       </span>
                     </li>
@@ -373,7 +413,11 @@ export default function MarketingHomePage() {
 
                 <Link
                   href={tier.ctaLink}
-                  className={tier.highlighted ? 'btn-primary' : 'btn-tertiary'}
+                  className={`w-full text-center py-4 px-6 font-bold text-lg transition-all duration-300 ${
+                    tier.highlighted
+                      ? 'bg-black text-white hover:bg-gray-900'
+                      : 'bg-black text-white hover:bg-gray-900'
+                  }`}
                 >
                   {tier.cta}
                 </Link>
@@ -493,7 +537,7 @@ export default function MarketingHomePage() {
                 <div key={video.src} className="space-y-4 fade-in-delayed" style={{ animationDelay: `${index * 100}ms` }}>
                   <AutoplayVideo
                     src={video.src}
-                    poster={video.poster}
+                    poster={video.poster || undefined}
                     title={video.title}
                     className="rounded-xl border border-gray-200 shadow-md grayscale-image"
                   />
