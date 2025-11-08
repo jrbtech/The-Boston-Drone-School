@@ -35,9 +35,9 @@ const partnershipHighlights = [
 ];
 
 const admissionsChecklist = [
-  'Live webinar series that covers Part 107 basics and exam tips.',
-  'Simple mission planning tools you can apply right away.',
-  'Direct help from our team at info@thebostondroneschool.org.'
+  'Expert consultation on UAS integration and operational planning.',
+  'Professional training and exam preparation resources.',
+  'Direct support from our team at info@thebostondroneschool.org.'
 ];
 
 const videoShowcase = [
@@ -61,10 +61,10 @@ const videoShowcase = [
 
 const pricingTiers = [
   {
-    name: "Part 107 Complete",
+    name: "Part 107 Exam Prep",
     price: "$297",
     period: "one-time",
-    description: "Comprehensive online FAA Part 107 certification course with lifetime access.",
+    description: "Comprehensive online training to prepare for the FAA Part 107 Remote Pilot exam.",
     features: [
       "40 hours of video training",
       "500+ practice exam questions",
@@ -84,7 +84,7 @@ const pricingTiers = [
     name: "Intensive Bootcamp",
     price: "$497",
     period: "weekend",
-    description: "Fast-track certification with intensive 2-day weekend training program.",
+    description: "Fast-track exam preparation with intensive 2-day weekend training program.",
     features: [
       "16 hours over 2 days",
       "In-person OR live virtual",
@@ -104,7 +104,7 @@ const pricingTiers = [
     name: "Premium + Business",
     price: "$997",
     period: "complete package",
-    description: "Part 107 certification PLUS business launch guidance for professional pilots.",
+    description: "Part 107 exam prep PLUS business launch guidance for aspiring UAS professionals.",
     features: [
       "Everything in Complete Course",
       "Business formation guidance",
@@ -153,18 +153,18 @@ export default function MarketingHomePage() {
             {/* Badge */}
             <div className="flex justify-center mb-10">
               <span className="faa-certified-badge">
-                FAA Part 107 Certified Training
+                Professional UAS Consulting & Training
               </span>
             </div>
 
             {/* Headline */}
             <h1 className="text-center text-white text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Professional Drone Services<br />& FAA Pilot Certification
+              Professional Drone Consulting<br />& Operational Services
             </h1>
 
             {/* Subheadline */}
             <p className="text-center text-white text-xl md:text-2xl mb-8 max-w-4xl mx-auto font-light opacity-95">
-              Safely consulting and advocating for the integration of drone technology into private and public domains
+              Expert consultation and advocacy for the safe integration of drone technology into your operations
             </p>
 
             {/* Service Highlights */}
@@ -324,19 +324,19 @@ export default function MarketingHomePage() {
             <h2 className="h2 text-black">Why Boston Drone School?</h2>
             <div className="grid md:grid-cols-3 gap-8 mt-12">
               <div className="space-y-3">
-                <div className="text-5xl font-bold text-black">98%</div>
-                <div className="font-semibold text-black">First-Time Pass Rate</div>
-                <p className="text-sm text-gray-600">Our students pass the FAA exam on their first attempt</p>
+                <div className="text-5xl font-bold text-black">NASA</div>
+                <div className="font-semibold text-black">Network Partner</div>
+                <p className="text-sm text-gray-600">Active member of the NASA Mobility Network (m:N) Working Group</p>
               </div>
               <div className="space-y-3">
-                <div className="text-5xl font-bold text-black">500+</div>
-                <div className="font-semibold text-black">Certified Pilots</div>
-                <p className="text-sm text-gray-600">Join hundreds of successful drone professionals</p>
+                <div className="text-5xl font-bold text-black">2020</div>
+                <div className="font-semibold text-black">Established</div>
+                <p className="text-sm text-gray-600">Years of operational excellence and consulting expertise</p>
               </div>
               <div className="space-y-3">
-                <div className="text-5xl font-bold text-black">∞</div>
-                <div className="font-semibold text-black">Lifetime Access</div>
-                <p className="text-sm text-gray-600">All course materials, forever</p>
+                <div className="text-5xl font-bold text-black">MA</div>
+                <div className="font-semibold text-black">Apprenticeship Partner</div>
+                <p className="text-sm text-gray-600">Partner in Massachusetts' FAA-registered Drone Apprenticeship Program</p>
               </div>
             </div>
           </div>
@@ -347,12 +347,12 @@ export default function MarketingHomePage() {
       <section id="courses" className="section-spacing bg-black text-white py-16">
         <div className="container-premium text-center">
           <div className="max-w-3xl mx-auto space-y-6">
-            <span className="part-107-badge">FAA Part 107 Certification</span>
+            <span className="part-107-badge">Professional Development</span>
             <h2 className="text-4xl md:text-5xl font-bold text-white">
-              Become a Licensed Drone Pilot
+              FAA Part 107 Exam Preparation
             </h2>
             <p className="text-xl text-white/90">
-              Comprehensive training programs with 98% pass rate and lifetime access to materials.
+              Comprehensive training programs to help you prepare for the FAA Part 107 Remote Pilot exam and build your UAS expertise.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
               <Link
@@ -498,7 +498,7 @@ export default function MarketingHomePage() {
                 Continue inside the Boston Drone School learning portal.
               </h2>
               <p className="body text-gray-700">
-                Access structured coursework, instructor feedback, and mission ready resources tailored to the engagements you explore on this site. Your next briefing, certification, or deployment plan is waiting inside the portal.
+                Access structured coursework, instructor feedback, and mission ready resources tailored to the engagements you explore on this site. Your next briefing, training module, or deployment plan is waiting inside the portal.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link href="/portal" className="btn-primary">
