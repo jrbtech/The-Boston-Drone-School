@@ -157,56 +157,50 @@ export default function MarketingHomePage() {
             </div>
 
             {/* Headline */}
-            <h1 className="text-center text-white text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              Safely Integrating AI & Drone Technology<br />Into Public & Private Domains
+            <h1 className="text-center text-white text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              Professional Drone Services<br />& FAA Pilot Certification
             </h1>
 
             {/* Subheadline */}
-            <p className="text-center text-white text-xl md:text-2xl mb-4 max-w-3xl mx-auto font-light opacity-95">
-              Expert consultation, advocacy, and training for the safe integration of unmanned aircraft systems
+            <p className="text-center text-white text-xl md:text-2xl mb-8 max-w-4xl mx-auto font-light opacity-95">
+              Safely consulting and advocating for the integration of drone technology into private and public domains
             </p>
 
-            {/* Trust Indicators */}
-            <div className="flex flex-wrap gap-6 justify-center mb-10 text-base text-white">
-              <div className="flex items-center gap-2">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                </svg>
-                <span className="font-semibold">98% Pass Rate</span>
+            {/* Service Highlights */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-10">
+              <div className="text-center">
+                <div className="text-white/90 text-sm font-semibold">Real Estate Media</div>
               </div>
-              <div className="flex items-center gap-2">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-                <span className="font-semibold">500+ Pilots Certified</span>
+              <div className="text-center">
+                <div className="text-white/90 text-sm font-semibold">3D Modeling</div>
               </div>
-              <div className="flex items-center gap-2">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span className="font-semibold">Lifetime Access</span>
+              <div className="text-center">
+                <div className="text-white/90 text-sm font-semibold">Part 107 Training</div>
+              </div>
+              <div className="text-center">
+                <div className="text-white/90 text-sm font-semibold">Policy Advocacy</div>
               </div>
             </div>
 
             {/* Primary CTA */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link
-                href="#courses"
+                href="/services"
                 className="btn-premium-cta no-underline text-center px-12 py-4 text-lg font-bold"
               >
-                <span>Start Training Now</span>
+                <span>View Services</span>
               </Link>
               <Link
-                href="/study-guide"
+                href="/inquiry"
                 className="btn-tertiary no-underline text-center px-12 py-4 text-lg"
               >
-                Free Study Guide
+                Contact Us
               </Link>
             </div>
 
-            {/* Guarantee */}
-            <p className="text-center text-white text-sm mt-6 opacity-80">
-              30-Day Money-Back Guarantee • No Risk
+            {/* NASA Partnership Badge */}
+            <p className="text-center text-white text-sm mt-8 opacity-90">
+              Partner in Massachusetts' FAA-Registered Drone Apprenticeship Program
             </p>
           </div>
         </div>
@@ -348,90 +342,31 @@ export default function MarketingHomePage() {
         </div>
       </section>
 
-      {/* Pricing Section - Premium Dark Theme */}
-      <section id="courses" className="section-spacing bg-black text-white py-20">
-        <div className="container-premium">
-          <div className="mb-16 space-y-6 text-center reveal-on-scroll">
-            <div className="mb-6">
-              <span className="part-107-badge">FAA Part 107 Courses</span>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Choose Your Path to Certification
+      {/* Training CTA Section */}
+      <section id="courses" className="section-spacing bg-black text-white py-16">
+        <div className="container-premium text-center">
+          <div className="max-w-3xl mx-auto space-y-6">
+            <span className="part-107-badge">FAA Part 107 Certification</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-white">
+              Become a Licensed Drone Pilot
             </h2>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              All courses include our 98% pass rate guarantee and lifetime access to materials.
+            <p className="text-xl text-white/90">
+              Comprehensive training programs with 98% pass rate and lifetime access to materials.
             </p>
-          </div>
-
-          <div className="premium-grid">
-            {pricingTiers.map((tier, index) => (
-              <div
-                key={tier.name}
-                className={`million-dollar-card flex flex-col ${
-                  tier.highlighted
-                    ? 'bg-white text-black lg:scale-105 border-4 border-white'
-                    : 'bg-white text-black border-2 border-gray-200'
-                } fade-in-delayed`}
-                style={{ animationDelay: `${index * 150}ms` }}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+              <Link
+                href="/services#training"
+                className="bg-white text-black px-8 py-4 font-bold text-lg hover:bg-gray-100 transition"
               >
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <span className="premium-badge">
-                    {tier.badge}
-                  </span>
-                </div>
-
-                <div className="mb-6 space-y-3 border-b border-current/10 pb-6">
-                  <h3 className="h3 text-black">
-                    {tier.name}
-                  </h3>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-5xl font-bold text-black">{tier.price}</span>
-                    <span className="text-sm text-gray-600">/{tier.period}</span>
-                  </div>
-                  <p className="text-sm text-gray-700 leading-relaxed">
-                    {tier.description}
-                  </p>
-                </div>
-
-                <ul className="mb-8 flex-1 space-y-4">
-                  {tier.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-sm">
-                      <svg
-                        className="mt-0.5 h-5 w-5 flex-shrink-0 text-black"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="text-gray-800 leading-relaxed">
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Link
-                  href={tier.ctaLink}
-                  className={`w-full text-center py-4 px-6 font-bold text-lg transition-all duration-300 ${
-                    tier.highlighted
-                      ? 'bg-black text-white hover:bg-gray-900'
-                      : 'bg-black text-white hover:bg-gray-900'
-                  }`}
-                >
-                  {tier.cta}
-                </Link>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-12 text-center">
-            <p className="small-text text-white/60">
-              All courses include lifetime access and certification upon completion.{' '}
-              <Link href="/courses" className="underline hover:text-white transition">
-                View all courses
+                View Training Options
               </Link>
-            </p>
+              <Link
+                href="/portal"
+                className="border border-white text-white px-8 py-4 font-bold text-lg hover:bg-white hover:text-black transition"
+              >
+                Access Portal
+              </Link>
+            </div>
           </div>
         </div>
       </section>
