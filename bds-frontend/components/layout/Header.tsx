@@ -6,7 +6,7 @@ import Image from 'next/image'
 export default function Header() {
   return (
     <header className="bg-white/95 backdrop-blur border-b border-gray-200 sticky top-0 z-50">
-      <div className="container mx-auto px-6 py-4">
+      <div className="container mx-auto px-6 py-3">
         <div className="flex justify-between items-center">
           <Link href="/" className="flex items-center gap-3">
             <Image
@@ -14,7 +14,7 @@ export default function Header() {
               alt="Boston Drone School"
               width={600}
               height={280}
-              className="h-auto w-28 object-contain"
+              className="h-auto w-32 md:w-36 object-contain"
               priority
             />
           </Link>

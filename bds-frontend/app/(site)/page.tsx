@@ -136,21 +136,21 @@ export default function MarketingHomePage() {
         </video> */}
 
         <div className="semantic-overlay overlay-enhanced">
-          <div className="max-w-5xl mx-auto px-6 py-12">
+          <div className="max-w-5xl mx-auto px-6 py-16 md:py-20">
             {/* Logo */}
-            <div className="flex justify-center mb-8">
+            <div className="flex justify-center mb-12">
               <Image
                 src="/images/boston-drone-school-logo.svg"
                 alt="Boston Drone School"
                 width={600}
                 height={280}
-                className="h-28 w-auto"
+                className="h-32 md:h-40 w-auto"
                 priority
               />
             </div>
 
             {/* Badge */}
-            <div className="flex justify-center mb-8">
+            <div className="flex justify-center mb-10">
               <span className="faa-certified-badge">
                 FAA Part 107 Certified Training
               </span>

@@ -31,9 +31,9 @@ const brandBlock = (
       alt="Boston Drone School"
       width={600}
       height={280}
-      sizes="140px"
+      sizes="160px"
       priority
-      className="h-auto w-28 object-contain transition group-hover:opacity-90 sm:w-32"
+      className="h-auto w-32 object-contain transition group-hover:opacity-90 sm:w-36 md:w-40"
     />
   </Link>
 );
@@ -70,7 +70,7 @@ export function MarketingHeader() {
 
   return (
     <header className="nav-premium sticky top-0 z-40 border-b border-black/10 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75">
-      <div className="mx-auto flex h-20 w-full max-w-6xl items-center justify-between px-6">
+      <div className="mx-auto flex h-24 w-full max-w-6xl items-center justify-between px-6">
         {brandBlock}
 
         <nav className="hidden items-center gap-6 text-xs font-medium uppercase tracking-[0.22em] text-gray-600 lg:flex">

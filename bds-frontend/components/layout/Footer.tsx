@@ -10,13 +10,13 @@ export default function Footer() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Logo and Description */}
           <div className="lg:col-span-1 space-y-6">
-            <Link href="/" className="inline-block">
+            <Link href="/" className="inline-block mb-2">
               <Image
                 src="/images/boston-drone-school-logo.svg"
                 alt="Boston Drone School"
                 width={600}
                 height={280}
-                className="h-auto w-40 object-contain brightness-0 invert"
+                className="h-auto w-44 object-contain brightness-0 invert"
               />
             </Link>
             <p className="text-sm leading-relaxed text-gray-400">
