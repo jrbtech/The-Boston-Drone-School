@@ -15,7 +15,7 @@ export default function StudyGuidePage() {
           <div className="course-card p-12 bg-off-white text-center space-y-6">
             <h2 className="h2">Study Guide Coming Soon</h2>
             <p className="body text-gray-700">
-              We're currently finalizing our comprehensive FAA Part 107 study guide.
+              We&apos;re currently finalizing our comprehensive FAA Part 107 study guide.
               In the meantime, explore our full certification courses.
             </p>
             <div className="flex gap-4 justify-center mt-8">

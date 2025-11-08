@@ -127,7 +127,7 @@ export default function CheckoutPage({ params }: { params: { courseId: string } 
             {/* Left Column - Course Details */}
             <div className="lg:col-span-3">
               <div className="million-dollar-card mb-8">
-                <h2 className="h2 mb-6">What's Included</h2>
+                <h2 className="h2 mb-6">What&apos;s Included</h2>
                 <ul className="study-checklist">
                   {course.features.map((feature) => (
                     <li key={feature} className="body text-gray-700">
@@ -154,7 +154,7 @@ export default function CheckoutPage({ params }: { params: { courseId: string } 
               <div className="million-dollar-card bg-black text-white">
                 <h3 className="h3 text-high-contrast mb-4">Money-Back Guarantee</h3>
                 <p className="body text-white/80">
-                  We're confident you'll pass the FAA Part 107 exam with our training. If you complete the course and don't pass the exam on your first attempt, we'll refund your full tuition. No questions asked.
+                  We&apos;re confident you&apos;ll pass the FAA Part 107 exam with our training. If you complete the course and don&apos;t pass the exam on your first attempt, we&apos;ll refund your full tuition. No questions asked.
                 </p>
               </div>
             </div>

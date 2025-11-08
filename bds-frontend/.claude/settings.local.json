@@ -9,7 +9,10 @@
       "Bash(findstr:*)",
       "Bash(del \"app\\page.tsx\")",
       "Bash(timeout 3 bash:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(npm run build:*)"
     ],
     "deny": [],
     "ask": []

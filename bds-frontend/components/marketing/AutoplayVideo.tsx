@@ -36,13 +36,14 @@ export default function AutoplayVideo({ src, poster, title, className = '' }: Au
       { threshold: 0.2 }
     )
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current)
+    const currentContainer = containerRef.current
+    if (currentContainer) {
+      observer.observe(currentContainer)
     }
 
     return () => {
-      if (containerRef.current) {
-        observer.unobserve(containerRef.current)
+      if (currentContainer) {
+        observer.unobserve(currentContainer)
       }
     }
   }, [])
