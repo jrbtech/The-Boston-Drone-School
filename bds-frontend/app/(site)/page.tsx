@@ -377,12 +377,12 @@ export default function MarketingHomePage() {
         <div className="container-premium">
           <div className="grid gap-12 lg:grid-cols-2 reveal-on-scroll">
             <div className="space-y-6">
-              <span className="caption text-white/60">Admissions & Corporate Citizenship</span>
+              <span className="caption text-white/60">Professional Services & Training</span>
               <h2 className="h2 text-white">
-                Interested in a Drone Pilot License?
+                Ready to Integrate Drone Technology Into Your Operations?
               </h2>
               <p className="body text-white/70">
-                Join our live webinar series to build Part 107 knowledge and mission planning skills with real examples you can apply right away.
+                Partner with us for expert consultation, operational services, and professional training tailored to your organization&apos;s needs.
               </p>
               <ul className="space-y-3">
                 {admissionsChecklist.map((item) => (
@@ -402,51 +402,51 @@ export default function MarketingHomePage() {
               </div>
             </div>
 
-            <div className="course-card p-8 bg-white/5 border border-white/20">
-              <h3 className="caption text-white/70 mb-6">Enrollment</h3>
+            <div className="course-card p-8 bg-white/10 border border-white/30">
+              <h3 className="text-base font-bold text-white mb-6">Get Started</h3>
               <form
                 className="space-y-5"
                 action="https://formspree.io/f/moqgdnge"
                 method="POST"
               >
                 <label className="block">
-                  <span className="caption text-white/60 block mb-2">Name</span>
+                  <span className="text-sm font-semibold text-white block mb-2">Name</span>
                   <input
                     type="text"
                     name="name"
                     required
-                    className="w-full border border-white/20 bg-black/40 px-4 py-3 text-sm text-white outline-none transition focus:border-white/60"
+                    className="w-full border border-white/30 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white focus:bg-white/10"
                   />
                 </label>
                 <label className="block">
-                  <span className="caption text-white/60 block mb-2">Phone</span>
+                  <span className="text-sm font-semibold text-white block mb-2">Phone</span>
                   <input
                     type="tel"
                     name="phone"
-                    className="w-full border border-white/20 bg-black/40 px-4 py-3 text-sm text-white outline-none transition focus:border-white/60"
+                    className="w-full border border-white/30 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white focus:bg-white/10"
                   />
                 </label>
                 <label className="block">
-                  <span className="caption text-white/60 block mb-2">Email*</span>
+                  <span className="text-sm font-semibold text-white block mb-2">Email*</span>
                   <input
                     type="email"
                     name="email"
                     required
-                    className="w-full border border-white/20 bg-black/40 px-4 py-3 text-sm text-white outline-none transition focus:border-white/60"
+                    className="w-full border border-white/30 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white focus:bg-white/10"
                   />
                 </label>
                 <label className="block">
-                  <span className="caption text-white/60 block mb-2">Attach Resume (optional)</span>
+                  <span className="text-sm font-semibold text-white block mb-2">Attach Resume (optional)</span>
                   <input
                     type="file"
                     name="resume"
-                    className="w-full border border-white/20 bg-black/40 px-4 py-2 text-sm text-white file:mr-4 file:border-0 file:bg-white/20 file:px-4 file:py-2 file:text-white file:uppercase"
+                    className="w-full border border-white/30 bg-white/5 px-4 py-2 text-sm text-white file:mr-4 file:border-0 file:bg-white/30 file:px-4 file:py-2 file:text-white file:font-semibold file:uppercase"
                   />
                 </label>
-                <button type="submit" className="btn-tertiary w-full">
+                <button type="submit" className="w-full bg-white text-black px-6 py-3 font-bold text-sm uppercase tracking-wider hover:bg-gray-100 transition">
                   Submit Application
                 </button>
-                <p className="text-xs text-white/50">
+                <p className="text-xs text-white/80">
                   This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.
                 </p>
               </form>
