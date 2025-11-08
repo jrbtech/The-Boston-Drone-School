@@ -19,14 +19,14 @@ export function MarketingFooter() {
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-12 lg:flex-row lg:items-start lg:justify-between">
         <div className="max-w-md space-y-4">
           <div className="flex items-center gap-3">
-            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/25 bg-white/10">
+            <span className="flex h-16 w-16 items-center justify-center rounded-full border border-white/25 bg-white/10">
               <Image
-                src="/images/boston-drone-school-logo-real.jpg"
+                src="/images/boston-drone-school-logo.svg"
                 alt="Boston Drone School logo"
-                width={96}
-                height={96}
+                width={600}
+                height={280}
                 sizes="48px"
-                className="h-8 w-8 object-contain brightness-0 invert"
+                className="h-12 w-12 object-contain brightness-0 invert"
               />
             </span>
             <div className="flex flex-col">

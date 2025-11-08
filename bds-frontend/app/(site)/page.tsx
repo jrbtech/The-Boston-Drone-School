@@ -140,11 +140,11 @@ export default function MarketingHomePage() {
             {/* Logo */}
             <div className="flex justify-center mb-8">
               <Image
-                src="/images/boston-drone-school-logo-real.jpg"
+                src="/images/boston-drone-school-logo.svg"
                 alt="Boston Drone School"
-                width={400}
+                width={600}
                 height={280}
-                className="h-24 w-auto grayscale-image"
+                className="h-28 w-auto"
                 priority
               />
             </div>
