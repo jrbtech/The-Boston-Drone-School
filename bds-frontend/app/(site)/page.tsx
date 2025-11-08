@@ -144,7 +144,8 @@ export default function MarketingHomePage() {
                 alt="Boston Drone School"
                 width={600}
                 height={280}
-                className="h-32 md:h-40 w-auto"
+                className="h-32 md:h-40 w-auto drop-shadow-2xl"
+                style={{ filter: 'drop-shadow(0 4px 12px rgba(255, 255, 255, 0.1))' }}
                 priority
               />
             </div>
@@ -200,7 +201,7 @@ export default function MarketingHomePage() {
 
             {/* NASA Partnership Badge */}
             <p className="text-center text-white text-sm mt-8 opacity-90">
-              Partner in Massachusetts' FAA-Registered Drone Apprenticeship Program
+              Partner in Massachusetts&apos; FAA-Registered Drone Apprenticeship Program
             </p>
           </div>
         </div>
