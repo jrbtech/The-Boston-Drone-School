@@ -125,7 +125,7 @@ export default function MarketingHomePage() {
   return (
     <div className="bg-white text-black">
       {/* Premium Hero Section with Video Background */}
-      <section className="hero-video-container relative" style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)' }}>
+      <section className="hero-video-container relative overflow-hidden" style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)' }}>
         {/* Fallback gradient background for when video is loading/missing */}
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black -z-10" />
 
@@ -134,35 +134,35 @@ export default function MarketingHomePage() {
           <source src="/assets/videos/hero-drone-flight.mp4" type="video/mp4" />
         </video> */}
 
-        <div className="semantic-overlay overlay-enhanced">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+        <div className="semantic-overlay overlay-enhanced w-full">
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-24 md:py-32 w-full">
             {/* Logo */}
-            <div className="flex justify-center mb-12">
+            <div className="flex justify-center mb-12 w-full">
               <Image
                 src="/images/boston-drone-school-logo.svg"
                 alt="Boston Drone School"
                 width={600}
                 height={280}
-                className="h-28 sm:h-32 md:h-40 w-auto drop-shadow-2xl max-w-full"
+                className="h-24 sm:h-28 md:h-36 lg:h-40 w-auto drop-shadow-2xl max-w-full"
                 style={{ filter: 'drop-shadow(0 4px 12px rgba(255, 255, 255, 0.1))' }}
                 priority
               />
             </div>
 
             {/* Badge */}
-            <div className="flex justify-center mb-10 px-4">
-              <span className="faa-certified-badge text-center">
+            <div className="flex justify-center mb-10 w-full px-6">
+              <span className="faa-certified-badge text-center max-w-full break-words">
                 Professional UAS Consulting & Training
               </span>
             </div>
 
             {/* Headline */}
-            <h1 className="text-center text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight max-w-5xl mx-auto px-4">
+            <h1 className="text-center text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-8 leading-tight max-w-6xl mx-auto px-6 break-words">
               Professional Drone Consulting & Operational Services
             </h1>
 
             {/* Subheadline */}
-            <p className="text-center text-white text-base sm:text-lg md:text-xl lg:text-2xl mb-12 max-w-4xl mx-auto font-light opacity-95 leading-relaxed px-4">
+            <p className="text-center text-white text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl mb-12 max-w-4xl mx-auto font-light opacity-95 leading-relaxed px-6 break-words">
               Expert consultation and advocacy for the safe integration of drone technology into your operations
             </p>
 
