@@ -186,23 +186,23 @@ export default function MarketingHomePage() {
             </div>
 
             {/* Primary CTA */}
-            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center px-4 mt-8 md:mt-10">
+            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center px-6 sm:px-8 mt-8 md:mt-10 max-w-4xl mx-auto">
               <Link
                 href="/services"
-                className="btn-premium-cta no-underline text-center px-8 sm:px-12 py-4 text-base sm:text-lg font-bold w-full sm:w-auto"
+                className="btn-premium-cta no-underline text-center px-6 sm:px-10 md:px-12 py-3 sm:py-4 text-sm sm:text-base md:text-lg font-bold w-full sm:w-auto whitespace-nowrap"
               >
                 <span>View Services</span>
               </Link>
               <Link
                 href="/inquiry"
-                className="btn-tertiary no-underline text-center px-8 sm:px-12 py-4 text-base sm:text-lg w-full sm:w-auto"
+                className="btn-tertiary no-underline text-center px-6 sm:px-10 md:px-12 py-3 sm:py-4 text-sm sm:text-base md:text-lg w-full sm:w-auto whitespace-nowrap"
               >
                 Contact Us
               </Link>
             </div>
 
             {/* NASA Partnership Badge */}
-            <p className="text-center text-white text-xs sm:text-sm mt-10 md:mt-12 opacity-90 px-6 leading-relaxed">
+            <p className="text-center text-white text-xs sm:text-sm mt-10 md:mt-12 mb-6 opacity-90 px-6 leading-relaxed max-w-2xl mx-auto">
               Partner in Massachusetts&apos; FAA-Registered Drone Apprenticeship Program
             </p>
           </div>
