@@ -40,7 +40,8 @@
       "Bash(taskkill /F /PID 25208)",
       "Bash(taskkill //F //PID 25208)",
       "WebFetch(domain:bds-frontend.onrender.com)",
-      "WebFetch(domain:bds-backend-5ao0.onrender.com)"
+      "WebFetch(domain:bds-backend-5ao0.onrender.com)",
+      "Bash(diff:*)"
     ],
     "deny": [],
     "ask": []
