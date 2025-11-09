@@ -20,12 +20,12 @@ export function MarketingFooter() {
         <div className="max-w-md space-y-5">
           <Link href="/" className="inline-block">
             <Image
-              src="/images/boston-drone-school-logo.svg"
+              src="/images/tbds-graphic.jpg"
               alt="Boston Drone School logo"
               width={600}
-              height={280}
+              height={420}
               sizes="(max-width: 640px) 160px, (max-width: 768px) 180px, 192px"
-              className="h-auto w-40 sm:w-44 md:w-48 object-contain brightness-0 invert"
+              className="h-auto w-40 sm:w-44 md:w-48 object-contain"
             />
           </Link>
           <p className="text-sm leading-relaxed text-white">
