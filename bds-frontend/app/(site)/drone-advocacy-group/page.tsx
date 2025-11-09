@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Footer from '@/components/layout/Footer'
 
 const pillars = [
   {
@@ -100,7 +99,6 @@ export default function AdvocacyGroupPage() {
           </div>
         </div>
       </section>
-      <Footer />
     </div>
   )
 }

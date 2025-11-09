@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Footer from '@/components/layout/Footer'
 import CourseCtaLink from '@/components/marketing/CourseCtaLink'
 
 const workflows = [
@@ -116,7 +115,6 @@ export default function ProcurementPage() {
           </div>
         </div>
       </section>
-      <Footer />
     </div>
   )
 }

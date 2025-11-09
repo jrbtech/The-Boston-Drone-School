@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Footer from "@/components/layout/Footer";
 
 const courses = {
   "part-107-complete": {
@@ -352,8 +351,6 @@ export default function CheckoutPage({ params }: { params: { courseId: string } 
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 }

@@ -1,5 +1,3 @@
-import Footer from '@/components/layout/Footer'
-
 const faqs = [
   {
     question: 'Is the Boston Drone School a school?',
@@ -42,7 +40,6 @@ export default function InquiryPage() {
             </p>
           </div>
       </section>
-      <Footer />
     </div>
   )
 }
