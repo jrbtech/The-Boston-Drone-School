@@ -162,7 +162,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
               <div className="w-full border-t border-gray-300" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white text-gray-500">Don't have an account?</span>
+              <span className="px-4 bg-white text-gray-500">Don&apos;t have an account?</span>
             </div>
           </div>
 

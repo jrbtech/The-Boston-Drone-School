@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import Footer from '@/components/layout/Footer'
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('')
@@ -76,7 +75,7 @@ export default function ForgotPasswordPage() {
             alt="Boston Drone School"
             width={200}
             height={80}
-            className="h-auto w-40 object-contain"
+            className="h-auto w-40 object-contain brightness-0 invert"
             priority
           />
         </Link>
@@ -180,7 +179,6 @@ export default function ForgotPasswordPage() {
           </Link>
         </div>
       </div>
-      <Footer />
     </div>
   )
 }

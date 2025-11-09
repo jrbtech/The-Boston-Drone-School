@@ -373,7 +373,7 @@ export default function MarketingHomePage() {
               <div className="space-y-4 px-4">
                 <div className="text-5xl lg:text-6xl font-bold text-black">MA</div>
                 <div className="font-semibold text-lg text-black">Apprenticeship Partner</div>
-                <p className="text-sm md:text-base text-gray-600 leading-relaxed">Partner in Massachusetts' FAA-registered Drone Apprenticeship Program</p>
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed">Partner in Massachusetts&apos; FAA-registered Drone Apprenticeship Program</p>
               </div>
             </div>
           </div>
