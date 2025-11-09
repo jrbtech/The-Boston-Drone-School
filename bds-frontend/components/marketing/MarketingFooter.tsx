@@ -15,16 +15,16 @@ export function MarketingFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-black/10 bg-black text-white">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-12 lg:flex-row lg:items-start lg:justify-between">
-        <div className="max-w-md space-y-4">
-          <Link href="/" className="inline-block mb-2">
+    <footer className="border-t border-black/10 !bg-black text-white">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-12 lg:flex-row lg:items-start lg:justify-between !bg-black">
+        <div className="max-w-md space-y-5">
+          <Link href="/" className="inline-block">
             <Image
               src="/images/boston-drone-school-logo.svg"
               alt="Boston Drone School logo"
               width={600}
               height={280}
-              className="h-16 w-auto object-contain brightness-0 invert"
+              className="h-auto w-48 object-contain"
               style={{ filter: 'brightness(0) invert(1)' }}
             />
           </Link>
