@@ -151,7 +151,7 @@ export default function MarketingHomePage() {
             {/* Badge */}
             <div className="flex justify-center mb-6 md:mb-8 w-full px-6">
               <span className="faa-certified-badge text-center max-w-full break-words">
-                Professional UAS Consulting & Training
+                NASA Network Partner
               </span>
             </div>
 
