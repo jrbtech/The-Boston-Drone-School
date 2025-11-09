@@ -9,6 +9,7 @@ import Footer from '@/components/layout/Footer'
 export default function CoursesPage() {
   const [courses, setCourses] = useState<Course[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const [selectedLevel, setSelectedLevel] = useState<string>('all')
   const [searchQuery, setSearchQuery] = useState('')
@@ -16,6 +17,7 @@ export default function CoursesPage() {
   const loadCourses = useCallback(async () => {
     try {
       setLoading(true)
+      setError(null)
       const filters: any = {}
       if (selectedCategory !== 'all') filters.category = selectedCategory
       if (selectedLevel !== 'all') filters.level = selectedLevel
@@ -24,6 +26,7 @@ export default function CoursesPage() {
       setCourses(response.courses || [])
     } catch (error) {
       console.error('Failed to load courses:', error)
+      setError(error instanceof Error ? error.message : 'Failed to load courses')
     } finally {
       setLoading(false)
     }
@@ -42,10 +45,12 @@ export default function CoursesPage() {
 
     try {
       setLoading(true)
+      setError(null)
       const response = await api.searchCourses(searchQuery)
       setCourses(response.courses || [])
     } catch (error) {
       console.error('Search failed:', error)
+      setError(error instanceof Error ? error.message : 'Search failed')
     } finally {
       setLoading(false)
     }
@@ -187,6 +192,19 @@ export default function CoursesPage() {
           <div className="text-center py-12">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
             <p className="mt-4 text-gray-600">Loading courses...</p>
+          </div>
+        ) : error ? (
+          <div className="text-center py-12">
+            <div className="bg-red-50 border border-red-200 rounded-lg p-8 max-w-2xl mx-auto">
+              <p className="text-xl text-red-600 font-semibold mb-2">Error Loading Courses</p>
+              <p className="text-gray-700 mb-4">{error}</p>
+              <button
+                onClick={loadCourses}
+                className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition"
+              >
+                Try Again
+              </button>
+            </div>
           </div>
         ) : courses.length === 0 ? (
           <div className="text-center py-12">

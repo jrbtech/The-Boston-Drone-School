@@ -39,7 +39,8 @@
       "mcp__ide__getDiagnostics",
       "Bash(taskkill /F /PID 25208)",
       "Bash(taskkill //F //PID 25208)",
-      "WebFetch(domain:bds-frontend.onrender.com)"
+      "WebFetch(domain:bds-frontend.onrender.com)",
+      "WebFetch(domain:bds-backend-5ao0.onrender.com)"
     ],
     "deny": [],
     "ask": []
