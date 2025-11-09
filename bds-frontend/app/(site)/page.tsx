@@ -17,7 +17,7 @@ const operations = [
   },
   {
     title: 'STEM Workforce Development',
-    description: 'Experiential learning programs introducing students and professionals to UAS career pathways and aerospace technology applications.'
+    description: 'Experiential learning programs introducing students and professionals to UAS career pathways, including hands-on FPV build kits, drone racing modules, and aerospace technology applications.'
   }
 ];
 

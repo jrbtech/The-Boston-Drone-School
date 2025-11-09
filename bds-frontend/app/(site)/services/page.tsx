@@ -30,7 +30,7 @@ const serviceGroups = [
     title: 'STEM & Workforce Engagements',
     items: [
       'Custom programs for K through 12, higher education, and workforce teams.',
-      'Hands on experiences that highlight drone career pathways.',
+      'Hands on experiences including FPV build kits and drone racing modules.',
       'Curriculum design that blends UAS practice with clean energy principles.'
     ]
   }
