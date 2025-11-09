@@ -23,6 +23,7 @@ const courses = {
     includes: [
       "Full access to video library",
       "Downloadable study materials (PDFs)",
+      "Official FAA Remote Pilot Study Guide",
       "Practice exams with detailed explanations",
       "Private student community access",
       "Email support from instructors",
@@ -50,6 +51,7 @@ const courses = {
     includes: [
       "2-day intensive training session",
       "Course workbook and materials",
+      "Official FAA Remote Pilot Study Guide",
       "Practice exam access",
       "30 days of instructor support",
       "Study guide and cheat sheets",
@@ -77,6 +79,7 @@ const courses = {
     ],
     includes: [
       "Complete FAA Part 107 course access",
+      "Official FAA Remote Pilot Study Guide",
       "Business startup toolkit",
       "Legal document templates",
       "Marketing materials templates",
@@ -149,6 +152,29 @@ export default function CheckoutPage({ params }: { params: { courseId: string } 
                     </div>
                   ))}
                 </div>
+              </div>
+
+              <div className="million-dollar-card mb-8 bg-blue-50 border-2 border-blue-200">
+                <h3 className="h3 mb-4 flex items-center gap-2">
+                  <svg className="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                  Official FAA Study Guide
+                </h3>
+                <p className="body text-gray-700 mb-4">
+                  Access the official FAA Remote Pilot Study Guide - the authoritative reference used by the FAA for the Part 107 exam.
+                </p>
+                <a
+                  href="https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/remote_pilot_study_guide.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded font-semibold hover:bg-blue-700 transition"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  Download FAA Study Guide (PDF)
+                </a>
               </div>
 
               <div className="million-dollar-card bg-black text-white">
