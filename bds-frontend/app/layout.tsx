@@ -66,6 +66,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // Trigger redeploy for password reset pages
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <head>
