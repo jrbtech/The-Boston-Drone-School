@@ -108,7 +108,7 @@ export function MarketingFooter() {
         </div>
       </div>
 
-      <div className="border-t border-white/15 bg-black/80">
+      <div className="border-t border-white/15 !bg-black">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-6 px-6 py-8 text-[0.65rem] uppercase tracking-[0.24em] text-white/50">
           <div className="flex justify-center">
             <Image
