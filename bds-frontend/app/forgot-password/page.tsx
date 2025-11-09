@@ -10,6 +10,8 @@ export default function ForgotPasswordPage() {
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState('')
+  const [resetToken, setResetToken] = useState('')
+  const [resetUrl, setResetUrl] = useState('')
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -17,8 +19,32 @@ export default function ForgotPasswordPage() {
     setLoading(true)
 
     try {
-      // Submit to Formspree to notify admin
-      await fetch('https://formspree.io/f/moqgdnge', {
+      // Call backend API for password reset
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
+      const response = await fetch(`${API_URL}/api/auth/forgot-password`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to process password reset request')
+      }
+
+      // Store token for display (in dev mode only)
+      if (data.resetToken) {
+        setResetToken(data.resetToken)
+        setResetUrl(data.resetUrl)
+      }
+
+      setSubmitted(true)
+
+      // Also notify admin via Formspree as backup
+      fetch('https://formspree.io/f/moqgdnge', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -26,13 +52,15 @@ export default function ForgotPasswordPage() {
         body: JSON.stringify({
           email,
           form_type: 'password_reset_request',
-          message: `Password reset requested for: ${email}`
+          message: `Password reset requested for: ${email}`,
+          resetUrl: data.resetUrl
         })
+      }).catch(() => {
+        // Silent fail for backup notification
       })
 
-      setSubmitted(true)
-    } catch (err) {
-      setError('Failed to send reset email. Please try again or contact support.')
+    } catch (err: any) {
+      setError(err.message || 'Failed to send reset email. Please try again or contact support.')
     } finally {
       setLoading(false)
     }
@@ -115,10 +143,32 @@ export default function ForgotPasswordPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold mb-4">Check Your Email</h2>
+              <h2 className="text-2xl font-bold mb-4">Password Reset Requested</h2>
               <p className="text-gray-600 mb-6">
-                We&apos;ve sent password reset instructions to <strong>{email}</strong>
+                If an account exists for <strong>{email}</strong>, password reset instructions have been sent.
               </p>
+
+              {/* Development mode: Show reset link directly */}
+              {resetUrl && (
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6 text-left">
+                  <p className="text-sm font-semibold text-yellow-900 mb-2">
+                    ⚠️ Development Mode - Reset Link:
+                  </p>
+                  <p className="text-xs text-gray-600 mb-3">
+                    Since email is not yet configured, use this link to reset your password:
+                  </p>
+                  <a
+                    href={resetUrl}
+                    className="text-sm text-blue-600 hover:text-blue-700 break-all underline"
+                  >
+                    {resetUrl}
+                  </a>
+                  <p className="text-xs text-gray-500 mt-3">
+                    This link will be sent via email once email service is configured.
+                  </p>
+                </div>
+              )}
+
               <p className="text-sm text-gray-600 mb-6">
                 If you don&apos;t receive an email within a few minutes, please check your spam folder or contact support at info@thebostondroneschool.org
               </p>
