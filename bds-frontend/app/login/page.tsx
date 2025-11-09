@@ -34,25 +34,16 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center px-6 py-12 text-white">
-      {/* Skip to main content */}
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-white focus:text-black focus:px-4 focus:py-2 focus:rounded"
-      >
-        Skip to main content
-      </a>
-
-      <div id="main-content" className="w-full max-w-md">
+      <div className="w-full max-w-md">
         {/* Logo */}
         <Link href="/" className="flex items-center justify-center mb-8">
           <Image
-            src="/images/boston-drone-school-logo-real.jpg"
+            src="/images/boston-drone-school-logo.svg"
             alt="Boston Drone School"
-            width={160}
-            height={112}
-            className="h-auto w-32 object-contain"
+            width={200}
+            height={80}
+            className="h-auto w-40 object-contain"
             priority
-            unoptimized
           />
         </Link>
 
