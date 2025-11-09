@@ -1,6 +1,10 @@
+'use client'
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import AutoplayVideo from "@/components/marketing/AutoplayVideo";
+import LoginModal from "@/components/LoginModal";
 
 const operations = [
   {
@@ -122,8 +126,25 @@ const pricingTiers = [
 ];
 
 export default function MarketingHomePage() {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+
   return (
     <div className="bg-white text-black">
+      {/* Login Modal */}
+      <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
+
+      {/* Floating Quick Login Button */}
+      <button
+        onClick={() => setIsLoginModalOpen(true)}
+        className="fixed bottom-8 right-8 z-40 bg-white text-black px-6 py-3 rounded-full shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300 font-semibold flex items-center gap-2 border-2 border-black group"
+        aria-label="Quick login"
+      >
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+        <span className="hidden sm:inline">Quick Login</span>
+      </button>
+
       {/* Premium Hero Section with Video Background */}
       <section className="relative w-full" style={{ background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)' }}>
         {/* Fallback gradient background for when video is loading/missing */}
@@ -192,11 +213,28 @@ export default function MarketingHomePage() {
               >
                 <span>View Services</span>
               </Link>
-              <Link
-                href="/inquiry"
+              <button
+                onClick={() => setIsLoginModalOpen(true)}
                 className="btn-tertiary no-underline text-center px-6 sm:px-10 md:px-12 py-3 sm:py-4 text-sm sm:text-base md:text-lg w-full sm:w-auto whitespace-nowrap"
               >
-                Contact Us
+                Student Login
+              </button>
+              <Link
+                href="/shop"
+                className="btn-tertiary no-underline text-center px-6 sm:px-10 md:px-12 py-3 sm:py-4 text-sm sm:text-base md:text-lg w-full sm:w-auto whitespace-nowrap"
+              >
+                Shop Equipment
+              </Link>
+            </div>
+
+            {/* Quick Access Links */}
+            <div className="flex gap-6 justify-center items-center px-6 sm:px-8 mt-6 text-xs sm:text-sm text-white/70">
+              <Link href="/study-guide" className="hover:text-white transition-colors underline">
+                Free Study Guide
+              </Link>
+              <span>•</span>
+              <Link href="/register" className="hover:text-white transition-colors underline">
+                Create Account
               </Link>
             </div>
 

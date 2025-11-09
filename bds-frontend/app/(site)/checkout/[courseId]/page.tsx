@@ -252,13 +252,23 @@ export default function CheckoutPage({ params }: { params: { courseId: string } 
                   </div>
 
                   <div className="border-t-2 border-gray-200 pt-6">
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                      <p className="text-sm text-blue-900 font-semibold mb-2">📧 How Enrollment Works:</p>
+                      <ol className="text-xs text-blue-800 space-y-1 ml-4 list-decimal">
+                        <li>Submit this form to reserve your spot</li>
+                        <li>We&apos;ll email you within 24 hours with payment options</li>
+                        <li>Complete payment via Stripe, PayPal, or wire transfer</li>
+                        <li>Get instant access to your course materials</li>
+                      </ol>
+                    </div>
+
                     <div className="flex justify-between items-center mb-6">
-                      <span className="h4">Total Due Today</span>
+                      <span className="h4">Total Course Price</span>
                       <span className="price-display text-3xl">${course.price}</span>
                     </div>
 
                     <button type="submit" className="btn-checkout w-full">
-                      <span>Submit Enrollment Request</span>
+                      <span>Reserve My Spot - Get Payment Link</span>
                       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                       </svg>
@@ -266,6 +276,10 @@ export default function CheckoutPage({ params }: { params: { courseId: string } 
 
                     <p className="text-xs text-gray-500 mt-4 text-center">
                       By submitting, you agree to our <Link href="/terms" className="underline">Terms of Service</Link> and <Link href="/privacy" className="underline">Privacy Policy</Link>
+                    </p>
+
+                    <p className="text-xs text-gray-600 mt-3 text-center font-medium">
+                      ✅ No payment required now • 💳 Secure payment link sent via email
                     </p>
                   </div>
                 </form>

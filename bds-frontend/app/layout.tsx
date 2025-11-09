@@ -3,6 +3,7 @@ import '../styles/premium-design-system.css'
 import type { Metadata, Viewport } from 'next'
 import { Inter, Poppins } from 'next/font/google'
 import { AuthProvider } from '../contexts/AuthContext'
+import { ErrorBoundary } from '../components/ErrorBoundary'
 import Script from 'next/script'
 
 const inter = Inter({
@@ -67,12 +68,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
+      <head>
+        {/* Preconnect to API domain for faster API calls */}
+        <link rel="preconnect" href="https://bds-backend-5ao0.onrender.com" />
+        <link rel="dns-prefetch" href="https://bds-backend-5ao0.onrender.com" />
+      </head>
       <body className="min-h-screen bg-background text-foreground font-sans antialiased selection:bg-black selection:text-white">
-        <AuthProvider>
-          <div id="root" className="min-h-screen">
-            {children}
-          </div>
-        </AuthProvider>
+        <ErrorBoundary>
+          <AuthProvider>
+            <div id="root" className="min-h-screen">
+              {children}
+            </div>
+          </AuthProvider>
+        </ErrorBoundary>
         <Script src="/js/premium-motion.js" strategy="afterInteractive" />
       </body>
     </html>
