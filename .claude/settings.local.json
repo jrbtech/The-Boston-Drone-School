@@ -41,7 +41,10 @@
       "Bash(taskkill //F //PID 25208)",
       "WebFetch(domain:bds-frontend.onrender.com)",
       "WebFetch(domain:bds-backend-5ao0.onrender.com)",
-      "Bash(diff:*)"
+      "Bash(diff:*)",
+      "Bash(echo:*)",
+      "Bash(psql:*)",
+      "Bash(export DATABASE_URL=\"postgresql://boston_drone_school_user:iqDWTMEHtw6Ur72krgu16BY7JO2mTFE6@dpg-d44iulkhg0os73cihtr0-a.oregon-postgres.render.com/boston_drone_school\")"
     ],
     "deny": [],
     "ask": []
