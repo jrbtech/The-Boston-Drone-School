@@ -353,6 +353,7 @@ class ApiClient {
     try {
       const response = await fetch(fullUrl, {
         ...options,
+        signal: options?.signal, // Pass through AbortSignal
         headers: {
           'Content-Type': 'application/json',
           ...(token && { 'Authorization': `Bearer ${token}` }),
@@ -400,9 +401,9 @@ class ApiClient {
   }
 
   // Courses
-  async getCourses(filters?: { category?: string; level?: string }) {
+  async getCourses(filters?: { category?: string; level?: string }, signal?: AbortSignal) {
     const params = new URLSearchParams(filters as any);
-    const response = await this.fetch(`/api/courses?${params}`);
+    const response = await this.fetch(`/api/courses?${params}`, { signal });
     const courses = Array.isArray(response?.courses) ? response.courses.map((course: RawCourse) => normalizeCourse(course)) : [];
 
     return {
@@ -431,8 +432,8 @@ class ApiClient {
     };
   }
 
-  async searchCourses(query: string) {
-    const response = await this.fetch(`/api/courses/search/${query}`);
+  async searchCourses(query: string, signal?: AbortSignal) {
+    const response = await this.fetch(`/api/courses/search/${query}`, { signal });
     const courses = Array.isArray(response?.courses) ? response.courses.map((course: RawCourse) => normalizeCourse(course)) : [];
 
     return {

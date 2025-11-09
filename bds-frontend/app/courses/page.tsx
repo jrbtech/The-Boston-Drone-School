@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { api, Course } from '../../lib/api'
 import Footer from '@/components/layout/Footer'
+import CoursesSkeleton from '@/components/CoursesSkeleton'
 
 export default function CoursesPage() {
   const [courses, setCourses] = useState<Course[]>([])
@@ -14,31 +15,110 @@ export default function CoursesPage() {
   const [selectedLevel, setSelectedLevel] = useState<string>('all')
   const [searchQuery, setSearchQuery] = useState('')
 
-  const loadCourses = useCallback(async () => {
+  // Refs for managing state
+  const abortControllerRef = useState<{ current: AbortController | null }>({ current: null })[0]
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null)
+
+  const loadCourses = useCallback(async (retryCount = 0) => {
+    const maxRetries = 3
+    const retryDelay = Math.min(1000 * Math.pow(2, retryCount), 5000) // Exponential backoff, max 5s
+
+    // Cancel previous request if any
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort()
+    }
+
+    // Create new AbortController for this request
+    abortControllerRef.current = new AbortController()
+    const signal = abortControllerRef.current.signal
+
     try {
       setLoading(true)
       setError(null)
-      console.log('[COURSES] Starting to load courses...')
+      console.log('[COURSES] Starting to load courses...', retryCount > 0 ? `(retry ${retryCount})` : '')
 
       const filters: any = {}
       if (selectedCategory !== 'all') filters.category = selectedCategory
       if (selectedLevel !== 'all') filters.level = selectedLevel
 
+      // Create cache key from filters
+      const cacheKey = `courses_${JSON.stringify(filters)}`
+
+      // Check cache first (5 minute cache)
+      if (typeof window !== 'undefined') {
+        const cached = sessionStorage.getItem(cacheKey)
+        if (cached) {
+          try {
+            const { data, timestamp } = JSON.parse(cached)
+            const age = Date.now() - timestamp
+            if (age < 5 * 60 * 1000) { // 5 minutes
+              console.log('[COURSES] Using cached data')
+              setCourses(data)
+              setLoading(false)
+              return
+            }
+          } catch (e) {
+            // Invalid cache, continue to fetch
+          }
+        }
+      }
+
       console.log('[COURSES] Filters:', filters)
       console.log('[COURSES] Calling api.getCourses...')
 
-      const response = await api.getCourses(filters)
+      const response = await api.getCourses(filters, signal)
+
+      // Check if request was aborted
+      if (signal.aborted) {
+        console.log('[COURSES] Request was cancelled')
+        return
+      }
+
       console.log('[COURSES] Response received:', response)
       console.log('[COURSES] Courses count:', response.courses?.length)
 
-      setCourses(response.courses || [])
+      const coursesData = response.courses || []
+      setCourses(coursesData)
+
+      // Cache the response
+      if (typeof window !== 'undefined') {
+        try {
+          const filters: any = {}
+          if (selectedCategory !== 'all') filters.category = selectedCategory
+          if (selectedLevel !== 'all') filters.level = selectedLevel
+          const cacheKey = `courses_${JSON.stringify(filters)}`
+          sessionStorage.setItem(cacheKey, JSON.stringify({
+            data: coursesData,
+            timestamp: Date.now()
+          }))
+        } catch (e) {
+          // Cache storage failed, continue without caching
+          console.warn('[COURSES] Failed to cache data:', e)
+        }
+      }
+
       console.log('[COURSES] Courses set successfully')
     } catch (error) {
+      // Don't show errors for aborted requests
+      if (error instanceof Error && error.name === 'AbortError') {
+        console.log('[COURSES] Request aborted')
+        return
+      }
+
       console.error('[COURSES] Failed to load courses:', error)
       console.error('[COURSES] Error details:', {
         message: error instanceof Error ? error.message : String(error),
         stack: error instanceof Error ? error.stack : undefined
       })
+
+      // Retry on network errors
+      if (retryCount < maxRetries && error instanceof Error &&
+          (error.message.includes('fetch') || error.message.includes('network') || error.message.includes('timeout'))) {
+        console.log(`[COURSES] Retrying in ${retryDelay}ms...`)
+        setTimeout(() => loadCourses(retryCount + 1), retryDelay)
+        return
+      }
+
       setError(error instanceof Error ? error.message : 'Failed to load courses')
     } finally {
       setLoading(false)
@@ -47,23 +127,77 @@ export default function CoursesPage() {
   }, [selectedCategory, selectedLevel])
 
   useEffect(() => {
-    loadCourses()
+    // Debounce filter changes to prevent excessive API calls
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current)
+    }
+
+    debounceTimerRef.current = setTimeout(() => {
+      loadCourses()
+    }, 300) // 300ms debounce
+
+    // Cleanup on unmount or when dependencies change
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current)
+      }
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort()
+      }
+    }
   }, [loadCourses])
 
-  async function handleSearch(e: React.FormEvent) {
+  const searchAbortControllerRef = useState<{ current: AbortController | null }>({ current: null })[0]
+
+  async function handleSearch(e: React.FormEvent, retryCount = 0) {
     e.preventDefault()
+
+    // Cancel any ongoing search
+    if (searchAbortControllerRef.current) {
+      searchAbortControllerRef.current.abort()
+    }
+
     if (!searchQuery.trim()) {
       loadCourses()
       return
     }
 
+    const maxRetries = 3
+    const retryDelay = Math.min(1000 * Math.pow(2, retryCount), 5000)
+
+    searchAbortControllerRef.current = new AbortController()
+    const signal = searchAbortControllerRef.current.signal
+
     try {
       setLoading(true)
       setError(null)
-      const response = await api.searchCourses(searchQuery)
+      const response = await api.searchCourses(searchQuery, signal)
+
+      if (signal.aborted) {
+        console.log('[SEARCH] Request was cancelled')
+        return
+      }
+
       setCourses(response.courses || [])
     } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') {
+        console.log('[SEARCH] Request aborted')
+        return
+      }
+
       console.error('Search failed:', error)
+
+      // Retry on network errors
+      if (retryCount < maxRetries && error instanceof Error &&
+          (error.message.includes('fetch') || error.message.includes('network') || error.message.includes('timeout'))) {
+        console.log(`[SEARCH] Retrying in ${retryDelay}ms...`)
+        setTimeout(() => {
+          const syntheticEvent = { preventDefault: () => {} } as React.FormEvent
+          handleSearch(syntheticEvent, retryCount + 1)
+        }, retryDelay)
+        return
+      }
+
       setError(error instanceof Error ? error.message : 'Search failed')
     } finally {
       setLoading(false)
@@ -102,6 +236,8 @@ export default function CoursesPage() {
 
               <nav className="hidden md:flex items-center gap-6 text-sm font-medium uppercase tracking-wider">
                 <Link href="/courses" className="text-gray-900">Programs</Link>
+                <Link href="/shop" className="text-gray-600 hover:text-black transition-colors">Shop</Link>
+                <Link href="/study-guide" className="text-gray-600 hover:text-black transition-colors">Free Guide</Link>
                 <Link href="/dashboard" className="text-gray-600 hover:text-black transition-colors">Dashboard</Link>
                 <Link href="/login" className="text-gray-600 hover:text-black transition-colors">Login</Link>
                 <Link
@@ -191,6 +327,15 @@ export default function CoursesPage() {
                 setSelectedCategory('all')
                 setSelectedLevel('all')
                 setSearchQuery('')
+                // Clear all cached course data
+                if (typeof window !== 'undefined') {
+                  const keys = Object.keys(sessionStorage)
+                  keys.forEach(key => {
+                    if (key.startsWith('courses_')) {
+                      sessionStorage.removeItem(key)
+                    }
+                  })
+                }
               }}
               className="self-end px-6 py-2 text-gray-600 hover:text-gray-900"
             >
@@ -203,17 +348,14 @@ export default function CoursesPage() {
       {/* Course Grid */}
       <section className="container mx-auto px-6 py-12">
         {loading ? (
-          <div className="text-center py-12">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-            <p className="mt-4 text-gray-600">Loading courses...</p>
-          </div>
+          <CoursesSkeleton />
         ) : error ? (
           <div className="text-center py-12">
             <div className="bg-red-50 border border-red-200 rounded-lg p-8 max-w-2xl mx-auto">
               <p className="text-xl text-red-600 font-semibold mb-2">Error Loading Courses</p>
               <p className="text-gray-700 mb-4">{error}</p>
               <button
-                onClick={loadCourses}
+                onClick={() => loadCourses()}
                 className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition"
               >
                 Try Again
@@ -241,7 +383,8 @@ export default function CoursesPage() {
                         fill
                         className="object-cover transition-transform duration-500"
                         sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                        priority={false}
+                        loading={index < 3 ? "eager" : "lazy"}
+                        priority={index < 3}
                       />
                     ) : (
                       <div className="flex items-center justify-center h-full bg-gradient-to-br from-gray-100 to-gray-300">

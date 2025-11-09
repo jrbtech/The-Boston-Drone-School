@@ -55,7 +55,15 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center px-6 py-12 text-white">
-      <div className="w-full max-w-md">
+      {/* Skip to main content */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-white focus:text-black focus:px-4 focus:py-2 focus:rounded"
+      >
+        Skip to main content
+      </a>
+
+      <div id="main-content" className="w-full max-w-md">
         {/* Logo */}
         <Link href="/" className="flex items-center justify-center mb-8">
           <Image
@@ -64,6 +72,8 @@ export default function RegisterPage() {
             width={160}
             height={112}
             className="h-auto w-32 object-contain"
+            priority
+            unoptimized
           />
         </Link>
 
