@@ -287,12 +287,12 @@ export default function MarketingHomePage() {
       <section className="section-spacing bg-white">
         <div className="container-premium">
           <div className="space-y-16 reveal-on-scroll">
-            <div className="space-y-6 text-center max-w-4xl mx-auto">
+            <div className="space-y-6 text-center max-w-5xl mx-auto px-4">
               <span className="caption text-gray-500">Corporate Citizenship</span>
               <h2 className="h2 leading-tight">
                 Cultivating Advanced UAS Professionals
               </h2>
-              <p className="body-large text-gray-700 leading-relaxed">
+              <p className="body-large text-gray-700 leading-relaxed mx-auto">
                 We architect professional development pathways for emerging talent, transitioning professionals, and established organizations while fostering the technical competencies and safety culture essential for responsible unmanned aircraft systems deployment.
               </p>
             </div>
