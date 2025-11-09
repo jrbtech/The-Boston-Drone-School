@@ -135,7 +135,7 @@ export default function MarketingHomePage() {
         </video> */}
 
         <div className="semantic-overlay overlay-enhanced">
-          <div className="max-w-5xl mx-auto px-6 py-24 md:py-32">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
             {/* Logo */}
             <div className="flex justify-center mb-12">
               <Image
@@ -143,63 +143,66 @@ export default function MarketingHomePage() {
                 alt="Boston Drone School"
                 width={600}
                 height={280}
-                className="h-32 md:h-40 w-auto drop-shadow-2xl"
+                className="h-28 sm:h-32 md:h-40 w-auto drop-shadow-2xl max-w-full"
                 style={{ filter: 'drop-shadow(0 4px 12px rgba(255, 255, 255, 0.1))' }}
                 priority
               />
             </div>
 
             {/* Badge */}
-            <div className="flex justify-center mb-10">
-              <span className="faa-certified-badge">
+            <div className="flex justify-center mb-10 px-4">
+              <span className="faa-certified-badge text-center">
                 Professional UAS Consulting & Training
               </span>
             </div>
 
             {/* Headline */}
-            <h1 className="text-center text-white text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight max-w-5xl mx-auto">
+            <h1 className="text-center text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight max-w-5xl mx-auto px-4">
               Professional Drone Consulting & Operational Services
             </h1>
 
             {/* Subheadline */}
-            <p className="text-center text-white text-lg md:text-xl lg:text-2xl mb-12 max-w-4xl mx-auto font-light opacity-95 leading-relaxed">
+            <p className="text-center text-white text-base sm:text-lg md:text-xl lg:text-2xl mb-12 max-w-4xl mx-auto font-light opacity-95 leading-relaxed px-4">
               Expert consultation and advocacy for the safe integration of drone technology into your operations
             </p>
 
             {/* Service Highlights */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-5xl mx-auto mb-12">
-              <div className="text-center py-3">
-                <div className="text-white/90 text-sm md:text-base font-semibold">Real Estate Media</div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 max-w-6xl mx-auto mb-12">
+              <div className="text-center py-3 px-2">
+                <div className="text-white/90 text-sm md:text-base font-semibold whitespace-nowrap">STEM Consultation</div>
               </div>
-              <div className="text-center py-3">
-                <div className="text-white/90 text-sm md:text-base font-semibold">3D Modeling</div>
+              <div className="text-center py-3 px-2">
+                <div className="text-white/90 text-sm md:text-base font-semibold whitespace-nowrap">Real Estate Media</div>
               </div>
-              <div className="text-center py-3">
-                <div className="text-white/90 text-sm md:text-base font-semibold">Part 107 Training</div>
+              <div className="text-center py-3 px-2">
+                <div className="text-white/90 text-sm md:text-base font-semibold whitespace-nowrap">3D Modeling</div>
               </div>
-              <div className="text-center py-3">
-                <div className="text-white/90 text-sm md:text-base font-semibold">Policy Advocacy</div>
+              <div className="text-center py-3 px-2">
+                <div className="text-white/90 text-sm md:text-base font-semibold whitespace-nowrap">Part 107 Training</div>
+              </div>
+              <div className="text-center py-3 px-2">
+                <div className="text-white/90 text-sm md:text-base font-semibold whitespace-nowrap">Policy Advocacy</div>
               </div>
             </div>
 
             {/* Primary CTA */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
               <Link
                 href="/services"
-                className="btn-premium-cta no-underline text-center px-12 py-4 text-lg font-bold"
+                className="btn-premium-cta no-underline text-center px-8 sm:px-12 py-4 text-base sm:text-lg font-bold w-full sm:w-auto"
               >
                 <span>View Services</span>
               </Link>
               <Link
                 href="/inquiry"
-                className="btn-tertiary no-underline text-center px-12 py-4 text-lg"
+                className="btn-tertiary no-underline text-center px-8 sm:px-12 py-4 text-base sm:text-lg w-full sm:w-auto"
               >
                 Contact Us
               </Link>
             </div>
 
             {/* NASA Partnership Badge */}
-            <p className="text-center text-white text-sm mt-8 opacity-90">
+            <p className="text-center text-white text-xs sm:text-sm mt-8 opacity-90 px-4">
               Partner in Massachusetts&apos; FAA-Registered Drone Apprenticeship Program
             </p>
           </div>
