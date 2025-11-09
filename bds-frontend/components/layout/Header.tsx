@@ -10,10 +10,10 @@ export default function Header() {
         <div className="flex justify-between items-center">
           <Link href="/" className="flex items-center gap-3">
             <Image
-              src="/images/boston-drone-school-logo.svg"
+              src="/images/tbds-graphic.jpg"
               alt="Boston Drone School"
               width={600}
-              height={280}
+              height={420}
               className="h-auto w-32 md:w-36 object-contain"
               priority
             />

@@ -73,7 +73,7 @@ export default function DashboardPage() {
             <div className="flex justify-between items-center">
               <Link href="/" className="flex items-center gap-3">
                 <Image
-                  src="/images/boston-drone-school-logo-real.jpg"
+                  src="/images/tbds-graphic.jpg"
                   alt="Boston Drone School"
                   width={120}
                   height={84}

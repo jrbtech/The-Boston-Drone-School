@@ -33,8 +33,8 @@ export const metadata: Metadata = {
     'Boston Drone School, drone operations, UAS training, FAA Part 107, Part 107 certification, drone pilot license, photogrammetry, drone advocacy, STEM engagements, learning portal, commercial drone pilot',
   authors: [{ name: 'The Boston Drone School' }],
   icons: {
-    icon: '/images/boston-drone-school-logo-real.jpg',
-    apple: '/images/boston-drone-school-logo-real.jpg',
+    icon: '/images/tbds-graphic.jpg',
+    apple: '/images/tbds-graphic.jpg',
   },
   openGraph: {
     title: 'The Boston Drone School | FAA Part 107 Certification & Professional Drone Training',
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/boston-drone-school-logo-real.jpg',
+        url: '/images/tbds-graphic.jpg',
         width: 1200,
         height: 630,
         alt: 'Boston Drone School - FAA Part 107 Certification',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     title: 'The Boston Drone School | FAA Part 107 Certification',
     description:
       'Earn your FAA Part 107 certification with Boston Drone School. 98% first-time pass rate.',
-    images: ['/images/boston-drone-school-logo-real.jpg'],
+    images: ['/images/tbds-graphic.jpg'],
   },
 }
 

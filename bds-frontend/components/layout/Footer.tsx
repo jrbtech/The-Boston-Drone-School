@@ -12,12 +12,11 @@ export default function Footer() {
           <div className="lg:col-span-1 space-y-6">
             <Link href="/" className="inline-block mb-4">
               <Image
-                src="/images/boston-drone-school-logo.svg"
+                src="/images/tbds-graphic.jpg"
                 alt="Boston Drone School"
                 width={600}
-                height={280}
-                className="h-20 w-auto object-contain brightness-0 invert"
-                style={{ filter: 'brightness(0) invert(1)' }}
+                height={420}
+                className="h-20 w-auto object-contain"
               />
             </Link>
             <p className="text-sm leading-relaxed text-gray-400">
