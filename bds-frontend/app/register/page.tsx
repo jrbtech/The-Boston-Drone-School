@@ -4,7 +4,6 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import Footer from '@/components/layout/Footer'
 import { useAuth } from '../../contexts/AuthContext'
 
 export default function RegisterPage() {
@@ -63,7 +62,7 @@ export default function RegisterPage() {
             alt="Boston Drone School"
             width={200}
             height={80}
-            className="h-auto w-40 object-contain"
+            className="h-auto w-40 object-contain brightness-0 invert"
             priority
           />
         </Link>
@@ -198,7 +197,6 @@ export default function RegisterPage() {
           </Link>
         </div>
       </div>
-      <Footer />
     </div>
   )
 }

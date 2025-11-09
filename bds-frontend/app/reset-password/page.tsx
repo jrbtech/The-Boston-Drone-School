@@ -4,7 +4,6 @@ import { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
-import Footer from '@/components/layout/Footer'
 
 function ResetPasswordForm() {
   const router = useRouter()
@@ -90,7 +89,7 @@ function ResetPasswordForm() {
             alt="Boston Drone School"
             width={200}
             height={80}
-            className="h-auto w-40 object-contain"
+            className="h-auto w-40 object-contain brightness-0 invert"
             priority
           />
         </Link>
@@ -190,7 +189,6 @@ function ResetPasswordForm() {
           </Link>
         </div>
       </div>
-      <Footer />
     </div>
   )
 }

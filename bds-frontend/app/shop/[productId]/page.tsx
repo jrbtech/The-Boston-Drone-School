@@ -176,7 +176,7 @@ export default function ProductDetailPage() {
 
             {/* Features */}
             <div className="border-t border-gray-200 pt-6">
-              <h3 className="font-bold text-xl mb-4">What's Included:</h3>
+              <h3 className="font-bold text-xl mb-4">What&apos;s Included:</h3>
               <ul className="space-y-2">
                 {product.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-3">
