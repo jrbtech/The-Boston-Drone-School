@@ -18,13 +18,13 @@ export function MarketingFooter() {
     <footer className="border-t border-black/10 !bg-black text-white">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-12 lg:flex-row lg:items-start lg:justify-between !bg-black">
         <div className="max-w-md space-y-5">
-          <Link href="/" className="inline-block">
+          <Link href="/" className="inline-block bg-white/90 rounded-lg p-4">
             <Image
               src="/images/tbds-graphic.jpg"
               alt="Boston Drone School logo"
               width={300}
               height={300}
-              className="h-auto w-48 object-contain brightness-0 invert"
+              className="h-auto w-48 object-contain"
             />
           </Link>
           <p className="text-sm leading-relaxed text-white">

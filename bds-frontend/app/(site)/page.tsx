@@ -137,13 +137,13 @@ export default function MarketingHomePage() {
         <div className="semantic-overlay overlay-enhanced w-full">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 md:py-28 w-full">
             {/* Logo */}
-            <div className="flex justify-center mb-10 md:mb-12 w-full">
+            <div className="flex justify-center mb-10 md:mb-12 w-full bg-white/90 rounded-2xl py-8 px-6">
               <Image
                 src="/images/tbds-graphic.jpg"
                 alt="Boston Drone School"
                 width={300}
                 height={300}
-                className="h-32 sm:h-36 md:h-44 lg:h-52 w-auto drop-shadow-2xl max-w-full brightness-0 invert"
+                className="h-32 sm:h-36 md:h-44 lg:h-52 w-auto max-w-full"
                 priority
               />
             </div>
