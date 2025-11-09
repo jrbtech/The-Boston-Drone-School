@@ -17,7 +17,7 @@ export function MarketingFooter() {
   return (
     <footer className="border-t border-black/10 bg-black text-white">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-12 lg:flex-row lg:items-start lg:justify-between">
-        <div className="max-w-md space-y-5">
+        <div className="max-w-md space-y-6">
           <Link href="/" className="inline-block">
             <Image
               src="/images/boston-drone-school-logo.svg"
@@ -27,7 +27,7 @@ export function MarketingFooter() {
               className="h-auto w-48 object-contain brightness-0 invert"
             />
           </Link>
-          <p className="text-sm leading-relaxed text-white/70">
+          <p className="text-sm leading-relaxed text-white/70 pt-2">
             Professional UAS consulting, operational services, and exam preparation
             resources for public, private, and community partners across New
             England.
