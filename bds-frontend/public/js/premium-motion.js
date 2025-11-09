@@ -405,13 +405,6 @@
   // ============================================================================
 
   function initAccessibility() {
-    // Add skip link
-    const skipLink = document.createElement('a');
-    skipLink.href = '#main-content';
-    skipLink.className = 'skip-link';
-    skipLink.textContent = 'Skip to main content';
-    document.body.insertBefore(skipLink, document.body.firstChild);
-
     // Ensure videos have proper ARIA labels
     document.querySelectorAll('video').forEach(video => {
       if (!video.getAttribute('aria-label')) {

@@ -31,9 +31,9 @@ const brandBlock = (
       alt="Boston Drone School"
       width={600}
       height={280}
-      sizes="160px"
+      sizes="(max-width: 640px) 140px, (max-width: 768px) 160px, 180px"
       priority
-      className="h-auto w-32 object-contain transition group-hover:opacity-90 sm:w-36 md:w-40"
+      className="h-auto w-36 object-contain transition group-hover:opacity-90 sm:w-40 md:w-44"
     />
   </Link>
 );
