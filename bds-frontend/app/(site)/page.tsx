@@ -158,31 +158,31 @@ export default function MarketingHomePage() {
         <div className="relative w-full" style={{ background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.75) 50%, rgba(0, 0, 0, 0.9) 100%)' }}>
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 sm:py-20 md:py-24 lg:py-28 pb-20 sm:pb-24 md:pb-28 lg:pb-32 w-full">
             {/* Logo */}
-            <div className="flex justify-center mb-10 md:mb-12 w-full">
+            <div className="flex justify-center mb-8 sm:mb-10 md:mb-12 w-full">
               <Image
                 src="/images/tbds-graphic.jpg"
                 alt="Boston Drone School"
                 width={300}
                 height={300}
-                className="h-32 sm:h-36 md:h-44 lg:h-52 w-auto max-w-full"
+                className="h-24 sm:h-32 md:h-40 lg:h-48 w-auto max-w-full"
                 priority
               />
             </div>
 
             {/* Badge */}
-            <div className="flex justify-center mb-6 md:mb-8 w-full px-6">
-              <span className="faa-certified-badge text-center max-w-full break-words">
+            <div className="flex justify-center mb-6 sm:mb-7 md:mb-8 w-full px-4 sm:px-6">
+              <span className="faa-certified-badge text-center max-w-full break-words text-sm sm:text-base">
                 NASA Network Partner
               </span>
             </div>
 
             {/* Headline */}
-            <h1 className="text-center text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 md:mb-8 leading-tight max-w-6xl mx-auto px-6 break-words">
+            <h1 className="text-center text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-5 sm:mb-6 md:mb-8 leading-tight max-w-6xl mx-auto px-4 sm:px-6 break-words">
               Professional Drone Consulting & Operational Services
             </h1>
 
             {/* Subheadline */}
-            <p className="text-center text-white text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl mb-10 md:mb-14 max-w-4xl mx-auto font-light opacity-95 leading-relaxed px-6 break-words">
+            <p className="text-center text-white text-base sm:text-lg md:text-xl lg:text-2xl mb-8 sm:mb-10 md:mb-14 max-w-4xl mx-auto font-light opacity-95 leading-relaxed px-4 sm:px-6 break-words">
               Expert consultation and advocacy for the safe integration of drone technology into your operations
             </p>
 
