@@ -25,7 +25,7 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://thebostondroneschool.org'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://bostondroneschool.org'),
   title: 'The Boston Drone School | FAA Part 107 Certification & Professional Drone Training',
   description:
     'Professional FAA Part 107 drone certification training with 98% pass rate. Expert instruction, commercial drone operations, and comprehensive UAS training programs in Boston.',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     title: 'The Boston Drone School | FAA Part 107 Certification & Professional Drone Training',
     description:
       'Earn your FAA Part 107 certification with Boston Drone School. 98% first-time pass rate. Expert instruction, commercial operations training, and comprehensive learning portal.',
-    url: 'https://thebostondroneschool.org',
+    url: 'https://bostondroneschool.org',
     siteName: 'The Boston Drone School',
     type: 'website',
     images: [
