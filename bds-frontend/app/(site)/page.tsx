@@ -137,7 +137,7 @@ export default function MarketingHomePage() {
         <div className="relative w-full" style={{ background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.75) 50%, rgba(0, 0, 0, 0.9) 100%)' }}>
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 sm:py-20 md:py-24 lg:py-28 pb-20 sm:pb-24 md:pb-28 lg:pb-32 w-full">
             {/* Logo */}
-            <div className="flex justify-center mb-10 md:mb-12 w-full bg-white/90 rounded-2xl py-8 px-6">
+            <div className="flex justify-center mb-10 md:mb-12 w-full">
               <Image
                 src="/images/tbds-graphic.jpg"
                 alt="Boston Drone School"
