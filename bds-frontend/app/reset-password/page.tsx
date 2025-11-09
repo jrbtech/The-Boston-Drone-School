@@ -2,7 +2,6 @@
 
 import { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 function ResetPasswordForm() {
@@ -82,18 +81,6 @@ function ResetPasswordForm() {
   return (
     <div className="min-h-screen bg-black flex items-center justify-center px-6 py-12 text-white">
       <div className="w-full max-w-md">
-        {/* Logo */}
-        <Link href="/" className="flex items-center justify-center mb-8">
-          <Image
-            src="/images/boston-drone-school-logo.svg"
-            alt="Boston Drone School"
-            width={200}
-            height={80}
-            className="h-auto w-40 object-contain brightness-0 invert"
-            priority
-          />
-        </Link>
-
         {/* Reset Password Card */}
         <div className="bg-white rounded-2xl p-8 text-gray-900">
           {success ? (
