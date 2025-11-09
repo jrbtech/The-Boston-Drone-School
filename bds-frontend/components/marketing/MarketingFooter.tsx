@@ -108,9 +108,21 @@ export function MarketingFooter() {
       </div>
 
       <div className="border-t border-white/15 bg-black/80">
-        <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-3 px-6 py-6 text-[0.65rem] uppercase tracking-[0.24em] text-white/50 sm:flex-row sm:justify-between">
-          <span>© {year} The Boston Drone School | All Rights Reserved.</span>
-          <span>Boston · Massachusetts</span>
+        <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-6 px-6 py-8 text-[0.65rem] uppercase tracking-[0.24em] text-white/50">
+          <div className="flex justify-center">
+            <Image
+              src="/images/tbds-graphic.jpg"
+              alt="TBDS"
+              width={150}
+              height={150}
+              className="h-20 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity"
+            />
+          </div>
+          <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
+            <span>© {year} The Boston Drone School | All Rights Reserved.</span>
+            <span className="hidden sm:inline text-white/30">|</span>
+            <span>Boston · Massachusetts</span>
+          </div>
         </div>
       </div>
     </footer>
