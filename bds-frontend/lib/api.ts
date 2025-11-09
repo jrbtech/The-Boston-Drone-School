@@ -1,7 +1,5 @@
 // API client for backend communication
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
-
 export interface Course {
   id: string
   title: string
@@ -334,16 +332,20 @@ const normalizeLesson = (raw: RawLesson): Lesson => ({
 })
 
 class ApiClient {
-  private baseUrl: string;
-
-  constructor(baseUrl: string) {
-    this.baseUrl = baseUrl;
+  private getBaseUrl(): string {
+    if (typeof window !== 'undefined') {
+      // Client-side: use environment variable or fallback to production URL
+      return process.env.NEXT_PUBLIC_API_URL || 'https://bds-backend-5ao0.onrender.com'
+    }
+    // Server-side
+    return process.env.NEXT_PUBLIC_API_URL || 'https://bds-backend-5ao0.onrender.com'
   }
 
   private async fetch(endpoint: string, options?: RequestInit) {
     const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+    const baseUrl = this.getBaseUrl()
 
-    const response = await fetch(`${this.baseUrl}${endpoint}`, {
+    const response = await fetch(`${baseUrl}${endpoint}`, {
       ...options,
       headers: {
         'Content-Type': 'application/json',
@@ -501,4 +503,4 @@ class ApiClient {
   }
 }
 
-export const api = new ApiClient(API_BASE_URL);
+export const api = new ApiClient();
