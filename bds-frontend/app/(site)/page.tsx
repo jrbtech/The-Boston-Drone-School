@@ -125,7 +125,7 @@ export default function MarketingHomePage() {
   return (
     <div className="bg-white text-black">
       {/* Premium Hero Section with Video Background */}
-      <section className="hero-video-container relative" style={{ minHeight: 'auto', background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)' }}>
+      <section className="relative w-full" style={{ background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)' }}>
         {/* Fallback gradient background for when video is loading/missing */}
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black -z-10" />
 
@@ -134,8 +134,8 @@ export default function MarketingHomePage() {
           <source src="/assets/videos/hero-drone-flight.mp4" type="video/mp4" />
         </video> */}
 
-        <div className="semantic-overlay overlay-enhanced w-full">
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 md:py-28 w-full">
+        <div className="relative w-full" style={{ background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.75) 50%, rgba(0, 0, 0, 0.9) 100%)' }}>
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 sm:py-20 md:py-24 lg:py-28 pb-20 sm:pb-24 md:pb-28 lg:pb-32 w-full">
             {/* Logo */}
             <div className="flex justify-center mb-10 md:mb-12 w-full bg-white/90 rounded-2xl py-8 px-6">
               <Image
@@ -166,26 +166,26 @@ export default function MarketingHomePage() {
             </p>
 
             {/* Service Highlights */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4 lg:gap-6 max-w-6xl mx-auto mb-8 md:mb-10 px-4">
-              <div className="text-center py-4 px-3 bg-white/5 rounded-lg backdrop-blur-sm">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4 lg:gap-6 max-w-6xl mx-auto mb-10 md:mb-12 px-4">
+              <div className="text-center py-5 px-4 bg-white/15 rounded-lg backdrop-blur-sm border border-white/20">
                 <div className="text-white text-xs sm:text-sm md:text-base font-semibold">STEM Consultation</div>
               </div>
-              <div className="text-center py-4 px-3 bg-white/5 rounded-lg backdrop-blur-sm">
+              <div className="text-center py-5 px-4 bg-white/15 rounded-lg backdrop-blur-sm border border-white/20">
                 <div className="text-white text-xs sm:text-sm md:text-base font-semibold">Real Estate Media</div>
               </div>
-              <div className="text-center py-4 px-3 bg-white/5 rounded-lg backdrop-blur-sm">
+              <div className="text-center py-5 px-4 bg-white/15 rounded-lg backdrop-blur-sm border border-white/20">
                 <div className="text-white text-xs sm:text-sm md:text-base font-semibold">3D Modeling</div>
               </div>
-              <div className="text-center py-4 px-3 bg-white/5 rounded-lg backdrop-blur-sm">
+              <div className="text-center py-5 px-4 bg-white/15 rounded-lg backdrop-blur-sm border border-white/20">
                 <div className="text-white text-xs sm:text-sm md:text-base font-semibold">Part 107 Training</div>
               </div>
-              <div className="text-center py-4 px-3 bg-white/5 rounded-lg backdrop-blur-sm">
+              <div className="text-center py-5 px-4 bg-white/15 rounded-lg backdrop-blur-sm border border-white/20">
                 <div className="text-white text-xs sm:text-sm md:text-base font-semibold">Policy Advocacy</div>
               </div>
             </div>
 
             {/* Primary CTA */}
-            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center px-6 sm:px-8 mt-8 md:mt-10 max-w-4xl mx-auto">
+            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center px-6 sm:px-8 mt-12 md:mt-16 max-w-4xl mx-auto">
               <Link
                 href="/services"
                 className="btn-premium-cta no-underline text-center px-6 sm:px-10 md:px-12 py-3 sm:py-4 text-sm sm:text-base md:text-lg font-bold w-full sm:w-auto whitespace-nowrap"
