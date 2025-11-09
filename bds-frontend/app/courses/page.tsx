@@ -18,17 +18,31 @@ export default function CoursesPage() {
     try {
       setLoading(true)
       setError(null)
+      console.log('[COURSES] Starting to load courses...')
+
       const filters: any = {}
       if (selectedCategory !== 'all') filters.category = selectedCategory
       if (selectedLevel !== 'all') filters.level = selectedLevel
 
+      console.log('[COURSES] Filters:', filters)
+      console.log('[COURSES] Calling api.getCourses...')
+
       const response = await api.getCourses(filters)
+      console.log('[COURSES] Response received:', response)
+      console.log('[COURSES] Courses count:', response.courses?.length)
+
       setCourses(response.courses || [])
+      console.log('[COURSES] Courses set successfully')
     } catch (error) {
-      console.error('Failed to load courses:', error)
+      console.error('[COURSES] Failed to load courses:', error)
+      console.error('[COURSES] Error details:', {
+        message: error instanceof Error ? error.message : String(error),
+        stack: error instanceof Error ? error.stack : undefined
+      })
       setError(error instanceof Error ? error.message : 'Failed to load courses')
     } finally {
       setLoading(false)
+      console.log('[COURSES] Loading complete')
     }
   }, [selectedCategory, selectedLevel])
 

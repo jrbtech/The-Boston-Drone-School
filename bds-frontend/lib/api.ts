@@ -344,22 +344,38 @@ class ApiClient {
   private async fetch(endpoint: string, options?: RequestInit) {
     const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
     const baseUrl = this.getBaseUrl()
+    const fullUrl = `${baseUrl}${endpoint}`
 
-    const response = await fetch(`${baseUrl}${endpoint}`, {
-      ...options,
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token && { 'Authorization': `Bearer ${token}` }),
-        ...options?.headers,
-      },
-    });
+    console.log('[API] Fetching:', fullUrl)
+    console.log('[API] Base URL:', baseUrl)
+    console.log('[API] Endpoint:', endpoint)
 
-    if (!response.ok) {
-      const error = await response.json().catch(() => ({ error: response.statusText }));
-      throw new Error(error.error || `API Error: ${response.statusText}`);
+    try {
+      const response = await fetch(fullUrl, {
+        ...options,
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token && { 'Authorization': `Bearer ${token}` }),
+          ...options?.headers,
+        },
+      });
+
+      console.log('[API] Response status:', response.status)
+      console.log('[API] Response ok:', response.ok)
+
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({ error: response.statusText }));
+        console.error('[API] Error response:', error)
+        throw new Error(error.error || `API Error: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log('[API] Response data received')
+      return data;
+    } catch (error) {
+      console.error('[API] Fetch error:', error)
+      throw error
     }
-
-    return response.json();
   }
 
   // Authentication

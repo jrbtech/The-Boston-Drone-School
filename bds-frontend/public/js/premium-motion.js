@@ -40,6 +40,9 @@
               console.log('Video autoplay prevented:', err);
             });
           }
+
+          // Stop observing this element after it's revealed (performance optimization)
+          observer.unobserve(entry.target);
         }
       });
     }, config.observerOptions);
@@ -71,9 +74,18 @@
     if (!heroVideo && !heroOverlay) return;
 
     let ticking = false;
+    let lastScrollY = window.pageYOffset;
 
     function updateParallax() {
       const scrolled = window.pageYOffset;
+
+      // Only update if scrolled more than 5px (reduces unnecessary updates)
+      if (Math.abs(scrolled - lastScrollY) < 5) {
+        ticking = false;
+        return;
+      }
+
+      lastScrollY = scrolled;
 
       if (heroVideo) {
         const videoTransform = `translate(-50%, calc(-50% + ${scrolled * config.parallaxMultiplier}px)) scale(1)`;
@@ -95,7 +107,7 @@
         window.requestAnimationFrame(updateParallax);
         ticking = true;
       }
-    });
+    }, { passive: true });
   }
 
   // ============================================================================
@@ -125,7 +137,7 @@
         window.requestAnimationFrame(updateNav);
         ticking = true;
       }
-    });
+    }, { passive: true });
   }
 
   // ============================================================================
@@ -437,6 +449,12 @@
   // ============================================================================
 
   function init() {
+    // Prevent multiple initializations
+    if (window.__BDS_MOTION_INITIALIZED__) {
+      console.log('Boston Drone School - Motion System already initialized, skipping');
+      return;
+    }
+
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', init);
@@ -444,6 +462,9 @@
     }
 
     console.log('Boston Drone School - Premium Motion System Initialized');
+
+    // Mark as initialized
+    window.__BDS_MOTION_INITIALIZED__ = true;
 
     // Initialize all features
     optimizePerformance();
