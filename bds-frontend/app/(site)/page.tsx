@@ -209,43 +209,41 @@ export default function MarketingHomePage() {
       {/* Mission Section - Premium Styling */}
       <section className="section-spacing bg-white">
         <div className="container-premium">
-          <div className="grid gap-12 lg:gap-16 lg:grid-cols-2 lg:items-start reveal-on-scroll">
-            <div className="space-y-8">
-              <span className="caption text-gray-500">Our Mission</span>
-              <h2 className="h2 leading-tight">
-                Precision unmanned aircraft operations engineered for mission-critical applications.
-              </h2>
-              <div className="course-card p-10 flex flex-col sm:flex-row gap-8 items-center">
-                <div className="flex-shrink-0">
-                  <div className="relative overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg">
-                    <Image
-                      src="/images/gregory-anthony-blaize-real.webp"
-                      alt="Gregory Anthony Blaize, Founder and FAA Certified Remote Pilot"
-                      width={180}
-                      height={180}
-                      className="h-44 w-44 object-cover grayscale-image"
-                      priority
-                    />
-                  </div>
-                </div>
-                <div className="space-y-4 text-center sm:text-left flex-1">
-                  <div className="space-y-2">
-                    <p className="text-base font-bold uppercase tracking-wider text-gray-900">
-                      Gregory Anthony Blaize
-                    </p>
-                    <p className="caption text-gray-600">
-                      Founder • FAA Certified Remote Pilot
-                    </p>
-                  </div>
-                  <p className="small-text text-gray-700 leading-relaxed">
-                    Gregory integrates extensive experience in governmental affairs, international relations, and law enforcement with advanced UAS operations expertise to deliver comprehensive aerial intelligence solutions.
-                  </p>
+          <div className="space-y-12 reveal-on-scroll max-w-4xl mx-auto">
+            <span className="caption text-gray-500">Our Mission</span>
+            <h2 className="h2 leading-tight">
+              Precision unmanned aircraft operations engineered for mission-critical applications.
+            </h2>
+            <div className="course-card p-10 flex flex-col sm:flex-row gap-8 items-center">
+              <div className="flex-shrink-0">
+                <div className="relative overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg">
+                  <Image
+                    src="/images/gregory-anthony-blaize-real.webp"
+                    alt="Gregory Anthony Blaize, Founder and FAA Certified Remote Pilot"
+                    width={180}
+                    height={180}
+                    className="h-44 w-44 object-cover grayscale-image"
+                    priority
+                  />
                 </div>
               </div>
-              <p className="body text-gray-700 leading-relaxed">
-                Established in 2020, The Boston Drone School provides a strategic framework for organizational UAS integration. Our comprehensive services encompass advanced data acquisition, regulatory compliance architecture, and professional pilot development.
-              </p>
+              <div className="space-y-4 text-center sm:text-left flex-1">
+                <div className="space-y-2">
+                  <p className="text-base font-bold uppercase tracking-wider text-gray-900">
+                    Gregory Anthony Blaize
+                  </p>
+                  <p className="caption text-gray-600">
+                    Founder • FAA Certified Remote Pilot
+                  </p>
+                </div>
+                <p className="small-text text-gray-700 leading-relaxed">
+                  Gregory integrates extensive experience in governmental affairs, international relations, and law enforcement with advanced UAS operations expertise to deliver comprehensive aerial intelligence solutions.
+                </p>
+              </div>
             </div>
+            <p className="body text-gray-700 leading-relaxed">
+              Established in 2020, The Boston Drone School provides a strategic framework for organizational UAS integration. Our comprehensive services encompass advanced data acquisition, regulatory compliance architecture, and professional pilot development.
+            </p>
             <div className="course-card p-10 bg-off-white w-full">
               <h3 className="caption text-gray-600 mb-8">
                 What guides our work
@@ -401,7 +399,7 @@ export default function MarketingHomePage() {
               </div>
             </div>
 
-            <div className="course-card p-10 bg-gray-800 border border-white/20">
+            <div className="p-10 bg-gray-800 border border-white/20 rounded-lg">
               <h3 className="text-lg font-bold text-white mb-8">Get Started</h3>
               <form
                 className="space-y-6"
