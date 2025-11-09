@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import AutoplayVideo from "@/components/marketing/AutoplayVideo";
-import Footer from "@/components/layout/Footer";
 
 const operations = [
   {
@@ -136,7 +135,7 @@ export default function MarketingHomePage() {
         </video> */}
 
         <div className="semantic-overlay overlay-enhanced">
-          <div className="max-w-5xl mx-auto px-6 py-16 md:py-20">
+          <div className="max-w-5xl mx-auto px-6 py-24 md:py-32">
             {/* Logo */}
             <div className="flex justify-center mb-12">
               <Image
@@ -210,7 +209,7 @@ export default function MarketingHomePage() {
       {/* Mission Section - Premium Styling */}
       <section className="section-spacing bg-white">
         <div className="container-premium">
-          <div className="grid gap-12 lg:gap-16 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-start reveal-on-scroll">
+          <div className="grid gap-12 lg:gap-16 lg:grid-cols-2 lg:items-start reveal-on-scroll">
             <div className="space-y-8">
               <span className="caption text-gray-500">Our Mission</span>
               <h2 className="h2 leading-tight">
@@ -247,15 +246,15 @@ export default function MarketingHomePage() {
                 Established in 2020, The Boston Drone School provides a strategic framework for organizational UAS integration. Our comprehensive services encompass advanced data acquisition, regulatory compliance architecture, and professional pilot development.
               </p>
             </div>
-            <div className="course-card p-10 bg-off-white">
+            <div className="course-card p-10 bg-off-white w-full">
               <h3 className="caption text-gray-600 mb-8">
                 What guides our work
               </h3>
-              <ul className="space-y-5">
+              <ul className="space-y-5 w-full">
                 {missionHighlights.map((item) => (
-                  <li key={item} className="flex items-start gap-4 small-text text-gray-700 leading-relaxed">
+                  <li key={item} className="flex items-start gap-4 small-text text-gray-700 leading-relaxed w-full">
                     <span className="mt-1.5 h-2 w-2 rounded-full bg-black flex-shrink-0" />
-                    <span>{item}</span>
+                    <span className="flex-1">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -402,7 +401,7 @@ export default function MarketingHomePage() {
               </div>
             </div>
 
-            <div className="course-card p-10 bg-white/10 border border-white/30">
+            <div className="course-card p-10 bg-gray-800 border border-white/20">
               <h3 className="text-lg font-bold text-white mb-8">Get Started</h3>
               <form
                 className="space-y-6"
@@ -415,7 +414,7 @@ export default function MarketingHomePage() {
                     type="text"
                     name="name"
                     required
-                    className="w-full border border-white/30 bg-white/5 px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white focus:bg-white/10 rounded"
+                    className="w-full border border-white/30 bg-gray-900/50 px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white focus:bg-gray-900 rounded"
                   />
                 </label>
                 <label className="block">
@@ -423,7 +422,7 @@ export default function MarketingHomePage() {
                   <input
                     type="tel"
                     name="phone"
-                    className="w-full border border-white/30 bg-white/5 px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white focus:bg-white/10 rounded"
+                    className="w-full border border-white/30 bg-gray-900/50 px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white focus:bg-gray-900 rounded"
                   />
                 </label>
                 <label className="block">
@@ -432,7 +431,7 @@ export default function MarketingHomePage() {
                     type="email"
                     name="email"
                     required
-                    className="w-full border border-white/30 bg-white/5 px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white focus:bg-white/10 rounded"
+                    className="w-full border border-white/30 bg-gray-900/50 px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white focus:bg-gray-900 rounded"
                   />
                 </label>
                 <label className="block">
@@ -440,13 +439,13 @@ export default function MarketingHomePage() {
                   <input
                     type="file"
                     name="resume"
-                    className="w-full border border-white/30 bg-white/5 px-4 py-3 text-sm text-white file:mr-4 file:border-0 file:bg-white/30 file:px-4 file:py-2 file:text-white file:font-semibold file:uppercase rounded"
+                    className="w-full border border-white/30 bg-gray-900/50 px-4 py-3 text-sm text-white file:mr-4 file:border-0 file:bg-gray-700 file:px-4 file:py-2 file:text-white file:font-semibold file:uppercase rounded file:rounded"
                   />
                 </label>
                 <button type="submit" className="w-full bg-white text-black px-6 py-4 font-bold text-sm uppercase tracking-wider hover:bg-gray-100 transition rounded">
                   Submit Application
                 </button>
-                <p className="text-xs text-white/70 leading-relaxed pt-2">
+                <p className="text-xs text-white/90 leading-relaxed pt-2">
                   This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.
                 </p>
               </form>
@@ -527,8 +526,6 @@ export default function MarketingHomePage() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 }

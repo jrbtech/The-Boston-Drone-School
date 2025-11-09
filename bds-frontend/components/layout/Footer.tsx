@@ -10,17 +10,18 @@ export default function Footer() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Logo and Description */}
           <div className="lg:col-span-1 space-y-6">
-            <Link href="/" className="inline-block mb-2">
+            <Link href="/" className="inline-block mb-4">
               <Image
                 src="/images/boston-drone-school-logo.svg"
                 alt="Boston Drone School"
                 width={600}
                 height={280}
-                className="h-auto w-44 object-contain brightness-0 invert"
+                className="h-20 w-auto object-contain brightness-0 invert"
+                style={{ filter: 'brightness(0) invert(1)' }}
               />
             </Link>
             <p className="text-sm leading-relaxed text-gray-400">
-              Professional unmanned aircraft solutions, FAA-certified training, and comprehensive regulatory guidance.
+              Professional unmanned aircraft solutions, exam preparation resources, and comprehensive UAS consulting services.
             </p>
           </div>
 

@@ -28,8 +28,8 @@ export function MarketingFooter() {
             />
           </Link>
           <p className="text-sm leading-relaxed text-white/70">
-            We deliver licensed drone services, policy guidance, and focused
-            training for public, private, and community partners across New
+            Professional UAS consulting, operational services, and exam preparation
+            resources for public, private, and community partners across New
             England.
           </p>
           <div className="flex flex-wrap gap-4 text-xs uppercase tracking-[0.22em] text-white/60">
