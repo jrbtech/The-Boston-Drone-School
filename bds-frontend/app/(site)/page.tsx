@@ -125,7 +125,7 @@ export default function MarketingHomePage() {
   return (
     <div className="bg-white text-black">
       {/* Premium Hero Section with Video Background */}
-      <section className="hero-video-container relative overflow-hidden" style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)' }}>
+      <section className="hero-video-container relative" style={{ minHeight: 'auto', background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)' }}>
         {/* Fallback gradient background for when video is loading/missing */}
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black -z-10" />
 
@@ -139,12 +139,11 @@ export default function MarketingHomePage() {
             {/* Logo */}
             <div className="flex justify-center mb-10 md:mb-12 w-full">
               <Image
-                src="/images/boston-drone-school-logo.svg"
+                src="/images/tbds-graphic.jpg"
                 alt="Boston Drone School"
-                width={600}
-                height={280}
-                className="h-24 sm:h-28 md:h-36 lg:h-40 w-auto drop-shadow-2xl max-w-full"
-                style={{ filter: 'drop-shadow(0 4px 12px rgba(255, 255, 255, 0.1))' }}
+                width={300}
+                height={300}
+                className="h-32 sm:h-36 md:h-44 lg:h-52 w-auto drop-shadow-2xl max-w-full brightness-0 invert"
                 priority
               />
             </div>
