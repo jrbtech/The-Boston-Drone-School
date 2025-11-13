@@ -69,7 +69,7 @@ export default function CheckoutPage() {
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4">Course Not Found</h1>
-          <Link href="/courses" className="text-blue-600 hover:text-blue-700 underline">
+          <Link href="/courses" className="text-black hover:text-gray-700 underline">
             Back to Courses
           </Link>
         </div>
@@ -88,9 +88,9 @@ export default function CheckoutPage() {
           </div>
         </header>
 
-        <div className="container mx-auto px-6 py-20">
+        <div className="container mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
           <div className="max-w-2xl mx-auto text-center">
-            <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="w-16 h-16 bg-gray-900 rounded-full flex items-center justify-center mx-auto mb-6">
               <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
@@ -99,7 +99,7 @@ export default function CheckoutPage() {
             <p className="text-gray-700 text-lg mb-8">
               Thank you for your interest in <strong>{course.title}</strong>. We&apos;ll send you a secure payment link within 24 hours.
             </p>
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
+            <div className="bg-gray-100 border border-gray-200 rounded-lg p-6 mb-8">
               <h2 className="font-semibold mb-3">What Happens Next:</h2>
               <ol className="text-left text-sm space-y-2 ml-4 list-decimal">
                 <li>Check your email for a confirmation message</li>
@@ -142,8 +142,8 @@ export default function CheckoutPage() {
       </header>
 
       {/* Hero */}
-      <section className="bg-black text-white py-16">
-        <div className="container mx-auto px-6">
+      <section className="bg-black text-white py-16 md:py-20 lg:py-24">
+        <div className="container mx-auto px-6 md:px-8 lg:px-12">
           <div className="max-w-4xl mx-auto text-center">
             <span className="inline-block bg-white/10 text-white px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider mb-6">
               Ready to Enroll
@@ -188,7 +188,7 @@ export default function CheckoutPage() {
                   <div className="space-y-2">
                     {course.materials.map((material, idx) => (
                       <div key={idx} className="flex items-start gap-3">
-                        <svg className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="w-5 h-5 text-black600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                         <span className="text-gray-700">{material}</span>
@@ -274,9 +274,9 @@ export default function CheckoutPage() {
                   </div>
 
                   <div className="border-t-2 border-gray-200 pt-6">
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-                      <p className="text-sm text-blue-900 font-semibold mb-2">How Enrollment Works:</p>
-                      <ol className="text-xs text-blue-800 space-y-1 ml-4 list-decimal">
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
+                      <p className="text-sm text-black900 font-semibold mb-2">How Enrollment Works:</p>
+                      <ol className="text-xs text-black800 space-y-1 ml-4 list-decimal">
                         <li>Submit this form to reserve your spot</li>
                         <li>We&apos;ll email you within 24 hours with payment options</li>
                         <li>Complete payment via Stripe, PayPal, or wire transfer</li>

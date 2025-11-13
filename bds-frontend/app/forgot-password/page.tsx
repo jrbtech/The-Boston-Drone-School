@@ -115,7 +115,7 @@ export default function ForgotPasswordPage() {
             </>
           ) : (
             <div className="text-center py-4">
-              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-16 h-16 bg-gray-900 rounded-full flex items-center justify-center mx-auto mb-6">
                 <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
@@ -136,7 +136,7 @@ export default function ForgotPasswordPage() {
                   </p>
                   <a
                     href={resetUrl}
-                    className="text-sm text-blue-600 hover:text-blue-700 break-all underline"
+                    className="text-sm text-black hover:text-gray-700 break-all underline"
                   >
                     {resetUrl}
                   </a>
