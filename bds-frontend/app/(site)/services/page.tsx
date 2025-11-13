@@ -147,7 +147,7 @@ export default function ServicesPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-black mt-1">✓</span>
-                  <span>250+ practice exam questions</span>
+                  <span>250+ practice exam</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-black mt-1">✓</span>

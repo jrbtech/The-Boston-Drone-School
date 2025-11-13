@@ -141,8 +141,8 @@ export default function ShopPage() {
       </header>
 
       {/* Hero */}
-      <section className="bg-black text-white py-16">
-        <div className="container-premium">
+      <section className="bg-black text-white py-20 md:py-24 lg:py-28">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <h1 className="h1 text-white">Drone Equipment & Training Materials</h1>
             <p className="body-large text-white/80">
@@ -152,10 +152,25 @@ export default function ShopPage() {
         </div>
       </section>
 
+      {/* Purchase Notice */}
+      <section className="bg-gray-900 text-white py-4">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-3 text-center md:text-left">
+            <div className="flex items-center gap-2">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              <span className="text-sm font-medium">Interested in purchasing?</span>
+            </div>
+            <span className="text-sm">Contact <a href="mailto:info@thebostondroneschool.org" className="underline font-semibold hover:text-gray-300">info@thebostondroneschool.org</a> for pricing and availability.</span>
+          </div>
+        </div>
+      </section>
+
       {/* Filter */}
-      <section className="bg-gray-50 border-b border-gray-200 py-6">
-        <div className="container-premium">
-          <div className="flex flex-wrap gap-3 justify-center">
+      <section className="bg-gray-50 border-b border-gray-200 py-8 md:py-10">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
+          <div className="flex flex-wrap gap-4 justify-center">
             {categories.map(cat => (
               <button
                 key={cat}
@@ -174,20 +189,24 @@ export default function ShopPage() {
       </section>
 
       {/* Products Grid */}
-      <section className="section-spacing">
-        <div className="container-premium">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <section className="py-16 md:py-20 lg:py-24">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12">
             {filteredProducts.map((product) => (
               <div key={product.id} className="course-card overflow-hidden group">
                 {/* Product Image */}
-                <div className="relative h-64 bg-gray-200">
-                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-300">
-                    <svg className="w-24 h-24 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                    </svg>
+                <div className="relative h-64 bg-white">
+                  <div className="absolute inset-0 flex items-center justify-center bg-white p-8">
+                    <Image
+                      src="/images/tbds-graphic.jpg"
+                      alt="Boston Drone School"
+                      width={200}
+                      height={140}
+                      className="object-contain"
+                    />
                   </div>
                   {product.inStock && (
-                    <div className="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 text-xs font-semibold rounded-full">
+                    <div className="absolute top-4 right-4 bg-black text-white px-3 py-1 text-xs font-semibold rounded-full">
                       In Stock
                     </div>
                   )}
@@ -210,7 +229,7 @@ export default function ShopPage() {
                     <ul className="space-y-2">
                       {product.features.slice(0, 3).map((feature, idx) => (
                         <li key={idx} className="flex items-start gap-2 text-sm text-gray-700">
-                          <svg className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <svg className="w-4 h-4 text-gray-900 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                           </svg>
                           {feature}
@@ -223,10 +242,10 @@ export default function ShopPage() {
                   </div>
 
                   <Link
-                    href={`/shop/${product.id}`}
+                    href="/inquiry"
                     className="block w-full bg-black text-white text-center py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors mt-6"
                   >
-                    View Details
+                    Contact for Purchase
                   </Link>
                 </div>
               </div>
@@ -236,9 +255,9 @@ export default function ShopPage() {
       </section>
 
       {/* Shipping Info */}
-      <section className="bg-gray-50 py-12">
-        <div className="container-premium">
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <section className="bg-gray-50 py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
+          <div className="grid md:grid-cols-3 gap-8 md:gap-10 lg:gap-12 max-w-5xl mx-auto">
             <div className="text-center space-y-3">
               <div className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center mx-auto">
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -273,9 +292,9 @@ export default function ShopPage() {
       </section>
 
       {/* CTA */}
-      <section className="section-spacing bg-black text-white">
-        <div className="container-premium text-center">
-          <div className="max-w-3xl mx-auto space-y-6">
+      <section className="py-20 md:py-24 lg:py-28 bg-black text-white">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 text-center">
+          <div className="max-w-3xl mx-auto space-y-8">
             <h2 className="h2 text-white">Need Help Choosing Equipment?</h2>
             <p className="body text-white/80">
               Our drone experts can help you select the right equipment for your specific needs and budget.

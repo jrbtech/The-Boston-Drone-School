@@ -186,22 +186,16 @@ export default function MarketingHomePage() {
               Expert consultation and advocacy for the safe integration of drone technology into your operations
             </p>
 
-            {/* Service Highlights */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4 lg:gap-6 max-w-6xl mx-auto mb-10 md:mb-12 px-4">
-              <div className="text-center py-5 px-4 bg-white/15 rounded-lg backdrop-blur-sm border border-white/20">
-                <div className="text-white text-xs sm:text-sm md:text-base font-semibold">STEM Consultation</div>
+            {/* Three Pillars */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto mb-10 md:mb-12 px-4">
+              <div className="text-center py-8 px-6 bg-white/15 rounded-lg backdrop-blur-sm border border-white/20">
+                <div className="text-white text-sm md:text-base lg:text-lg font-semibold">Enterprise Consultation</div>
               </div>
-              <div className="text-center py-5 px-4 bg-white/15 rounded-lg backdrop-blur-sm border border-white/20">
-                <div className="text-white text-xs sm:text-sm md:text-base font-semibold">Real Estate Media</div>
+              <div className="text-center py-8 px-6 bg-white/15 rounded-lg backdrop-blur-sm border border-white/20">
+                <div className="text-white text-sm md:text-base lg:text-lg font-semibold">Drone Operations / STEM Workforce Training</div>
               </div>
-              <div className="text-center py-5 px-4 bg-white/15 rounded-lg backdrop-blur-sm border border-white/20">
-                <div className="text-white text-xs sm:text-sm md:text-base font-semibold">3D Modeling</div>
-              </div>
-              <div className="text-center py-5 px-4 bg-white/15 rounded-lg backdrop-blur-sm border border-white/20">
-                <div className="text-white text-xs sm:text-sm md:text-base font-semibold">Part 107 Training</div>
-              </div>
-              <div className="text-center py-5 px-4 bg-white/15 rounded-lg backdrop-blur-sm border border-white/20">
-                <div className="text-white text-xs sm:text-sm md:text-base font-semibold">Policy Advocacy</div>
+              <div className="text-center py-8 px-6 bg-white/15 rounded-lg backdrop-blur-sm border border-white/20">
+                <div className="text-white text-sm md:text-base lg:text-lg font-semibold">Advocacy / Public Relations</div>
               </div>
             </div>
 

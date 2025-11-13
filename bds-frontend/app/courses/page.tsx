@@ -252,26 +252,41 @@ export default function CoursesPage() {
         </header>
 
         {/* Hero Section */}
-        <section className="relative bg-black text-white py-20 gradient-animated-bg overflow-hidden">
+        <section className="relative bg-black text-white py-20 md:py-24 lg:py-28 gradient-animated-bg overflow-hidden">
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute -left-24 top-14 h-64 w-64 rounded-full bg-white/10 blur-3xl animate-float" />
             <div className="absolute -right-20 bottom-12 h-72 w-72 rounded-full bg-white/10 blur-3xl animate-float-delayed" />
           </div>
-          <div className="container mx-auto px-6 relative z-10">
+          <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 relative z-10">
             <div className="max-w-4xl">
-              <p className="uppercase tracking-[0.3em] text-sm text-gray-500 mb-5 text-reveal">Academics</p>
-              <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6 text-reveal stagger-1">Select a training pathway engineered for professional deployment.</h1>
-              <p className="text-lg text-gray-300 leading-relaxed text-reveal stagger-2">
+              <p className="uppercase tracking-[0.3em] text-sm text-gray-500 mb-6 text-reveal">Academics</p>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-reveal stagger-1">Select a training pathway engineered for professional deployment.</h1>
+              <p className="text-lg md:text-xl text-gray-300 leading-relaxed text-reveal stagger-2">
                 Each syllabus blends regulatory mastery, operational precision, and analytical technique. Filter by specialization or experience level to identify the program that meets your mission profile.
               </p>
             </div>
           </div>
         </section>
 
+        {/* Enrollment Notice */}
+        <section className="bg-gray-900 text-white py-4">
+          <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-3 text-center md:text-left">
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <span className="text-sm font-medium">Interested in enrolling?</span>
+              </div>
+              <span className="text-sm">Contact <a href="mailto:admissions@thebostondroneschool.org" className="underline font-semibold hover:text-gray-300">admissions@thebostondroneschool.org</a> to complete your registration.</span>
+            </div>
+          </div>
+        </section>
+
       {/* Search & Filters */}
       <section className="bg-white border-b">
-        <div className="container mx-auto px-6 py-6">
-            <form onSubmit={handleSearch} className="mb-6">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-8 md:py-10">
+            <form onSubmit={handleSearch} className="mb-8">
               <div className="flex gap-4">
               <input
                 type="text"
@@ -289,7 +304,7 @@ export default function CoursesPage() {
             </div>
           </form>
 
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-6">
             {/* Category Filter */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
@@ -346,7 +361,8 @@ export default function CoursesPage() {
       </section>
 
       {/* Course Grid */}
-      <section className="container mx-auto px-6 py-12">
+      <section className="py-16 md:py-20 lg:py-24">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
         {loading ? (
           <CoursesSkeleton />
         ) : error ? (
@@ -367,7 +383,7 @@ export default function CoursesPage() {
             <p className="text-xl text-gray-600">No courses found matching your criteria.</p>
           </div>
         ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12">
               {courses.map((course, index) => (
                 <Link
                   key={course.id}
@@ -375,7 +391,7 @@ export default function CoursesPage() {
                   className={`bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group card-sophisticated card-reveal stagger-${(index % 4) + 1}`}
                 >
                   {/* Course Thumbnail */}
-                  <div className="relative h-48 bg-gray-200 overflow-hidden zoom-on-hover">
+                  <div className="relative h-48 bg-white overflow-hidden zoom-on-hover">
                     {course.thumbnailUrl ? (
                       <Image
                         src={course.thumbnailUrl}
@@ -387,8 +403,14 @@ export default function CoursesPage() {
                         priority={index < 3}
                       />
                     ) : (
-                      <div className="flex items-center justify-center h-full bg-gradient-to-br from-gray-100 to-gray-300">
-                        <span className="text-lg tracking-[0.5em] uppercase text-gray-500">BDS</span>
+                      <div className="flex items-center justify-center h-full bg-white p-8">
+                        <Image
+                          src="/images/tbds-graphic.jpg"
+                          alt="Boston Drone School"
+                          width={200}
+                          height={140}
+                          className="object-contain"
+                        />
                       </div>
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -425,6 +447,7 @@ export default function CoursesPage() {
               ))}
             </div>
         )}
+        </div>
       </section>
 
       <Footer />
