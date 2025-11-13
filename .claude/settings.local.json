@@ -44,7 +44,8 @@
       "Bash(diff:*)",
       "Bash(echo:*)",
       "Bash(psql:*)",
-      "Bash(export DATABASE_URL=\"postgresql://boston_drone_school_user:iqDWTMEHtw6Ur72krgu16BY7JO2mTFE6@dpg-d44iulkhg0os73cihtr0-a.oregon-postgres.render.com/boston_drone_school\")"
+      "Bash(export DATABASE_URL=\"postgresql://boston_drone_school_user:iqDWTMEHtw6Ur72krgu16BY7JO2mTFE6@dpg-d44iulkhg0os73cihtr0-a.oregon-postgres.render.com/boston_drone_school\")",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []

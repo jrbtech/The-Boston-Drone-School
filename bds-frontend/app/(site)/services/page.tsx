@@ -119,7 +119,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Training & Certification Pricing */}
       <section id="training" className="bg-black text-white py-20 md:py-24 lg:py-28">
         <div className="mx-auto w-full max-w-7xl px-6 md:px-8 lg:px-12">
           <div className="mb-12 md:mb-16 text-center space-y-6">
@@ -261,6 +260,7 @@ export default function ServicesPage() {
               </Link>
             </div>
           </div>
+        </div>
         </div>
       </section>
     </div>
