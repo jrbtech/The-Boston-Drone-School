@@ -144,25 +144,28 @@ export default function ShopPage() {
       <section className="bg-black text-white py-20 md:py-24 lg:py-28">
         <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
           <div className="max-w-4xl mx-auto text-center space-y-6">
+            <span className="inline-block bg-white/10 text-white px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider mb-4">
+              Coming Soon
+            </span>
             <h1 className="h1 text-white">Drone Equipment & Training Materials</h1>
             <p className="body-large text-white/80">
-              Professional-grade equipment and study materials to support your drone operations and certification journey.
+              Professional-grade equipment and study materials to support your drone operations and certification journey. Products not yet available for purchase - contact us to be notified when they launch!
             </p>
           </div>
         </div>
       </section>
 
       {/* Purchase Notice */}
-      <section className="bg-gray-900 text-white py-4">
+      <section className="bg-black text-white py-4 border-b-2 border-white">
         <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
           <div className="flex flex-col md:flex-row items-center justify-center gap-3 text-center md:text-left">
             <div className="flex items-center gap-2">
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
-              <span className="text-sm font-medium">Interested in purchasing?</span>
+              <span className="text-sm font-semibold">Products Not Yet Available for Purchase</span>
             </div>
-            <span className="text-sm">Contact <a href="mailto:info@thebostondroneschool.org" className="underline font-semibold hover:text-gray-300">info@thebostondroneschool.org</a> for pricing and availability.</span>
+            <span className="text-sm">Products coming soon! Contact <a href="mailto:info@thebostondroneschool.org" className="underline font-semibold hover:text-gray-300">info@thebostondroneschool.org</a> to express interest or get updates.</span>
           </div>
         </div>
       </section>
