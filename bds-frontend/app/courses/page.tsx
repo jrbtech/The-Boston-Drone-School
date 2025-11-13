@@ -226,7 +226,7 @@ export default function CoursesPage() {
             <div className="flex justify-between items-center">
               <Link href="/" className="flex items-center gap-3">
                 <Image
-                  src="/images/tbds-graphic.jpg"
+                  src="/images/TBDS GRAPHIC.jpg"
                   alt="Boston Drone School"
                   width={120}
                   height={84}
@@ -405,7 +405,7 @@ export default function CoursesPage() {
                     ) : (
                       <div className="flex items-center justify-center h-full bg-white p-8">
                         <Image
-                          src="/images/tbds-graphic.jpg"
+                          src="/images/TBDS GRAPHIC.jpg"
                           alt="Boston Drone School"
                           width={200}
                           height={140}

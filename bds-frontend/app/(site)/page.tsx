@@ -160,7 +160,7 @@ export default function MarketingHomePage() {
             {/* Logo */}
             <div className="flex justify-center mb-8 sm:mb-10 md:mb-12 w-full">
               <Image
-                src="/images/tbds-graphic.jpg"
+                src="/images/TBDS GRAPHIC.jpg"
                 alt="Boston Drone School"
                 width={300}
                 height={300}
@@ -404,7 +404,7 @@ export default function MarketingHomePage() {
       </section>
 
       {/* Admissions Section - Premium Dark Theme */}
-      <section className="py-20 md:py-24 lg:py-28 bg-gray-900 text-white">
+      <section className="py-20 md:py-24 lg:py-28 bg-black text-white">
         <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
           <div className="grid gap-12 lg:gap-16 lg:grid-cols-2 reveal-on-scroll">
             <div className="space-y-8">
@@ -433,7 +433,7 @@ export default function MarketingHomePage() {
               </div>
             </div>
 
-            <div className="p-8 md:p-10 bg-gray-800 border border-white/20 rounded-lg">
+            <div className="p-8 md:p-10 bg-black border border-white/20 rounded-lg">
               <h3 className="text-lg font-bold text-white mb-8">Get Started</h3>
               <form
                 className="space-y-6"
@@ -446,7 +446,7 @@ export default function MarketingHomePage() {
                     type="text"
                     name="name"
                     required
-                    className="w-full border border-white/30 bg-gray-900/50 px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white focus:bg-gray-900 rounded"
+                    className="w-full border border-white/30 bg-black px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white rounded"
                   />
                 </label>
                 <label className="block">
@@ -454,7 +454,7 @@ export default function MarketingHomePage() {
                   <input
                     type="tel"
                     name="phone"
-                    className="w-full border border-white/30 bg-gray-900/50 px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white focus:bg-gray-900 rounded"
+                    className="w-full border border-white/30 bg-black px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white rounded"
                   />
                 </label>
                 <label className="block">
@@ -463,7 +463,7 @@ export default function MarketingHomePage() {
                     type="email"
                     name="email"
                     required
-                    className="w-full border border-white/30 bg-gray-900/50 px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white focus:bg-gray-900 rounded"
+                    className="w-full border border-white/30 bg-black px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white rounded"
                   />
                 </label>
                 <label className="block">
@@ -471,10 +471,10 @@ export default function MarketingHomePage() {
                   <input
                     type="file"
                     name="resume"
-                    className="w-full border border-white/30 bg-gray-900/50 px-4 py-3 text-sm text-white file:mr-4 file:border-0 file:bg-gray-700 file:px-4 file:py-2 file:text-white file:font-semibold file:uppercase rounded file:rounded"
+                    className="w-full border border-white/30 bg-black px-4 py-3 text-sm text-white file:mr-4 file:border-0 file:bg-white file:px-4 file:py-2 file:text-black file:font-semibold file:uppercase rounded file:rounded"
                   />
                 </label>
-                <button type="submit" className="w-full bg-white text-black px-6 py-4 font-bold text-sm uppercase tracking-wider hover:bg-gray-100 transition rounded">
+                <button type="submit" className="w-full bg-white text-black px-6 py-4 font-bold text-sm uppercase tracking-wider hover:bg-white/90 transition rounded">
                   Submit Application
                 </button>
                 <p className="text-xs text-white/90 leading-relaxed pt-2">

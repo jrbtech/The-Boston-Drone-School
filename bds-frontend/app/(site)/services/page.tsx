@@ -152,10 +152,6 @@ export default function ServicesPage() {
                   <span className="text-black mt-1">✓</span>
                   <span>2 hour live Q&A webinar office hour</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-black mt-1">✓</span>
-                  <span>Lifetime course access</span>
-                </li>
               </ul>
               <Link href="/portal" className="block w-full bg-black text-white text-center py-3 font-bold hover:bg-gray-800 transition">
                 Enroll Now
@@ -209,11 +205,7 @@ export default function ServicesPage() {
               <ul className="space-y-3 mb-8 text-sm">
                 <li className="flex items-start gap-2">
                   <span className="text-black mt-1">✓</span>
-                  <span>10 hours of Part 107 edification and flight capability</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-black mt-1">✓</span>
-                  <span>UAS business enterprise consultation</span>
+                  <span>10 hours of Part 107 edification and flight capability coupled with UAS business enterprise consultation</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-black mt-1">✓</span>

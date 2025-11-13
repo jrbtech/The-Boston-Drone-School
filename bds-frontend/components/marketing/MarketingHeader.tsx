@@ -27,7 +27,7 @@ const navLinks: NavLink[] = [
 const brandBlock = (
   <Link href="/" className="group flex items-center gap-3 text-left">
     <Image
-      src="/images/tbds-graphic.jpg"
+      src="/images/TBDS GRAPHIC.jpg"
       alt="Boston Drone School"
       width={600}
       height={420}
