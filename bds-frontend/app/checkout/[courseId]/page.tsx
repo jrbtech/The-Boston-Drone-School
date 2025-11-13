@@ -97,16 +97,19 @@ export default function CheckoutPage() {
             </div>
             <h1 className="text-3xl font-bold mb-4">Enrollment Request Received!</h1>
             <p className="text-gray-700 text-lg mb-8">
-              Thank you for your interest in <strong>{course.title}</strong>. We&apos;ll send you a secure payment link within 24 hours.
+              Thank you for your interest in <strong>{course.title}</strong>. Our admissions team will contact you within 24 hours to complete your enrollment.
             </p>
             <div className="bg-gray-100 border border-gray-200 rounded-lg p-6 mb-8">
               <h2 className="font-semibold mb-3">What Happens Next:</h2>
               <ol className="text-left text-sm space-y-2 ml-4 list-decimal">
                 <li>Check your email for a confirmation message</li>
-                <li>You&apos;ll receive a secure payment link within 24 hours</li>
-                <li>Complete payment via Stripe, PayPal, or wire transfer</li>
-                <li>Get instant access to your course materials</li>
+                <li>Our admissions team will contact you within 24 hours</li>
+                <li>Complete enrollment via email, phone, or secure payment link</li>
+                <li>Get instant access to your course materials after payment</li>
               </ol>
+              <div className="mt-4 pt-4 border-t border-gray-300 text-sm text-gray-600">
+                <p><strong>Questions?</strong> Contact <a href="mailto:admissions@thebostondroneschool.org" className="underline text-black font-semibold">admissions@thebostondroneschool.org</a></p>
+              </div>
             </div>
             <div className="flex gap-4 justify-center">
               <Link href="/courses" className="bg-black text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
@@ -146,7 +149,7 @@ export default function CheckoutPage() {
         <div className="container mx-auto px-6 md:px-8 lg:px-12">
           <div className="max-w-4xl mx-auto text-center">
             <span className="inline-block bg-white/10 text-white px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider mb-6">
-              Ready to Enroll
+              Enrollment Request
             </span>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               {course.title}
@@ -162,7 +165,22 @@ export default function CheckoutPage() {
         </div>
       </section>
 
-      {/* Checkout Form */}
+      {/* Enrollment Notice */}
+      <section className="bg-gray-900 text-white py-4">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-3 text-center md:text-left">
+            <div className="flex items-center gap-2">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="text-sm font-medium">Enrollment Process:</span>
+            </div>
+            <span className="text-sm">Submit this form and our admissions team will contact you within 24 hours to complete your enrollment.</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Enrollment Request Form */}
       <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-5 gap-12 max-w-7xl mx-auto">
@@ -173,7 +191,7 @@ export default function CheckoutPage() {
                 <ul className="space-y-3">
                   {course.learningObjectives.map((objective, idx) => (
                     <li key={idx} className="flex items-start gap-3">
-                      <svg className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className="w-6 h-6 text-gray-900 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                       </svg>
                       <span className="text-gray-700">{objective}</span>

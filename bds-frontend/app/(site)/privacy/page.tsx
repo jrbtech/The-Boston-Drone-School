@@ -1,8 +1,8 @@
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-white">
-      <div className="container-premium section-spacing">
-        <div className="max-w-4xl mx-auto space-y-8">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-16 md:py-20 lg:py-24">
+        <div className="max-w-4xl mx-auto space-y-8 md:space-y-10">
           <h1 className="h1">Privacy Policy</h1>
 
           <div className="space-y-6 body text-gray-700">

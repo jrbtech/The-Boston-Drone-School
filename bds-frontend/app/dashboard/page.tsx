@@ -109,15 +109,15 @@ export default function DashboardPage() {
         </header>
 
       {/* Dashboard Content */}
-      <div className="container mx-auto px-6 py-12">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-16 md:py-20 lg:py-24">
         {/* Welcome Section */}
-        <div className="rounded-2xl border border-gray-900 bg-black text-white p-8 mb-8">
-          <h1 className="text-3xl font-bold mb-3 uppercase tracking-[0.2em]">Welcome back, {user.name?.split(' ')[0]}</h1>
+        <div className="rounded-2xl border border-gray-900 bg-black text-white p-8 md:p-10 mb-10 md:mb-12">
+          <h1 className="text-3xl md:text-4xl font-bold mb-3 uppercase tracking-[0.2em]">Welcome back, {user.name?.split(' ')[0]}</h1>
           <p className="text-sm uppercase tracking-[0.3em] text-gray-400">Continue your training schedule</p>
         </div>
 
         {/* Stats */}
-        <div className="grid md:grid-cols-4 gap-6 mb-8">
+        <div className="grid md:grid-cols-4 gap-6 md:gap-8 mb-10 md:mb-12">
           <div className="bg-white border border-gray-200 rounded-xl p-6">
             <div className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-2">Active Courses</div>
             <div className="text-3xl font-bold text-gray-900">
