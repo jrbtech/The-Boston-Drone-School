@@ -12,7 +12,7 @@ export default function Footer() {
           <div className="lg:col-span-1 space-y-6">
             <Link href="/" className="inline-block mb-4">
               <Image
-                src="/images/tbds-graphic.jpg"
+                src="/images/TBDS GRAPHIC.jpg"
                 alt="Boston Drone School"
                 width={600}
                 height={420}

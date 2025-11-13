@@ -198,18 +198,16 @@ export default function ShopPage() {
                 <div className="relative h-64 bg-white">
                   <div className="absolute inset-0 flex items-center justify-center bg-white p-8">
                     <Image
-                      src="/images/tbds-graphic.jpg"
+                      src="/images/TBDS GRAPHIC.jpg"
                       alt="Boston Drone School"
                       width={200}
                       height={140}
                       className="object-contain"
                     />
                   </div>
-                  {product.inStock && (
-                    <div className="absolute top-4 right-4 bg-black text-white px-3 py-1 text-xs font-semibold rounded-full">
-                      In Stock
-                    </div>
-                  )}
+                  <div className="absolute top-4 right-4 bg-white text-black border-2 border-black px-3 py-1 text-xs font-semibold rounded-full">
+                    COMING SOON
+                  </div>
                   <div className="absolute top-4 left-4 bg-white/90 px-3 py-1 text-xs font-semibold uppercase tracking-wider">
                     {product.category}
                   </div>
@@ -257,6 +255,7 @@ export default function ShopPage() {
       {/* Shipping Info */}
       <section className="bg-gray-50 py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
+          <h3 className="text-center text-2xl font-bold mb-10 text-gray-800">When Available, You'll Enjoy:</h3>
           <div className="grid md:grid-cols-3 gap-8 md:gap-10 lg:gap-12 max-w-5xl mx-auto">
             <div className="text-center space-y-3">
               <div className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center mx-auto">

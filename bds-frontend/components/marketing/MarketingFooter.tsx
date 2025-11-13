@@ -20,7 +20,7 @@ export function MarketingFooter() {
         <div className="max-w-md space-y-4 sm:space-y-5">
           <Link href="/" className="inline-block">
             <Image
-              src="/images/tbds-graphic.jpg"
+              src="/images/TBDS GRAPHIC.jpg"
               alt="Boston Drone School logo"
               width={600}
               height={420}
