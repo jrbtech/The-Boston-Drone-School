@@ -71,10 +71,10 @@ export default function ServicesPage() {
               Book a Workflow
             </Link>
             <Link
-              href="/portal"
+              href="/courses"
               className="inline-flex items-center justify-center border border-white/30 bg-white px-6 py-3 text-black transition hover:bg-transparent hover:text-white"
             >
-              Explore Courses
+              Browse Courses
             </Link>
           </div>
         </div>
