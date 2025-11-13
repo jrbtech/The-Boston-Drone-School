@@ -278,7 +278,7 @@ export default function CoursesPage() {
                 </svg>
                 <span className="text-sm font-medium">Interested in enrolling?</span>
               </div>
-              <span className="text-sm">Contact <a href="mailto:admissions@thebostondroneschool.org" className="underline font-semibold hover:text-gray-300">admissions@thebostondroneschool.org</a> to complete your registration.</span>
+              <span className="text-sm">Contact <a href="mailto:info@thebostondroneschool.org" className="underline font-semibold hover:text-gray-300">info@thebostondroneschool.org</a> to complete your registration.</span>
             </div>
           </div>
         </section>

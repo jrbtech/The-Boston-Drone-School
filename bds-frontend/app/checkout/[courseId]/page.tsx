@@ -108,7 +108,7 @@ export default function CheckoutPage() {
                 <li>Get instant access to your course materials after payment</li>
               </ol>
               <div className="mt-4 pt-4 border-t border-gray-300 text-sm text-gray-600">
-                <p><strong>Questions?</strong> Contact <a href="mailto:admissions@thebostondroneschool.org" className="underline text-black font-semibold">admissions@thebostondroneschool.org</a></p>
+                <p><strong>Questions?</strong> Contact <a href="mailto:info@thebostondroneschool.org" className="underline text-black font-semibold">info@thebostondroneschool.org</a></p>
               </div>
             </div>
             <div className="flex gap-4 justify-center">
@@ -166,16 +166,16 @@ export default function CheckoutPage() {
       </section>
 
       {/* Enrollment Notice */}
-      <section className="bg-gray-900 text-white py-4">
+      <section className="bg-black text-white py-4">
         <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
           <div className="flex flex-col md:flex-row items-center justify-center gap-3 text-center md:text-left">
             <div className="flex items-center gap-2">
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span className="text-sm font-medium">Enrollment Process:</span>
+              <span className="text-sm font-medium">Course Enrollment:</span>
             </div>
-            <span className="text-sm">Submit this form and our admissions team will contact you within 24 hours to complete your enrollment.</span>
+            <span className="text-sm">Submit this form and our team will contact you within 24 hours to complete your course enrollment. Note: Physical products are not yet available for purchase.</span>
           </div>
         </div>
       </section>
