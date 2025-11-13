@@ -68,7 +68,7 @@ export default function ProductDetailPage() {
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4">Product Not Found</h1>
-          <Link href="/shop" className="text-blue-600 hover:text-blue-700 underline">
+          <Link href="/shop" className="text-black hover:text-gray-700 underline">
             Back to Shop
           </Link>
         </div>

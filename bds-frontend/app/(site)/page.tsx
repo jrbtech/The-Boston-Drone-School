@@ -64,16 +64,16 @@ const videoShowcase = [
 
 const pricingTiers = [
   {
-    name: "Part 107 Exam Prep",
-    price: "$297",
+    name: "Part 107 Online Webinar",
+    price: "$375",
     period: "one-time",
-    description: "Comprehensive online training to prepare for the FAA Part 107 Remote Pilot exam.",
+    description: "Comprehensive online FAA Part 107 certification course with live webinar support.",
     features: [
-      "40 hours of video training",
-      "500+ practice exam questions",
+      "5 hours of online video training",
+      "250+ practice exam questions",
+      "2 hour live Q&A webinar office hour",
       "Interactive airspace maps",
       "Weather interpretation tutorials",
-      "Live instructor Q&A sessions",
       "Exam prep checklist",
       "Lifetime course access",
       "30-day money-back guarantee"
@@ -85,12 +85,12 @@ const pricingTiers = [
   },
   {
     name: "Intensive Bootcamp",
-    price: "$497",
-    period: "weekend",
-    description: "Fast-track exam preparation with intensive 2-day weekend training program.",
+    price: "$675",
+    period: "2-day training",
+    description: "Fast-track exam preparation with intensive 2-day training program.",
     features: [
-      "16 hours over 2 days",
-      "In-person OR live virtual",
+      "10 hours of training in person or virtual",
+      "In-person OR live virtual options",
       "Hands-on drone practice",
       "Direct instructor mentorship",
       "Exam scheduling assistance",
@@ -105,17 +105,17 @@ const pricingTiers = [
   },
   {
     name: "Premium + Business",
-    price: "$997",
+    price: "$1650",
     period: "complete package",
-    description: "Part 107 exam prep PLUS business launch guidance for aspiring UAS professionals.",
+    description: "For c-suite executives interested in drone training and enterprise integration.",
     features: [
-      "Everything in Complete Course",
+      "10 hours of Part 107 edification and flight capability",
+      "UAS business enterprise consultation",
       "Business formation guidance",
       "Marketing & client acquisition",
       "Equipment recommendations",
       "Legal contracts & templates",
-      "4 hours 1-on-1 mentorship",
-      "Job placement assistance",
+      "1-on-1 executive mentorship",
       "Priority lifetime support"
     ],
     cta: "Get Started",
@@ -247,9 +247,9 @@ export default function MarketingHomePage() {
       </section>
 
       {/* Mission Section - Premium Styling */}
-      <section className="section-spacing bg-white">
-        <div className="container-premium">
-          <div className="space-y-12 reveal-on-scroll max-w-4xl mx-auto">
+      <section className="py-20 md:py-24 lg:py-28 bg-white">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
+          <div className="space-y-12 md:space-y-16 reveal-on-scroll max-w-4xl mx-auto">
             <span className="caption text-gray-500">Our Mission</span>
             <h2 className="h2 leading-tight">
               Precision unmanned aircraft operations engineered for mission-critical applications.
@@ -284,7 +284,7 @@ export default function MarketingHomePage() {
             <p className="body text-gray-700 leading-relaxed">
               Established in 2020, The Boston Drone School provides a strategic framework for organizational UAS integration. Our comprehensive services encompass advanced data acquisition, regulatory compliance architecture, and professional pilot development.
             </p>
-            <div className="course-card p-10 bg-off-white w-full">
+            <div className="course-card p-10 bg-gray-50 w-full">
               <h3 className="caption text-gray-600 mb-8">
                 What guides our work
               </h3>
@@ -302,8 +302,8 @@ export default function MarketingHomePage() {
       </section>
 
       {/* Partnerships Section - Premium Styling */}
-      <section className="section-spacing bg-off-white">
-        <div className="container-premium reveal-on-scroll">
+      <section className="py-20 md:py-24 lg:py-28 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 reveal-on-scroll">
           <div className="grid gap-12 lg:gap-16 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
             <div className="space-y-6">
               <span className="caption text-gray-600">Valuable Partnerships</span>
@@ -321,9 +321,9 @@ export default function MarketingHomePage() {
       </section>
 
       {/* Operations Section - Premium Card Grid */}
-      <section className="section-spacing bg-white">
-        <div className="container-premium">
-          <div className="space-y-16 reveal-on-scroll">
+      <section className="py-20 md:py-24 lg:py-28 bg-white">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
+          <div className="space-y-12 md:space-y-16 reveal-on-scroll">
             <div className="space-y-6 text-center max-w-5xl mx-auto px-4">
               <span className="caption text-gray-500">Corporate Citizenship</span>
               <h2 className="h2 leading-tight">
@@ -355,8 +355,8 @@ export default function MarketingHomePage() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="section-spacing bg-gray-50">
-        <div className="container-premium">
+      <section className="py-20 md:py-24 lg:py-28 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
           <div className="max-w-5xl mx-auto text-center space-y-12">
             <h2 className="h2 text-black">Why Boston Drone School?</h2>
             <div className="grid md:grid-cols-3 gap-12 lg:gap-16">
@@ -381,8 +381,8 @@ export default function MarketingHomePage() {
       </section>
 
       {/* Training CTA Section */}
-      <section id="courses" className="section-spacing bg-black text-white py-20">
-        <div className="container-premium text-center">
+      <section id="courses" className="py-20 md:py-24 lg:py-28 bg-black text-white">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 text-center">
           <div className="max-w-4xl mx-auto space-y-8">
             <span className="part-107-badge">Professional Development</span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
@@ -410,8 +410,8 @@ export default function MarketingHomePage() {
       </section>
 
       {/* Admissions Section - Premium Dark Theme */}
-      <section className="section-spacing bg-gray-900 text-white">
-        <div className="container-premium">
+      <section className="py-20 md:py-24 lg:py-28 bg-gray-900 text-white">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
           <div className="grid gap-12 lg:gap-16 lg:grid-cols-2 reveal-on-scroll">
             <div className="space-y-8">
               <span className="caption text-white/60">Professional Services & Training</span>
@@ -439,7 +439,7 @@ export default function MarketingHomePage() {
               </div>
             </div>
 
-            <div className="p-10 bg-gray-800 border border-white/20 rounded-lg">
+            <div className="p-8 md:p-10 bg-gray-800 border border-white/20 rounded-lg">
               <h3 className="text-lg font-bold text-white mb-8">Get Started</h3>
               <form
                 className="space-y-6"
@@ -493,9 +493,9 @@ export default function MarketingHomePage() {
       </section>
 
       {/* Video Showcase Section - Premium Grid */}
-      <section className="section-spacing bg-white">
-        <div className="container-premium">
-          <div className="space-y-12 reveal-on-scroll">
+      <section className="py-20 md:py-24 lg:py-28 bg-white">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
+          <div className="space-y-12 md:space-y-16 reveal-on-scroll">
             <div className="space-y-6 text-center">
               <span className="caption text-gray-500">Mission Footage</span>
               <h2 className="h2">
@@ -526,8 +526,8 @@ export default function MarketingHomePage() {
       </section>
 
       {/* CTA Section - Premium */}
-      <section className="section-spacing bg-off-white">
-        <div className="container-premium">
+      <section className="py-20 md:py-24 lg:py-28 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
           <div className="grid gap-12 lg:gap-16 lg:grid-cols-2 lg:items-center reveal-on-scroll">
             <div className="space-y-8">
               <span className="caption text-gray-600">Learning Platform</span>
@@ -546,7 +546,7 @@ export default function MarketingHomePage() {
                 </Link>
               </div>
             </div>
-            <div className="course-card p-10 bg-white space-y-8">
+            <div className="course-card p-8 md:p-10 bg-white space-y-8">
               <div className="space-y-3">
                 <span className="caption text-gray-500 block">Structured Programs</span>
                 <p className="small-text text-gray-700 leading-relaxed">

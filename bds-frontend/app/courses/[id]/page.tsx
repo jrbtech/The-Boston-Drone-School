@@ -157,8 +157,8 @@ export default function CourseDetailPage() {
             />
           </div>
           {/* Animated gradient orbs */}
-          <div className="absolute top-20 right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
+          <div className="absolute top-20 right-20 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 left-20 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse delay-1000" />
         </div>
 
         <div className="container mx-auto px-6 relative z-20">
@@ -208,7 +208,7 @@ export default function CourseDetailPage() {
                   <span className="relative z-10">
                     {enrolling ? 'Processing...' : `Enroll Now - $${course.price}`}
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-20 transition-opacity" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-gray-400 to-gray-600 opacity-0 group-hover:opacity-20 transition-opacity" />
                 </button>
               </div>
 

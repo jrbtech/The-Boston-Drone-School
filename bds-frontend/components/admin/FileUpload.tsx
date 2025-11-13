@@ -103,7 +103,7 @@ export default function FileUpload({ courseId, type, onUploadComplete }: FileUpl
             type="file"
             onChange={handleFileSelect}
             accept=".pdf,.mp4,.webm,.ogg,.jpg,.jpeg,.png,.gif,.ppt,.pptx,.doc,.docx"
-            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100"
             required
           />
           {file && (
@@ -123,7 +123,7 @@ export default function FileUpload({ courseId, type, onUploadComplete }: FileUpl
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black500"
             required
           />
         </div>
@@ -138,7 +138,7 @@ export default function FileUpload({ courseId, type, onUploadComplete }: FileUpl
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows={3}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black500"
           />
         </div>
 
@@ -152,7 +152,7 @@ export default function FileUpload({ courseId, type, onUploadComplete }: FileUpl
               id="category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black500"
             >
               <option value="general">General</option>
               <option value="study-guide">Study Guide</option>
@@ -167,8 +167,8 @@ export default function FileUpload({ courseId, type, onUploadComplete }: FileUpl
         {/* Progress Bar */}
         {uploading && (
           <div className="w-full bg-gray-200 rounded-full h-2">
-            <div 
-              className="bg-blue-600 h-2 rounded-full transition-all duration-300" 
+            <div
+              className="bg-black h-2 rounded-full transition-all duration-300"
               style={{ width: `${progress}%` }}
             ></div>
           </div>
@@ -188,7 +188,7 @@ export default function FileUpload({ courseId, type, onUploadComplete }: FileUpl
           className={`w-full py-2 px-4 rounded-md font-semibold ${
             !file || uploading
               ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              : 'bg-blue-600 text-white hover:bg-blue-700'
+              : 'bg-black text-white hover:bg-gray-800'
           }`}
         >
           {uploading ? 'Uploading...' : 'Upload File'}
