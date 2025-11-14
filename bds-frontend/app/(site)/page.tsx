@@ -133,10 +133,10 @@ export default function MarketingHomePage() {
       {/* Login Modal */}
       <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
 
-      {/* Floating Quick Login Button */}
+      {/* Floating Quick Login Button - Improved mobile touch target */}
       <button
         onClick={() => setIsLoginModalOpen(true)}
-        className="fixed bottom-8 right-8 z-40 bg-white text-black px-6 py-3 rounded-full shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300 font-semibold flex items-center gap-2 border-2 border-black group"
+        className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-40 bg-white text-black px-4 py-3 sm:px-6 sm:py-3 rounded-full shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300 font-semibold flex items-center gap-2 border-2 border-black group min-h-[44px] min-w-[44px]"
         aria-label="Quick login"
       >
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -199,23 +199,23 @@ export default function MarketingHomePage() {
               </div>
             </div>
 
-            {/* Primary CTA */}
+            {/* Primary CTA - Improved mobile touch targets */}
             <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center px-6 sm:px-8 mt-12 md:mt-16 max-w-4xl mx-auto">
               <Link
                 href="/services"
-                className="btn-premium-cta no-underline text-center px-6 sm:px-10 md:px-12 py-3 sm:py-4 text-sm sm:text-base md:text-lg font-bold w-full sm:w-auto whitespace-nowrap"
+                className="btn-premium-cta no-underline text-center px-8 sm:px-10 md:px-12 py-4 sm:py-4 text-base sm:text-base md:text-lg font-bold w-full sm:w-auto whitespace-nowrap min-h-[48px]"
               >
                 <span>View Services</span>
               </Link>
               <button
                 onClick={() => setIsLoginModalOpen(true)}
-                className="btn-tertiary no-underline text-center px-6 sm:px-10 md:px-12 py-3 sm:py-4 text-sm sm:text-base md:text-lg w-full sm:w-auto whitespace-nowrap"
+                className="btn-tertiary no-underline text-center px-8 sm:px-10 md:px-12 py-4 sm:py-4 text-base sm:text-base md:text-lg w-full sm:w-auto whitespace-nowrap min-h-[48px]"
               >
                 Student Login
               </button>
               <Link
                 href="/shop"
-                className="btn-tertiary no-underline text-center px-6 sm:px-10 md:px-12 py-3 sm:py-4 text-sm sm:text-base md:text-lg w-full sm:w-auto whitespace-nowrap"
+                className="btn-tertiary no-underline text-center px-8 sm:px-10 md:px-12 py-4 sm:py-4 text-base sm:text-base md:text-lg w-full sm:w-auto whitespace-nowrap min-h-[48px]"
               >
                 Shop Equipment
               </Link>
@@ -433,48 +433,48 @@ export default function MarketingHomePage() {
               </div>
             </div>
 
-            <div className="p-8 md:p-10 bg-black border border-white/20 rounded-lg">
-              <h3 className="text-lg font-bold text-white mb-8">Get Started</h3>
+            <div className="p-6 md:p-10 bg-black border border-white/20 rounded-lg">
+              <h3 className="text-lg font-bold text-white mb-6 md:mb-8">Get Started</h3>
               <form
-                className="space-y-6"
+                className="space-y-5 md:space-y-6"
                 action="https://formspree.io/f/moqgdnge"
                 method="POST"
               >
                 <label className="block">
-                  <span className="text-sm font-semibold text-white block mb-3">Name</span>
+                  <span className="text-sm font-semibold text-white block mb-2 md:mb-3">Name</span>
                   <input
                     type="text"
                     name="name"
                     required
-                    className="w-full border border-white/30 bg-black px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white rounded"
+                    className="w-full border border-white/30 bg-black px-4 py-3 md:px-5 md:py-4 text-base text-white placeholder:text-white/40 outline-none transition focus:border-white rounded min-h-[48px]"
                   />
                 </label>
                 <label className="block">
-                  <span className="text-sm font-semibold text-white block mb-3">Phone</span>
+                  <span className="text-sm font-semibold text-white block mb-2 md:mb-3">Phone</span>
                   <input
                     type="tel"
                     name="phone"
-                    className="w-full border border-white/30 bg-black px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white rounded"
+                    className="w-full border border-white/30 bg-black px-4 py-3 md:px-5 md:py-4 text-base text-white placeholder:text-white/40 outline-none transition focus:border-white rounded min-h-[48px]"
                   />
                 </label>
                 <label className="block">
-                  <span className="text-sm font-semibold text-white block mb-3">Email*</span>
+                  <span className="text-sm font-semibold text-white block mb-2 md:mb-3">Email*</span>
                   <input
                     type="email"
                     name="email"
                     required
-                    className="w-full border border-white/30 bg-black px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white rounded"
+                    className="w-full border border-white/30 bg-black px-4 py-3 md:px-5 md:py-4 text-base text-white placeholder:text-white/40 outline-none transition focus:border-white rounded min-h-[48px]"
                   />
                 </label>
                 <label className="block">
-                  <span className="text-sm font-semibold text-white block mb-3">Attach Resume (optional)</span>
+                  <span className="text-sm font-semibold text-white block mb-2 md:mb-3">Attach Resume (optional)</span>
                   <input
                     type="file"
                     name="resume"
-                    className="w-full border border-white/30 bg-black px-4 py-3 text-sm text-white file:mr-4 file:border-0 file:bg-white file:px-4 file:py-2 file:text-black file:font-semibold file:uppercase rounded file:rounded"
+                    className="w-full border border-white/30 bg-black px-3 py-3 md:px-4 md:py-3 text-sm text-white file:mr-3 file:border-0 file:bg-white file:px-4 file:py-2 file:text-black file:font-semibold file:uppercase rounded file:rounded min-h-[48px]"
                   />
                 </label>
-                <button type="submit" className="w-full bg-white text-black px-6 py-4 font-bold text-sm uppercase tracking-wider hover:bg-white/90 transition rounded">
+                <button type="submit" className="w-full bg-white text-black px-6 py-4 font-bold text-sm uppercase tracking-wider hover:bg-white/90 transition rounded min-h-[48px]">
                   Submit Application
                 </button>
                 <p className="text-xs text-white/90 leading-relaxed pt-2">
