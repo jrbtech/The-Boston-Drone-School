@@ -17,46 +17,29 @@
    ============================================================================ */
 
 :root {
-  /* Premium Professional Color Palette */
-  --navy-900: #0F172A;      /* Deep navy - primary dark */
-  --navy-800: #1E293B;      /* Rich navy */
-  --navy-700: #334155;      /* Medium navy */
-  --slate-600: #475569;     /* Warm slate */
-  --slate-500: #64748B;     /* Mid slate */
-  --slate-300: #CBD5E1;     /* Light slate */
-  --slate-200: #E2E8F0;     /* Very light slate */
-  --slate-100: #F1F5F9;     /* Off white slate */
-  --slate-50: #F8FAFC;      /* Nearly white */
+  /* Pure Black & White Color Palette - NO OTHER COLORS */
+  --pure-black: #000000;
+  --rich-black: #0A0A0A;
+  --dark-gray: #1A1A1A;
+  --readable-gray: #2A2A2A;
+  --mid-gray: #666666;
+  --light-gray: #E5E5E5;
+  --off-white: #F5F5F5;
   --pure-white: #FFFFFF;
 
-  /* Legacy compatibility - mapped to new palette */
-  --pure-black: #0F172A;
-  --rich-black: #1E293B;
-  --dark-gray: #334155;
-  --readable-gray: #475569;
-  --mid-gray: #64748B;
-  --light-gray: #E2E8F0;
-  --off-white: #F8FAFC;
+  /* Opacity-based depth - BLACK ONLY */
+  --overlay-dark: rgba(0, 0, 0, 0.95);
+  --overlay-medium: rgba(0, 0, 0, 0.75);
+  --overlay-light: rgba(0, 0, 0, 0.45);
+  --border-subtle: rgba(0, 0, 0, 0.1);
+  --border-visible: rgba(0, 0, 0, 0.3);
 
-  /* Accent colors for premium feel */
-  --accent-blue: #3B82F6;      /* Professional blue */
-  --accent-indigo: #6366F1;    /* Deep indigo */
-  --accent-amber: #F59E0B;     /* Warm amber for highlights */
-  --accent-emerald: #10B981;   /* Success green */
-
-  /* Opacity-based depth with better contrast */
-  --overlay-dark: rgba(15, 23, 42, 0.95);
-  --overlay-medium: rgba(15, 23, 42, 0.75);
-  --overlay-light: rgba(15, 23, 42, 0.45);
-  --border-subtle: rgba(15, 23, 42, 0.08);
-  --border-visible: rgba(15, 23, 42, 0.2);
-
-  /* Sophisticated Shadows */
-  --shadow-subtle: 0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.06);
-  --shadow-medium: 0 4px 6px -1px rgba(15, 23, 42, 0.1), 0 2px 4px -1px rgba(15, 23, 42, 0.06);
-  --shadow-strong: 0 10px 15px -3px rgba(15, 23, 42, 0.15), 0 4px 6px -2px rgba(15, 23, 42, 0.08);
-  --shadow-dramatic: 0 20px 25px -5px rgba(15, 23, 42, 0.2), 0 10px 10px -5px rgba(15, 23, 42, 0.08);
-  --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.15);
+  /* Shadows - BLACK ONLY */
+  --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --shadow-strong: 0 16px 48px rgba(0, 0, 0, 0.25);
+  --shadow-dramatic: 0 32px 64px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 40px rgba(255, 255, 255, 0.1);
 
   /* Timing Functions */
   --ease-primary: cubic-bezier(0.4, 0.0, 0.2, 1);
@@ -71,10 +54,6 @@
   --duration-standard: 400ms;
   --duration-slow: 600ms;
   --duration-dramatic: 1000ms;
-
-  /* Premium accents for visual interest */
-  --accent-gold: #F59E0B;
-  --accent-platinum: #E2E8F0;
 }
 
 /* ============================================================================
