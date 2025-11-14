@@ -1,37 +1,10 @@
 'use client'
 
 import { useState } from "react";
-import type { Metadata } from 'next'
 import Image from "next/image";
 import Link from "next/link";
 import AutoplayVideo from "@/components/marketing/AutoplayVideo";
 import LoginModal from "@/components/LoginModal";
-
-export const metadata: Metadata = {
-  title: 'The Boston Drone School | FAA Part 107 Certification & Professional Drone Training',
-  description: 'Professional FAA Part 107 drone certification training with 98% pass rate. Expert instruction, commercial drone operations, and comprehensive UAS training programs in Boston.',
-  keywords: 'Boston Drone School, drone operations, UAS training, FAA Part 107, Part 107 certification, drone pilot license, photogrammetry, drone advocacy, STEM engagements, learning portal, commercial drone pilot',
-  openGraph: {
-    title: 'The Boston Drone School | FAA Part 107 Certification & Professional Drone Training',
-    description: 'Earn your FAA Part 107 certification with Boston Drone School. 98% first-time pass rate. Expert instruction, commercial operations training, and comprehensive learning portal.',
-    url: 'https://bostondroneschool.org',
-    type: 'website',
-    images: [
-      {
-        url: '/images/TBDS GRAPHIC.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Boston Drone School - FAA Part 107 Certification',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'The Boston Drone School | FAA Part 107 Certification',
-    description: 'Earn your FAA Part 107 certification with Boston Drone School. 98% first-time pass rate.',
-    images: ['/images/TBDS GRAPHIC.jpg'],
-  },
-}
 
 const operations = [
   {
