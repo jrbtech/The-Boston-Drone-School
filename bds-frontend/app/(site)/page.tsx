@@ -53,11 +53,13 @@ const videoShowcase = [
   {
     title: "Enterprise Consultation",
     src: "/videos/aerial-cinematography.mp4",
+    poster: "/videos/professional-techniques.jpg",
     description: "Strategic UAS integration roadmaps designed for public and private sector stakeholders seeking expert guidance on operational planning and regulatory compliance."
   },
   {
     title: "Drone Operations / STEM Workforce Training",
     src: "/videos/commercial-operations.mp4",
+    poster: "/videos/professional-techniques.jpg",
     description: "Comprehensive professional development programs cultivating operational excellence through hands-on training, FPV build kits, and aerospace technology applications."
   },
   {
