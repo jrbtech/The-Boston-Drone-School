@@ -14,12 +14,16 @@ export const metadata: Metadata = {
 
 export default function MarketingSiteLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col bg-white text-gray-900">
-      <MarketingHeader />
-      <main className="flex-1 bg-white">
-        {children}
-      </main>
-      <MarketingFooter />
-    </div>
+    <>
+      {/* Preload critical assets */}
+      <link rel="preload" href="/images/tbds-graphic.jpg" as="image" />
+      <div className="flex min-h-screen flex-col bg-white text-gray-900">
+        <MarketingHeader />
+        <main className="flex-1 bg-white">
+          {children}
+        </main>
+        <MarketingFooter />
+      </div>
+    </>
   )
 }
