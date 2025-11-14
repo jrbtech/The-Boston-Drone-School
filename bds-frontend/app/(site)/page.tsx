@@ -145,27 +145,23 @@ export default function MarketingHomePage() {
         <span className="hidden sm:inline">Quick Login</span>
       </button>
 
-      {/* Premium Hero Section with Video Background */}
-      <section className="relative w-full" style={{ background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)' }}>
-        {/* Fallback gradient background for when video is loading/missing */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black -z-10" />
+      {/* Premium Hero Section with Professional Gradient */}
+      <section className="relative w-full" style={{ background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%)' }}>
+        {/* Sophisticated gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-700 -z-10" />
 
-        {/* Video will go here - currently shows gradient until videos are downloaded */}
-        {/* <video autoPlay muted loop playsInline poster="/assets/posters/hero-poster.jpg">
-          <source src="/assets/videos/hero-drone-flight.mp4" type="video/mp4" />
-        </video> */}
-
-        <div className="relative w-full" style={{ background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.75) 50%, rgba(0, 0, 0, 0.9) 100%)' }}>
+        <div className="relative w-full" style={{ background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.90) 0%, rgba(30, 41, 59, 0.85) 50%, rgba(15, 23, 42, 0.95) 100%)' }}>
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 sm:py-20 md:py-24 lg:py-28 pb-20 sm:pb-24 md:pb-28 lg:pb-32 w-full">
-            {/* Logo */}
+            {/* Logo - Optimized loading */}
             <div className="flex justify-center mb-8 sm:mb-10 md:mb-12 w-full">
               <Image
-                src="/images/TBDS GRAPHIC.jpg"
+                src="/images/tbds-graphic.jpg"
                 alt="Boston Drone School"
-                width={300}
-                height={300}
-                className="h-24 sm:h-32 md:h-40 lg:h-48 w-auto max-w-full"
+                width={200}
+                height={200}
+                className="h-24 sm:h-32 md:h-36 lg:h-40 w-auto max-w-full"
                 priority
+                quality={90}
               />
             </div>
 
@@ -186,15 +182,15 @@ export default function MarketingHomePage() {
               Expert consultation and advocacy for the safe integration of drone technology into your operations
             </p>
 
-            {/* Three Pillars */}
+            {/* Three Pillars - Premium Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto mb-10 md:mb-12 px-4">
-              <div className="text-center py-8 px-6 bg-white/15 rounded-lg backdrop-blur-sm border border-white/20">
+              <div className="text-center py-8 px-6 bg-white/10 rounded-xl backdrop-blur-md border border-white/15 hover:bg-white/15 hover:border-white/25 transition-all duration-300 shadow-lg">
                 <div className="text-white text-sm md:text-base lg:text-lg font-semibold">Enterprise Consultation</div>
               </div>
-              <div className="text-center py-8 px-6 bg-white/15 rounded-lg backdrop-blur-sm border border-white/20">
+              <div className="text-center py-8 px-6 bg-white/10 rounded-xl backdrop-blur-md border border-white/15 hover:bg-white/15 hover:border-white/25 transition-all duration-300 shadow-lg">
                 <div className="text-white text-sm md:text-base lg:text-lg font-semibold">Drone Operations / STEM Workforce Training</div>
               </div>
-              <div className="text-center py-8 px-6 bg-white/15 rounded-lg backdrop-blur-sm border border-white/20">
+              <div className="text-center py-8 px-6 bg-white/10 rounded-xl backdrop-blur-md border border-white/15 hover:bg-white/15 hover:border-white/25 transition-all duration-300 shadow-lg">
                 <div className="text-white text-sm md:text-base lg:text-lg font-semibold">Advocacy / Public Relations</div>
               </div>
             </div>
@@ -374,8 +370,8 @@ export default function MarketingHomePage() {
         </div>
       </section>
 
-      {/* Training CTA Section */}
-      <section id="courses" className="py-20 md:py-24 lg:py-28 bg-black text-white">
+      {/* Training CTA Section - Premium Navy */}
+      <section id="courses" className="py-20 md:py-24 lg:py-28 text-white" style={{ background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)' }}>
         <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 text-center">
           <div className="max-w-4xl mx-auto space-y-8">
             <span className="part-107-badge">Professional Development</span>
@@ -403,8 +399,8 @@ export default function MarketingHomePage() {
         </div>
       </section>
 
-      {/* Admissions Section - Premium Dark Theme */}
-      <section className="py-20 md:py-24 lg:py-28 bg-black text-white">
+      {/* Admissions Section - Premium Navy Theme */}
+      <section className="py-20 md:py-24 lg:py-28 text-white" style={{ background: 'linear-gradient(to bottom, #1E293B 0%, #0F172A 100%)' }}>
         <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
           <div className="grid gap-12 lg:gap-16 lg:grid-cols-2 reveal-on-scroll">
             <div className="space-y-8">
@@ -433,7 +429,7 @@ export default function MarketingHomePage() {
               </div>
             </div>
 
-            <div className="p-6 md:p-10 bg-black border border-white/20 rounded-lg">
+            <div className="p-6 md:p-10 bg-navy-900/50 backdrop-blur-sm border border-white/15 rounded-xl shadow-2xl">
               <h3 className="text-lg font-bold text-white mb-6 md:mb-8">Get Started</h3>
               <form
                 className="space-y-5 md:space-y-6"
@@ -446,7 +442,7 @@ export default function MarketingHomePage() {
                     type="text"
                     name="name"
                     required
-                    className="w-full border border-white/30 bg-black px-4 py-3 md:px-5 md:py-4 text-base text-white placeholder:text-white/40 outline-none transition focus:border-white rounded min-h-[48px]"
+                    className="w-full border border-white/20 bg-navy-900/30 px-4 py-3 md:px-5 md:py-4 text-base text-white placeholder:text-white/50 outline-none transition focus:border-white/60 focus:bg-navy-900/50 rounded-lg min-h-[48px]"
                   />
                 </label>
                 <label className="block">
@@ -454,7 +450,7 @@ export default function MarketingHomePage() {
                   <input
                     type="tel"
                     name="phone"
-                    className="w-full border border-white/30 bg-black px-4 py-3 md:px-5 md:py-4 text-base text-white placeholder:text-white/40 outline-none transition focus:border-white rounded min-h-[48px]"
+                    className="w-full border border-white/20 bg-navy-900/30 px-4 py-3 md:px-5 md:py-4 text-base text-white placeholder:text-white/50 outline-none transition focus:border-white/60 focus:bg-navy-900/50 rounded-lg min-h-[48px]"
                   />
                 </label>
                 <label className="block">
@@ -463,7 +459,7 @@ export default function MarketingHomePage() {
                     type="email"
                     name="email"
                     required
-                    className="w-full border border-white/30 bg-black px-4 py-3 md:px-5 md:py-4 text-base text-white placeholder:text-white/40 outline-none transition focus:border-white rounded min-h-[48px]"
+                    className="w-full border border-white/20 bg-navy-900/30 px-4 py-3 md:px-5 md:py-4 text-base text-white placeholder:text-white/50 outline-none transition focus:border-white/60 focus:bg-navy-900/50 rounded-lg min-h-[48px]"
                   />
                 </label>
                 <label className="block">
@@ -471,7 +467,7 @@ export default function MarketingHomePage() {
                   <input
                     type="file"
                     name="resume"
-                    className="w-full border border-white/30 bg-black px-3 py-3 md:px-4 md:py-3 text-sm text-white file:mr-3 file:border-0 file:bg-white file:px-4 file:py-2 file:text-black file:font-semibold file:uppercase rounded file:rounded min-h-[48px]"
+                    className="w-full border border-white/20 bg-navy-900/30 px-3 py-3 md:px-4 md:py-3 text-sm text-white file:mr-3 file:border-0 file:bg-white file:px-4 file:py-2 file:text-navy-900 file:font-semibold file:uppercase file:rounded-md rounded-lg min-h-[48px]"
                   />
                 </label>
                 <button type="submit" className="w-full bg-white text-black px-6 py-4 font-bold text-sm uppercase tracking-wider hover:bg-white/90 transition rounded min-h-[48px] touch-manipulation">

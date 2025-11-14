@@ -6,8 +6,8 @@ export function OrganizationStructuredData() {
     "@type": "EducationalOrganization",
     "name": "The Boston Drone School",
     "alternateName": "Boston Drone School",
-    "url": "https://bostondroneschool.org",
-    "logo": "https://bostondroneschool.org/images/TBDS GRAPHIC.jpg",
+    "url": "https://thebostondroneschool.org",
+    "logo": "https://thebostondroneschool.org/images/tbds-graphic.jpg",
     "description": "Professional FAA Part 107 drone certification training with 98% pass rate. Expert instruction, commercial drone operations, and comprehensive UAS training programs in Boston.",
     "email": "info@thebostondroneschool.org",
     "address": {
@@ -22,7 +22,7 @@ export function OrganizationStructuredData() {
       "email": "info@thebostondroneschool.org"
     },
     "sameAs": [
-      "https://bostondroneschool.org"
+      "https://thebostondroneschool.org"
     ],
     "foundingDate": "2020",
     "founder": {
@@ -106,9 +106,9 @@ export function LocalBusinessStructuredData() {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "name": "The Boston Drone School",
-    "image": "https://bostondroneschool.org/images/TBDS GRAPHIC.jpg",
-    "@id": "https://bostondroneschool.org",
-    "url": "https://bostondroneschool.org",
+    "image": "https://thebostondroneschool.org/images/tbds-graphic.jpg",
+    "@id": "https://thebostondroneschool.org",
+    "url": "https://thebostondroneschool.org",
     "email": "info@thebostondroneschool.org",
     "priceRange": "$375-$1650",
     "address": {
