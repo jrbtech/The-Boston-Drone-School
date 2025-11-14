@@ -735,55 +735,55 @@ img.bw {
    ============================================================================ */
 
 @media (max-width: 768px) {
-  /* Increase base font size on mobile for better readability */
+  /* MUCH larger base font size on mobile for better readability */
   body {
-    font-size: 18px;
-    line-height: 1.75;
+    font-size: 20px !important; /* Increased from 18px to 20px */
+    line-height: 1.8 !important;
   }
 
-  /* Larger headings on mobile */
+  /* MUCH LARGER headings on mobile */
   h1, .h1 {
-    font-size: clamp(2.25rem, 10vw, 3.5rem);
-    line-height: 1.2;
-    margin-bottom: 1.25rem;
+    font-size: clamp(2.5rem, 12vw, 4rem) !important; /* Min 40px */
+    line-height: 1.25 !important;
+    margin-bottom: 1.5rem !important;
   }
 
   h2, .h2 {
-    font-size: clamp(1.875rem, 8vw, 2.75rem);
-    line-height: 1.25;
-    margin-bottom: 1.125rem;
+    font-size: clamp(2rem, 9vw, 3rem) !important; /* Min 32px */
+    line-height: 1.3 !important;
+    margin-bottom: 1.25rem !important;
   }
 
   h3, .h3 {
-    font-size: clamp(1.5rem, 6vw, 2rem);
-    line-height: 1.3;
-    margin-bottom: 1rem;
+    font-size: clamp(1.625rem, 7vw, 2.25rem) !important; /* Min 26px */
+    line-height: 1.35 !important;
+    margin-bottom: 1rem !important;
   }
 
   h4, .h4 {
-    font-size: clamp(1.25rem, 4vw, 1.625rem);
-    line-height: 1.35;
+    font-size: clamp(1.375rem, 5vw, 1.875rem) !important; /* Min 22px */
+    line-height: 1.4 !important;
   }
 
-  /* Larger body text on mobile */
+  /* MUCH LARGER body text on mobile */
   p, .body {
-    font-size: 1.125rem; /* 18px */
-    line-height: 1.75;
+    font-size: 1.25rem !important; /* 20px - increased from 18px */
+    line-height: 1.8 !important;
   }
 
   .body-large {
-    font-size: 1.25rem; /* 20px */
-    line-height: 1.75;
+    font-size: 1.375rem !important; /* 22px - increased from 20px */
+    line-height: 1.8 !important;
   }
 
   .small-text {
-    font-size: 1rem; /* 16px instead of 14px */
-    line-height: 1.65;
+    font-size: 1.125rem !important; /* 18px instead of 16px */
+    line-height: 1.7 !important;
   }
 
   .caption {
-    font-size: 0.875rem; /* 14px instead of 12px */
-    line-height: 1.6;
+    font-size: 1rem !important; /* 16px instead of 14px */
+    line-height: 1.65 !important;
   }
 
   /* Increase padding for better touch targets and readability */
@@ -817,18 +817,19 @@ img.bw {
     grid-template-columns: 1fr;
   }
 
-  /* Larger buttons on mobile */
+  /* MUCH LARGER buttons on mobile */
   .btn-primary,
   .btn-secondary,
   .btn-tertiary {
-    font-size: 1.0625rem; /* 17px */
-    padding: 1.125rem 2.25rem;
-    min-height: 52px;
+    font-size: 1.25rem !important; /* 20px - increased from 17px */
+    padding: 1.25rem 2.5rem !important;
+    min-height: 56px !important;
   }
 
   .btn-premium-cta {
-    font-size: 1.125rem; /* 18px */
-    padding: 1.375rem 2.5rem;
+    font-size: 1.375rem !important; /* 22px - increased from 18px */
+    padding: 1.5rem 3rem !important;
+    min-height: 60px !important;
   }
 }
 
@@ -1288,18 +1289,38 @@ img.bw {
 
   /* Better mobile spacing */
   .section-spacing {
-    padding: 4rem 0;
+    padding: 5rem 0 !important;
   }
 
   /* Larger course cards on mobile */
   .course-card {
-    padding: 1.5rem;
+    padding: 2rem !important;
   }
 
   /* More readable lists on mobile */
   li {
-    font-size: 1.0625rem;
-    line-height: 1.75;
-    margin-bottom: 0.75rem;
+    font-size: 1.1875rem !important; /* 19px */
+    line-height: 1.8 !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* Larger form inputs on mobile */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"],
+  textarea,
+  select {
+    font-size: 1.125rem !important; /* 18px minimum for iOS to not zoom */
+    padding: 1rem !important;
+    min-height: 56px !important;
+  }
+
+  /* Larger links on mobile */
+  a {
+    font-size: inherit;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 }
