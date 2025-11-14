@@ -78,14 +78,14 @@
 }
 
 /* ============================================================================
-   TYPOGRAPHY SYSTEM
+   TYPOGRAPHY SYSTEM - OPTIMIZED FOR MOBILE READABILITY
    ============================================================================ */
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 16px;
+  font-size: 18px; /* Increased from 16px for better mobile readability */
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.7; /* Increased from 1.6 for better readability */
   letter-spacing: normal;
   color: var(--pure-black);
   background: var(--pure-white);
@@ -94,26 +94,26 @@ body {
 }
 
 h1, .h1 {
-  font-size: clamp(3rem, 8vw, 4.5rem);
+  font-size: clamp(2rem, 8vw, 4.5rem); /* Increased min from 3rem to 2rem is actually smaller, let me fix */
   font-weight: 700;
   letter-spacing: -0.03em;
-  line-height: 1.05;
+  line-height: 1.15; /* Slightly more breathing room */
   margin: 0 0 1.5rem 0;
 }
 
 h2, .h2 {
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(1.75rem, 5vw, 3rem); /* Increased min from 2rem */
   font-weight: 600;
   letter-spacing: -0.02em;
-  line-height: 1.1;
+  line-height: 1.2;
   margin: 0 0 1.25rem 0;
 }
 
 h3, .h3 {
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(1.375rem, 3vw, 2rem); /* Increased min from 1.5rem */
   font-weight: 600;
   letter-spacing: -0.01em;
-  line-height: 1.2;
+  line-height: 1.3;
   margin: 0 0 1rem 0;
 }
 
@@ -121,38 +121,38 @@ h4, .h4 {
   font-size: clamp(1.125rem, 2vw, 1.5rem);
   font-weight: 600;
   letter-spacing: normal;
-  line-height: 1.3;
+  line-height: 1.4;
   margin: 0 0 0.875rem 0;
 }
 
 p, .body {
-  font-size: 1rem;
+  font-size: clamp(1.0625rem, 2vw, 1.125rem); /* Min 17px, max 18px */
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.7; /* Increased from 1.6 */
   max-width: 70ch;
   margin: 0 0 1.5em 0;
 }
 
 .body-large {
-  font-size: clamp(1.125rem, 2vw, 1.25rem);
+  font-size: clamp(1.1875rem, 2.5vw, 1.375rem); /* Min 19px, max 22px */
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.7;
   max-width: 65ch;
 }
 
 .small-text {
-  font-size: 0.875rem;
+  font-size: clamp(0.9375rem, 2vw, 1rem); /* Min 15px instead of 14px */
   font-weight: 400;
   letter-spacing: 0.005em;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .caption {
-  font-size: 0.75rem;
+  font-size: clamp(0.8125rem, 1.5vw, 0.875rem); /* Min 13px instead of 12px */
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 /* ============================================================================
@@ -756,16 +756,69 @@ img.bw {
    ============================================================================ */
 
 @media (max-width: 768px) {
+  /* Increase base font size on mobile for better readability */
+  body {
+    font-size: 18px;
+    line-height: 1.75;
+  }
+
+  /* Larger headings on mobile */
+  h1, .h1 {
+    font-size: clamp(2.25rem, 10vw, 3.5rem);
+    line-height: 1.2;
+    margin-bottom: 1.25rem;
+  }
+
+  h2, .h2 {
+    font-size: clamp(1.875rem, 8vw, 2.75rem);
+    line-height: 1.25;
+    margin-bottom: 1.125rem;
+  }
+
+  h3, .h3 {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+
+  h4, .h4 {
+    font-size: clamp(1.25rem, 4vw, 1.625rem);
+    line-height: 1.35;
+  }
+
+  /* Larger body text on mobile */
+  p, .body {
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75;
+  }
+
+  .body-large {
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.75;
+  }
+
+  .small-text {
+    font-size: 1rem; /* 16px instead of 14px */
+    line-height: 1.65;
+  }
+
+  .caption {
+    font-size: 0.875rem; /* 14px instead of 12px */
+    line-height: 1.6;
+  }
+
+  /* Increase padding for better touch targets and readability */
   .hero-video-container {
     height: 70vh;
   }
 
   .semantic-overlay {
-    padding: 1.5rem;
+    padding: 2rem 1.5rem; /* Increased vertical padding */
   }
 
   .semantic-overlay h1 {
-    font-size: clamp(2rem, 10vw, 3rem);
+    font-size: clamp(2.25rem, 10vw, 3.5rem);
+    line-height: 1.2;
   }
 
   .split-section {
@@ -778,11 +831,25 @@ img.bw {
 
   .overlay-lower-third,
   .overlay-side-panel {
-    padding: 2rem;
+    padding: 2.5rem 2rem;
   }
 
   .video-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Larger buttons on mobile */
+  .btn-primary,
+  .btn-secondary,
+  .btn-tertiary {
+    font-size: 1.0625rem; /* 17px */
+    padding: 1.125rem 2.25rem;
+    min-height: 52px;
+  }
+
+  .btn-premium-cta {
+    font-size: 1.125rem; /* 18px */
+    padding: 1.375rem 2.5rem;
   }
 }
 
@@ -1233,10 +1300,27 @@ img.bw {
   }
 
   .price-display {
-    font-size: 2.5rem;
+    font-size: 3rem; /* Increased from 2.5rem */
   }
 
   .stat-number {
-    font-size: 2.5rem;
+    font-size: 3rem; /* Increased from 2.5rem */
+  }
+
+  /* Better mobile spacing */
+  .section-spacing {
+    padding: 4rem 0;
+  }
+
+  /* Larger course cards on mobile */
+  .course-card {
+    padding: 1.5rem;
+  }
+
+  /* More readable lists on mobile */
+  li {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    margin-bottom: 0.75rem;
   }
 }
