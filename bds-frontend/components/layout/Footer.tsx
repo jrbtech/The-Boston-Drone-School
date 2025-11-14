@@ -6,8 +6,8 @@ import Image from 'next/image'
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white">
-      <div className="container mx-auto px-6 py-16">
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
+      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <div className="grid gap-8 sm:gap-10 md:gap-12 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
           {/* Logo and Description */}
           <div className="lg:col-span-1 space-y-6">
             <Link href="/" className="inline-block mb-4">
@@ -22,6 +22,11 @@ export default function Footer() {
             <p className="text-sm leading-relaxed text-gray-400">
               Professional unmanned aircraft solutions, exam preparation resources, and comprehensive UAS consulting services.
             </p>
+            <div className="space-y-2">
+              <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider">Partnerships</p>
+              <p className="text-xs text-gray-400">NASA Mobility Network</p>
+              <p className="text-xs text-gray-400">MA Drone Apprenticeship</p>
+            </div>
           </div>
 
           {/* Programs */}
@@ -82,6 +87,35 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Resources */}
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.2em] mb-6">
+              Resources
+            </h3>
+            <ul className="space-y-3">
+              <li>
+                <Link href="/study-guide" className="text-sm text-gray-400 hover:text-white transition-colors">
+                  Free Study Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/portal" className="text-sm text-gray-400 hover:text-white transition-colors">
+                  Student Portal
+                </Link>
+              </li>
+              <li>
+                <Link href="/shop" className="text-sm text-gray-400 hover:text-white transition-colors">
+                  Equipment Shop
+                </Link>
+              </li>
+              <li>
+                <a href="https://www.faa.gov/uas" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-400 hover:text-white transition-colors">
+                  FAA UAS Resources
+                </a>
+              </li>
+            </ul>
+          </div>
+
           {/* Contact */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-[0.2em] mb-6">
@@ -99,9 +133,9 @@ export default function Footer() {
               <li className="text-sm text-gray-400">
                 Boston, Massachusetts
               </li>
-              <li>
-                <Link href="/register" className="inline-block mt-4 border border-white px-6 py-2 text-xs font-semibold uppercase tracking-[0.24em] hover:bg-white hover:text-black transition-all">
-                  Apply Now
+              <li className="pt-4">
+                <Link href="/register" className="inline-block border border-white px-6 py-2 text-xs font-semibold uppercase tracking-[0.24em] hover:bg-white hover:text-black transition-all">
+                  Get Started
                 </Link>
               </li>
             </ul>
