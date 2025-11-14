@@ -167,31 +167,31 @@ export default function MarketingHomePage() {
 
             {/* Badge */}
             <div className="flex justify-center mb-6 sm:mb-7 md:mb-8 w-full px-4 sm:px-6">
-              <span className="faa-certified-badge text-center max-w-full break-words text-sm sm:text-base">
+              <span className="faa-certified-badge text-center max-w-full break-words text-base sm:text-lg">
                 NASA Network Partner
               </span>
             </div>
 
-            {/* Headline */}
-            <h1 className="text-center text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-5 sm:mb-6 md:mb-8 leading-tight max-w-6xl mx-auto px-4 sm:px-6 break-words">
+            {/* Headline - Optimized for Mobile */}
+            <h1 className="text-center text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-7 md:mb-8 leading-tight max-w-6xl mx-auto px-4 sm:px-6 break-words">
               Professional Drone Consulting & Operational Services
             </h1>
 
-            {/* Subheadline */}
-            <p className="text-center text-white text-base sm:text-lg md:text-xl lg:text-2xl mb-8 sm:mb-10 md:mb-14 max-w-4xl mx-auto font-light opacity-95 leading-relaxed px-4 sm:px-6 break-words">
+            {/* Subheadline - Larger on Mobile */}
+            <p className="text-center text-white text-lg sm:text-xl md:text-2xl lg:text-2xl mb-10 sm:mb-12 md:mb-14 max-w-4xl mx-auto font-light opacity-95 leading-relaxed px-4 sm:px-6 break-words">
               Expert consultation and advocacy for the safe integration of drone technology into your operations
             </p>
 
-            {/* Three Pillars - Premium Cards */}
+            {/* Three Pillars - Premium Cards with Better Mobile Text */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto mb-10 md:mb-12 px-4">
               <div className="text-center py-8 px-6 bg-white/10 rounded-xl backdrop-blur-md border border-white/15 hover:bg-white/15 hover:border-white/25 transition-all duration-300 shadow-lg">
-                <div className="text-white text-sm md:text-base lg:text-lg font-semibold">Enterprise Consultation</div>
+                <div className="text-white text-base md:text-lg lg:text-xl font-semibold leading-relaxed">Enterprise Consultation</div>
               </div>
               <div className="text-center py-8 px-6 bg-white/10 rounded-xl backdrop-blur-md border border-white/15 hover:bg-white/15 hover:border-white/25 transition-all duration-300 shadow-lg">
-                <div className="text-white text-sm md:text-base lg:text-lg font-semibold">Drone Operations / STEM Workforce Training</div>
+                <div className="text-white text-base md:text-lg lg:text-xl font-semibold leading-relaxed">Drone Operations / STEM Workforce Training</div>
               </div>
               <div className="text-center py-8 px-6 bg-white/10 rounded-xl backdrop-blur-md border border-white/15 hover:bg-white/15 hover:border-white/25 transition-all duration-300 shadow-lg">
-                <div className="text-white text-sm md:text-base lg:text-lg font-semibold">Advocacy / Public Relations</div>
+                <div className="text-white text-base md:text-lg lg:text-xl font-semibold leading-relaxed">Advocacy / Public Relations</div>
               </div>
             </div>
 
@@ -217,8 +217,8 @@ export default function MarketingHomePage() {
               </Link>
             </div>
 
-            {/* Quick Access Links */}
-            <div className="flex gap-6 justify-center items-center px-6 sm:px-8 mt-6 text-xs sm:text-sm text-white/70">
+            {/* Quick Access Links - Larger on Mobile */}
+            <div className="flex gap-6 justify-center items-center px-6 sm:px-8 mt-8 text-sm sm:text-base text-white/70">
               <Link href="/study-guide" className="hover:text-white transition-colors underline">
                 Free Study Guide
               </Link>
@@ -228,8 +228,8 @@ export default function MarketingHomePage() {
               </Link>
             </div>
 
-            {/* NASA Partnership Badge */}
-            <p className="text-center text-white text-xs sm:text-sm mt-10 md:mt-12 mb-6 opacity-90 px-6 leading-relaxed max-w-2xl mx-auto">
+            {/* NASA Partnership Badge - Larger on Mobile */}
+            <p className="text-center text-white text-sm sm:text-base mt-10 md:mt-12 mb-6 opacity-90 px-6 leading-relaxed max-w-2xl mx-auto">
               Partner in Massachusetts&apos; FAA-Registered Drone Apprenticeship Program
             </p>
           </div>
