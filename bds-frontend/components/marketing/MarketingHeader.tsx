@@ -29,10 +29,11 @@ const brandBlock = (
     <Image
       src="/images/TBDS GRAPHIC.jpg"
       alt="Boston Drone School"
-      width={600}
-      height={420}
-      sizes="(max-width: 640px) 120px, (max-width: 768px) 140px, 180px"
+      width={176}
+      height={123}
+      sizes="(max-width: 640px) 112px, (max-width: 768px) 128px, (max-width: 1024px) 160px, 176px"
       priority
+      quality={90}
       className="h-auto w-28 object-contain transition group-hover:opacity-90 sm:w-32 md:w-40 lg:w-44"
     />
   </Link>
