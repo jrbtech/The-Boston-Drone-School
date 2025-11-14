@@ -398,49 +398,6 @@ export default function MarketingHomePage() {
         </div>
       </section>
 
-      {/* Testimonials Section - Gray */}
-      <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
-          <div className="space-y-8 sm:space-y-10 reveal-on-scroll max-w-6xl mx-auto">
-            <div className="space-y-4 sm:space-y-6 text-center">
-              <span className="caption text-gray-500 block">Client Outcomes</span>
-              <h2 className="h2 leading-tight px-4">
-                Professionals Who Partnered With Us
-              </h2>
-            </div>
-            <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
-              <div className="course-card p-6 sm:p-8 bg-white space-y-4">
-                <p className="text-gray-700 leading-relaxed text-base">
-                  "The consultation helped us develop a compliant UAS program for our municipal inspections. Gregory's expertise in regulatory frameworks was invaluable."
-                </p>
-                <div className="pt-4 border-t border-gray-200">
-                  <p className="font-semibold text-black text-base">Michael Chen</p>
-                  <p className="text-sm text-gray-600">Director of Public Works, City of Cambridge</p>
-                </div>
-              </div>
-              <div className="course-card p-6 sm:p-8 bg-white space-y-4">
-                <p className="text-gray-700 leading-relaxed text-base">
-                  "After completing the intensive bootcamp, I passed the Part 107 exam on my first attempt. The training was thorough and directly applicable to real-world operations."
-                </p>
-                <div className="pt-4 border-t border-gray-200">
-                  <p className="font-semibold text-black text-base">Sarah Mitchell</p>
-                  <p className="text-sm text-gray-600">Real Estate Photography Professional</p>
-                </div>
-              </div>
-              <div className="course-card p-6 sm:p-8 bg-white space-y-4 md:col-span-2 lg:col-span-1">
-                <p className="text-gray-700 leading-relaxed text-base">
-                  "The enterprise consultation provided a clear roadmap for integrating drone technology into our construction workflows while maintaining safety and compliance."
-                </p>
-                <div className="pt-4 border-t border-gray-200">
-                  <p className="font-semibold text-black text-base">Robert Anderson</p>
-                  <p className="text-sm text-gray-600">VP Operations, Regional Construction Firm</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Admissions Section - White */}
       <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
@@ -563,12 +520,6 @@ export default function MarketingHomePage() {
                 <h3 className="text-lg font-semibold text-black mb-3 sm:mb-4">How do I choose the right training program?</h3>
                 <p className="text-gray-700 leading-relaxed text-base">
                   The online webinar program works well for self-directed learners who prefer flexible scheduling. The intensive bootcamp is ideal for those who want accelerated preparation with direct instructor access. Enterprise clients seeking consultation or custom training should contact us directly at info@thebostondroneschool.org to discuss specific organizational needs.
-                </p>
-              </div>
-              <div className="course-card p-6 sm:p-8 bg-white">
-                <h3 className="text-lg font-semibold text-black mb-3 sm:mb-4">What industries do your graduates work in?</h3>
-                <p className="text-gray-700 leading-relaxed text-base">
-                  Our students have gone on to roles in real estate photography, construction monitoring, public safety, infrastructure inspection, agricultural assessment, environmental surveying, and media production. We also train corporate teams for enterprise UAS programs and work with municipalities on compliant drone integration.
                 </p>
               </div>
             </div>
