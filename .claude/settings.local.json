@@ -45,7 +45,8 @@
       "Bash(echo:*)",
       "Bash(psql:*)",
       "Bash(export DATABASE_URL=\"postgresql://boston_drone_school_user:iqDWTMEHtw6Ur72krgu16BY7JO2mTFE6@dpg-d44iulkhg0os73cihtr0-a.oregon-postgres.render.com/boston_drone_school\")",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(copy \"C:\\Users\\megan\\Downloads\\TBDS GRAPHIC.jpg\" \"C:\\Users\\megan\\Downloads\\The-Boston-Drone-School\\bds-frontend\\public\\images\\TBDS GRAPHIC.jpg\")"
     ],
     "deny": [],
     "ask": []

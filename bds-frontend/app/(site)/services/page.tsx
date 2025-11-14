@@ -1,4 +1,17 @@
 import Link from 'next/link'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Professional Drone Services | Training & Consultation | Boston Drone School',
+  description: 'Comprehensive drone services including FAA Part 107 training, aerial operations, photogrammetry, STEM education, and enterprise consultation. Expert drone pilots serving Boston and beyond.',
+  keywords: 'drone services, aerial photography, drone training, FAA Part 107, photogrammetry, drone consultation, commercial drone operations, Boston',
+  openGraph: {
+    title: 'Professional Drone Services | Boston Drone School',
+    description: 'Expert drone training, operations, and consultation services. FAA Part 107 certification, aerial imaging, and enterprise integration.',
+    url: 'https://bostondroneschool.org/services',
+    type: 'website',
+  },
+}
 
 const serviceGroups = [
   {

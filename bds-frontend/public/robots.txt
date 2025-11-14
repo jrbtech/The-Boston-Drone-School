@@ -1,0 +1,19 @@
+# robots.txt for The Boston Drone School
+User-agent: *
+Allow: /
+
+# Disallow admin and user-specific pages
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /profile/
+Disallow: /api/
+Disallow: /checkout/
+
+# Allow important pages
+Allow: /courses
+Allow: /services
+Allow: /shop
+Allow: /study-guide
+
+# Sitemap location
+Sitemap: https://thebostondroneschool.org/sitemap.xml

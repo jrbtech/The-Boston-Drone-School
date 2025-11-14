@@ -11,13 +11,17 @@ const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
+  preload: true,
+  fallback: ['system-ui', '-apple-system', 'sans-serif'],
 })
 
 const poppins = Poppins({
-  weight: ['300', '400', '500', '600', '700', '800'],
+  weight: ['400', '600', '700'],  // Reduced weights for better performance
   subsets: ['latin'],
   variable: '--font-poppins',
   display: 'swap',
+  preload: false,
+  fallback: ['system-ui', '-apple-system', 'sans-serif'],
 })
 
 export const viewport: Viewport = {
@@ -30,7 +34,7 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://bostondroneschool.org'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://thebostondroneschool.org'),
   title: 'The Boston Drone School | FAA Part 107 Certification & Professional Drone Training',
   description:
     'Professional FAA Part 107 drone certification training with 98% pass rate. Expert instruction, commercial drone operations, and comprehensive UAS training programs in Boston.',
@@ -51,21 +55,21 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/images/TBDS GRAPHIC.jpg',
-    apple: '/images/TBDS GRAPHIC.jpg',
+    icon: '/images/tbds-graphic.jpg',
+    apple: '/images/tbds-graphic.jpg',
   },
   manifest: '/manifest.json',
   openGraph: {
     title: 'The Boston Drone School | FAA Part 107 Certification & Professional Drone Training',
     description:
       'Earn your FAA Part 107 certification with Boston Drone School. 98% first-time pass rate. Expert instruction, commercial operations training, and comprehensive learning portal.',
-    url: 'https://bostondroneschool.org',
+    url: 'https://thebostondroneschool.org',
     siteName: 'The Boston Drone School',
     type: 'website',
     locale: 'en_US',
     images: [
       {
-        url: '/images/TBDS GRAPHIC.jpg',
+        url: '/images/tbds-graphic.jpg',
         width: 1200,
         height: 630,
         alt: 'Boston Drone School - FAA Part 107 Certification',
@@ -77,14 +81,14 @@ export const metadata: Metadata = {
     title: 'The Boston Drone School | FAA Part 107 Certification',
     description:
       'Earn your FAA Part 107 certification with Boston Drone School. 98% first-time pass rate.',
-    images: ['/images/TBDS GRAPHIC.jpg'],
+    images: ['/images/tbds-graphic.jpg'],
     creator: '@BostonDroneSchool',
   },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION,
   },
   alternates: {
-    canonical: 'https://bostondroneschool.org',
+    canonical: 'https://thebostondroneschool.org',
   },
 }
 

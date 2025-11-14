@@ -258,7 +258,7 @@ export default function ShopPage() {
       {/* Shipping Info */}
       <section className="bg-gray-50 py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
-          <h3 className="text-center text-2xl font-bold mb-10 text-gray-800">When Available, You'll Enjoy:</h3>
+          <h3 className="text-center text-2xl font-bold mb-10 text-gray-800">When Available, You&apos;ll Enjoy:</h3>
           <div className="grid md:grid-cols-3 gap-8 md:gap-10 lg:gap-12 max-w-5xl mx-auto">
             <div className="text-center space-y-3">
               <div className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center mx-auto">

@@ -16,7 +16,7 @@ export default function CoursesPage() {
   const [searchQuery, setSearchQuery] = useState('')
 
   // Refs for managing state
-  const abortControllerRef = useState<{ current: AbortController | null }>({ current: null })[0]
+  const abortControllerRef = useRef<AbortController | null>(null)
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null)
 
   const loadCourses = useCallback(async (retryCount = 0) => {
@@ -147,7 +147,7 @@ export default function CoursesPage() {
     }
   }, [loadCourses])
 
-  const searchAbortControllerRef = useState<{ current: AbortController | null }>({ current: null })[0]
+  const searchAbortControllerRef = useRef<AbortController | null>(null)
 
   async function handleSearch(e: React.FormEvent, retryCount = 0) {
     e.preventDefault()
@@ -234,15 +234,15 @@ export default function CoursesPage() {
                 />
               </Link>
 
-              <nav className="hidden md:flex items-center gap-6 text-sm font-medium uppercase tracking-wider">
-                <Link href="/courses" className="text-gray-900">Programs</Link>
-                <Link href="/shop" className="text-gray-600 hover:text-black transition-colors">Shop</Link>
-                <Link href="/study-guide" className="text-gray-600 hover:text-black transition-colors">Free Guide</Link>
-                <Link href="/dashboard" className="text-gray-600 hover:text-black transition-colors">Dashboard</Link>
+              <nav className="flex items-center gap-3 md:gap-6 text-xs md:text-sm font-medium uppercase tracking-wider">
+                <Link href="/courses" className="text-gray-900 hidden sm:inline">Programs</Link>
+                <Link href="/shop" className="text-gray-600 hover:text-black transition-colors hidden sm:inline">Shop</Link>
+                <Link href="/study-guide" className="text-gray-600 hover:text-black transition-colors hidden md:inline">Free Guide</Link>
+                <Link href="/dashboard" className="text-gray-600 hover:text-black transition-colors hidden md:inline">Dashboard</Link>
                 <Link href="/login" className="text-gray-600 hover:text-black transition-colors">Login</Link>
                 <Link
                   href="/register"
-                  className="border border-gray-900 px-6 py-2 hover:bg-gray-900 hover:text-white transition-colors"
+                  className="border border-gray-900 px-4 md:px-6 py-2 hover:bg-gray-900 hover:text-white transition-colors min-h-[44px] flex items-center"
                 >
                   Apply
                 </Link>
@@ -290,31 +290,31 @@ export default function CoursesPage() {
       <section className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-8 md:py-10">
             <form onSubmit={handleSearch} className="mb-8">
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search courses..."
-                  className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+                  className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 text-base min-h-[48px]"
               />
               <button
                 type="submit"
-                  className="bg-black hover:bg-gray-800 text-white px-8 py-3 rounded-lg font-medium uppercase tracking-widest transition-colors"
+                  className="bg-black hover:bg-gray-800 text-white px-6 sm:px-8 py-3 rounded-lg font-medium uppercase tracking-widest transition-colors min-h-[48px]"
               >
                 Search
               </button>
             </div>
           </form>
 
-          <div className="flex flex-wrap gap-6">
+          <div className="flex flex-wrap gap-4 md:gap-6">
             {/* Category Filter */}
-            <div>
+            <div className="flex-1 min-w-[200px]">
               <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 text-base min-h-[48px]"
               >
                 <option value="all">All Categories</option>
                 {categories.map(cat => (
@@ -324,12 +324,12 @@ export default function CoursesPage() {
             </div>
 
             {/* Level Filter */}
-            <div>
+            <div className="flex-1 min-w-[200px]">
               <label className="block text-sm font-medium text-gray-700 mb-2">Skill Level</label>
               <select
                 value={selectedLevel}
                 onChange={(e) => setSelectedLevel(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 text-base min-h-[48px]"
               >
                 <option value="all">All Levels</option>
                 {levels.map(level => (
@@ -355,7 +355,7 @@ export default function CoursesPage() {
                   })
                 }
               }}
-              className="self-end px-6 py-2 text-gray-600 hover:text-gray-900"
+              className="self-end px-6 py-3 text-gray-600 hover:text-gray-900 min-h-[48px]"
             >
               Clear Filters
             </button>

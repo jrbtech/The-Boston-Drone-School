@@ -47,3 +47,4 @@ target/
 # Temporary files
 *.tmp
 *.temp
+.aider*
