@@ -103,8 +103,9 @@ export function MarketingHeader() {
         <button
           type="button"
           onClick={() => setMenuOpen((open) => !open)}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border-2 border-gray-900 text-gray-900 lg:hidden active:bg-gray-100"
+          className="inline-flex h-12 w-12 items-center justify-center rounded-full border-2 border-gray-900 text-gray-900 lg:hidden active:bg-gray-100 touch-manipulation"
           aria-label="Toggle navigation"
+          aria-expanded={menuOpen}
         >
           <ToggleIcon open={menuOpen} />
         </button>
@@ -112,7 +113,7 @@ export function MarketingHeader() {
 
       {menuOpen && (
         <div className="border-t border-black/10 bg-white lg:hidden">
-          <nav className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-6 text-base uppercase tracking-wider text-gray-700">
+          <nav className="mx-auto flex w-full max-w-6xl flex-col gap-1 px-4 py-4 text-base uppercase tracking-wider text-gray-700">
             {navLinks.map((link) => {
               const active = isCurrent(pathname, link.href);
               if (link.emphasis === "primary") {
@@ -120,7 +121,7 @@ export function MarketingHeader() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="inline-flex min-h-[44px] items-center justify-center rounded-full border-2 border-gray-900 px-6 py-3 text-sm font-semibold tracking-wider text-gray-900 transition active:bg-gray-900 active:text-white"
+                    className="inline-flex min-h-[48px] items-center justify-center rounded-full border-2 border-gray-900 px-6 py-3 text-sm font-semibold tracking-wider text-gray-900 transition active:bg-gray-900 active:text-white touch-manipulation"
                     onClick={() => setMenuOpen(false)}
                   >
                     {link.label}
@@ -132,7 +133,7 @@ export function MarketingHeader() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`block min-h-[44px] py-3 text-base transition-colors active:text-gray-900 ${active ? "text-gray-900 font-semibold" : ""}`}
+                  className={`block min-h-[48px] py-3 px-2 text-base transition-colors active:text-gray-900 touch-manipulation ${active ? "text-gray-900 font-semibold" : ""}`}
                   onClick={() => setMenuOpen(false)}
                 >
                   {link.label}
