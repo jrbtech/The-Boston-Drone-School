@@ -172,13 +172,13 @@ export default function MarketingHomePage() {
               </span>
             </div>
 
-            {/* Headline - EXTRA LARGE for Mobile */}
-            <h1 className="text-center text-white text-5xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-10 sm:mb-11 md:mb-12 leading-tight max-w-6xl mx-auto px-4 sm:px-6 break-words">
+            {/* Headline - MASSIVE for Mobile */}
+            <h1 className="text-center text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-12 sm:mb-14 md:mb-16 leading-tight max-w-6xl mx-auto px-6 sm:px-8 break-words" style={{ fontSize: 'clamp(48px, 10vw, 96px)' }}>
               Professional Drone Consulting & Operational Services
             </h1>
 
-            {/* Subheadline - EXTRA LARGE on Mobile */}
-            <p className="text-center text-white text-2xl sm:text-3xl md:text-4xl lg:text-4xl mb-14 sm:mb-16 md:mb-18 max-w-4xl mx-auto font-light opacity-95 leading-relaxed px-4 sm:px-6 break-words">
+            {/* Subheadline - MASSIVE on Mobile */}
+            <p className="text-center text-white text-3xl sm:text-4xl md:text-5xl mb-16 sm:mb-18 md:mb-20 max-w-4xl mx-auto font-light opacity-95 leading-relaxed px-6 sm:px-8 break-words" style={{ fontSize: 'clamp(32px, 6vw, 64px)' }}>
               Expert consultation and advocacy for the safe integration of drone technology into your operations
             </p>
 

@@ -735,56 +735,65 @@ img.bw {
    ============================================================================ */
 
 @media (max-width: 768px) {
-  /* EXTRA LARGE base font size on mobile - NO ZOOM NEEDED */
-  body {
-    font-size: 24px !important; /* Increased from 20px to 24px */
-    line-height: 1.9 !important;
+  /* MASSIVE base font size on mobile - SUPER EASY TO READ */
+  html {
+    font-size: 28px !important; /* Set root font size HUGE */
   }
 
-  /* EXTRA LARGE headings on mobile */
+  body {
+    font-size: 28px !important; /* MASSIVE increase */
+    line-height: 2 !important;
+  }
+
+  /* MASSIVE headings on mobile */
   h1, .h1 {
-    font-size: clamp(3rem, 14vw, 5rem) !important; /* Min 48px, max 80px */
+    font-size: 4rem !important; /* 64px FIXED */
     line-height: 1.3 !important;
     margin-bottom: 2rem !important;
   }
 
   h2, .h2 {
-    font-size: clamp(2.5rem, 10vw, 3.5rem) !important; /* Min 40px, max 56px */
+    font-size: 3rem !important; /* 48px FIXED */
     line-height: 1.35 !important;
     margin-bottom: 1.5rem !important;
   }
 
   h3, .h3 {
-    font-size: clamp(2rem, 8vw, 2.75rem) !important; /* Min 32px */
+    font-size: 2.5rem !important; /* 40px FIXED */
     line-height: 1.4 !important;
     margin-bottom: 1.25rem !important;
   }
 
   h4, .h4 {
-    font-size: clamp(1.75rem, 6vw, 2.25rem) !important; /* Min 28px */
+    font-size: 2rem !important; /* 32px FIXED */
     line-height: 1.45 !important;
   }
 
-  /* EXTRA LARGE body text on mobile */
+  /* MASSIVE body text on mobile */
   p, .body {
-    font-size: 1.5rem !important; /* 24px - increased from 20px */
-    line-height: 1.9 !important;
+    font-size: 1.75rem !important; /* 28px */
+    line-height: 2 !important;
     margin-bottom: 2rem !important;
   }
 
   .body-large {
-    font-size: 1.625rem !important; /* 26px - increased from 22px */
-    line-height: 1.9 !important;
+    font-size: 2rem !important; /* 32px */
+    line-height: 2 !important;
   }
 
   .small-text {
-    font-size: 1.3125rem !important; /* 21px - increased from 18px */
-    line-height: 1.8 !important;
+    font-size: 1.5rem !important; /* 24px */
+    line-height: 1.9 !important;
   }
 
   .caption {
-    font-size: 1.125rem !important; /* 18px - increased from 16px */
-    line-height: 1.7 !important;
+    font-size: 1.25rem !important; /* 20px */
+    line-height: 1.8 !important;
+  }
+
+  /* Force text to be large everywhere */
+  div, span, a, li, td, th, label {
+    font-size: inherit !important;
   }
 
   /* Increase padding for better touch targets and readability */
@@ -818,19 +827,19 @@ img.bw {
     grid-template-columns: 1fr;
   }
 
-  /* EXTRA LARGE buttons on mobile */
+  /* MASSIVE buttons on mobile */
   .btn-primary,
   .btn-secondary,
   .btn-tertiary {
-    font-size: 1.5rem !important; /* 24px - increased from 20px */
-    padding: 1.5rem 3rem !important;
-    min-height: 64px !important;
+    font-size: 2rem !important; /* 32px */
+    padding: 2rem 3.5rem !important;
+    min-height: 72px !important;
   }
 
   .btn-premium-cta {
-    font-size: 1.625rem !important; /* 26px - increased from 22px */
-    padding: 1.75rem 3.5rem !important;
-    min-height: 68px !important;
+    font-size: 2.25rem !important; /* 36px */
+    padding: 2.25rem 4rem !important;
+    min-height: 80px !important;
   }
 }
 
@@ -1298,36 +1307,47 @@ img.bw {
     padding: 2rem !important;
   }
 
-  /* EXTRA LARGE lists on mobile */
+  /* MASSIVE lists on mobile */
   li {
-    font-size: 1.375rem !important; /* 22px - increased from 19px */
-    line-height: 1.9 !important;
-    margin-bottom: 1.25rem !important;
+    font-size: 1.75rem !important; /* 28px */
+    line-height: 2 !important;
+    margin-bottom: 1.5rem !important;
   }
 
-  /* EXTRA LARGE form inputs on mobile */
+  /* MASSIVE form inputs on mobile */
   input[type="text"],
   input[type="email"],
   input[type="tel"],
   input[type="password"],
   textarea,
   select {
-    font-size: 1.3125rem !important; /* 21px - much larger to prevent zoom */
-    padding: 1.25rem !important;
-    min-height: 64px !important;
+    font-size: 1.5rem !important; /* 24px - LARGE to prevent zoom */
+    padding: 1.5rem !important;
+    min-height: 72px !important;
   }
 
-  /* EXTRA LARGE links on mobile */
+  /* MASSIVE links on mobile */
   a {
-    font-size: inherit;
-    min-height: 48px;
+    font-size: inherit !important;
+    min-height: 52px;
     display: inline-flex;
     align-items: center;
   }
 
-  /* Make sure all text is large */
+  /* Make ALL text large - override everything */
   * {
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
   }
+
+  /* Override any tailwind small text */
+  .text-xs { font-size: 1.125rem !important; } /* 18px */
+  .text-sm { font-size: 1.25rem !important; } /* 20px */
+  .text-base { font-size: 1.5rem !important; } /* 24px */
+  .text-lg { font-size: 1.75rem !important; } /* 28px */
+  .text-xl { font-size: 2rem !important; } /* 32px */
+  .text-2xl { font-size: 2.5rem !important; } /* 40px */
+  .text-3xl { font-size: 3rem !important; } /* 48px */
+  .text-4xl { font-size: 3.5rem !important; } /* 56px */
+  .text-5xl { font-size: 4rem !important; } /* 64px */
 }
