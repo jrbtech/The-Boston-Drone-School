@@ -167,31 +167,31 @@ export default function MarketingHomePage() {
 
             {/* Badge */}
             <div className="flex justify-center mb-6 sm:mb-7 md:mb-8 w-full px-4 sm:px-6">
-              <span className="faa-certified-badge text-center max-w-full break-words text-lg sm:text-xl font-bold">
+              <span className="faa-certified-badge text-center max-w-full break-words text-xl sm:text-2xl font-bold px-6 py-3">
                 NASA Network Partner
               </span>
             </div>
 
-            {/* Headline - MUCH LARGER for Mobile */}
-            <h1 className="text-center text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-8 sm:mb-9 md:mb-10 leading-tight max-w-6xl mx-auto px-4 sm:px-6 break-words">
+            {/* Headline - EXTRA LARGE for Mobile */}
+            <h1 className="text-center text-white text-5xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-10 sm:mb-11 md:mb-12 leading-tight max-w-6xl mx-auto px-4 sm:px-6 break-words">
               Professional Drone Consulting & Operational Services
             </h1>
 
-            {/* Subheadline - MUCH LARGER on Mobile */}
-            <p className="text-center text-white text-xl sm:text-2xl md:text-3xl lg:text-3xl mb-12 sm:mb-14 md:mb-16 max-w-4xl mx-auto font-light opacity-95 leading-relaxed px-4 sm:px-6 break-words">
+            {/* Subheadline - EXTRA LARGE on Mobile */}
+            <p className="text-center text-white text-2xl sm:text-3xl md:text-4xl lg:text-4xl mb-14 sm:mb-16 md:mb-18 max-w-4xl mx-auto font-light opacity-95 leading-relaxed px-4 sm:px-6 break-words">
               Expert consultation and advocacy for the safe integration of drone technology into your operations
             </p>
 
-            {/* Three Pillars - MUCH LARGER Mobile Text */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto mb-10 md:mb-12 px-4">
-              <div className="text-center py-10 px-8 bg-white/10 rounded-xl backdrop-blur-md border border-white/15 hover:bg-white/15 hover:border-white/25 transition-all duration-300 shadow-lg">
-                <div className="text-white text-xl md:text-2xl lg:text-2xl font-semibold leading-relaxed">Enterprise Consultation</div>
+            {/* Three Pillars - EXTRA LARGE Mobile Text */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 lg:gap-12 max-w-5xl mx-auto mb-12 md:mb-14 px-4">
+              <div className="text-center py-12 px-10 bg-white/10 rounded-xl backdrop-blur-md border border-white/15 hover:bg-white/15 hover:border-white/25 transition-all duration-300 shadow-lg">
+                <div className="text-white text-2xl md:text-2xl lg:text-3xl font-semibold leading-relaxed">Enterprise Consultation</div>
               </div>
-              <div className="text-center py-10 px-8 bg-white/10 rounded-xl backdrop-blur-md border border-white/15 hover:bg-white/15 hover:border-white/25 transition-all duration-300 shadow-lg">
-                <div className="text-white text-xl md:text-2xl lg:text-2xl font-semibold leading-relaxed">Drone Operations / STEM Workforce Training</div>
+              <div className="text-center py-12 px-10 bg-white/10 rounded-xl backdrop-blur-md border border-white/15 hover:bg-white/15 hover:border-white/25 transition-all duration-300 shadow-lg">
+                <div className="text-white text-2xl md:text-2xl lg:text-3xl font-semibold leading-relaxed">Drone Operations / STEM Workforce Training</div>
               </div>
-              <div className="text-center py-10 px-8 bg-white/10 rounded-xl backdrop-blur-md border border-white/15 hover:bg-white/15 hover:border-white/25 transition-all duration-300 shadow-lg">
-                <div className="text-white text-xl md:text-2xl lg:text-2xl font-semibold leading-relaxed">Advocacy / Public Relations</div>
+              <div className="text-center py-12 px-10 bg-white/10 rounded-xl backdrop-blur-md border border-white/15 hover:bg-white/15 hover:border-white/25 transition-all duration-300 shadow-lg">
+                <div className="text-white text-2xl md:text-2xl lg:text-3xl font-semibold leading-relaxed">Advocacy / Public Relations</div>
               </div>
             </div>
 
@@ -217,19 +217,19 @@ export default function MarketingHomePage() {
               </Link>
             </div>
 
-            {/* Quick Access Links - MUCH LARGER on Mobile */}
-            <div className="flex gap-8 justify-center items-center px-6 sm:px-8 mt-10 text-lg sm:text-xl text-white/70">
-              <Link href="/study-guide" className="hover:text-white transition-colors underline font-medium">
+            {/* Quick Access Links - EXTRA LARGE on Mobile */}
+            <div className="flex gap-10 justify-center items-center px-6 sm:px-8 mt-12 text-xl sm:text-2xl text-white/70">
+              <Link href="/study-guide" className="hover:text-white transition-colors underline font-semibold">
                 Free Study Guide
               </Link>
-              <span className="text-2xl">•</span>
-              <Link href="/register" className="hover:text-white transition-colors underline font-medium">
+              <span className="text-3xl">•</span>
+              <Link href="/register" className="hover:text-white transition-colors underline font-semibold">
                 Create Account
               </Link>
             </div>
 
-            {/* NASA Partnership Badge - MUCH LARGER on Mobile */}
-            <p className="text-center text-white text-base sm:text-lg mt-12 md:mt-14 mb-8 opacity-90 px-6 leading-relaxed max-w-2xl mx-auto">
+            {/* NASA Partnership Badge - EXTRA LARGE on Mobile */}
+            <p className="text-center text-white text-xl sm:text-2xl mt-14 md:mt-16 mb-10 opacity-90 px-6 leading-relaxed max-w-2xl mx-auto">
               Partner in Massachusetts&apos; FAA-Registered Drone Apprenticeship Program
             </p>
           </div>
