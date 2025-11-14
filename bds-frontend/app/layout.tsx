@@ -117,7 +117,7 @@ export default function RootLayout({
             </div>
           </AuthProvider>
         </ErrorBoundary>
-        <Script src="/js/premium-motion.js" strategy="afterInteractive" />
+        <Script src="/js/premium-motion.js" strategy="lazyOnload" />
       </body>
     </html>
   )

@@ -161,7 +161,8 @@ export default function MarketingHomePage() {
                 height={200}
                 className="h-24 sm:h-32 md:h-40 lg:h-48 w-auto max-w-full"
                 priority
-                quality={75}
+                quality={85}
+                sizes="(max-width: 640px) 96px, (max-width: 768px) 128px, (max-width: 1024px) 160px, 192px"
               />
             </div>
 
@@ -254,6 +255,8 @@ export default function MarketingHomePage() {
                     height={180}
                     className="h-44 w-44 object-cover grayscale-image"
                     loading="lazy"
+                    quality={80}
+                    sizes="176px"
                   />
                 </div>
               </div>

@@ -11,81 +11,60 @@ interface AutoplayVideoProps {
 
 export default function AutoplayVideo({ src, poster, title, className = '' }: AutoplayVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [isInView, setIsInView] = useState(false)
+  const [hasLoaded, setHasLoaded] = useState(false)
+  const [shouldPlay, setShouldPlay] = useState(false)
 
   useEffect(() => {
-    // Intersection Observer for lazy loading and scroll animations
+    const videoElement = videoRef.current
+    if (!videoElement) return
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsInView(true)
-            if (videoRef.current) {
-              const playPromise = videoRef.current.play()
-              if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                  console.log('Autoplay prevented:', error)
-                })
+          if (entry.isIntersecting && !hasLoaded) {
+            setHasLoaded(true)
+            // Delay loading to prevent multiple videos loading at once
+            setTimeout(() => {
+              if (videoElement) {
+                videoElement.load()
               }
-            }
+            }, 300)
+          }
+
+          // Only play when actually visible
+          if (entry.isIntersecting && hasLoaded) {
+            setShouldPlay(true)
+            videoElement.play().catch(() => {
+              // Silently handle autoplay prevention
+            })
+          } else if (!entry.isIntersecting && videoElement) {
+            // Pause when out of view to save bandwidth
+            setShouldPlay(false)
+            videoElement.pause()
           }
         })
       },
-      { threshold: 0.2 }
+      { threshold: 0.1, rootMargin: '50px' }
     )
 
-    const currentContainer = containerRef.current
-    if (currentContainer) {
-      observer.observe(currentContainer)
-    }
-
-    return () => {
-      if (currentContainer) {
-        observer.unobserve(currentContainer)
-      }
-    }
-  }, [])
-
-  const handleLoadedData = () => {
-    setIsLoaded(true)
-  }
+    observer.observe(videoElement)
+    return () => observer.disconnect()
+  }, [hasLoaded])
 
   return (
-    <div
-      ref={containerRef}
-      className={`relative overflow-hidden zoom-on-hover ${className} ${
-        isInView ? 'video-reveal' : ''
-      }`}
-    >
-      {/* Loading shimmer effect */}
-      {!isLoaded && (
-        <div className="absolute inset-0 shimmer bg-gray-800 z-10" />
-      )}
-
-      {/* Glowing border effect */}
-      <div className="absolute inset-0 glowing-border rounded-lg pointer-events-none z-20" />
-
+    <div className={`relative overflow-hidden bg-gray-100 ${className}`}>
       <video
         ref={videoRef}
-        className={`w-full h-full object-cover transition-opacity duration-700 ${
-          isLoaded ? 'opacity-100' : 'opacity-0'
-        }`}
-        autoPlay
+        className="w-full h-full object-cover"
         muted
         loop
         playsInline
         poster={poster}
         aria-label={title}
-        onLoadedData={handleLoadedData}
+        preload="none"
       >
-        <source src={src} type="video/mp4" />
-        Your browser does not support the video tag.
+        {hasLoaded && <source src={src} type="video/mp4" />}
       </video>
-
-      {/* Subtle gradient overlay for depth */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/10 pointer-events-none" />
     </div>
   )
 }
