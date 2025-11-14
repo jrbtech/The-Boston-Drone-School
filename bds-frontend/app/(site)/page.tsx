@@ -391,6 +391,9 @@ export default function MarketingHomePage() {
                 Access Portal
               </Link>
             </div>
+            <p className="text-sm text-white/60 leading-relaxed max-w-2xl mx-auto pt-4">
+              *Training programs are designed to prepare students for the FAA Part 107 examination. Course completion does not guarantee exam passage. Individual results may vary based on study commitment and comprehension of material.
+            </p>
           </div>
         </div>
       </section>
@@ -541,7 +544,7 @@ export default function MarketingHomePage() {
               <div className="course-card p-6 sm:p-8 bg-white">
                 <h3 className="text-lg font-semibold text-black mb-3 sm:mb-4">How long does exam preparation typically take?</h3>
                 <p className="text-gray-700 leading-relaxed text-base">
-                  Most students complete our online program in 2-4 weeks at their own pace. The intensive bootcamp condenses this into 2 days of focused training. We recommend dedicating 10-15 hours total to exam preparation regardless of the format you choose.
+                  Most students complete our online program in 2-4 weeks at their own pace. The intensive bootcamp condenses this into 2 days of focused training. We recommend dedicating 10-15 hours total to exam preparation regardless of the format you choose. Please note: our training programs are designed to prepare you for the exam, but course completion does not guarantee exam passage. Success depends on individual study commitment and comprehension.
                 </p>
               </div>
               <div className="course-card p-6 sm:p-8 bg-white">
