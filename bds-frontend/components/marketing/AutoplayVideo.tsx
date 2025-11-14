@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
+import Image from 'next/image'
 
 interface AutoplayVideoProps {
   src: string
@@ -11,48 +12,54 @@ interface AutoplayVideoProps {
 
 export default function AutoplayVideo({ src, poster, title, className = '' }: AutoplayVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [isPlaying, setIsPlaying] = useState(false)
   const [hasLoaded, setHasLoaded] = useState(false)
-  const [shouldPlay, setShouldPlay] = useState(false)
 
-  useEffect(() => {
-    const videoElement = videoRef.current
-    if (!videoElement) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasLoaded) {
-            setHasLoaded(true)
-            // Delay loading to prevent multiple videos loading at once
-            setTimeout(() => {
-              if (videoElement) {
-                videoElement.load()
-              }
-            }, 300)
-          }
-
-          // Only play when actually visible
-          if (entry.isIntersecting && hasLoaded) {
-            setShouldPlay(true)
-            videoElement.play().catch(() => {
-              // Silently handle autoplay prevention
-            })
-          } else if (!entry.isIntersecting && videoElement) {
-            // Pause when out of view to save bandwidth
-            setShouldPlay(false)
-            videoElement.pause()
-          }
-        })
-      },
-      { threshold: 0.1, rootMargin: '50px' }
-    )
-
-    observer.observe(videoElement)
-    return () => observer.disconnect()
-  }, [hasLoaded])
+  const handlePlayClick = () => {
+    if (!hasLoaded) {
+      setHasLoaded(true)
+      // Small delay to ensure video element is ready
+      setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.load()
+          videoRef.current.play()
+          setIsPlaying(true)
+        }
+      }, 100)
+    } else if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause()
+        setIsPlaying(false)
+      } else {
+        videoRef.current.play()
+        setIsPlaying(true)
+      }
+    }
+  }
 
   return (
-    <div className={`relative overflow-hidden bg-gray-100 ${className}`}>
+    <div className={`relative overflow-hidden bg-gray-100 group cursor-pointer ${className}`} onClick={handlePlayClick}>
+      {!isPlaying && poster && (
+        <div className="absolute inset-0 z-10">
+          <Image
+            src={poster}
+            alt={title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            quality={85}
+          />
+          {/* Play button overlay */}
+          <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <svg className="w-8 h-8 sm:w-10 sm:h-10 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      )}
+
       <video
         ref={videoRef}
         className="w-full h-full object-cover"
@@ -62,6 +69,8 @@ export default function AutoplayVideo({ src, poster, title, className = '' }: Au
         poster={poster}
         aria-label={title}
         preload="none"
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
       >
         {hasLoaded && <source src={src} type="video/mp4" />}
       </video>
