@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import AutoplayVideo from "@/components/marketing/AutoplayVideo";
 
 // Lazy load LoginModal to reduce initial bundle size
 const LoginModal = dynamic(() => import("@/components/LoginModal"), {
@@ -47,27 +46,6 @@ const admissionsChecklist = [
   'Expert consultation on UAS integration and operational planning.',
   'Professional training and exam preparation resources.',
   'Direct support from our team at info@thebostondroneschool.org.'
-];
-
-const videoShowcase = [
-  {
-    title: "Enterprise Consultation",
-    src: "/videos/aerial-cinematography.mp4",
-    poster: "/videos/professional-techniques.jpg",
-    description: "Strategic UAS integration roadmaps designed for public and private sector stakeholders seeking expert guidance on operational planning and regulatory compliance."
-  },
-  {
-    title: "Drone Operations / STEM Workforce Training",
-    src: "/videos/commercial-operations.mp4",
-    poster: "/videos/professional-techniques.jpg",
-    description: "Comprehensive professional development programs cultivating operational excellence through hands-on training, FPV build kits, and aerospace technology applications."
-  },
-  {
-    title: "Advocacy / Public Relations",
-    src: "/videos/professional-techniques.mp4",
-    poster: "/videos/professional-techniques.jpg",
-    description: "Proactive policy advocacy through the Boston Drone School Drone Advocacy Group, advancing responsible UAS integration across communities and industries."
-  }
 ];
 
 const pricingTiers = [
@@ -533,39 +511,6 @@ export default function MarketingHomePage() {
                   The online webinar program works well for self-directed learners who prefer flexible scheduling. The intensive bootcamp is ideal for those who want accelerated preparation with direct instructor access. Enterprise clients seeking consultation or custom training should contact us directly at info@thebostondroneschool.org to discuss specific organizational needs.
                 </p>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Video Showcase Section - Premium Grid */}
-      <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
-          <div className="space-y-10 reveal-on-scroll max-w-6xl mx-auto">
-            <div className="space-y-6 text-center">
-              <span className="caption text-gray-500 block">Mission Footage</span>
-              <h2 className="h2">
-                Experience the workflows our crews deliver.
-              </h2>
-              <p className="text-gray-700 leading-relaxed max-w-3xl mx-auto">
-                Explore how Boston Drone School teams capture visuals, coach pilots, and package insights after every mission. Each short video highlights a different stage of our engagements.
-              </p>
-            </div>
-            <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-              {videoShowcase.map((video, index) => (
-                <div key={video.src} className="space-y-4 text-center fade-in-delayed" style={{ animationDelay: `${index * 100}ms` }}>
-                  <AutoplayVideo
-                    src={video.src}
-                    poster={video.poster || undefined}
-                    title={video.title}
-                    className="rounded-xl border border-gray-200 shadow-md grayscale-image"
-                  />
-                  <div className="space-y-2">
-                    <h3 className="text-lg font-semibold leading-tight text-gray-900">{video.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{video.description}</p>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </div>
