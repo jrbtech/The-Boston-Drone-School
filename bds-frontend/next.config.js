@@ -27,7 +27,6 @@ const nextConfig = {
   // Ensure ES modules work correctly
   experimental: {
     esmExternals: true,
-    optimizeCss: true,
   },
   // Disable type checking during build (we'll rely on tsc for this)
   typescript: {
