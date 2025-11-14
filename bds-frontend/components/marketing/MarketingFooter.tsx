@@ -22,9 +22,11 @@ export function MarketingFooter() {
             <Image
               src="/images/TBDS GRAPHIC.jpg"
               alt="Boston Drone School logo"
-              width={600}
-              height={420}
-              sizes="(max-width: 640px) 140px, (max-width: 768px) 160px, 192px"
+              width={192}
+              height={134}
+              sizes="(max-width: 640px) 144px, (max-width: 768px) 160px, (max-width: 1024px) 176px, 192px"
+              loading="lazy"
+              quality={85}
               className="h-auto w-36 sm:w-40 md:w-44 lg:w-48 object-contain"
             />
           </Link>

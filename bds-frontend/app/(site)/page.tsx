@@ -3,8 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import AutoplayVideo from "@/components/marketing/AutoplayVideo";
-import LoginModal from "@/components/LoginModal";
+
+// Lazy load LoginModal to reduce initial bundle size
+const LoginModal = dynamic(() => import("@/components/LoginModal"), {
+  ssr: false,
+  loading: () => null
+});
 
 const operations = [
   {
