@@ -26,6 +26,7 @@ export const viewport: Viewport = {
   maximumScale: 5,
   userScalable: true,
   themeColor: '#000000',
+  viewportFit: 'cover',
 }
 
 export const metadata: Metadata = {
@@ -80,7 +81,7 @@ export const metadata: Metadata = {
     creator: '@BostonDroneSchool',
   },
   verification: {
-    google: 'your-google-verification-code',
+    google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION,
   },
   alternates: {
     canonical: 'https://bostondroneschool.org',

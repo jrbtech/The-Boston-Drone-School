@@ -130,3 +130,100 @@ export function LocalBusinessStructuredData() {
     />
   )
 }
+import Script from 'next/script'
+
+export function OrganizationStructuredData() {
+  const organizationData = {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "The Boston Drone School",
+    "alternateName": "Boston Drone School",
+    "url": "https://bostondroneschool.org",
+    "logo": "https://bostondroneschool.org/images/TBDS GRAPHIC.jpg",
+    "description": "Professional FAA Part 107 drone certification training with 98% pass rate. Expert instruction, commercial drone operations, and comprehensive UAS training programs in Boston.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Boston",
+      "addressRegion": "MA",
+      "addressCountry": "US"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+1-XXX-XXX-XXXX",
+      "contactType": "customer service",
+      "email": "info@thebostondroneschool.org"
+    },
+    "sameAs": [
+      "https://twitter.com/BostonDroneSchool"
+    ],
+    "foundingDate": "2020",
+    "founder": {
+      "@type": "Person",
+      "name": "Gregory Anthony Blaize"
+    },
+    "offers": {
+      "@type": "Course",
+      "name": "FAA Part 107 Certification Training",
+      "description": "Comprehensive FAA Part 107 drone certification course with 98% pass rate",
+      "provider": {
+        "@type": "Organization",
+        "name": "The Boston Drone School"
+      }
+    }
+  }
+
+  return (
+    <Script
+      id="organization-structured-data"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }}
+    />
+  )
+}
+
+export function LocalBusinessStructuredData() {
+  const businessData = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "The Boston Drone School",
+    "image": "https://bostondroneschool.org/images/TBDS GRAPHIC.jpg",
+    "description": "Professional drone training and consultation services specializing in FAA Part 107 certification and commercial UAS operations.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Boston",
+      "addressRegion": "MA",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "42.3601",
+      "longitude": "-71.0589"
+    },
+    "url": "https://bostondroneschool.org",
+    "telephone": "+1-XXX-XXX-XXXX",
+    "email": "info@thebostondroneschool.org",
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday", 
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "09:00",
+      "closes": "17:00"
+    },
+    "priceRange": "$375-$1650",
+    "paymentAccepted": "Credit Card, PayPal",
+    "currenciesAccepted": "USD"
+  }
+
+  return (
+    <Script
+      id="local-business-structured-data"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(businessData) }}
+    />
+  )
+}
