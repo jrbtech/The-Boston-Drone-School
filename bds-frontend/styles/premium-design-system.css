@@ -62,9 +62,9 @@
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 18px; /* Increased from 16px for better mobile readability */
+  font-size: 16px;
   font-weight: 400;
-  line-height: 1.7; /* Increased from 1.6 for better readability */
+  line-height: 1.6;
   letter-spacing: normal;
   color: var(--pure-black);
   background: var(--pure-white);
@@ -73,15 +73,15 @@ body {
 }
 
 h1, .h1 {
-  font-size: clamp(2rem, 8vw, 4.5rem); /* Increased min from 3rem to 2rem is actually smaller, let me fix */
+  font-size: clamp(2.25rem, 5vw + 1rem, 4rem);
   font-weight: 700;
   letter-spacing: -0.03em;
-  line-height: 1.15; /* Slightly more breathing room */
+  line-height: 1.1;
   margin: 0 0 1.5rem 0;
 }
 
 h2, .h2 {
-  font-size: clamp(1.75rem, 5vw, 3rem); /* Increased min from 2rem */
+  font-size: clamp(1.75rem, 4vw + 0.5rem, 3rem);
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.2;
@@ -89,7 +89,7 @@ h2, .h2 {
 }
 
 h3, .h3 {
-  font-size: clamp(1.375rem, 3vw, 2rem); /* Increased min from 1.5rem */
+  font-size: clamp(1.375rem, 2.5vw + 0.5rem, 2rem);
   font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 1.3;
@@ -97,7 +97,7 @@ h3, .h3 {
 }
 
 h4, .h4 {
-  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  font-size: clamp(1.125rem, 1.5vw + 0.5rem, 1.5rem);
   font-weight: 600;
   letter-spacing: normal;
   line-height: 1.4;
@@ -105,33 +105,31 @@ h4, .h4 {
 }
 
 p, .body {
-  font-size: clamp(1.0625rem, 2vw, 1.125rem); /* Min 17px, max 18px */
+  font-size: clamp(1rem, 0.5vw + 0.875rem, 1.125rem);
   font-weight: 400;
-  line-height: 1.7; /* Increased from 1.6 */
-  max-width: 70ch;
+  line-height: 1.6;
   margin: 0 0 1.5em 0;
 }
 
 .body-large {
-  font-size: clamp(1.1875rem, 2.5vw, 1.375rem); /* Min 19px, max 22px */
+  font-size: clamp(1.125rem, 1vw + 0.875rem, 1.375rem);
   font-weight: 400;
-  line-height: 1.7;
-  max-width: 65ch;
-}
-
-.small-text {
-  font-size: clamp(0.9375rem, 2vw, 1rem); /* Min 15px instead of 14px */
-  font-weight: 400;
-  letter-spacing: 0.005em;
   line-height: 1.6;
 }
 
+.small-text {
+  font-size: clamp(0.875rem, 0.5vw + 0.75rem, 1rem);
+  font-weight: 400;
+  letter-spacing: 0.005em;
+  line-height: 1.5;
+}
+
 .caption {
-  font-size: clamp(0.8125rem, 1.5vw, 0.875rem); /* Min 13px instead of 12px */
+  font-size: clamp(0.75rem, 0.5vw + 0.625rem, 0.875rem);
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 /* ============================================================================
@@ -700,9 +698,9 @@ img.bw {
    ============================================================================ */
 
 .reveal-on-scroll {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all var(--duration-slow) var(--ease-primary);
+  opacity: 1;
+  transform: translateY(0);
+  transition: none;
 }
 
 .reveal-on-scroll.revealed {
@@ -711,15 +709,15 @@ img.bw {
 }
 
 .fade-in-delayed {
-  opacity: 0;
-  animation: fadeIn var(--duration-slow) var(--ease-primary) forwards;
+  opacity: 1;
+  animation: none;
 }
 
-.fade-in-delayed:nth-child(1) { animation-delay: 0.1s; }
-.fade-in-delayed:nth-child(2) { animation-delay: 0.2s; }
-.fade-in-delayed:nth-child(3) { animation-delay: 0.3s; }
-.fade-in-delayed:nth-child(4) { animation-delay: 0.4s; }
-.fade-in-delayed:nth-child(5) { animation-delay: 0.5s; }
+.fade-in-delayed:nth-child(1) { animation-delay: 0s; }
+.fade-in-delayed:nth-child(2) { animation-delay: 0s; }
+.fade-in-delayed:nth-child(3) { animation-delay: 0s; }
+.fade-in-delayed:nth-child(4) { animation-delay: 0s; }
+.fade-in-delayed:nth-child(5) { animation-delay: 0s; }
 
 @keyframes fadeIn {
   from {
@@ -735,79 +733,75 @@ img.bw {
    ============================================================================ */
 
 @media (max-width: 768px) {
-  /* MASSIVE base font size on mobile - SUPER EASY TO READ */
+  /* Proper mobile font sizing - readable but balanced */
   html {
-    font-size: 28px !important; /* Set root font size HUGE */
+    font-size: 16px;
   }
 
   body {
-    font-size: 28px !important; /* MASSIVE increase */
-    line-height: 2 !important;
+    font-size: 16px;
+    line-height: 1.7;
   }
 
-  /* MASSIVE headings on mobile */
+  /* Properly sized headings on mobile - still impactful but not overwhelming */
   h1, .h1 {
-    font-size: 4rem !important; /* 64px FIXED */
-    line-height: 1.3 !important;
-    margin-bottom: 2rem !important;
-  }
-
-  h2, .h2 {
-    font-size: 3rem !important; /* 48px FIXED */
-    line-height: 1.35 !important;
+    font-size: 2.5rem !important; /* 40px */
+    line-height: 1.2 !important;
     margin-bottom: 1.5rem !important;
   }
 
-  h3, .h3 {
-    font-size: 2.5rem !important; /* 40px FIXED */
-    line-height: 1.4 !important;
+  h2, .h2 {
+    font-size: 2rem !important; /* 32px */
+    line-height: 1.25 !important;
     margin-bottom: 1.25rem !important;
   }
 
-  h4, .h4 {
-    font-size: 2rem !important; /* 32px FIXED */
-    line-height: 1.45 !important;
+  h3, .h3 {
+    font-size: 1.5rem !important; /* 24px */
+    line-height: 1.3 !important;
+    margin-bottom: 1rem !important;
   }
 
-  /* MASSIVE body text on mobile */
+  h4, .h4 {
+    font-size: 1.25rem !important; /* 20px */
+    line-height: 1.4 !important;
+  }
+
+  /* Readable body text on mobile */
   p, .body {
-    font-size: 1.75rem !important; /* 28px */
-    line-height: 2 !important;
-    margin-bottom: 2rem !important;
+    font-size: 1rem !important; /* 16px */
+    line-height: 1.7 !important;
+    margin-bottom: 1.25rem !important;
   }
 
   .body-large {
-    font-size: 2rem !important; /* 32px */
-    line-height: 2 !important;
+    font-size: 1.125rem !important; /* 18px */
+    line-height: 1.7 !important;
   }
 
   .small-text {
-    font-size: 1.5rem !important; /* 24px */
-    line-height: 1.9 !important;
+    font-size: 0.9375rem !important; /* 15px */
+    line-height: 1.6 !important;
   }
 
   .caption {
-    font-size: 1.25rem !important; /* 20px */
-    line-height: 1.8 !important;
+    font-size: 0.8125rem !important; /* 13px */
+    line-height: 1.5 !important;
   }
 
-  /* Force text to be large everywhere */
-  div, span, a, li, td, th, label {
-    font-size: inherit !important;
-  }
-
-  /* Increase padding for better touch targets and readability */
+  /* Better spacing and padding on mobile */
   .hero-video-container {
-    height: 70vh;
+    height: 60vh;
   }
 
   .semantic-overlay {
-    padding: 2rem 1.5rem; /* Increased vertical padding */
+    padding: 2rem 1.5rem;
   }
 
   .semantic-overlay h1 {
-    font-size: clamp(2.25rem, 10vw, 3.5rem);
+    font-size: 2rem;
     line-height: 1.2;
+    margin-bottom: 1.5rem;
   }
 
   .split-section {
@@ -815,31 +809,72 @@ img.bw {
   }
 
   .split-section .content-half {
-    padding: 3rem 2rem;
+    padding: 2rem 1.5rem;
   }
 
   .overlay-lower-third,
   .overlay-side-panel {
-    padding: 2.5rem 2rem;
+    padding: 2rem 1.5rem;
   }
 
   .video-grid {
     grid-template-columns: 1fr;
   }
 
-  /* MASSIVE buttons on mobile */
+  /* Better section spacing */
+  section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  /* Container padding */
+  .max-w-7xl,
+  .max-w-6xl,
+  .max-w-5xl,
+  .max-w-4xl {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  /* Better spacing between elements */
+  .space-y-8 > * + * {
+    margin-top: 2rem;
+  }
+
+  .space-y-6 > * + * {
+    margin-top: 1.5rem;
+  }
+
+  .space-y-4 > * + * {
+    margin-top: 1rem;
+  }
+
+  /* Better gaps in grids */
+  .gap-4 {
+    gap: 1rem;
+  }
+
+  .gap-6 {
+    gap: 1.5rem;
+  }
+
+  .gap-8 {
+    gap: 2rem;
+  }
+
+  /* Properly sized buttons on mobile with good touch targets */
   .btn-primary,
   .btn-secondary,
   .btn-tertiary {
-    font-size: 2rem !important; /* 32px */
-    padding: 2rem 3.5rem !important;
-    min-height: 72px !important;
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+    min-height: 48px;
   }
 
   .btn-premium-cta {
-    font-size: 2.25rem !important; /* 36px */
-    padding: 2.25rem 4rem !important;
-    min-height: 80px !important;
+    font-size: 1.125rem;
+    padding: 1.25rem 2rem;
+    min-height: 52px;
   }
 }
 
@@ -1286,68 +1321,144 @@ img.bw {
 @media (max-width: 768px) {
   .premium-grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .price-display {
-    font-size: 3rem; /* Increased from 2.5rem */
+    font-size: 2.5rem;
   }
 
   .stat-number {
-    font-size: 3rem; /* Increased from 2.5rem */
+    font-size: 2.5rem;
   }
 
   /* Better mobile spacing */
   .section-spacing {
-    padding: 5rem 0 !important;
+    padding: 3rem 1.5rem;
   }
 
-  /* Larger course cards on mobile */
+  /* Course cards on mobile */
   .course-card {
-    padding: 2rem !important;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
   }
 
-  /* MASSIVE lists on mobile */
-  li {
-    font-size: 1.75rem !important; /* 28px */
-    line-height: 2 !important;
-    margin-bottom: 1.5rem !important;
-  }
-
-  /* MASSIVE form inputs on mobile */
+  /* Proper form inputs on mobile - prevent zoom while staying readable */
   input[type="text"],
   input[type="email"],
   input[type="tel"],
   input[type="password"],
   textarea,
   select {
-    font-size: 1.5rem !important; /* 24px - LARGE to prevent zoom */
-    padding: 1.5rem !important;
-    min-height: 72px !important;
+    font-size: 16px; /* Exactly 16px prevents mobile zoom */
+    padding: 0.75rem;
+    min-height: 48px;
   }
 
-  /* MASSIVE links on mobile */
-  a {
-    font-size: inherit !important;
-    min-height: 52px;
-    display: inline-flex;
-    align-items: center;
-  }
-
-  /* Make ALL text large - override everything */
+  /* Ensure text sizing is consistent */
   * {
-    -webkit-text-size-adjust: 100% !important;
-    text-size-adjust: 100% !important;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
-  /* Override any tailwind small text */
-  .text-xs { font-size: 1.125rem !important; } /* 18px */
-  .text-sm { font-size: 1.25rem !important; } /* 20px */
-  .text-base { font-size: 1.5rem !important; } /* 24px */
-  .text-lg { font-size: 1.75rem !important; } /* 28px */
-  .text-xl { font-size: 2rem !important; } /* 32px */
-  .text-2xl { font-size: 2.5rem !important; } /* 40px */
-  .text-3xl { font-size: 3rem !important; } /* 48px */
-  .text-4xl { font-size: 3.5rem !important; } /* 56px */
-  .text-5xl { font-size: 4rem !important; } /* 64px */
+  /* Override any tailwind text sizes for consistency */
+  .text-xs { font-size: 0.75rem; }
+  .text-sm { font-size: 0.875rem; }
+  .text-base { font-size: 1rem; }
+  .text-lg { font-size: 1.125rem; }
+  .text-xl { font-size: 1.25rem; }
+  .text-2xl { font-size: 1.5rem; }
+  .text-3xl { font-size: 1.875rem; }
+  .text-4xl { font-size: 2.25rem; }
+  .text-5xl { font-size: 3rem; }
+
+  /* Mobile-optimized touch targets */
+  button,
+  a[role="button"],
+  input[type="submit"],
+  input[type="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Better mobile link spacing */
+  a {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  }
+
+  /* Mobile-optimized grid layouts */
+  .grid {
+    gap: 1.5rem;
+  }
+
+  /* Better mobile card spacing */
+  .course-card {
+    margin-bottom: 1rem;
+  }
+
+  /* Mobile testimonial optimization */
+  .course-card p {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* Better mobile footer */
+  footer {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  footer .grid {
+    gap: 2rem;
+  }
+
+  /* Mobile hero optimization */
+  .hero-video-container {
+    min-height: 60vh;
+  }
+
+  /* Better mobile section headings */
+  section h2 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Mobile CTA buttons */
+  .btn-premium-cta,
+  .btn-primary,
+  .btn-secondary,
+  .btn-tertiary {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Better mobile form spacing */
+  form {
+    width: 100%;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Mobile-optimized spacing utilities */
+  .space-y-10 > * + * {
+    margin-top: 2.5rem;
+  }
+
+  .space-y-8 > * + * {
+    margin-top: 2rem;
+  }
+
+  .space-y-6 > * + * {
+    margin-top: 1.5rem;
+  }
+
+  /* Better mobile padding for hero */
+  .max-w-7xl {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
