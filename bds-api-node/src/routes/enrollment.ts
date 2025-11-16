@@ -130,9 +130,7 @@ router.get('/user', async (req: Request, res: Response) => {
         c.title as "courseTitle",
         c.description as "courseDescription",
         c.category,
-        c.price,
-        c.thumbnail_url as "thumbnailUrl",
-        c.instructor
+        c.price
       FROM enrollments e
       JOIN courses c ON e.course_id = c.id
       WHERE e.user_id = $1
