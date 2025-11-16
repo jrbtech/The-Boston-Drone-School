@@ -92,7 +92,7 @@ class EmailService {
                 <h3>What Happens Next:</h3>
                 <ol>
                   <li><strong>Review:</strong> Our admissions team will review your enrollment request</li>
-                  <li><strong>Payment:</strong> Complete enrollment via secure payment link (Stripe, PayPal, or other options)</li>
+                  <li><strong>Payment Link:</strong> We will send you a payment link within the next 24-48 hours</li>
                   <li><strong>Access:</strong> Instant access to course materials will be provided after payment confirmation</li>
                 </ol>
               </div>
@@ -247,7 +247,7 @@ class EmailService {
               <div class="info-box">
                 <h3>What Happens Next:</h3>
                 <ol>
-                  <li>Complete payment via PayPal, Venmo, Zelle, or other methods</li>
+                  <li>We will send you a payment link within the next 24-48 hours</li>
                   <li>Your order ships within 1-5 business days after payment confirmation</li>
                   <li>Tracking information will be sent via email</li>
                 </ol>
