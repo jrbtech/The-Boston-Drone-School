@@ -190,9 +190,9 @@ export default function CheckoutPage() {
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span className="text-sm font-medium">Course Enrollment:</span>
+              <span className="text-sm font-medium">Simple Enrollment Process:</span>
             </div>
-            <span className="text-sm">Submit this form and our team will contact you within 24 hours to complete your course enrollment. Note: Physical products are not yet available for purchase.</span>
+            <span className="text-sm">Submit this form and our team will contact you within 24 hours with payment instructions. Get instant course access after payment is confirmed.</span>
           </div>
         </div>
       </section>
