@@ -30,6 +30,7 @@ export interface Lesson {
   videoUrl?: string | null
   materials: string[]
   contentType: string
+  contentData?: any
 }
 
 export interface Enrollment {
@@ -87,6 +88,8 @@ type RawLesson = {
   contentType?: string | null
   content_type?: string | null
   materials?: string[] | null
+  contentData?: any
+  content_data?: any
 }
 
 const courseContentOverrides: Record<string, Partial<Omit<Course, 'id' | 'title' | 'createdAt' | 'updatedAt' | 'level' | 'price' | 'category'>>> = {
@@ -319,17 +322,31 @@ const normalizeCourse = (raw: RawCourse): Course => {
   return base
 }
 
-const normalizeLesson = (raw: RawLesson): Lesson => ({
-  id: String(raw.id),
-  courseId: raw.courseId ? String(raw.courseId) : raw.course_id ? String(raw.course_id) : undefined,
-  title: raw.title,
-  description: raw.description?.trim() || '',
-  order: (raw.order ?? raw.order_index ?? 0) || 0,
-  duration: raw.duration ?? raw.duration_minutes ?? 0,
-  videoUrl: raw.videoUrl ?? raw.contentUrl ?? raw.content_url ?? null,
-  materials: normalizeStringArray(raw.materials),
-  contentType: raw.contentType ?? raw.content_type ?? 'video'
-})
+const normalizeLesson = (raw: RawLesson): Lesson => {
+  // Parse contentData if it's a string
+  let contentData = raw.contentData ?? raw.content_data ?? null
+  if (typeof contentData === 'string') {
+    try {
+      contentData = JSON.parse(contentData)
+    } catch (e) {
+      console.error('Failed to parse contentData:', e)
+      contentData = null
+    }
+  }
+
+  return {
+    id: String(raw.id),
+    courseId: raw.courseId ? String(raw.courseId) : raw.course_id ? String(raw.course_id) : undefined,
+    title: raw.title,
+    description: raw.description?.trim() || '',
+    order: (raw.order ?? raw.order_index ?? 0) || 0,
+    duration: raw.duration ?? raw.duration_minutes ?? 0,
+    videoUrl: raw.videoUrl ?? raw.contentUrl ?? raw.content_url ?? null,
+    materials: normalizeStringArray(raw.materials),
+    contentType: raw.contentType ?? raw.content_type ?? 'video',
+    contentData
+  }
+}
 
 class ApiClient {
   private getBaseUrl(): string {

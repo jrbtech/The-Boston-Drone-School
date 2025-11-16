@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Footer from '@/components/layout/Footer'
+import FormattedContent from '@/components/FormattedContent'
 import { api, Course } from '../../../lib/api'
 import { getVideoEmbedUrl } from '../../../lib/video'
 import { useAuth } from '../../../contexts/AuthContext'
@@ -150,9 +151,7 @@ export default function CoursePlayerPage() {
                     {section.type === 'text' && (
                       <div>
                         <h3 className="text-2xl font-bold text-white mb-4">{section.title}</h3>
-                        <div className="text-gray-300 whitespace-pre-line leading-relaxed">
-                          {section.content}
-                        </div>
+                        <FormattedContent content={section.content} />
                       </div>
                     )}
 
@@ -164,10 +163,10 @@ export default function CoursePlayerPage() {
                         )}
                         <div className="aspect-video bg-black rounded-lg overflow-hidden">
                           <iframe
-                            src={section.videoUrl}
+                            src={section.videoUrl?.replace('youtube.com', 'youtube-nocookie.com')}
                             className="w-full h-full"
                             frameBorder="0"
-                            allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen
                             title={section.title}
                           />
@@ -309,7 +308,7 @@ export default function CoursePlayerPage() {
                     <div className="flex-1">
                       <div className="font-semibold mb-1">{lesson.title}</div>
                       <div className="text-xs opacity-75">
-                        {Math.floor(lesson.duration / 60)} minutes
+                        {lesson.duration} minutes
                       </div>
                     </div>
                     {/* TODO: Show completion checkmark based on progress */}
