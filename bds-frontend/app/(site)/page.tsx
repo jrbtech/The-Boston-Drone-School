@@ -7,7 +7,10 @@ import dynamic from "next/dynamic";
 import { useCart } from "@/contexts/CartContext";
 
 // Lazy load LoginModal to reduce initial bundle size
-const LoginModal = dynamic(() => import("@/components/LoginModal"), {
+const LoginModal = dynamic(() => import("@/components/LoginModal").catch(() => {
+  // Fallback if dynamic import fails
+  return { default: () => null };
+}), {
   ssr: false,
   loading: () => null
 });
