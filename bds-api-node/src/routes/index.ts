@@ -5,6 +5,7 @@ import enrollmentRoutes from './enrollment';
 import authRoutes from './auth';
 import paymentRoutes from './payments';
 import uploadRoutes from './upload';
+import ordersRoutes from './orders';
 
 export const registerRoutes = (app: Express): void => {
   app.get('/', (req: Request, res: Response) => {
@@ -39,6 +40,7 @@ export const registerRoutes = (app: Express): void => {
   app.use('/api/enrollment', enrollmentRoutes);
   app.use('/api/payments', paymentRoutes);
   app.use('/api/upload', uploadRoutes);
+  app.use('/api/orders', ordersRoutes);
   
   // Health check endpoint
   app.get('/api/health', (req: Request, res: Response) => {
