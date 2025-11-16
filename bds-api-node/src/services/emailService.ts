@@ -40,14 +40,14 @@ class EmailService {
       try {
         this.resend = new Resend(apiKey);
         this.isConfigured = true;
-        console.log('✅ Email service configured (Resend)');
-        console.log(`📧 Sending from: ${this.fromEmail}`);
-        console.log(`📬 Admin notifications to: ${this.adminEmail}`);
+        console.log('Email service configured (Resend)');
+        console.log(`Sending from: ${this.fromEmail}`);
+        console.log(`Admin notifications to: ${this.adminEmail}`);
       } catch (error) {
-        console.warn('⚠️  Email service initialization failed:', error);
+        console.warn('Email service initialization failed:', error);
       }
     } else {
-      console.warn('⚠️  Email service not configured (missing RESEND_API_KEY)');
+      console.warn('Email service not configured (missing RESEND_API_KEY)');
     }
   }
 
@@ -86,15 +86,15 @@ class EmailService {
             <div class="content">
               <p>Hi ${data.studentName},</p>
 
-              <p>Thank you for your interest in <strong>${data.courseTitle}</strong> at The Boston Drone School!</p>
+              <p>Your enrollment request for <strong>${data.courseTitle}</strong> has been received and is being processed.</p>
 
               <div class="info-box">
                 <h3>What Happens Next:</h3>
                 <ol>
                   <li><strong>Review:</strong> Our admissions team will review your enrollment request</li>
-                  <li><strong>Contact:</strong> We'll reach out within 24 hours via email or phone</li>
+                  <li><strong>Contact:</strong> We will reach out within 24 hours via email or phone</li>
                   <li><strong>Payment:</strong> Complete enrollment via secure payment link (Stripe, PayPal, or other options)</li>
-                  <li><strong>Access:</strong> Get instant access to course materials after payment</li>
+                  <li><strong>Access:</strong> Instant access to course materials will be provided after payment confirmation</li>
                 </ol>
               </div>
 
@@ -107,10 +107,8 @@ class EmailService {
 
               <p><strong>Questions?</strong> Reply to this email or contact us at ${this.adminEmail}</p>
 
-              <p>We're excited to help you advance your drone piloting career!</p>
-
               <p>Best regards,<br>
-              <strong>The Boston Drone School Team</strong></p>
+              <strong>The Boston Drone School</strong></p>
             </div>
             <div class="footer">
               <p>The Boston Drone School | Professional FAA Part 107 Training<br>
@@ -140,7 +138,7 @@ class EmailService {
         <body>
           <div class="container">
             <div class="header">
-              <h2>🎓 New Course Enrollment Request</h2>
+              <h2>New Course Enrollment Request</h2>
             </div>
             <div class="content">
               <div class="info-box">
@@ -194,7 +192,7 @@ class EmailService {
         }),
       ]);
 
-      console.log(`✅ Enrollment emails sent for ${data.courseTitle} to ${data.studentEmail}`);
+      console.log(`Enrollment emails sent for ${data.courseTitle} to ${data.studentEmail}`);
       return { success: true };
     } catch (error) {
       console.error('Failed to send enrollment emails:', error);
@@ -245,15 +243,15 @@ class EmailService {
             <div class="content">
               <p>Hi ${data.customerName},</p>
 
-              <p>Thank you for your order from The Boston Drone School!</p>
+              <p>Your order has been received and is being processed.</p>
 
               <div class="info-box">
                 <h3>What Happens Next:</h3>
                 <ol>
-                  <li>We'll contact you within 24 hours to arrange payment</li>
+                  <li>We will contact you within 24 hours to arrange payment</li>
                   <li>Complete payment via PayPal, Venmo, Zelle, or other methods</li>
-                  <li>Your order ships within 1-5 business days after payment</li>
-                  <li>You'll receive tracking information via email</li>
+                  <li>Your order ships within 1-5 business days after payment confirmation</li>
+                  <li>Tracking information will be sent via email</li>
                 </ol>
               </div>
 
@@ -270,10 +268,8 @@ class EmailService {
 
               <p><strong>Questions?</strong> Reply to this email or contact us at ${this.adminEmail}</p>
 
-              <p>Thank you for supporting The Boston Drone School!</p>
-
               <p>Best regards,<br>
-              <strong>The Boston Drone School Team</strong></p>
+              <strong>The Boston Drone School</strong></p>
             </div>
             <div class="footer">
               <p>The Boston Drone School<br>
@@ -301,7 +297,7 @@ class EmailService {
         <body>
           <div class="container">
             <div class="header">
-              <h2>🛍️ New Product Order</h2>
+              <h2>New Product Order</h2>
             </div>
             <div class="content">
               <div class="info-box">
@@ -350,7 +346,7 @@ class EmailService {
         }),
       ]);
 
-      console.log(`✅ Order emails sent to ${data.customerEmail}`);
+      console.log(`Order emails sent to ${data.customerEmail}`);
       return { success: true };
     } catch (error) {
       console.error('Failed to send order emails:', error);
