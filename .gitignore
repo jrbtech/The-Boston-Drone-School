@@ -15,9 +15,16 @@ build/
 .env.production.local
 .env.test.local
 
-# Test files with API keys
+# Test files with API keys and sensitive data
 **/test-resend*.js
 **/test-bds*.js
+test-*.js
+check-email-config.js
+grant-course-access.js
+enroll-user*.js
+enroll-user*.ts
+enroll-megan.sql
+verify-security.js
 
 # Runtime data
 pids
