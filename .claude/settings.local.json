@@ -54,7 +54,9 @@
       "WebFetch(domain:www.usa.gov)",
       "Bash(npm start)",
       "Bash(timeout 5 echo:*)",
-      "Bash(nslookup:*)"
+      "Bash(nslookup:*)",
+      "Bash(npx ts-node enroll-user.ts)",
+      "Bash(tasklist:*)"
     ],
     "deny": [],
     "ask": []

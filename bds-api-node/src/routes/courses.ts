@@ -1,12 +1,13 @@
+/// <reference path="../types/express/index.d.ts" />
 import { Router } from 'express';
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { getPool } from '../db';
 import { authenticateToken } from './auth';
 
 const router = Router();
 
 // Middleware to check if user is admin
-const requireAdmin = (req: Request, res: Response, next: Function) => {
+const requireAdmin = (req: Request, res: Response, next: NextFunction) => {
   if (!req.user) {
     return res.status(401).json({ error: 'Authentication required' });
   }

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { useCart } from "@/contexts/CartContext";
 
 // Lazy load LoginModal to reduce initial bundle size
 const LoginModal = dynamic(() => import("@/components/LoginModal"), {
@@ -113,16 +114,55 @@ const pricingTiers = [
 
 export default function MarketingHomePage() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const { totalItems } = useCart();
 
   return (
     <div className="bg-white text-black">
       {/* Login Modal */}
       <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
 
+      {/* Navigation Header */}
+      <header className="bg-white/95 backdrop-blur border-b border-gray-200 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex justify-between items-center">
+            <Link href="/" className="text-xl font-bold hover:opacity-80 transition-opacity">
+              Boston Drone School
+            </Link>
+            <nav className="flex items-center gap-4 sm:gap-6">
+              <Link href="/courses" className="text-gray-600 hover:text-black transition-colors font-medium">
+                Courses
+              </Link>
+              <Link href="/shop" className="text-gray-600 hover:text-black transition-colors font-medium">
+                Shop
+              </Link>
+              <Link href="/study-guide" className="text-gray-600 hover:text-black transition-colors font-medium hidden sm:inline">
+                Study Guide
+              </Link>
+              <Link href="/cart" className="relative text-gray-600 hover:text-black transition-colors">
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                {totalItems > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">
+                    {totalItems}
+                  </span>
+                )}
+              </Link>
+              <button
+                onClick={() => setIsLoginModalOpen(true)}
+                className="border-2 border-gray-900 px-4 py-2 hover:bg-gray-900 hover:text-white transition-colors font-semibold rounded min-h-[40px]"
+              >
+                Login
+              </button>
+            </nav>
+          </div>
+        </div>
+      </header>
+
       {/* Floating Quick Login Button - Improved mobile touch target */}
       <button
         onClick={() => setIsLoginModalOpen(true)}
-        className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-40 bg-white text-black px-4 py-3 sm:px-6 sm:py-3 rounded-full shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300 font-semibold flex items-center gap-2 border-2 border-black group min-h-[48px] min-w-[48px] touch-manipulation"
+        className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-40 bg-white text-black px-4 py-3 sm:px-6 sm:py-3 rounded-full shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300 font-semibold flex items-center gap-2 border-2 border-black group min-h-[48px] min-w-[48px] touch-manipulation lg:hidden"
         aria-label="Quick login"
       >
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
