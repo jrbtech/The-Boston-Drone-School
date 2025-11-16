@@ -3,6 +3,7 @@ import '../styles/premium-design-system.css'
 import type { Metadata, Viewport } from 'next'
 import { Inter, Poppins } from 'next/font/google'
 import { AuthProvider } from '../contexts/AuthContext'
+import { CartProvider } from '../contexts/CartContext'
 import { ErrorBoundary } from '../components/ErrorBoundary'
 import { OrganizationStructuredData, LocalBusinessStructuredData } from '../components/StructuredData'
 import Script from 'next/script'
@@ -112,9 +113,11 @@ export default function RootLayout({
       <body className="min-h-screen bg-background text-foreground font-sans antialiased selection:bg-black selection:text-white">
         <ErrorBoundary>
           <AuthProvider>
-            <div id="root" className="min-h-screen">
-              {children}
-            </div>
+            <CartProvider>
+              <div id="root" className="min-h-screen">
+                {children}
+              </div>
+            </CartProvider>
           </AuthProvider>
         </ErrorBoundary>
         <Script src="/js/premium-motion.js" strategy="lazyOnload" />

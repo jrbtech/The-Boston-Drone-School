@@ -47,7 +47,14 @@
       "Bash(export DATABASE_URL=\"postgresql://boston_drone_school_user:iqDWTMEHtw6Ur72krgu16BY7JO2mTFE6@dpg-d44iulkhg0os73cihtr0-a.oregon-postgres.render.com/boston_drone_school\")",
       "Bash(git checkout:*)",
       "Bash(copy \"C:\\Users\\megan\\Downloads\\TBDS GRAPHIC.jpg\" \"C:\\Users\\megan\\Downloads\\The-Boston-Drone-School\\bds-frontend\\public\\images\\TBDS GRAPHIC.jpg\")",
-      "Bash(.render-deploy)"
+      "Bash(.render-deploy)",
+      "Bash(taskkill:*)",
+      "Bash(timeout /t 3 /nobreak)",
+      "Bash(timeout /t 5 /nobreak)",
+      "WebFetch(domain:www.usa.gov)",
+      "Bash(npm start)",
+      "Bash(timeout 5 echo:*)",
+      "Bash(nslookup:*)"
     ],
     "deny": [],
     "ask": []

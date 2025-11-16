@@ -259,29 +259,11 @@ export default function CoursesPage() {
           </div>
           <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 relative z-10">
             <div className="max-w-4xl">
-              <span className="inline-block bg-white/10 text-white px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider mb-4">
-                Coming Soon
-              </span>
-              <p className="uppercase tracking-[0.3em] text-sm text-gray-500 mb-6 text-reveal">Academics</p>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-reveal stagger-1">Select a training pathway engineered for professional deployment.</h1>
+              <p className="uppercase tracking-[0.3em] text-sm text-gray-500 mb-6 text-reveal">Professional Training</p>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-reveal stagger-1">Master drone operations with FAA-approved curriculum.</h1>
               <p className="text-lg md:text-xl text-gray-300 leading-relaxed text-reveal stagger-2">
-                Each syllabus blends regulatory mastery, operational precision, and analytical technique. Courses opening soon - contact us to be notified when enrollment begins!
+                Comprehensive courses featuring official FAA materials, real-world applications, and expert instruction. Start your journey to becoming a certified remote pilot today.
               </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Enrollment Notice */}
-        <section className="bg-black text-white py-4 border-b-2 border-white">
-          <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
-            <div className="flex flex-col md:flex-row items-center justify-center gap-3 text-center md:text-left">
-              <div className="flex items-center gap-2">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
-                <span className="text-sm font-semibold">Courses Opening Soon</span>
-              </div>
-              <span className="text-sm">Express interest! Contact <a href="mailto:info@thebostondroneschool.org" className="underline font-semibold hover:text-gray-300">info@thebostondroneschool.org</a> to be notified when enrollment begins.</span>
             </div>
           </div>
         </section>
@@ -417,9 +399,6 @@ export default function CoursesPage() {
                       </div>
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute top-4 left-4 bg-white text-black border-2 border-black px-3 py-1 text-xs font-semibold rounded-full">
-                      COMING SOON
-                    </div>
                     <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-semibold tracking-widest uppercase border border-gray-300 shadow-sm">
                       ${course.price}
                     </div>

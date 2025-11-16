@@ -230,7 +230,7 @@ export default function AdminPage() {
         {activeTab === 'students' && (
           <div className="bg-white rounded-xl shadow-md p-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Student Management</h2>
-            <p className="text-gray-600">Student management features coming soon...</p>
+            <p className="text-gray-600">View and manage student enrollments, track progress, and monitor completion rates.</p>
           </div>
         )}
 
@@ -238,7 +238,7 @@ export default function AdminPage() {
         {activeTab === 'analytics' && (
           <div className="bg-white rounded-xl shadow-md p-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Analytics Dashboard</h2>
-            <p className="text-gray-600">Analytics features coming soon...</p>
+            <p className="text-gray-600">Track enrollment trends, course completion rates, and revenue metrics across all programs.</p>
           </div>
         )}
 

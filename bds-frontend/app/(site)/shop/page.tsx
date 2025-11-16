@@ -3,109 +3,143 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { useCart } from "@/contexts/CartContext";
 
 const products = [
   {
-    id: 'fpv-build-kit',
-    name: 'FPV Drone Build Kit',
-    category: 'Hardware',
-    price: 299,
-    image: '/images/drone-kit-placeholder.jpg',
-    description: 'Complete FPV drone build kit with all components needed to assemble your first racing drone.',
-    features: [
-      'Carbon fiber frame (5-inch)',
-      'Brushless motors (4x 2207 1800KV)',
-      'Flight controller with GPS',
-      'FPV camera and video transmitter',
-      'ESC (Electronic Speed Controller)',
-      'Props and hardware kit',
-      'Assembly guide and tutorials'
-    ],
-    inStock: true
-  },
-  {
-    id: 'part-107-study-bundle',
-    name: 'Part 107 Study Bundle (Physical)',
+    id: 'part-107-complete-study-kit',
+    name: 'FAA Part 107 Complete Study Kit',
     category: 'Study Materials',
-    price: 79,
+    price: 89,
+    fulfillment: 'print-on-demand',
     image: '/images/study-bundle-placeholder.jpg',
-    description: 'Physical study materials including textbook, flashcards, airspace map, and cheat sheets.',
+    description: 'Comprehensive physical study package with printed FAA materials. All content sourced from official FAA public domain publications.',
     features: [
-      'Printed Part 107 study guide (300 pages)',
-      '200+ flashcards with exam questions',
-      'Laminated sectional chart',
-      'Quick reference cheat sheets',
-      'Practice exam booklet',
-      'Study planner worksheet'
+      'Printed FAA Remote Pilot Study Guide (300+ pages)',
+      'Official 14 CFR Part 107 regulations (bound)',
+      '250+ practice questions with answers',
+      'Laminated Boston sectional chart (current edition)',
+      'Quick reference cards (weather, airspace, regulations)',
+      'Exam preparation checklist',
+      'Free shipping on orders over $75'
     ],
+    legalNote: 'Materials compiled from FAA public domain sources (17 USC § 105)',
     inStock: true
   },
   {
-    id: 'professional-drone-case',
-    name: 'Professional Drone Transport Case',
-    category: 'Accessories',
-    price: 149,
-    image: '/images/case-placeholder.jpg',
-    description: 'Waterproof hard-shell case with custom foam insert for professional drone operations.',
+    id: 'sectional-chart-set',
+    name: 'Laminated Sectional Chart Set',
+    category: 'Study Materials',
+    price: 34,
+    fulfillment: 'print-on-demand',
+    image: '/images/charts-placeholder.jpg',
+    description: 'Professional-quality laminated sectional charts. Current edition, waterproof, write-on/wipe-off surface.',
     features: [
-      'Waterproof and dustproof (IP67)',
-      'Custom-cut foam inserts',
-      'Fits DJI Mavic and similar models',
-      'Lockable latches',
-      'Pressure release valve',
-      'Wheels and telescopic handle'
+      'Your choice of sectional (Boston, New York, or custom)',
+      'Heavy-duty lamination (waterproof)',
+      'Write-on surface for flight planning',
+      '36" x 20" full sectional size',
+      'Current edition (updated every 6 months)',
+      'Includes airspace legend card',
+      'FAA public domain chart data'
+    ],
+    legalNote: 'Charts from FAA public domain aeronautical data',
+    inStock: true
+  },
+  {
+    id: 'part-107-flashcards',
+    name: 'Part 107 Exam Flashcard Set',
+    category: 'Study Materials',
+    price: 29,
+    fulfillment: 'print-on-demand',
+    image: '/images/flashcards-placeholder.jpg',
+    description: 'Professional flashcard set covering all Part 107 exam topics. Perfect for on-the-go studying.',
+    features: [
+      '300 double-sided flashcards',
+      'Organized by topic (regulations, airspace, weather, etc.)',
+      'Color-coded by difficulty level',
+      'Includes sectional chart symbols',
+      'Durable cardstock with rounded corners',
+      'Storage box included',
+      'Based on official FAA materials'
+    ],
+    legalNote: 'Content from FAA public domain study materials',
+    inStock: true
+  },
+  {
+    id: 'drone-flight-logbook',
+    name: 'Professional Drone Flight Logbook',
+    category: 'Accessories',
+    price: 24,
+    fulfillment: 'print-on-demand',
+    image: '/images/logbook-placeholder.jpg',
+    description: 'Premium hardcover logbook for tracking commercial drone operations. Essential for Part 107 pilots.',
+    features: [
+      'Hardcover with weather-resistant binding',
+      '200 flight entry pages',
+      'Pre-formatted for Part 107 compliance',
+      'Battery tracking sheets',
+      'Maintenance record pages',
+      'Incident/accident reporting templates',
+      'Meets FAA record-keeping best practices'
     ],
     inStock: true
   },
   {
     id: 'landing-pad-pro',
-    name: 'Collapsible Landing Pad - Pro',
+    name: 'Collapsible Landing Pad - Pro 30"',
     category: 'Accessories',
     price: 39,
+    fulfillment: 'wholesale',
     image: '/images/landing-pad-placeholder.jpg',
-    description: 'Professional 30-inch collapsible landing pad with weighted anchors for stable takeoffs.',
+    description: 'Professional 30-inch collapsible landing pad. High-visibility design with weighted anchors for stable operations.',
     features: [
-      '30-inch diameter',
-      'High-visibility orange and blue',
-      'Weighted anchor points',
-      'Reflective markers for low light',
-      'Folds to 12-inch carrying case',
-      'Weather-resistant material'
+      '30-inch diameter working area',
+      'Dual-sided orange/blue high-viz design',
+      'Weighted anchor points (4x)',
+      'Reflective strips for low-light operations',
+      'Folds to 12" compact carrying case',
+      'Weather-resistant nylon material',
+      'Compatible with all drone sizes'
     ],
     inStock: true
   },
   {
-    id: 'battery-charging-hub',
-    name: '6-Port Fast Charging Hub',
-    category: 'Accessories',
-    price: 129,
-    image: '/images/charger-placeholder.jpg',
-    description: 'Intelligent charging hub for simultaneous battery charging with safety monitoring.',
+    id: 'dji-mini-4-pro',
+    name: 'DJI Mini 4 Pro (Affiliate)',
+    category: 'Drones',
+    price: 759,
+    fulfillment: 'affiliate',
+    image: '/images/dji-mini-placeholder.jpg',
+    description: 'Perfect beginner drone under 249g (no registration required for recreational use). Professional features in ultralight package.',
     features: [
-      'Charges up to 6 batteries simultaneously',
-      'Smart power distribution',
-      'Overcharge protection',
-      'Temperature monitoring',
-      'LED status indicators',
-      'Compatible with multiple battery types'
+      '4K/60fps HDR video',
+      '34-minute max flight time',
+      'Omnidirectional obstacle sensing',
+      'ActiveTrack 360° subject tracking',
+      'Under 249 grams (no FAA registration for recreation)',
+      '10km video transmission',
+      'Perfect for Part 107 training'
     ],
+    affiliateNote: 'Ships directly from authorized DJI retailer',
     inStock: true
   },
   {
-    id: 'beginner-drone-package',
-    name: 'Beginner Training Drone Package',
-    category: 'Hardware',
-    price: 199,
-    image: '/images/training-drone-placeholder.jpg',
-    description: 'Entry-level GPS drone perfect for learning flight basics before Part 107 certification.',
+    id: 'battery-fireproof-bag',
+    name: 'LiPo Battery Safety Bag (3-pack)',
+    category: 'Safety Equipment',
+    price: 34,
+    fulfillment: 'wholesale',
+    image: '/images/lipo-bag-placeholder.jpg',
+    description: 'Essential safety equipment for charging and storing LiPo batteries. Fireproof and explosion-proof design.',
     features: [
-      'GPS-enabled positioning',
-      '25-minute flight time',
-      '1080p camera',
-      'Return-to-home function',
-      'Beginner and advanced flight modes',
-      'Extra batteries (2) included',
-      'Practice tutorial access'
+      '3 sizes: Small (7x5"), Medium (9x7"), Large (12x9")',
+      'Fireproof fiberglass construction',
+      'Heat-resistant up to 1000°F',
+      'Double velcro closure',
+      'Required for safe LiPo storage',
+      'TSA-approved for air travel',
+      'Protects against LiPo fire hazards'
     ],
     inStock: true
   }
@@ -113,12 +147,26 @@ const products = [
 
 export default function ShopPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const { addItem, totalItems } = useCart();
+  const [addingId, setAddingId] = useState<string | null>(null);
 
   const categories = ['all', ...Array.from(new Set(products.map(p => p.category)))];
 
   const filteredProducts = selectedCategory === 'all'
     ? products
     : products.filter(p => p.category === selectedCategory);
+
+  const handleQuickAdd = (product: typeof products[0]) => {
+    setAddingId(product.id);
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      category: product.category,
+    });
+
+    setTimeout(() => setAddingId(null), 500);
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -132,6 +180,16 @@ export default function ShopPage() {
             <nav className="flex items-center gap-6">
               <Link href="/courses" className="text-gray-600 hover:text-black">Courses</Link>
               <Link href="/study-guide" className="text-gray-600 hover:text-black">Free Study Guide</Link>
+              <Link href="/cart" className="relative text-gray-600 hover:text-black">
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                {totalItems > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                    {totalItems}
+                  </span>
+                )}
+              </Link>
               <Link href="/login" className="border border-gray-900 px-6 py-2 hover:bg-gray-900 hover:text-white transition-colors">
                 Login
               </Link>
@@ -144,28 +202,10 @@ export default function ShopPage() {
       <section className="bg-black text-white py-20 md:py-24 lg:py-28">
         <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
           <div className="max-w-4xl mx-auto text-center space-y-6">
-            <span className="inline-block bg-white/10 text-white px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider mb-4">
-              Coming Soon
-            </span>
-            <h1 className="h1 text-white">Drone Equipment & Training Materials</h1>
+            <h1 className="h1 text-white">Professional Drone Equipment & Training Materials</h1>
             <p className="body-large text-white/80">
-              Professional-grade equipment and study materials to support your drone operations and certification journey. Products not yet available for purchase - contact us to be notified when they launch!
+              Everything you need to excel in your drone operations. From build kits to study materials, we offer professional-grade equipment to support your certification and commercial drone career.
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Purchase Notice */}
-      <section className="bg-black text-white py-4 border-b-2 border-white">
-        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-3 text-center md:text-left">
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
-              <span className="text-sm font-semibold">Products Not Yet Available for Purchase</span>
-            </div>
-            <span className="text-sm">Products coming soon! Contact <a href="mailto:info@thebostondroneschool.org" className="underline font-semibold hover:text-gray-300">info@thebostondroneschool.org</a> to express interest or get updates.</span>
           </div>
         </div>
       </section>
@@ -208,9 +248,6 @@ export default function ShopPage() {
                       className="object-contain"
                     />
                   </div>
-                  <div className="absolute top-4 right-4 bg-white text-black border-2 border-black px-3 py-1 text-xs font-semibold rounded-full">
-                    COMING SOON
-                  </div>
                   <div className="absolute top-4 left-4 bg-white/90 px-3 py-1 text-xs font-semibold uppercase tracking-wider">
                     {product.category}
                   </div>
@@ -242,12 +279,21 @@ export default function ShopPage() {
                     </ul>
                   </div>
 
-                  <Link
-                    href="/inquiry"
-                    className="block w-full bg-black text-white text-center py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors mt-6"
-                  >
-                    Contact for Purchase
-                  </Link>
+                  <div className="flex gap-2 mt-6">
+                    <button
+                      onClick={() => handleQuickAdd(product)}
+                      disabled={addingId === product.id}
+                      className="flex-1 bg-black text-white text-center py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors disabled:bg-gray-400"
+                    >
+                      {addingId === product.id ? 'Added!' : 'Add to Cart'}
+                    </button>
+                    <Link
+                      href={`/shop/${product.id}`}
+                      className="px-6 border border-gray-900 text-gray-900 text-center py-3 rounded-lg font-semibold hover:bg-gray-900 hover:text-white transition-colors flex items-center"
+                    >
+                      Details
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}
