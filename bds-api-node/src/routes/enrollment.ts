@@ -2,10 +2,55 @@ import { Router } from 'express';
 import { Request, Response } from 'express';
 import { getPool } from '../db';
 import { authenticateToken } from './auth';
+import { emailService } from '../services/emailService';
 
 const router = Router();
 
-// All enrollment routes require authentication
+// POST /api/enrollment/request - Public endpoint for enrollment requests (sends email)
+router.post('/request', async (req: Request, res: Response) => {
+  try {
+    const { name, email, phone, course_id, course_title, course_price, experience, message } = req.body;
+
+    // Validation
+    if (!name || !email || !course_id || !course_title) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: 'Invalid email address' });
+    }
+
+    // Send enrollment confirmation emails
+    const emailResult = await emailService.sendEnrollmentConfirmation({
+      studentName: name,
+      studentEmail: email,
+      studentPhone: phone,
+      courseTitle: course_title,
+      coursePrice: parseFloat(course_price) || 0,
+      courseId: course_id,
+      experience,
+      message,
+    });
+
+    if (!emailResult.success) {
+      console.error('Failed to send enrollment emails:', emailResult.error);
+      // Don't fail the request if email fails, just log it
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Enrollment request received. You will be contacted within 24 hours.',
+      emailSent: emailResult.success,
+    });
+  } catch (error) {
+    console.error('Error processing enrollment request:', error);
+    res.status(500).json({ error: 'Failed to process enrollment request' });
+  }
+});
+
+// All other enrollment routes require authentication
 router.use(authenticateToken);
 
 // POST /api/enrollment/enroll - Enroll in a course
