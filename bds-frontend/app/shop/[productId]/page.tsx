@@ -88,6 +88,7 @@ const products = {
       'Obstacle Sensing': 'Omnidirectional',
       'Camera': '1/1.3" CMOS, 48MP'
     },
+    legalNote: undefined,
     affiliateNote: 'This product ships directly from our authorized DJI retail partner. Standard return policies apply.',
     inStock: true
   },
