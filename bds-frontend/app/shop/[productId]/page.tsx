@@ -1,56 +1,117 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useCart } from '@/contexts/CartContext'
 
 const products = {
-  'fpv-build-kit': {
-    id: 'fpv-build-kit',
-    name: 'FPV Drone Build Kit',
-    category: 'Hardware',
-    price: 299,
-    description: 'Complete FPV drone build kit with all components needed to assemble your first racing drone.',
-    longDescription: 'This comprehensive kit includes everything you need to build a professional-grade FPV racing drone. Perfect for beginners and intermediate pilots looking to understand drone mechanics from the ground up.',
+  'part-107-complete-study-kit': {
+    id: 'part-107-complete-study-kit',
+    name: 'FAA Part 107 Complete Study Kit',
+    category: 'Study Materials',
+    price: 89,
+    fulfillment: 'print-on-demand',
+    description: 'Comprehensive physical study package with printed FAA materials. All content sourced from official FAA public domain publications.',
+    longDescription: 'Everything you need to pass the FAA Part 107 exam in one complete package. This professionally printed study kit compiles official FAA public domain materials into an organized, easy-to-use format. Perfect for those who prefer physical study materials over digital.',
     features: [
-      'Carbon fiber frame (5-inch)',
-      'Brushless motors (4x 2207 1800KV)',
-      'Flight controller with GPS',
-      'FPV camera and video transmitter',
-      'ESC (Electronic Speed Controller)',
-      'Props and hardware kit',
-      'Assembly guide and tutorials'
+      'Printed FAA Remote Pilot Study Guide (300+ pages)',
+      'Official 14 CFR Part 107 regulations (bound)',
+      '250+ practice questions with answers',
+      'Laminated Boston sectional chart (current edition)',
+      'Quick reference cards (weather, airspace, regulations)',
+      'Exam preparation checklist',
+      'Free shipping on orders over $75'
     ],
     specifications: {
-      'Frame Size': '5 inch',
-      'Motor KV': '1800KV',
-      'Flight Time': '5-7 minutes',
-      'Weight': '450g (without battery)',
-      'Max Speed': '120+ mph'
+      'Format': 'Printed and bound',
+      'Total Pages': '400+',
+      'Shipping Weight': '3.2 lbs',
+      'Chart Size': '36" x 20"',
+      'Processing Time': '3-5 business days'
     },
+    legalNote: 'Materials compiled from FAA public domain sources per 17 USC § 105. Not affiliated with or endorsed by the FAA.',
     inStock: true
   },
-  'part-107-study-bundle': {
-    id: 'part-107-study-bundle',
-    name: 'Part 107 Study Bundle (Physical)',
+  'sectional-chart-set': {
+    id: 'sectional-chart-set',
+    name: 'Laminated Sectional Chart Set',
     category: 'Study Materials',
-    price: 79,
-    description: 'Physical study materials including textbook, flashcards, airspace map, and cheat sheets.',
-    longDescription: 'Comprehensive physical study materials to help you pass the FAA Part 107 exam. Perfect for those who prefer tactile learning methods.',
+    price: 34,
+    fulfillment: 'print-on-demand',
+    description: 'Professional-quality laminated sectional charts. Current edition, waterproof, write-on/wipe-off surface.',
+    longDescription: 'High-quality laminated sectional charts perfect for flight planning and Part 107 exam preparation. Features write-on/wipe-off surface for marking flight paths. Compiled from FAA public domain aeronautical chart data.',
     features: [
-      'Printed Part 107 study guide (300 pages)',
-      '200+ flashcards with exam questions',
-      'Laminated sectional chart',
-      'Quick reference cheat sheets',
-      'Practice exam booklet',
-      'Study planner worksheet'
+      'Your choice of sectional (Boston, New York, or custom)',
+      'Heavy-duty lamination (waterproof)',
+      'Write-on surface for flight planning',
+      '36" x 20" full sectional size',
+      'Current edition (updated every 6 months)',
+      'Includes airspace legend card',
+      'FAA public domain chart data'
     ],
     specifications: {
-      'Pages': '300+',
-      'Flashcards': '200',
-      'Format': 'Printed',
-      'Shipping Weight': '2.5 lbs'
+      'Size': '36" x 20"',
+      'Lamination': '10 mil heavy-duty',
+      'Weight': '0.8 lbs',
+      'Processing Time': '2-4 business days',
+      'Edition': 'Current (updated biannually)'
+    },
+    legalNote: 'Charts from FAA public domain aeronautical data. Chart data current as of print date.',
+    inStock: true
+  },
+  'dji-mini-4-pro': {
+    id: 'dji-mini-4-pro',
+    name: 'DJI Mini 4 Pro (Affiliate)',
+    category: 'Drones',
+    price: 759,
+    fulfillment: 'affiliate',
+    description: 'Perfect beginner drone under 249g (no registration required for recreational use). Professional features in ultralight package.',
+    longDescription: 'The DJI Mini 4 Pro is the ultimate drone for Part 107 students and professionals. At under 249 grams, it does not require FAA registration for recreational use, but delivers professional-grade 4K video and advanced features. Ships directly from our authorized DJI retail partner.',
+    features: [
+      '4K/60fps HDR video',
+      '34-minute max flight time',
+      'Omnidirectional obstacle sensing',
+      'ActiveTrack 360° subject tracking',
+      'Under 249 grams (no FAA registration for recreation)',
+      '10km video transmission',
+      'Perfect for Part 107 training'
+    ],
+    specifications: {
+      'Weight': '249g',
+      'Max Flight Time': '34 minutes',
+      'Video Resolution': '4K/60fps HDR',
+      'Transmission Range': '10 km',
+      'Obstacle Sensing': 'Omnidirectional',
+      'Camera': '1/1.3" CMOS, 48MP'
+    },
+    affiliateNote: 'This product ships directly from our authorized DJI retail partner. Standard return policies apply.',
+    inStock: true
+  },
+  'landing-pad-pro': {
+    id: 'landing-pad-pro',
+    name: 'Collapsible Landing Pad - Pro 30"',
+    category: 'Accessories',
+    price: 39,
+    fulfillment: 'wholesale',
+    description: 'Professional 30-inch collapsible landing pad. High-visibility design with weighted anchors for stable operations.',
+    longDescription: 'Essential equipment for professional drone operations. This 30-inch landing pad provides a clean, visible launch and landing zone. Dual-sided design offers high-visibility orange or blue depending on ground conditions. Weighted anchors prevent movement in wind.',
+    features: [
+      '30-inch diameter working area',
+      'Dual-sided orange/blue high-viz design',
+      'Weighted anchor points (4x)',
+      'Reflective strips for low-light operations',
+      'Folds to 12" compact carrying case',
+      'Weather-resistant nylon material',
+      'Compatible with all drone sizes'
+    ],
+    specifications: {
+      'Diameter': '30 inches (76 cm)',
+      'Folded Size': '12 inches',
+      'Material': 'Weather-resistant nylon',
+      'Weight': '1.2 lbs',
+      'Colors': 'Orange/Blue reversible'
     },
     inStock: true
   }
@@ -58,10 +119,32 @@ const products = {
 
 export default function ProductDetailPage() {
   const params = useParams()
+  const router = useRouter()
+  const { addItem } = useCart()
   const productId = Array.isArray(params.productId) ? params.productId[0] : params.productId
   const [quantity, setQuantity] = useState(1)
+  const [adding, setAdding] = useState(false)
 
   const product = productId ? products[productId as keyof typeof products] : null
+
+  const handleAddToCart = () => {
+    if (!product) return
+
+    setAdding(true)
+    for (let i = 0; i < quantity; i++) {
+      addItem({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        category: product.category,
+      })
+    }
+
+    setTimeout(() => {
+      setAdding(false)
+      router.push('/cart')
+    }, 300)
+  }
 
   if (!product) {
     return (
@@ -122,9 +205,6 @@ export default function ProductDetailPage() {
                   className="object-contain"
                 />
               </div>
-              <div className="absolute top-6 right-6 bg-white text-black border-2 border-black px-4 py-2 rounded-full font-semibold">
-                COMING SOON
-              </div>
             </div>
           </div>
 
@@ -165,14 +245,15 @@ export default function ProductDetailPage() {
 
             {/* Purchase Button */}
             <div className="space-y-3">
-              <Link
-                href="/inquiry"
-                className="block w-full bg-black text-white text-center py-4 rounded-lg font-semibold hover:bg-gray-800 transition-colors"
+              <button
+                onClick={handleAddToCart}
+                disabled={adding}
+                className="w-full bg-black text-white text-center py-4 rounded-lg font-semibold hover:bg-gray-800 transition-colors disabled:bg-gray-400"
               >
-                Express Interest - ${product.price * quantity}
-              </Link>
+                {adding ? 'Adding...' : `Add to Cart - $${(product.price * quantity).toFixed(2)}`}
+              </button>
               <p className="text-sm text-gray-600 text-center">
-                Products coming soon. Contact us at <a href="mailto:info@thebostondroneschool.org" className="underline hover:text-black">info@thebostondroneschool.org</a> for updates.
+                Questions? Contact us at <a href="mailto:info@thebostondroneschool.org" className="underline hover:text-black">info@thebostondroneschool.org</a>
               </p>
             </div>
 
@@ -203,6 +284,46 @@ export default function ProductDetailPage() {
                 ))}
               </dl>
             </div>
+
+            {/* Fulfillment Info */}
+            {product.fulfillment && (
+              <div className="border-t border-gray-200 pt-6">
+                <h3 className="font-bold text-xl mb-3">Fulfillment:</h3>
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  {product.fulfillment === 'print-on-demand' && (
+                    <p className="text-sm text-gray-700">
+                      <strong className="text-blue-900">Print-on-Demand:</strong> This product is professionally printed and shipped within 3-5 business days. Each item is made to order to ensure freshness and quality.
+                    </p>
+                  )}
+                  {product.fulfillment === 'affiliate' && (
+                    <p className="text-sm text-gray-700">
+                      <strong className="text-blue-900">Partner Fulfilled:</strong> {product.affiliateNote || 'This product ships directly from our authorized retail partner. Standard manufacturer warranty and return policies apply.'}
+                    </p>
+                  )}
+                  {product.fulfillment === 'wholesale' && (
+                    <p className="text-sm text-gray-700">
+                      <strong className="text-blue-900">In-Stock:</strong> This product ships from our warehouse within 1-2 business days. Standard shipping and return policies apply.
+                    </p>
+                  )}
+                  {product.fulfillment === 'digital' && (
+                    <p className="text-sm text-gray-700">
+                      <strong className="text-blue-900">Digital Delivery:</strong> You will receive download instructions and license key via email immediately after purchase. No physical shipping required.
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Legal Note */}
+            {product.legalNote && (
+              <div className="border-t border-gray-200 pt-6">
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                  <p className="text-xs text-gray-600">
+                    <strong>Legal Notice:</strong> {product.legalNote}
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>

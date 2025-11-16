@@ -38,14 +38,31 @@ export default function CheckoutPage() {
 
     const formData = new FormData(e.currentTarget);
 
+    // Convert FormData to JSON
+    const data = {
+      name: formData.get('name') as string,
+      email: formData.get('email') as string,
+      phone: formData.get('phone') as string,
+      experience: formData.get('experience') as string,
+      message: formData.get('message') as string,
+      course_id: formData.get('course_id') as string,
+      course_title: formData.get('course_title') as string,
+      course_price: formData.get('course_price') as string,
+    };
+
     try {
-      await fetch('https://formspree.io/f/moqgdnge', {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://bds-backend-5ao0.onrender.com';
+      const response = await fetch(`${apiUrl}/api/enrollment/request`, {
         method: 'POST',
-        body: formData,
         headers: {
-          'Accept': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit enrollment request');
+      }
 
       setSubmitted(true);
     } catch (error) {
