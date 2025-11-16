@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import Script from 'next/script'
 import { useAuth } from '../../contexts/AuthContext'
 
 export default function LoginPage() {
@@ -14,6 +15,7 @@ export default function LoginPage() {
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [googleLoaded, setGoogleLoaded] = useState(false)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -30,11 +32,69 @@ export default function LoginPage() {
     }
   }
 
+  async function handleGoogleLogin(credential: string) {
+    setError('')
+    setLoading(true)
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/google`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ credential }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Google login failed')
+      }
+
+      // Store token and user data
+      localStorage.setItem('token', data.token)
+      localStorage.setItem('user', JSON.stringify(data.user))
+
+      // Trigger auth context update
+      window.dispatchEvent(new Event('storage'))
+
+      router.push('/dashboard')
+    } catch (err: any) {
+      setError(err.message || 'Google login failed')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (googleLoaded && typeof window !== 'undefined' && (window as any).google) {
+      ;(window as any).google.accounts.id.initialize({
+        client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+        callback: (response: any) => handleGoogleLogin(response.credential),
+      })
+      ;(window as any).google.accounts.id.renderButton(
+        document.getElementById('googleSignInButton'),
+        {
+          theme: 'filled_black',
+          size: 'large',
+          width: '100%',
+          text: 'continue_with',
+        }
+      )
+    }
+  }, [googleLoaded])
+
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center px-6 py-12 text-white">
-      <div className="w-full max-w-md">
-        {/* Login Card */}
-        <div className="bg-white rounded-2xl p-8 text-gray-900">
+    <>
+      <Script
+        src="https://accounts.google.com/gsi/client"
+        strategy="afterInteractive"
+        onLoad={() => setGoogleLoaded(true)}
+      />
+      <div className="min-h-screen bg-black flex items-center justify-center px-6 py-12 text-white">
+        <div className="w-full max-w-md">
+          {/* Login Card */}
+          <div className="bg-white rounded-2xl p-8 text-gray-900">
           <h1 className="text-3xl font-bold mb-2 uppercase tracking-[0.2em]">Welcome Back</h1>
           <p className="text-gray-600 mb-8 uppercase tracking-[0.2em] text-xs">Sign in to continue your learning journey</p>
 
@@ -94,7 +154,18 @@ export default function LoginPage() {
             </button>
           </form>
 
-            {/* Social Login Options intentionally removed for monochrome presentation */}
+          {/* Divider */}
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-gray-500">OR</span>
+            </div>
+          </div>
+
+          {/* Google Sign-In Button */}
+          <div id="googleSignInButton" className="w-full"></div>
 
           {/* Sign Up Link */}
             <p className="mt-8 text-center text-sm text-gray-600">
@@ -113,5 +184,6 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+    </>
   )
 }

@@ -1,6 +1,7 @@
 import { Router, Request, Response, RequestHandler } from 'express';
 import bcrypt from 'bcrypt';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { OAuth2Client } from 'google-auth-library';
 import { getPool } from '../db';
 
 const router = Router();
@@ -12,6 +13,10 @@ if (!JWT_SECRET) {
 }
 
 const JWT_EXPIRES_IN = '7d';
+
+// Google OAuth configuration (optional - only needed if using Google login)
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const googleClient = GOOGLE_CLIENT_ID ? new OAuth2Client(GOOGLE_CLIENT_ID) : null;
 
 type UserRow = {
   id: number;
@@ -264,6 +269,108 @@ router.post('/login', async (req: Request, res: Response) => {
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ error: 'Login failed' });
+  }
+});
+
+// POST /api/auth/google - Google OAuth login
+router.post('/google', async (req: Request, res: Response) => {
+  try {
+    const { credential } = req.body;
+
+    if (!credential) {
+      return res.status(400).json({ error: 'Missing Google credential' });
+    }
+
+    if (!googleClient) {
+      return res.status(503).json({ error: 'Google login is not configured on this server' });
+    }
+
+    // Verify the Google token
+    const ticket = await googleClient.verifyIdToken({
+      idToken: credential,
+      audience: GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+    if (!payload || !payload.email || !payload.sub) {
+      return res.status(400).json({ error: 'Invalid Google token' });
+    }
+
+    const googleId = payload.sub;
+    const email = payload.email.toLowerCase();
+    const firstName = payload.given_name || '';
+    const lastName = payload.family_name || '';
+    const profilePicture = payload.picture;
+
+    // Check if user exists with this Google ID
+    let userResult = await getPool().query(
+      'SELECT id, email, first_name, last_name, role, created_at FROM users WHERE oauth_provider = $1 AND oauth_id = $2',
+      ['google', googleId]
+    );
+
+    let user: any;
+
+    if (userResult.rows.length === 0) {
+      // Check if user exists with this email (from regular registration)
+      const emailResult = await getPool().query(
+        'SELECT id, email, first_name, last_name, role, created_at FROM users WHERE email = $1',
+        [email]
+      );
+
+      if (emailResult.rows.length > 0) {
+        // User exists with email - link Google account
+        await getPool().query(
+          'UPDATE users SET oauth_provider = $1, oauth_id = $2, profile_picture_url = $3 WHERE id = $4',
+          ['google', googleId, profilePicture, emailResult.rows[0].id]
+        );
+        user = buildUserResponse(emailResult.rows[0] as UserRow);
+      } else {
+        // Create new user
+        const insertResult = await getPool().query(
+          `INSERT INTO users (email, first_name, last_name, role, oauth_provider, oauth_id, profile_picture_url)
+           VALUES ($1, $2, $3, $4, $5, $6, $7)
+           RETURNING id, email, first_name, last_name, role, created_at`,
+          [email, firstName, lastName, 'student', 'google', googleId, profilePicture]
+        );
+        user = buildUserResponse(insertResult.rows[0] as UserRow);
+      }
+    } else {
+      // User exists with Google login
+      user = buildUserResponse(userResult.rows[0] as UserRow);
+
+      // Update profile picture if changed
+      if (profilePicture) {
+        await getPool().query(
+          'UPDATE users SET profile_picture_url = $1 WHERE id = $2',
+          [profilePicture, user.id]
+        );
+      }
+    }
+
+    // Generate JWT
+    const token = jwt.sign(
+      {
+        userId: user.id,
+        email: user.email,
+        role: user.role,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        name: user.name,
+      },
+      JWT_SECRET,
+      { expiresIn: JWT_EXPIRES_IN }
+    );
+
+    res.json({
+      token,
+      user: {
+        ...user,
+        profilePicture,
+      },
+    });
+  } catch (error) {
+    console.error('Google login error:', error);
+    res.status(500).json({ error: 'Google login failed' });
   }
 });
 
