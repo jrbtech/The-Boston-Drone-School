@@ -1,17 +1,8 @@
-import Link from 'next/link'
-import type { Metadata } from 'next'
+'use client'
 
-export const metadata: Metadata = {
-  title: 'Professional Drone Services | Training & Consultation | Boston Drone School',
-  description: 'Comprehensive drone services including FAA Part 107 training, aerial operations, photogrammetry, STEM education, and enterprise consultation. Expert drone pilots serving Boston and beyond.',
-  keywords: 'drone services, aerial photography, drone training, FAA Part 107, photogrammetry, drone consultation, commercial drone operations, Boston',
-  openGraph: {
-    title: 'Professional Drone Services | Boston Drone School',
-    description: 'Expert drone training, operations, and consultation services. FAA Part 107 certification, aerial imaging, and enterprise integration.',
-    url: 'https://bostondroneschool.org/services',
-    type: 'website',
-  },
-}
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { api, Course } from '@/lib/api'
 
 const serviceGroups = [
   {
@@ -65,6 +56,23 @@ const deliveryModel = [
 ]
 
 export default function ServicesPage() {
+  const [courses, setCourses] = useState<Course[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function loadCourses() {
+      try {
+        const response = await api.getCourses()
+        setCourses(response.courses.slice(0, 3)) // Show first 3 courses
+      } catch (error) {
+        console.error('Failed to load courses:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadCourses()
+  }, [])
+
   return (
     <div className="bg-white text-gray-900">
       <section className="bg-black text-white">
@@ -142,98 +150,50 @@ export default function ServicesPage() {
             </p>
           </div>
 
-          <div className="grid gap-8 md:gap-10 lg:gap-12 md:grid-cols-3">
-            <div className="bg-white text-black p-8 md:p-10 rounded-lg border-2 border-gray-200">
-              <div className="mb-6">
-                <h3 className="text-2xl font-bold mb-2">Part 107 Online Webinar</h3>
-                <div className="flex items-baseline gap-2 mb-4">
-                  <span className="text-4xl font-bold">$375</span>
-                  <span className="text-gray-600">one-time</span>
-                </div>
-                <p className="text-sm text-gray-700">Comprehensive online FAA Part 107 certification course with live webinar support.</p>
-              </div>
-              <ul className="space-y-3 mb-8 text-sm">
-                <li className="flex items-start gap-2">
-                  <span className="text-black mt-1">✓</span>
-                  <span>5 hours of online video training</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-black mt-1">✓</span>
-                  <span>250+ practice exam</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-black mt-1">✓</span>
-                  <span>2 hour live Q&A webinar office hour</span>
-                </li>
-              </ul>
-              <Link href="/portal" className="block w-full bg-black text-white text-center py-3 font-bold hover:bg-gray-800 transition">
-                Enroll Now
-              </Link>
+          {loading ? (
+            <div className="flex justify-center items-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
             </div>
-
-            <div className="bg-white text-black p-8 md:p-10 rounded-lg border-4 border-white shadow-2xl transform md:scale-105">
-              <div className="text-center mb-2">
-                <span className="bg-black text-white text-xs px-3 py-1 rounded-full font-bold">BEST VALUE</span>
-              </div>
-              <div className="mb-6">
-                <h3 className="text-2xl font-bold mb-2">Intensive Bootcamp</h3>
-                <div className="flex items-baseline gap-2 mb-4">
-                  <span className="text-4xl font-bold">$675</span>
-                  <span className="text-gray-600">2-day training</span>
+          ) : courses.length > 0 ? (
+            <div className="grid gap-8 md:gap-10 lg:gap-12 md:grid-cols-3">
+              {courses.map((course, index) => (
+                <div key={course.id} className={`bg-white text-black p-8 md:p-10 rounded-lg ${index === 1 ? 'border-4 border-white shadow-2xl transform md:scale-105' : 'border-2 border-gray-200'}`}>
+                  {index === 1 && (
+                    <div className="text-center mb-2">
+                      <span className="bg-black text-white text-xs px-3 py-1 rounded-full font-bold">FEATURED</span>
+                    </div>
+                  )}
+                  <div className="mb-6">
+                    <h3 className="text-2xl font-bold mb-2">{course.title}</h3>
+                    <div className="flex items-baseline gap-2 mb-4">
+                      <span className="text-4xl font-bold">${course.price}</span>
+                      <span className="text-gray-600 text-sm">{course.duration}</span>
+                    </div>
+                    <p className="text-sm text-gray-700 line-clamp-3">{course.description}</p>
+                  </div>
+                  <div className="mb-8 space-y-2 text-sm">
+                    <div className="flex items-start gap-2">
+                      <span className="text-black mt-1">✓</span>
+                      <span>{course.level.charAt(0).toUpperCase() + course.level.slice(1)} Level</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-black mt-1">✓</span>
+                      <span>{course.category}</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-black mt-1">✓</span>
+                      <span>Instructor: {course.instructor}</span>
+                    </div>
+                  </div>
+                  <Link href={`/courses/${course.id}`} className="block w-full bg-black text-white text-center py-3 font-bold hover:bg-gray-800 transition">
+                    View Details
+                  </Link>
                 </div>
-                <p className="text-sm text-gray-700">Fast-track certification with intensive 2-day training program.</p>
-              </div>
-              <ul className="space-y-3 mb-8 text-sm">
-                <li className="flex items-start gap-2">
-                  <span className="text-black mt-1">✓</span>
-                  <span>10 hours of training in person or virtual</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-black mt-1">✓</span>
-                  <span>In-person OR live virtual options</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-black mt-1">✓</span>
-                  <span>Hands-on drone practice</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-black mt-1">✓</span>
-                  <span>Direct instructor mentorship</span>
-                </li>
-              </ul>
-              <Link href="/portal" className="block w-full bg-black text-white text-center py-3 font-bold hover:bg-gray-800 transition">
-                Reserve Seat
-              </Link>
+              ))}
             </div>
-
-            <div className="bg-white text-black p-8 md:p-10 rounded-lg border-2 border-gray-200">
-              <div className="mb-6">
-                <h3 className="text-2xl font-bold mb-2">Premium + Business</h3>
-                <div className="flex items-baseline gap-2 mb-4">
-                  <span className="text-4xl font-bold">$1650</span>
-                  <span className="text-gray-600">complete</span>
-                </div>
-                <p className="text-sm text-gray-700">For c-suite executives interested in drone training and enterprise integration.</p>
-              </div>
-              <ul className="space-y-3 mb-8 text-sm">
-                <li className="flex items-start gap-2">
-                  <span className="text-black mt-1">✓</span>
-                  <span>10 hours of Part 107 edification and flight capability coupled with UAS business enterprise consultation</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-black mt-1">✓</span>
-                  <span>Business formation guidance</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-black mt-1">✓</span>
-                  <span>1-on-1 executive mentorship</span>
-                </li>
-              </ul>
-              <Link href="/portal" className="block w-full bg-black text-white text-center py-3 font-bold hover:bg-gray-800 transition">
-                Get Started
-              </Link>
-            </div>
-          </div>
+          ) : (
+            <p className="text-white text-center">No courses available at this time.</p>
+          )}
         </div>
       </section>
 
