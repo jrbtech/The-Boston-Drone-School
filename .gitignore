@@ -15,6 +15,10 @@ build/
 .env.production.local
 .env.test.local
 
+# Test files with API keys
+**/test-resend*.js
+**/test-bds*.js
+
 # Runtime data
 pids
 *.pid
@@ -40,6 +44,7 @@ Thumbs.db
 *.swp
 *.swo
 *~
+.claude/settings.local.json
 
 # Rust target directory
 target/
