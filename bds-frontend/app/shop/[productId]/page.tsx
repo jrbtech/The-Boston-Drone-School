@@ -32,6 +32,7 @@ const products = {
       'Processing Time': '3-5 business days'
     },
     legalNote: 'Materials compiled from FAA public domain sources per 17 USC § 105. Not affiliated with or endorsed by the FAA.',
+    affiliateNote: undefined,
     inStock: true
   },
   'sectional-chart-set': {
@@ -59,6 +60,7 @@ const products = {
       'Edition': 'Current (updated biannually)'
     },
     legalNote: 'Charts from FAA public domain aeronautical data. Chart data current as of print date.',
+    affiliateNote: undefined,
     inStock: true
   },
   'dji-mini-4-pro': {
@@ -113,6 +115,8 @@ const products = {
       'Weight': '1.2 lbs',
       'Colors': 'Orange/Blue reversible'
     },
+    legalNote: undefined,
+    affiliateNote: undefined,
     inStock: true
   }
 }
