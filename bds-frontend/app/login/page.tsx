@@ -52,7 +52,7 @@ export default function LoginPage() {
       }
 
       // Store token and user data
-      localStorage.setItem('token', data.token)
+      localStorage.setItem('authToken', data.token)
       localStorage.setItem('user', JSON.stringify(data.user))
 
       // Trigger auth context update

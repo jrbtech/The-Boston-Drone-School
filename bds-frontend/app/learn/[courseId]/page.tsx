@@ -19,6 +19,7 @@ export default function CoursePlayerPage() {
   const [enrollment, setEnrollment] = useState<any>(null)
   const [currentLesson, setCurrentLesson] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+  const [quizAnswers, setQuizAnswers] = useState<{ [key: string]: number }>({})
 
   const courseId = Array.isArray(params.courseId) ? params.courseId[0] : params.courseId
 
@@ -138,36 +139,108 @@ export default function CoursePlayerPage() {
 
       {/* Main Content */}
       <div className="flex-1 flex">
-        {/* Video Player Area */}
-        <div className="flex-1 flex flex-col bg-black">
-          {/* Video */}
-            <div className="flex-1 flex items-center justify-center">
-            {currentLesson?.videoUrl ? (
-              currentLesson.videoUrl.includes('youtube.com') ||
-              currentLesson.videoUrl.includes('youtu.be') ||
-              currentLesson.videoUrl.includes('vimeo.com') ? (
-                <iframe
-                  src={getVideoEmbedUrl(currentLesson.videoUrl)}
-                  className="w-full h-full"
-                  frameBorder="0"
-                  allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
-                  allowFullScreen
-                  title={currentLesson.title}
-                />
-              ) : (
-                <video
-                  ref={videoRef}
-                  src={currentLesson.videoUrl}
-                  controls
-                  className="w-full h-full"
-                  onEnded={handleMarkComplete}
-                />
-              )
+        {/* Content Area */}
+        <div className="flex-1 flex flex-col bg-black overflow-y-auto">
+          {/* Lesson Content */}
+            <div className="flex-1 p-8 max-w-4xl mx-auto w-full">
+            {currentLesson?.contentData?.sections ? (
+              <div className="space-y-8">
+                {currentLesson.contentData.sections.map((section: any, index: number) => (
+                  <div key={index} className="bg-gray-900 rounded-lg p-6">
+                    {section.type === 'text' && (
+                      <div>
+                        <h3 className="text-2xl font-bold text-white mb-4">{section.title}</h3>
+                        <div className="text-gray-300 whitespace-pre-line leading-relaxed">
+                          {section.content}
+                        </div>
+                      </div>
+                    )}
+
+                    {section.type === 'video' && (
+                      <div>
+                        <h3 className="text-2xl font-bold text-white mb-4">{section.title}</h3>
+                        {section.description && (
+                          <p className="text-gray-400 mb-4">{section.description}</p>
+                        )}
+                        <div className="aspect-video bg-black rounded-lg overflow-hidden">
+                          <iframe
+                            src={section.videoUrl}
+                            className="w-full h-full"
+                            frameBorder="0"
+                            allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+                            allowFullScreen
+                            title={section.title}
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    {section.type === 'quiz' && (
+                      <div>
+                        <h3 className="text-2xl font-bold text-white mb-6">{section.title}</h3>
+                        <div className="space-y-6">
+                          {section.questions.map((q: any, qIndex: number) => {
+                            const questionKey = `${index}-${qIndex}`
+                            const selectedAnswer = quizAnswers[questionKey]
+                            const isAnswered = selectedAnswer !== undefined
+                            const isCorrect = isAnswered && selectedAnswer === q.correctAnswer
+
+                            return (
+                              <div key={qIndex} className="bg-gray-800 rounded-lg p-6">
+                                <p className="text-white font-semibold mb-4">
+                                  {qIndex + 1}. {q.question}
+                                </p>
+                                <div className="space-y-2">
+                                  {q.options.map((option: string, oIndex: number) => {
+                                    const isSelected = selectedAnswer === oIndex
+                                    const isCorrectOption = oIndex === q.correctAnswer
+
+                                    return (
+                                      <button
+                                        key={oIndex}
+                                        onClick={() => setQuizAnswers({ ...quizAnswers, [questionKey]: oIndex })}
+                                        disabled={isAnswered}
+                                        className={`w-full text-left p-4 rounded-lg transition-colors border ${
+                                          isAnswered
+                                            ? isCorrectOption
+                                              ? 'bg-green-900 border-green-500 text-white'
+                                              : isSelected
+                                              ? 'bg-red-900 border-red-500 text-white'
+                                              : 'bg-gray-700 border-gray-600 text-gray-400'
+                                            : isSelected
+                                            ? 'bg-white text-black border-white'
+                                            : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600'
+                                        }`}
+                                      >
+                                        {option}
+                                      </button>
+                                    )
+                                  })}
+                                </div>
+                                {isAnswered && (
+                                  <div className={`mt-4 p-4 rounded-lg ${
+                                    isCorrect ? 'bg-green-900/30 text-green-200' : 'bg-red-900/30 text-red-200'
+                                  }`}>
+                                    <p className="font-semibold mb-2">
+                                      {isCorrect ? '✓ Correct!' : '✗ Incorrect'}
+                                    </p>
+                                    <p className="text-sm">{q.explanation}</p>
+                                  </div>
+                                )}
+                              </div>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
             ) : (
-                <div className="text-center text-gray-500 uppercase tracking-[0.2em]">
-                  <p>Video module not available</p>
+                <div className="text-center text-gray-500 uppercase tracking-[0.2em] mt-20">
+                  <p>Content not available</p>
                   <p className="text-xs mt-3 tracking-[0.3em]">
-                    Upload or link a compliant media source
+                    This lesson is being prepared
                   </p>
               </div>
             )}

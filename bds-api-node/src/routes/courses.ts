@@ -41,6 +41,7 @@ type RawModuleRow = {
   duration: number | null;
   contentType: string | null;
   contentUrl: string | null;
+  contentData: any;
 };
 
 const FALLBACK_INSTRUCTOR = 'Boston Drone School Faculty';
@@ -87,6 +88,7 @@ const mapModuleRow = (row: RawModuleRow) => ({
   contentType: row.contentType ?? 'video',
   videoUrl: row.contentUrl ?? null,
   materials: [] as string[],
+  contentData: row.contentData ?? {},
 });
 
 // GET /api/courses/free - Get all free courses
@@ -222,7 +224,8 @@ router.get('/:id', async (req: Request, res: Response) => {
             order_index AS "order",
             duration_minutes AS duration,
             content_type AS "contentType",
-            content_url AS "contentUrl"
+            content_url AS "contentUrl",
+            content_data AS "contentData"
          FROM course_modules
          WHERE course_id = $1
          ORDER BY order_index`,
@@ -267,7 +270,8 @@ router.get('/:id/lessons', async (req: Request, res: Response) => {
             duration_minutes AS duration,
             order_index AS "order",
             content_type AS "contentType",
-            content_url AS "contentUrl"
+            content_url AS "contentUrl",
+            content_data AS "contentData"
          FROM course_modules
          WHERE course_id = $1
          ORDER BY order_index`,
