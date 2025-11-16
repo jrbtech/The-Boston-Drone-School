@@ -20,6 +20,10 @@ build/
 **/test-bds*.js
 test-*.js
 check-email-config.js
+check-production-email-config.js
+check-recent-emails.js
+check-resend-status.js
+send-direct-test.js
 grant-course-access.js
 enroll-user*.js
 enroll-user*.ts

@@ -58,7 +58,7 @@ npm run dev
 1. **Go to Resend:** https://resend.com/api-keys
 
 2. **Delete the old key:**
-   - Find key starting with: `re_4iF6aZfV...`
+   - Find the exposed key (if still present)
    - Click the trash icon
    - Confirm deletion
 

@@ -54,7 +54,7 @@ NODE_ENV=production
 ```
 
 ### 3. **Database Connection**
-- Your database URL is already configured: `postgresql://boston_drone_school_user:iqDWTMEHtw6Ur72krgu16BY7JO2mTFE6@dpg-d44iulkhg0os73cihtr0-a.oregon-postgres.render.com/boston_drone_school`
+- Your database URL should be configured in Render environment variables as `DATABASE_URL`
 - Migrations will run automatically on first deploy
 
 ## 🎉 **WHAT HAPPENS ON DEPLOY**

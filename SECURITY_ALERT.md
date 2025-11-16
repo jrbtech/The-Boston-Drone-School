@@ -9,13 +9,13 @@ Sensitive credentials were accidentally committed to your GitHub repository and 
 **File:** `.claude/settings.local.json` (line 47)
 **Exposed:** PostgreSQL database connection string with password
 ```
-postgresql://boston_drone_school_user:iqDWTMEHtw6Ur72krgu16BY7JO2mTFE6@dpg-d44iulkhg0os73cihtr0-a.oregon-postgres.render.com/boston_drone_school
+postgresql://boston_drone_school_user:***REDACTED***@dpg-***REDACTED***.oregon-postgres.render.com/boston_drone_school
 ```
 **Risk:** Full database access (read/write/delete all data)
 
 ### 2. Resend API Key (MEDIUM RISK)
 **Files:** `test-resend-*.js` files
-**Exposed:** `re_4iF6aZfV_6jak2aXi3ehEiR1nfJTEegHF`
+**Exposed:** `re_***REDACTED***`
 **Risk:** Unauthorized email sending, potential spam abuse
 
 ## What We Fixed
@@ -56,7 +56,7 @@ postgresql://boston_drone_school_user:iqDWTMEHtw6Ur72krgu16BY7JO2mTFE6@dpg-d44iu
 
 1. **Go to Resend Dashboard:**
    - Visit: https://resend.com/api-keys
-   - Delete the exposed key: `re_4iF6aZfV...`
+   - Delete the exposed key (starts with `re_`)
    - Create a new API key
 
 2. **Update Environment Variables:**
