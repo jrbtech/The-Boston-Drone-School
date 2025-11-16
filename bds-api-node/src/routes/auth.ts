@@ -283,7 +283,21 @@ router.get('/me', authenticateToken, async (req: Request, res: Response) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    res.json({ user: buildUserResponse(result.rows[0] as UserRow) });
+    // Fetch user's enrollments
+    const enrollments = await getPool().query(
+      `SELECT e.id, e.course_id, e.enrollment_date, e.completion_date, e.progress_percentage, e.status,
+              c.title as course_title, c.description as course_description
+       FROM enrollments e
+       JOIN courses c ON e.course_id = c.id
+       WHERE e.user_id = $1 AND e.status = 'active'
+       ORDER BY e.enrollment_date DESC`,
+      [req.user.userId]
+    );
+
+    res.json({
+      user: buildUserResponse(result.rows[0] as UserRow),
+      enrollments: enrollments.rows
+    });
   } catch (error) {
     console.error('Get user error:', error);
     res.status(500).json({ error: 'Failed to get user' });
