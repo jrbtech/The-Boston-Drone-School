@@ -212,19 +212,15 @@ export default function DashboardPage() {
                   >
                   <div className="flex flex-col md:flex-row">
                     {/* Course Thumbnail */}
-                      <div className="md:w-64 h-48 bg-gray-200 flex items-center justify-center relative overflow-hidden">
-                      {course.thumbnailUrl ? (
-                        <Image
-                          src={course.thumbnailUrl}
-                          alt={course.title}
-                          fill
-                          className="object-cover"
-                          sizes="(min-width: 768px) 256px, 100vw"
-                          priority={false}
-                        />
-                      ) : (
-                          <span className="text-sm uppercase tracking-[0.4em] text-gray-500">BDS</span>
-                      )}
+                      <div className="md:w-64 h-48 bg-gray-100 flex items-center justify-center relative overflow-hidden">
+                      <Image
+                        src={course.thumbnailUrl || "/images/TBDS GRAPHIC.jpg"}
+                        alt={course.title}
+                        fill
+                        className="object-cover"
+                        sizes="(min-width: 768px) 256px, 100vw"
+                        priority={false}
+                      />
                     </div>
 
                     {/* Course Info */}

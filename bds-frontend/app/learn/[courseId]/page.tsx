@@ -41,7 +41,7 @@ export default function CoursePlayerPage() {
 
       // Find enrollment for this course
       const userEnrollment = enrollmentsResponse.enrollments?.find(
-        (e: any) => e.courseId === courseId
+        (e: any) => e.courseId.toString() === courseId.toString()
       )
 
       if (!userEnrollment) {
