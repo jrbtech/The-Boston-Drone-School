@@ -82,7 +82,7 @@ export function MarketingHeader() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="rounded-full border-2 border-gray-900 px-6 py-2.5 text-xs font-bold tracking-wider text-gray-900 transition hover:bg-gray-900 hover:text-white"
+                  className="rounded-full border-2 border-gray-900 bg-white px-6 py-2.5 text-xs font-bold tracking-wider text-gray-900 transition hover:bg-gray-900 hover:text-white"
                 >
                   {link.label}
                 </Link>
@@ -122,7 +122,7 @@ export function MarketingHeader() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="inline-flex min-h-[48px] items-center justify-center rounded-full border-2 border-gray-900 px-6 py-3 text-sm font-semibold tracking-wider text-gray-900 transition active:bg-gray-900 active:text-white touch-manipulation"
+                    className="inline-flex min-h-[48px] items-center justify-center rounded-full border-2 border-gray-900 bg-white px-6 py-3 text-sm font-semibold tracking-wider text-gray-900 transition active:bg-gray-900 active:text-white touch-manipulation"
                     onClick={() => setMenuOpen(false)}
                   >
                     {link.label}

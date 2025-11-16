@@ -125,10 +125,11 @@ const products = {
 export default function ProductDetailPage() {
   const params = useParams()
   const router = useRouter()
-  const { addItem } = useCart()
+  const { addItem, items } = useCart()
   const productId = Array.isArray(params.productId) ? params.productId[0] : params.productId
   const [quantity, setQuantity] = useState(1)
   const [adding, setAdding] = useState(false)
+  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0)
 
   const product = productId ? products[productId as keyof typeof products] : null
 
@@ -176,6 +177,16 @@ export default function ProductDetailPage() {
             <nav className="flex items-center gap-6">
               <Link href="/shop" className="text-gray-600 hover:text-black">Shop</Link>
               <Link href="/courses" className="text-gray-600 hover:text-black">Courses</Link>
+              <Link href="/cart" className="relative text-gray-600 hover:text-black">
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                {totalItems > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                    {totalItems}
+                  </span>
+                )}
+              </Link>
               <Link href="/login" className="border border-gray-900 px-6 py-2 hover:bg-gray-900 hover:text-white transition-colors">
                 Login
               </Link>
