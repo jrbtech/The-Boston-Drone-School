@@ -342,7 +342,7 @@ export default function CheckoutPage() {
                     </p>
 
                     <p className="text-xs text-gray-600 mt-3 text-center font-medium">
-                      ✅ No payment required now • 💳 Secure payment link sent via email
+                      No payment required now - Secure payment link sent via email
                     </p>
                   </div>
                 </form>
