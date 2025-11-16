@@ -232,13 +232,49 @@ export default function CartPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-1">Shipping Address *</label>
-                    <textarea
+                    <label className="block text-sm font-medium mb-1">Street Address *</label>
+                    <input
+                      type="text"
                       name="address"
                       required
-                      rows={3}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
-                      placeholder="Street address, city, state, ZIP"
+                      placeholder="123 Main Street"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">City *</label>
+                      <input
+                        type="text"
+                        name="city"
+                        required
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+                        placeholder="Boston"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">State *</label>
+                      <input
+                        type="text"
+                        name="state"
+                        required
+                        maxLength={2}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent uppercase"
+                        placeholder="MA"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-1">ZIP Code *</label>
+                    <input
+                      type="text"
+                      name="zip"
+                      required
+                      pattern="[0-9]{5}"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+                      placeholder="02101"
                     />
                   </div>
 

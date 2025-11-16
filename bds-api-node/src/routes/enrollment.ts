@@ -121,16 +121,18 @@ router.get('/user', async (req: Request, res: Response) => {
     let query = `
       SELECT
         e.id,
-        e.user_id,
-        e.course_id,
-        e.enrollment_date,
-        e.completion_date,
+        e.user_id as "userId",
+        e.course_id as "courseId",
+        e.enrollment_date as "enrollmentDate",
+        e.completion_date as "completionDate",
         e.progress_percentage as progress,
         e.status,
-        c.title as course_title,
-        c.description as course_description,
+        c.title as "courseTitle",
+        c.description as "courseDescription",
         c.category,
-        c.price
+        c.price,
+        c.thumbnail_url as "thumbnailUrl",
+        c.instructor
       FROM enrollments e
       JOIN courses c ON e.course_id = c.id
       WHERE e.user_id = $1
@@ -146,10 +148,24 @@ router.get('/user', async (req: Request, res: Response) => {
 
     const result = await getPool().query(query, params);
 
+    // Add certificateUrl if exists
+    const enrollmentsWithCerts = await Promise.all(
+      result.rows.map(async (enrollment: any) => {
+        const certResult = await getPool().query(
+          'SELECT certificate_url FROM certificates WHERE enrollment_id = $1',
+          [enrollment.id]
+        );
+        return {
+          ...enrollment,
+          certificateUrl: certResult.rows[0]?.certificate_url || null
+        };
+      })
+    );
+
     res.json({
       success: true,
-      enrollments: result.rows,
-      total: result.rows.length
+      enrollments: enrollmentsWithCerts,
+      total: enrollmentsWithCerts.length
     });
   } catch (error) {
     console.error('Error fetching user enrollments:', error);
