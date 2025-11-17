@@ -314,9 +314,11 @@ router.put('/:enrollmentId/progress', async (req: Request, res: Response) => {
   } catch (error) {
     console.error('Error updating progress:', error);
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    const errorStack = error instanceof Error ? error.stack : undefined;
     res.status(500).json({
       error: 'Failed to update progress',
-      details: process.env.NODE_ENV === 'development' ? errorMessage : undefined
+      message: errorMessage,
+      stack: errorStack
     });
   }
 });
