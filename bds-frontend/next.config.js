@@ -12,6 +12,10 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'bostondroneschool.org',
+      },
+      {
+        protocol: 'https',
         hostname: 'img.youtube.com',
       },
     ],

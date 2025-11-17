@@ -59,7 +59,7 @@ services:
       - key: ANTHROPIC_API_KEY
         sync: false
       - key: CORS_ORIGIN
-        value: "https://bds-frontend.onrender.com,https://learn.thebostondroneschool.org,https://thebostondroneschool.org,http://localhost:3000"
+        value: "https://bds-frontend.onrender.com,https://learn.thebostondroneschool.org,https://thebostondroneschool.org,https://bostondroneschool.org,https://www.thebostondroneschool.org,https://www.bostondroneschool.org,http://localhost:3000"
       - key: RESEND_API_KEY
         sync: false
       - key: RESEND_FROM_EMAIL
