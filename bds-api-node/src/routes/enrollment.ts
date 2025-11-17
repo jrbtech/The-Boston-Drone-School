@@ -246,40 +246,57 @@ router.put('/:enrollmentId/progress', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Invalid module for this course' });
     }
 
-    // Update or insert module progress
-    await getPool().query(
-      `INSERT INTO module_progress (enrollment_id, module_id, completed, time_spent_minutes, completed_at)
-       VALUES ($1, $2, $3, $4, $5)
-       ON CONFLICT (enrollment_id, module_id)
-       DO UPDATE SET
-         completed = $3,
-         time_spent_minutes = module_progress.time_spent_minutes + $4,
-         completed_at = CASE WHEN $3 = true THEN CURRENT_TIMESTAMP ELSE module_progress.completed_at END`,
-      [enrollmentId, moduleId, completed || false, timeSpent || 0, completed ? new Date() : null]
-    );
+    try {
+      // Update or insert module progress
+      await getPool().query(
+        `INSERT INTO module_progress (enrollment_id, module_id, completed, time_spent_minutes, completed_at)
+         VALUES ($1, $2, $3, $4, $5)
+         ON CONFLICT (enrollment_id, module_id)
+         DO UPDATE SET
+           completed = $3,
+           time_spent_minutes = module_progress.time_spent_minutes + $4,
+           completed_at = CASE WHEN $3 = true THEN CURRENT_TIMESTAMP ELSE module_progress.completed_at END`,
+        [enrollmentId, moduleId, completed || false, timeSpent || 0, completed ? new Date() : null]
+      );
+    } catch (dbError) {
+      console.error('Error inserting/updating module progress:', dbError);
+      throw new Error('Failed to update module progress in database');
+    }
 
-    // Calculate overall course progress
-    const progressResult = await getPool().query(
-      `SELECT
-        COUNT(*) FILTER (WHERE mp.completed = true)::float /
-        NULLIF(COUNT(cm.id)::float, 0) * 100 as progress_percentage
-       FROM course_modules cm
-       LEFT JOIN module_progress mp ON cm.id = mp.module_id AND mp.enrollment_id = $1
-       WHERE cm.course_id = $2`,
-      [enrollmentId, courseId]
-    );
+    let progressPercentage = 0;
+    try {
+      // Calculate overall course progress
+      const progressResult = await getPool().query(
+        `SELECT
+          COUNT(*) FILTER (WHERE mp.completed = true)::float /
+          NULLIF(COUNT(cm.id)::float, 0) * 100 as progress_percentage
+         FROM course_modules cm
+         LEFT JOIN module_progress mp ON cm.id = mp.module_id AND mp.enrollment_id = $1
+         WHERE cm.course_id = $2`,
+        [enrollmentId, courseId]
+      );
 
-    const progressPercentage = Math.round(progressResult.rows[0].progress_percentage || 0);
+      progressPercentage = Math.round(progressResult.rows[0]?.progress_percentage || 0);
+    } catch (calcError) {
+      console.error('Error calculating progress percentage:', calcError);
+      // Continue with 0% if calculation fails
+      progressPercentage = 0;
+    }
 
-    // Update enrollment progress
-    await getPool().query(
-      `UPDATE enrollments
-       SET progress_percentage = $1,
-           status = CASE WHEN $1 >= 100 THEN 'completed' ELSE status END,
-           completion_date = CASE WHEN $1 >= 100 AND completion_date IS NULL THEN CURRENT_TIMESTAMP ELSE completion_date END
-       WHERE id = $2`,
-      [progressPercentage, enrollmentId]
-    );
+    try {
+      // Update enrollment progress
+      await getPool().query(
+        `UPDATE enrollments
+         SET progress_percentage = $1,
+             status = CASE WHEN $1 >= 100 THEN 'completed' ELSE status END,
+             completion_date = CASE WHEN $1 >= 100 AND completion_date IS NULL THEN CURRENT_TIMESTAMP ELSE completion_date END
+         WHERE id = $2`,
+        [progressPercentage, enrollmentId]
+      );
+    } catch (updateError) {
+      console.error('Error updating enrollment progress:', updateError);
+      // Module progress was updated, so don't fail completely
+    }
 
     // Get updated enrollment
     const updatedEnrollment = await getPool().query(
@@ -297,7 +314,11 @@ router.put('/:enrollmentId/progress', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('Error updating progress:', error);
-    res.status(500).json({ error: 'Failed to update progress' });
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    res.status(500).json({
+      error: 'Failed to update progress',
+      details: process.env.NODE_ENV === 'development' ? errorMessage : undefined
+    });
   }
 });
 
