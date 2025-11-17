@@ -221,8 +221,15 @@ router.put('/:enrollmentId/progress', async (req: Request, res: Response) => {
     }
 
     const { enrollmentId } = req.params;
-    const { moduleId, completed, timeSpent } = req.body;
+    const { moduleId, lessonId, completed, timeSpent } = req.body;
     const userId = req.user.userId;
+
+    // Support both moduleId and lessonId (they refer to the same thing)
+    const actualModuleId = moduleId || lessonId;
+
+    if (!actualModuleId) {
+      return res.status(400).json({ error: 'Module ID or Lesson ID is required' });
+    }
 
     // Verify enrollment belongs to user
     const enrollmentCheck = await getPool().query(
@@ -239,7 +246,7 @@ router.put('/:enrollmentId/progress', async (req: Request, res: Response) => {
     // Verify module belongs to course
     const moduleCheck = await getPool().query(
       'SELECT id FROM course_modules WHERE id = $1 AND course_id = $2',
-      [moduleId, courseId]
+      [actualModuleId, courseId]
     );
 
     if (moduleCheck.rows.length === 0) {
@@ -256,47 +263,39 @@ router.put('/:enrollmentId/progress', async (req: Request, res: Response) => {
            completed = $3,
            time_spent_minutes = module_progress.time_spent_minutes + $4,
            completed_at = CASE WHEN $3 = true THEN CURRENT_TIMESTAMP ELSE module_progress.completed_at END`,
-        [enrollmentId, moduleId, completed || false, timeSpent || 0, completed ? new Date() : null]
+        [enrollmentId, actualModuleId, completed || false, timeSpent || 0, completed ? new Date() : null]
       );
     } catch (dbError) {
       console.error('Error inserting/updating module progress:', dbError);
       throw new Error('Failed to update module progress in database');
     }
 
-    let progressPercentage = 0;
-    try {
-      // Calculate overall course progress
-      const progressResult = await getPool().query(
-        `SELECT
-          COUNT(*) FILTER (WHERE mp.completed = true)::float /
-          NULLIF(COUNT(cm.id)::float, 0) * 100 as progress_percentage
-         FROM course_modules cm
-         LEFT JOIN module_progress mp ON cm.id = mp.module_id AND mp.enrollment_id = $1
-         WHERE cm.course_id = $2`,
-        [enrollmentId, courseId]
-      );
+    // Calculate overall course progress
+    const progressResult = await getPool().query(
+      `SELECT
+        COUNT(*) FILTER (WHERE mp.completed = true)::float /
+        NULLIF(COUNT(cm.id)::float, 0) * 100 as progress_percentage
+       FROM course_modules cm
+       LEFT JOIN module_progress mp ON cm.id = mp.module_id AND mp.enrollment_id = $1
+       WHERE cm.course_id = $2`,
+      [enrollmentId, courseId]
+    );
 
-      progressPercentage = Math.round(progressResult.rows[0]?.progress_percentage || 0);
-    } catch (calcError) {
-      console.error('Error calculating progress percentage:', calcError);
-      // Continue with 0% if calculation fails
-      progressPercentage = 0;
-    }
+    const progressPercentage = Math.round(progressResult.rows[0]?.progress_percentage || 0);
+    console.log(`[PROGRESS] Calculated progress for enrollment ${enrollmentId}: ${progressPercentage}%`);
 
-    try {
-      // Update enrollment progress
-      await getPool().query(
-        `UPDATE enrollments
-         SET progress_percentage = $1,
-             status = CASE WHEN $1 >= 100 THEN 'completed' ELSE status END,
-             completion_date = CASE WHEN $1 >= 100 AND completion_date IS NULL THEN CURRENT_TIMESTAMP ELSE completion_date END
-         WHERE id = $2`,
-        [progressPercentage, enrollmentId]
-      );
-    } catch (updateError) {
-      console.error('Error updating enrollment progress:', updateError);
-      // Module progress was updated, so don't fail completely
-    }
+    // Update enrollment progress
+    const updateResult = await getPool().query(
+      `UPDATE enrollments
+       SET progress_percentage = $1,
+           status = CASE WHEN $1 >= 100 THEN 'completed' ELSE status END,
+           completion_date = CASE WHEN $1 >= 100 AND completion_date IS NULL THEN CURRENT_TIMESTAMP ELSE completion_date END
+       WHERE id = $2
+       RETURNING progress_percentage, status`,
+      [progressPercentage, enrollmentId]
+    );
+
+    console.log(`[PROGRESS] Updated enrollment:`, updateResult.rows[0]);
 
     // Get updated enrollment
     const updatedEnrollment = await getPool().query(
