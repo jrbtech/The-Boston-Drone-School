@@ -220,15 +220,28 @@ router.put('/:enrollmentId/progress', async (req: Request, res: Response) => {
       return res.status(401).json({ error: 'Authentication required' });
     }
 
-    const { enrollmentId } = req.params;
+    const { enrollmentId: enrollmentIdParam } = req.params;
     const { moduleId, lessonId, completed, timeSpent } = req.body;
     const userId = req.user.userId;
 
-    // Support both moduleId and lessonId (they refer to the same thing)
-    const actualModuleId = moduleId || lessonId;
+    // Convert enrollment ID to integer
+    const enrollmentId = parseInt(String(enrollmentIdParam), 10);
+    if (isNaN(enrollmentId)) {
+      return res.status(400).json({ error: 'Invalid enrollment ID format' });
+    }
 
-    if (!actualModuleId) {
+    // Support both moduleId and lessonId (they refer to the same thing)
+    const rawModuleId = moduleId || lessonId;
+
+    if (!rawModuleId) {
       return res.status(400).json({ error: 'Module ID or Lesson ID is required' });
+    }
+
+    // Convert to integer for database consistency
+    const actualModuleId = parseInt(String(rawModuleId), 10);
+
+    if (isNaN(actualModuleId)) {
+      return res.status(400).json({ error: 'Invalid module/lesson ID format' });
     }
 
     // Verify enrollment belongs to user
