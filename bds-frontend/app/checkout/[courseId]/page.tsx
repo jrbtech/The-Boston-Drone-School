@@ -1,84 +1,103 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { api, Course } from "@/lib/api";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function CheckoutPage() {
   const params = useParams();
+  const router = useRouter();
+  const { user, loading: authLoading } = useAuth();
   const courseId = Array.isArray(params.courseId) ? params.courseId[0] : params.courseId;
 
   const [course, setCourse] = useState<Course | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [enrolled, setEnrolled] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadCourse() {
       if (!courseId) return;
 
+      // Wait for auth to load
+      if (authLoading) return;
+
+      // Redirect to login if not authenticated
+      if (!user) {
+        router.push(`/login?returnUrl=${encodeURIComponent(`/checkout/${courseId}`)}`);
+        return;
+      }
+
       try {
         setLoading(true);
+
+        // Load course details
         const response = await api.getCourse(courseId);
         setCourse(response.course);
+
+        // Check if already enrolled
+        const enrollments = await api.getUserEnrollments();
+        const existingEnrollment = enrollments.enrollments?.find(
+          (e: any) => e.courseId === courseId
+        );
+
+        if (existingEnrollment) {
+          // Already enrolled, redirect to course player
+          router.push(`/learn/${courseId}`);
+          return;
+        }
       } catch (error) {
         console.error('Failed to load course:', error);
+        setError('Failed to load course details. Please try again.');
       } finally {
         setLoading(false);
       }
     }
 
     loadCourse();
-  }, [courseId]);
+  }, [courseId, user, authLoading, router]);
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  async function handleEnroll() {
+    if (!courseId || !user) return;
+
     setSubmitting(true);
-
-    const formData = new FormData(e.currentTarget);
-
-    // Convert FormData to JSON
-    const data = {
-      name: formData.get('name') as string,
-      email: formData.get('email') as string,
-      phone: formData.get('phone') as string,
-      experience: formData.get('experience') as string,
-      message: formData.get('message') as string,
-      course_id: formData.get('course_id') as string,
-      course_title: formData.get('course_title') as string,
-      course_price: formData.get('course_price') as string,
-    };
+    setError(null);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://bds-backend-5ao0.onrender.com';
-      const response = await fetch(`${apiUrl}/api/enrollment/request`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+      // Call the API to enroll the user
+      const response = await api.enrollCourse(courseId);
 
-      if (!response.ok) {
-        throw new Error('Failed to submit enrollment request');
+      if (response.success) {
+        setEnrolled(true);
+        // Redirect to course player after 2 seconds
+        setTimeout(() => {
+          router.push(`/learn/${courseId}`);
+        }, 2000);
+      } else {
+        throw new Error('Enrollment failed');
       }
-
-      setSubmitted(true);
-    } catch (error) {
-      console.error('Failed to submit form:', error);
-      alert('Failed to submit enrollment request. Please try again or contact us directly.');
+    } catch (error: any) {
+      console.error('Failed to enroll:', error);
+      setError(error.message || 'Failed to enroll in course. Please try again or contact support.');
     } finally {
       setSubmitting(false);
     }
   }
 
-  if (loading) {
+  if (authLoading || loading) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
       </div>
     );
+  }
+
+  if (!user) {
+    // This shouldn't happen due to redirect in useEffect, but just in case
+    return null;
   }
 
   if (!course) {
@@ -94,7 +113,7 @@ export default function CheckoutPage() {
     );
   }
 
-  if (submitted) {
+  if (enrolled) {
     return (
       <div className="min-h-screen bg-white">
         <header className="bg-white border-b border-gray-200">
@@ -107,33 +126,36 @@ export default function CheckoutPage() {
 
         <div className="container mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
           <div className="max-w-2xl mx-auto text-center">
-            <div className="w-16 h-16 bg-gray-900 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
               <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h1 className="text-3xl font-bold mb-4">Enrollment Request Received!</h1>
+            <h1 className="text-3xl font-bold mb-4">Successfully Enrolled!</h1>
             <p className="text-gray-700 text-lg mb-8">
-              Thank you for your interest in <strong>{course.title}</strong>. Our admissions team will contact you within 24 hours to complete your enrollment.
+              Welcome to <strong>{course.title}</strong>! You now have full access to all course materials.
             </p>
             <div className="bg-gray-100 border border-gray-200 rounded-lg p-6 mb-8">
-              <h2 className="font-semibold mb-3">What Happens Next:</h2>
+              <h2 className="font-semibold mb-3">Getting Started:</h2>
               <ol className="text-left text-sm space-y-2 ml-4 list-decimal">
-                <li>Check your email for a confirmation message</li>
-                <li>Our admissions team will contact you within 24 hours</li>
-                <li>Complete enrollment via email, phone, or secure payment link</li>
-                <li>Get instant access to your course materials after payment</li>
+                <li>Access your course content in the learning platform</li>
+                <li>Complete lessons at your own pace</li>
+                <li>Track your progress in the dashboard</li>
+                <li>Earn your certificate upon completion</li>
               </ol>
               <div className="mt-4 pt-4 border-t border-gray-300 text-sm text-gray-600">
-                <p><strong>Questions?</strong> Contact <a href="mailto:info@thebostondroneschool.org" className="underline text-black font-semibold">info@thebostondroneschool.org</a></p>
+                <p><strong>Need Help?</strong> Contact <a href="mailto:info@thebostondroneschool.org" className="underline text-black font-semibold">info@thebostondroneschool.org</a></p>
               </div>
             </div>
+            <div className="bg-black text-white p-4 rounded-lg mb-6">
+              <p className="text-sm">Redirecting you to the course in a moment...</p>
+            </div>
             <div className="flex gap-4 justify-center">
-              <Link href="/courses" className="bg-black text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
-                Browse More Courses
+              <Link href={`/learn/${courseId}`} className="bg-black text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                Start Learning Now
               </Link>
-              <Link href="/" className="border border-gray-900 text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                Back to Home
+              <Link href="/dashboard" className="border border-gray-900 text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                Go to Dashboard
               </Link>
             </div>
           </div>
@@ -153,20 +175,47 @@ export default function CheckoutPage() {
             </Link>
             <nav className="flex items-center gap-6">
               <Link href="/courses" className="text-gray-600 hover:text-black">Courses</Link>
-              <Link href="/login" className="border border-gray-900 px-6 py-2 hover:bg-gray-900 hover:text-white transition-colors">
-                Login
+              <Link href="/dashboard" className="border border-gray-900 px-6 py-2 hover:bg-gray-900 hover:text-white transition-colors">
+                Dashboard
               </Link>
             </nav>
           </div>
         </div>
       </header>
 
+      {/* Breadcrumb Navigation */}
+      <div className="bg-gray-50 border-b border-gray-200">
+        <div className="container mx-auto px-6 py-3">
+          <nav className="flex items-center gap-2 text-sm">
+            <Link href="/" className="text-gray-500 hover:text-black transition-colors">
+              Home
+            </Link>
+            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+            <Link href="/courses" className="text-gray-500 hover:text-black transition-colors">
+              Programs
+            </Link>
+            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+            <Link href={`/courses/${courseId}`} className="text-gray-500 hover:text-black transition-colors">
+              {course.title}
+            </Link>
+            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+            <span className="text-black font-semibold">Checkout</span>
+          </nav>
+        </div>
+      </div>
+
       {/* Hero */}
       <section className="bg-black text-white py-16 md:py-20 lg:py-24">
         <div className="container mx-auto px-6 md:px-8 lg:px-12">
           <div className="max-w-4xl mx-auto text-center">
             <span className="inline-block bg-white/10 text-white px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider mb-6">
-              Enrollment Request
+              Confirm Enrollment
             </span>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               {course.title}
@@ -182,22 +231,22 @@ export default function CheckoutPage() {
         </div>
       </section>
 
-      {/* Enrollment Notice */}
-      <section className="bg-black text-white py-4">
+      {/* Notice */}
+      <section className="bg-green-50 border-y border-green-200 py-4">
         <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
           <div className="flex flex-col md:flex-row items-center justify-center gap-3 text-center md:text-left">
             <div className="flex items-center gap-2">
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span className="text-sm font-medium">Simple Enrollment Process:</span>
+              <span className="text-sm font-medium text-green-900">Instant Access:</span>
             </div>
-            <span className="text-sm">Submit this form and our team will contact you within 24 hours with payment instructions. Get instant course access after payment is confirmed.</span>
+            <span className="text-sm text-green-800">Click the button below to enroll and get immediate access to all course materials.</span>
           </div>
         </div>
       </section>
 
-      {/* Enrollment Request Form */}
+      {/* Enrollment Confirmation */}
       <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-5 gap-12 max-w-7xl mx-auto">
@@ -241,111 +290,84 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            {/* Right Column - Checkout Form */}
+            {/* Right Column - Enrollment Confirmation */}
             <div className="lg:col-span-2">
               <div className="bg-white border border-gray-200 rounded-xl p-8 sticky top-24">
-                <h2 className="text-xl font-bold mb-6">Complete Your Enrollment</h2>
+                <h2 className="text-xl font-bold mb-6">Confirm Your Enrollment</h2>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <input type="hidden" name="course_id" value={course.id} />
-                  <input type="hidden" name="course_title" value={course.title} />
-                  <input type="hidden" name="course_price" value={course.price} />
-                  <input type="hidden" name="form_type" value="course_enrollment" />
+                {error && (
+                  <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
+                    {error}
+                  </div>
+                )}
 
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      className="w-full border-2 border-gray-300 px-4 py-3 rounded-lg focus:border-black focus:outline-none"
-                      placeholder="John Smith"
-                    />
+                <div className="space-y-4 mb-6">
+                  <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                    <p className="text-xs text-gray-500 mb-1">Student</p>
+                    <p className="font-semibold">{user.name}</p>
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      className="w-full border-2 border-gray-300 px-4 py-3 rounded-lg focus:border-black focus:outline-none"
-                      placeholder="john@example.com"
-                    />
+                  <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                    <p className="text-xs text-gray-500 mb-1">Email</p>
+                    <p className="font-semibold">{user.email}</p>
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Phone Number</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      className="w-full border-2 border-gray-300 px-4 py-3 rounded-lg focus:border-black focus:outline-none"
-                      placeholder="(555) 123-4567"
-                    />
+                  <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                    <p className="text-xs text-gray-500 mb-1">Course</p>
+                    <p className="font-semibold">{course.title}</p>
+                  </div>
+                </div>
+
+                <div className="border-t-2 border-gray-200 pt-6">
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                    <p className="text-sm text-green-900 font-semibold mb-2">What You&apos;ll Get:</p>
+                    <ul className="text-xs text-green-800 space-y-1 ml-4 list-disc">
+                      <li>Instant access to all course materials</li>
+                      <li>Learn at your own pace</li>
+                      <li>Track your progress</li>
+                      <li>Earn a certificate upon completion</li>
+                    </ul>
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Experience Level</label>
-                    <select
-                      name="experience"
-                      className="w-full border-2 border-gray-300 px-4 py-3 rounded-lg focus:border-black focus:outline-none"
-                    >
-                      <option value="">Select your experience</option>
-                      <option value="beginner">Beginner (No experience)</option>
-                      <option value="hobbyist">Hobbyist (Recreational flying)</option>
-                      <option value="some-commercial">Some commercial experience</option>
-                      <option value="looking-to-certify">Ready to get certified</option>
-                    </select>
+                  <div className="flex justify-between items-center mb-6">
+                    <span className="font-bold text-lg">Total Course Price</span>
+                    <span className="text-3xl font-bold">${course.price}</span>
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Questions or Notes</label>
-                    <textarea
-                      name="message"
-                      rows={4}
-                      className="w-full border-2 border-gray-300 px-4 py-3 rounded-lg focus:border-black focus:outline-none resize-none"
-                      placeholder="Any questions about the course?"
-                    />
-                  </div>
-
-                  <div className="border-t-2 border-gray-200 pt-6">
-                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
-                      <p className="text-sm text-black900 font-semibold mb-2">How Enrollment Works:</p>
-                      <ol className="text-xs text-black800 space-y-1 ml-4 list-decimal">
-                        <li>Submit this form to reserve your spot</li>
-                        <li>We&apos;ll email you within 24 hours with payment options</li>
-                        <li>Complete payment via Stripe, PayPal, or wire transfer</li>
-                        <li>Get instant access to your course materials</li>
-                      </ol>
-                    </div>
-
-                    <div className="flex justify-between items-center mb-6">
-                      <span className="font-bold text-lg">Total Course Price</span>
-                      <span className="text-3xl font-bold">${course.price}</span>
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={submitting}
-                      className="w-full bg-black hover:bg-gray-800 disabled:bg-gray-400 text-white py-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
-                    >
-                      <span>{submitting ? 'Submitting...' : 'Reserve My Spot - Get Payment Link'}</span>
-                      {!submitting && (
+                  <button
+                    onClick={handleEnroll}
+                    disabled={submitting}
+                    className="w-full bg-black hover:bg-gray-800 disabled:bg-gray-400 text-white py-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
+                  >
+                    {submitting ? (
+                      <>
+                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span>Enrolling...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Enroll Now - Get Instant Access</span>
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
-                      )}
-                    </button>
+                      </>
+                    )}
+                  </button>
 
-                    <p className="text-xs text-gray-500 mt-4 text-center">
-                      By submitting, you agree to our <Link href="/terms" className="underline">Terms</Link> and <Link href="/privacy" className="underline">Privacy Policy</Link>
-                    </p>
+                  <p className="text-xs text-gray-500 mt-4 text-center">
+                    By enrolling, you agree to our <Link href="/terms" className="underline">Terms</Link> and <Link href="/privacy" className="underline">Privacy Policy</Link>
+                  </p>
 
-                    <p className="text-xs text-gray-600 mt-3 text-center font-medium">
-                      No payment required now - Secure payment link sent via email
-                    </p>
+                  <div className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-600">
+                    <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span>Secure enrollment - Instant access</span>
                   </div>
-                </form>
+                </div>
               </div>
             </div>
           </div>

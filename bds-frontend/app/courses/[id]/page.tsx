@@ -70,7 +70,8 @@ export default function CourseDetailPage() {
     }
 
     if (!user) {
-      router.push('/login')
+      // Redirect to login with return URL to checkout
+      router.push(`/login?returnUrl=${encodeURIComponent(`/checkout/${courseId}`)}`)
       return
     }
 
@@ -89,7 +90,7 @@ export default function CourseDetailPage() {
       console.error('Error checking enrollments:', error)
     }
 
-    // Redirect to checkout for payment
+    // Redirect to checkout for payment/enrollment
     router.push(`/checkout/${courseId}`)
   }
 
