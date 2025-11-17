@@ -246,7 +246,7 @@ router.put('/:enrollmentId/progress', async (req: Request, res: Response) => {
 
     // Verify enrollment belongs to user
     const enrollmentCheck = await getPool().query(
-      'SELECT id, course_id FROM enrollments WHERE id = $1 AND user_id = $2',
+      'SELECT id, course_id FROM enrollments WHERE id = $1::integer AND user_id = $2::integer',
       [enrollmentId, userId]
     );
 
@@ -254,11 +254,11 @@ router.put('/:enrollmentId/progress', async (req: Request, res: Response) => {
       return res.status(404).json({ error: 'Enrollment not found or access denied' });
     }
 
-    const courseId = enrollmentCheck.rows[0].course_id;
+    const courseId = parseInt(String(enrollmentCheck.rows[0].course_id), 10);
 
     // Verify module belongs to course
     const moduleCheck = await getPool().query(
-      'SELECT id FROM course_modules WHERE id = $1 AND course_id = $2',
+      'SELECT id FROM course_modules WHERE id = $1::integer AND course_id = $2::integer',
       [actualModuleId, courseId]
     );
 
@@ -270,12 +270,12 @@ router.put('/:enrollmentId/progress', async (req: Request, res: Response) => {
       // Update or insert module progress
       await getPool().query(
         `INSERT INTO module_progress (enrollment_id, module_id, completed, time_spent_minutes, completed_at)
-         VALUES ($1, $2, $3, $4, CASE WHEN $3 = true THEN CURRENT_TIMESTAMP ELSE NULL END)
+         VALUES ($1::integer, $2::integer, $3::boolean, $4::integer, CASE WHEN $3::boolean = true THEN CURRENT_TIMESTAMP ELSE NULL END)
          ON CONFLICT (enrollment_id, module_id)
          DO UPDATE SET
-           completed = $3,
-           time_spent_minutes = module_progress.time_spent_minutes + $4,
-           completed_at = CASE WHEN $3 = true THEN CURRENT_TIMESTAMP ELSE module_progress.completed_at END`,
+           completed = $3::boolean,
+           time_spent_minutes = module_progress.time_spent_minutes + $4::integer,
+           completed_at = CASE WHEN $3::boolean = true THEN CURRENT_TIMESTAMP ELSE module_progress.completed_at END`,
         [enrollmentId, actualModuleId, completed || false, timeSpent || 0]
       );
     } catch (dbError) {
@@ -289,8 +289,8 @@ router.put('/:enrollmentId/progress', async (req: Request, res: Response) => {
         COUNT(*) FILTER (WHERE mp.completed = true)::float /
         NULLIF(COUNT(cm.id)::float, 0) * 100 as progress_percentage
        FROM course_modules cm
-       LEFT JOIN module_progress mp ON cm.id = mp.module_id AND mp.enrollment_id = $1
-       WHERE cm.course_id = $2`,
+       LEFT JOIN module_progress mp ON cm.id = mp.module_id AND mp.enrollment_id = $1::integer
+       WHERE cm.course_id = $2::integer`,
       [enrollmentId, courseId]
     );
 
@@ -300,10 +300,10 @@ router.put('/:enrollmentId/progress', async (req: Request, res: Response) => {
     // Update enrollment progress
     const updateResult = await getPool().query(
       `UPDATE enrollments
-       SET progress_percentage = $1,
-           status = CASE WHEN $1 >= 100 THEN 'completed' ELSE status END,
-           completion_date = CASE WHEN $1 >= 100 AND completion_date IS NULL THEN CURRENT_TIMESTAMP ELSE completion_date END
-       WHERE id = $2
+       SET progress_percentage = $1::numeric,
+           status = CASE WHEN $1::numeric >= 100 THEN 'completed' ELSE status END,
+           completion_date = CASE WHEN $1::numeric >= 100 AND completion_date IS NULL THEN CURRENT_TIMESTAMP ELSE completion_date END
+       WHERE id = $2::integer
        RETURNING progress_percentage, status`,
       [progressPercentage, enrollmentId]
     );
@@ -315,7 +315,7 @@ router.put('/:enrollmentId/progress', async (req: Request, res: Response) => {
       `SELECT id, user_id, course_id, enrollment_date, completion_date,
               progress_percentage as progress, status
        FROM enrollments
-       WHERE id = $1`,
+       WHERE id = $1::integer`,
       [enrollmentId]
     );
 
