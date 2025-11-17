@@ -249,13 +249,13 @@ router.put('/:enrollmentId/progress', async (req: Request, res: Response) => {
     // Update or insert module progress
     await getPool().query(
       `INSERT INTO module_progress (enrollment_id, module_id, completed, time_spent_minutes, completed_at)
-       VALUES ($1, $2, $3, $4, ${completed ? 'CURRENT_TIMESTAMP' : 'NULL'})
+       VALUES ($1, $2, $3, $4, $5)
        ON CONFLICT (enrollment_id, module_id)
        DO UPDATE SET
          completed = $3,
          time_spent_minutes = module_progress.time_spent_minutes + $4,
-         completed_at = ${completed ? 'CURRENT_TIMESTAMP' : 'module_progress.completed_at'}`,
-      [enrollmentId, moduleId, completed || false, timeSpent || 0]
+         completed_at = CASE WHEN $3 = true THEN CURRENT_TIMESTAMP ELSE module_progress.completed_at END`,
+      [enrollmentId, moduleId, completed || false, timeSpent || 0, completed ? new Date() : null]
     );
 
     // Calculate overall course progress
