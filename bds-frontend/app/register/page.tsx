@@ -1,11 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '../../contexts/AuthContext'
 
-export default function RegisterPage() {
+function RegisterForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { register } = useAuth()
@@ -209,5 +209,17 @@ export default function RegisterPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-black flex items-center justify-center px-6 py-12">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+      </div>
+    }>
+      <RegisterForm />
+    </Suspense>
   )
 }
