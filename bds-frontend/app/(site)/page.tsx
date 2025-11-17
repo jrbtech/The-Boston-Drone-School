@@ -17,8 +17,8 @@ const LoginModal = dynamic(() => import("@/components/LoginModal").catch(() => {
 
 const operations = [
   {
-    title: 'Real Estate Intelligence',
-    description: 'High-resolution aerial imaging and cinematic videography delivering competitive advantage in property marketing.'
+    title: 'STEM Workforce Development',
+    description: 'Experiential learning programs introducing students and professionals to UAS career pathways, including hands-on FPV build kits, drone racing modules, and aerospace technology applications.'
   },
   {
     title: 'Photogrammetric Analysis & 3D Visualization',
@@ -29,8 +29,8 @@ const operations = [
     description: 'Systematized aerial surveillance protocols documenting project milestones with quantifiable deliverables for stakeholder transparency.'
   },
   {
-    title: 'STEM Workforce Development',
-    description: 'Experiential learning programs introducing students and professionals to UAS career pathways, including hands-on FPV build kits, drone racing modules, and aerospace technology applications.'
+    title: 'Real Estate Intelligence',
+    description: 'High-resolution aerial imaging and cinematic videography delivering competitive advantage in property marketing.'
   }
 ];
 
